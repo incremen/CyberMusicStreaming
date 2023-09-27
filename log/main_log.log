@@ -13513,3 +13513,407 @@
 [37m[15:19:25][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
 [37m[15:19:25][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
 [37m[15:19:25][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:20:53][0m [33mstart[0m [36mDEBUG[0m [31mself.song_path='D:\\VS Code Projects (good place)\\Cyber Music Streaming\\sounds\\cant_keep_getting_away.wav'[0m
+[37m[15:20:53][0m [33m_connect_polling[0m [36mINFO[0m [32mAttempting polling connection to http://localhost:5000/socket.io/?transport=polling&EIO=4[0m
+[37m[15:20:53][0m [33m_new_conn[0m [36mDEBUG[0m [31mStarting new HTTP connection (1): localhost:5000[0m
+[37m[15:20:55][0m [33m_make_request[0m [36mDEBUG[0m [31mhttp://localhost:5000 "GET /socket.io/?transport=polling&EIO=4&t=1695817253.6796043 HTTP/1.1" 200 97[0m
+[37m[15:20:55][0m [33m_connect_polling[0m [36mINFO[0m [32mPolling connection accepted with {'sid': 'UROVpqYJzxp87zBMAAAA', 'upgrades': ['websocket'], 'pingTimeout': 20000, 'pingInterval': 25000}[0m
+[37m[15:20:55][0m [33m_handle_eio_connect[0m [36mINFO[0m [32mEngine.IO connection established[0m
+[37m[15:20:55][0m [33m_send_packet[0m [36mINFO[0m [32mSending packet MESSAGE data 0{}[0m
+[37m[15:20:55][0m [33m_connect_websocket[0m [36mINFO[0m [32mAttempting WebSocket upgrade to ws://localhost:5000/socket.io/?transport=websocket&EIO=4[0m
+[37m[15:20:57][0m [33m_connect_websocket[0m [36mINFO[0m [32mWebSocket upgrade was successful[0m
+[37m[15:20:57][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet NOOP data [0m
+[37m[15:20:57][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 0{"sid":"d9N2s-lS4I3iPhgyAAAB"}[0m
+[37m[15:20:57][0m [33m_handle_connect[0m [36mINFO[0m [32mNamespace / is connected[0m
+[37m[15:20:57][0m [33mconnect[0m [36mINFO[0m [32mConnected to server[0m
+[37m[15:20:57][0m [33memit[0m [36mINFO[0m [32mEmitting event "audio_request" [/][0m
+[37m[15:20:57][0m [33m_send_packet[0m [36mINFO[0m [32mSending packet MESSAGE data 2["audio_request"][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:21:02][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:21:02][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:21:20][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet PING data [0m
+[37m[15:21:20][0m [33m_send_packet[0m [36mINFO[0m [32mSending packet PONG data [0m
+[37m[15:21:45][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet PING data [0m
+[37m[15:21:45][0m [33m_send_packet[0m [36mINFO[0m [32mSending packet PONG data [0m
+[37m[15:22:10][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet PING data [0m
+[37m[15:22:10][0m [33m_send_packet[0m [36mINFO[0m [32mSending packet PONG data [0m
+[37m[15:22:35][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet PING data [0m
+[37m[15:22:35][0m [33m_send_packet[0m [36mINFO[0m [32mSending packet PONG data [0m
+[37m[15:23:00][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet PING data [0m
+[37m[15:23:00][0m [33m_send_packet[0m [36mINFO[0m [32mSending packet PONG data [0m
+[37m[15:23:25][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet PING data [0m
+[37m[15:23:25][0m [33m_send_packet[0m [36mINFO[0m [32mSending packet PONG data [0m
+[37m[15:23:50][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet PING data [0m
+[37m[15:23:50][0m [33m_send_packet[0m [36mINFO[0m [32mSending packet PONG data [0m
+[37m[15:24:15][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet PING data [0m
+[37m[15:24:15][0m [33m_send_packet[0m [36mINFO[0m [32mSending packet PONG data [0m
+[37m[15:24:40][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet PING data [0m
+[37m[15:24:40][0m [33m_send_packet[0m [36mINFO[0m [32mSending packet PONG data [0m
+[37m[15:24:47][0m [33mstart[0m [36mDEBUG[0m [31mself.song_path='D:\\VS Code Projects (good place)\\Cyber Music Streaming\\sounds\\cant_keep_getting_away.wav'[0m
+[37m[15:24:47][0m [33m_connect_polling[0m [36mINFO[0m [32mAttempting polling connection to http://localhost:5000/socket.io/?transport=polling&EIO=4[0m
+[37m[15:24:47][0m [33m_new_conn[0m [36mDEBUG[0m [31mStarting new HTTP connection (1): localhost:5000[0m
+[37m[15:24:49][0m [33m_make_request[0m [36mDEBUG[0m [31mhttp://localhost:5000 "GET /socket.io/?transport=polling&EIO=4&t=1695817487.240257 HTTP/1.1" 200 97[0m
+[37m[15:24:49][0m [33m_connect_polling[0m [36mINFO[0m [32mPolling connection accepted with {'sid': 'EGuXt3-y6S0e0QOaAAAA', 'upgrades': ['websocket'], 'pingTimeout': 20000, 'pingInterval': 25000}[0m
+[37m[15:24:49][0m [33m_handle_eio_connect[0m [36mINFO[0m [32mEngine.IO connection established[0m
+[37m[15:24:49][0m [33m_send_packet[0m [36mINFO[0m [32mSending packet MESSAGE data 0{}[0m
+[37m[15:24:49][0m [33m_connect_websocket[0m [36mINFO[0m [32mAttempting WebSocket upgrade to ws://localhost:5000/socket.io/?transport=websocket&EIO=4[0m
+[37m[15:24:51][0m [33m_connect_websocket[0m [36mINFO[0m [32mWebSocket upgrade was successful[0m
+[37m[15:24:51][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet NOOP data [0m
+[37m[15:24:51][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 0{"sid":"mBwv09SPKc-4I5ZQAAAB"}[0m
+[37m[15:24:51][0m [33m_handle_connect[0m [36mINFO[0m [32mNamespace / is connected[0m
+[37m[15:24:51][0m [33mconnect[0m [36mINFO[0m [32mConnected to server[0m
+[37m[15:24:51][0m [33memit[0m [36mINFO[0m [32mEmitting event "audio_request" [/][0m
+[37m[15:24:51][0m [33m_send_packet[0m [36mINFO[0m [32mSending packet MESSAGE data 2["audio_request"][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data 51-["audio_data",{"_placeholder":true,"num":0}][0m
+[37m[15:24:56][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet MESSAGE data <binary>[0m
+[37m[15:24:56][0m [33m_handle_event[0m [36mINFO[0m [32mReceived event "audio_data" [/][0m
+[37m[15:25:14][0m [33m_receive_packet[0m [36mINFO[0m [32mReceived packet PING data [0m
+[37m[15:25:14][0m [33m_send_packet[0m [36mINFO[0m [32mSending packet PONG data [0m
