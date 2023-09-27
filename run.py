@@ -16,6 +16,7 @@ def main():
     server_thread.start()
     
     client_socket_handler.connect()
+    client_socket_handler.request_song(song_path)
 
 if __name__ == "__main__":
     main()

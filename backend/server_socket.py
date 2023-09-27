@@ -30,12 +30,14 @@ class ServerSocketHandler:
 
 
         @self.sio.on('audio_request')
-        def on_audio_request(sid):
+        def on_audio_request(sid, song_path):
+            wf = wave.open(song_path, 'rb')
             data = wf.readframes(CHUNK)
             while data != b'':
                 self.sio.emit('audio_data', data, room=sid)
                 stream.write(data)
                 data = wf.readframes(CHUNK)
+
 
         @self.sio.event
         def disconnect(sid):

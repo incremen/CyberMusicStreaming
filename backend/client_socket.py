@@ -26,5 +26,6 @@ class ClientSocketHandler:
             logging.info('Disconnected from server')
 
         self.sio.connect(server_address)
-        self.sio.emit('audio_request')
-        self.sio.wait()
+
+    def request_song(self, song_name):
+        self.sio.emit('audio_request', song_name)
