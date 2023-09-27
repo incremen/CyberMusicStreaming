@@ -27,5 +27,5 @@ class ClientSocketHandler:
 
         self.sio.connect(server_address)
 
-    def request_song(self, song_name):
+    def request_song(self, song_name : str):
         self.sio.emit('audio_request', song_name)
