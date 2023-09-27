@@ -1,13 +1,13 @@
 import socketio
 import pyaudio
 import logging
-
-CHUNK = 1024
+from backend import server_address
+from music_playing.audio_handler import AudioHandler
 
 class ClientSocketHandler:
-    def __init__(self, audio_handler):
+    def __init__(self):
         self.sio = socketio.Client(logger=True, engineio_logger=True)
-        self.audio_handler = audio_handler
+        self.audio_handler = AudioHandler()
 
     def connect(self):
         @self.sio.event
@@ -22,6 +22,6 @@ class ClientSocketHandler:
         def disconnect():
             logging.info('Disconnected from server')
 
-        self.sio.connect('http://localhost:5000')
+        self.sio.connect(server_address)
         self.sio.emit('audio_request')
         self.sio.wait()

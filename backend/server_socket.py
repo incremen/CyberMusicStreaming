@@ -5,9 +5,9 @@ import logging
 import eventlet
 from eventlet import wsgi
 
-CHUNK = 1024
+CHUNK = 4096
 
-class ServerSocket:
+class ServerSocketHandler:
     def __init__(self, song_path):
         self.sio = socketio.Server()
         self.song_path = song_path
