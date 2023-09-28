@@ -1,5 +1,4 @@
 import socketio
-import pyaudio
 import logging
 from backend import server_address
 from music_playing.audio_handler import AudioHandler

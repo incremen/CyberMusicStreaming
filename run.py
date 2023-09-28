@@ -17,8 +17,11 @@ def main():
     server_thread.start()
     
     client_socket_handler.connect()
+    client_socket_handler.request_song("cvar_lo_koev")
     client_socket_handler.request_song("cant_keep_getting_away")
     client_socket_handler.request_song("american")
+    client_socket_handler.request_song("No_38")
+    
     
 
 if __name__ == "__main__":
