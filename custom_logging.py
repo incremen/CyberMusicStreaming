@@ -166,7 +166,6 @@ class CustomLogger():
 
     
 def debug_vars(*to_print):
-    
     prev_func_name = inspect.currentframe().f_back.f_code.co_name
     
     name_val_list = []

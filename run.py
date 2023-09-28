@@ -1,5 +1,5 @@
 from music_playing.audio_handler import AudioHandler
-from backend.client_socket import ClientSocketHandler
+from backend.client.client_socket import ClientSocketHandler
 from backend.server_socket import ServerSocketHandler
 import threading
 import os
