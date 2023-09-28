@@ -2,7 +2,7 @@ from PyQt5.QtCore import QObject, pyqtSignal
 from frontend.main_page import MainPage
 
 class MainPageEmitter(QObject):
-    song_dict_received = pyqtSignal(dict)
+    song_list_recieved = pyqtSignal(list)
         
     def setup_connections(self, main_page : MainPage):
-        self.song_dict_received.connect(main_page.add_song_to_grid)
+        self.song_list_recieved.connect(main_page.song_list_received)

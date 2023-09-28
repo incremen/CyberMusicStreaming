@@ -8,10 +8,11 @@ from backend.client.main_page_emitter import MainPageEmitter
 
 class ClientSocketHandler:
     def __init__(self):
-        self.sio = socketio.Client(reconnection=True, logger=True, engineio_logger=True, reconnection_attempts=1024)
+        self.sio = socketio.Client(logger=True, engineio_logger=True)
         self.audio_handler = AudioHandler()
-        # self.main_page = MainPage()
-        # self.main_page_emitter = MainPageEmitter()
+        self.main_page = MainPage()
+        self.main_page_emitter = MainPageEmitter()
+        self.main_page_emitter.setup_connections(self.main_page)
         self.play_thread = threading.Thread(target=self.audio_handler.play_audio)
         self.play_thread.start()
 
@@ -33,6 +34,7 @@ class ClientSocketHandler:
         @self.sio.on("song_list")
         def received_song_list(song_list):
             logging.debug(f"{song_list=}")
+            self.main_page_emitter.song_list_recieved.emit(song_list)
         
     def emit_to_server(self, event_name : str, data : dict = None):
         self.sio.emit(event_name, data)

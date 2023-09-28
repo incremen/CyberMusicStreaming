@@ -16,6 +16,16 @@ class ServerSocketHandler:
     def __init__(self, songs_dir):
         self.sio = socketio.Server()
         self.songs_dir = songs_dir
+        self.set_songs_list() 
+    
+    def set_songs_list(self):
+        self.songs_list = []
+        for song_name in os.listdir(self.songs_dir):
+            current_song = {
+                "name": song_name
+            }
+            self.songs_list.append(current_song)
+        logging.debug(f"{self.songs_list=}")
 
     def start(self):
         @self.sio.on('connect', namespace='/')
@@ -31,29 +41,21 @@ class ServerSocketHandler:
             wf = wave.open(song_path, 'rb')
 
             p = pyaudio.PyAudio()
+            stream = self.setup_audio_stream(wf, p)
 
-            stream = p.open(
-                format=p.get_format_from_width(wf.getsampwidth()),
-                channels=wf.getnchannels(),
-                rate=wf.getframerate(),
-                output=True,
-            )
+            while True:
+                data = wf.readframes(CHUNK)
+                if not data:
+                    break
 
-            data = wf.readframes(CHUNK)
-
-            while data != b'':
                 self.sio.emit('audio_data', data, room=sid)
                 stream.write(data)
-                data = wf.readframes(CHUNK)
 
-            stream.stop_stream()
-            stream.close()
-            p.terminate()
+            self.cleanup_audio_stream(stream, p)
             
         @self.sio.on("song_list_request")
         def send_song_list(sid):
-            song_list = os.listdir(self.songs_dir)
-            self.sio.emit("song_list", song_list, room=sid)
+            self.sio.emit("song_list", self.songs_list, room=sid)
 
         @self.sio.event
         def disconnect(sid):
@@ -61,6 +63,21 @@ class ServerSocketHandler:
 
         app = socketio.WSGIApp(self.sio)
         wsgi.server(eventlet.listen(('localhost', 5000)), app)
+        
+    def setup_audio_stream(self, wf, p):
+            stream = p.open(
+                format=p.get_format_from_width(wf.getsampwidth()),
+                channels=wf.getnchannels(),
+                rate=wf.getframerate(),
+                output=True,
+            )
+            return stream
+
+    def cleanup_audio_stream(self, stream, p):
+        stream.stop_stream()
+        stream.close()
+        p.terminate()
+
 
 
 
