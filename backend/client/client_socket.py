@@ -10,7 +10,7 @@ class ClientSocketHandler:
     def __init__(self):
         self.sio = socketio.Client(logger=True, engineio_logger=True)
         self.audio_handler = AudioHandler()
-        self.main_page = MainPage()
+        self.main_page = MainPage(self)
         self.main_page_emitter = MainPageEmitter()
         self.main_page_emitter.setup_connections(self.main_page)
         self.play_thread = threading.Thread(target=self.audio_handler.play_audio)
