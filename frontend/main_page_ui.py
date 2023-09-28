@@ -48,9 +48,11 @@ class Ui_MainWindow(object):
         self.player_msg.setAlignment(Qt.AlignCenter)
         self.gridLayoutWidget = QWidget(self.main_widget)
         self.gridLayoutWidget.setObjectName(u"gridLayoutWidget")
-        self.gridLayoutWidget.setGeometry(QRect(140, 200, 221, 201))
+        self.gridLayoutWidget.setGeometry(QRect(10, 50, 441, 351))
         self.song_grid = QGridLayout(self.gridLayoutWidget)
+        self.song_grid.setSpacing(0)
         self.song_grid.setObjectName(u"song_grid")
+        self.song_grid.setSizeConstraint(QLayout.SetMinimumSize)
         self.song_grid.setContentsMargins(0, 0, 0, 0)
 
         self.horizontalLayout.addWidget(self.main_widget)

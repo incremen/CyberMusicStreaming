@@ -10,10 +10,9 @@ class MainPage(QMainWindow):
         self.main_widget = self.findChild(QWidget, "main_widget")
         self.setup_main_widget_properties()
         
-        self.current_row = 0
-        self.current_col = 0
-        
         self.show()
+        self.last_row = 0
+        self.last_col = -1
         
     def song_list_received(self, songs : list):
         logging.debug(f"Received song list: {songs}")
@@ -26,24 +25,16 @@ class MainPage(QMainWindow):
         
     def add_song_to_grid(self, text):
         song_label = QLabel(text)
-        self.song_grid.addWidget(song_label, self.current_row, self.current_col)
+        self.last_col += 1
+        if self.last_col == 3:
+            self.last_col = 0
+            self.last_row += 1
+        logging.debug(f"About to add {text} to grid at {self.last_row=}, {self.last_col=}")
+        self.song_grid.addWidget(song_label, self.last_row, self.last_col)
+
         
-        self.current_col += 1
-        if self.current_col >= 3:
-            self.current_col = 0
-            self.current_row += 1
     
-    # def closeEvent(self, event):
-    #     if not event.spontaneous():
-    #         return
 
-    #     wants_to_close = gui_funcs.create_yes_no_question("Are you sure you want to exit?","Exit Confirmation")
-
-    #     if not wants_to_close:
-    #         event.ignore()
-    #         return
-        
-    #     event.accept()  
 
 
         

@@ -76,13 +76,20 @@
       <widget class="QWidget" name="gridLayoutWidget">
        <property name="geometry">
         <rect>
-         <x>140</x>
-         <y>200</y>
-         <width>221</width>
-         <height>201</height>
+         <x>10</x>
+         <y>50</y>
+         <width>441</width>
+         <height>351</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="song_grid"/>
+       <layout class="QGridLayout" name="song_grid">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMinimumSize</enum>
+        </property>
+        <property name="spacing">
+         <number>0</number>
+        </property>
+       </layout>
       </widget>
      </widget>
     </item>

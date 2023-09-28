@@ -17,6 +17,8 @@ class ClientSocketHandler:
         self.play_thread.start()
 
     def connect(self):
+        self.sio.connect(server_address)
+        
         @self.sio.event
         def connect():
             logging.info('Connected to server')
@@ -28,13 +30,12 @@ class ClientSocketHandler:
         @self.sio.event
         def disconnect():
             logging.info('Disconnected from server')
-
-        self.sio.connect(server_address)
         
         @self.sio.on("song_list")
         def received_song_list(song_list):
             logging.debug(f"{song_list=}")
             self.main_page_emitter.song_list_recieved.emit(song_list)
+            
         
     def emit_to_server(self, event_name : str, data : dict = None):
         self.sio.emit(event_name, data)
