@@ -49,16 +49,11 @@ class ServerSocketHandler:
             stream.stop_stream()
             stream.close()
             p.terminate()
-
-
-        def new_method(sid, wf, p):
-            stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
-                            channels=wf.getnchannels(),
-                            rate=wf.getframerate(),
-                            output=True,
-                            frames_per_buffer=CHUNK)
-                            
-            return stream
+            
+        @self.sio.on("song_list_request")
+        def send_song_list(sid):
+            song_list = os.listdir(self.songs_dir)
+            self.sio.emit("song_list", song_list, room=sid)
 
         @self.sio.event
         def disconnect(sid):

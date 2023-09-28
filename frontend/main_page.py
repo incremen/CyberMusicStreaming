@@ -1,11 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWidget, QGridLayout
 from PyQt5 import uic, QtGui
-import logging
-import random
-from PyQt5.QtGui import QTransform
-from PyQt5.QtCore import QTimer
-import gui_funcs
-from PyQt5.QtGui import QFont
 
 
 class MainPage(QMainWindow):
@@ -37,17 +31,17 @@ class MainPage(QMainWindow):
         
         self.song_grid.addWidget(song_label, row, col)
     
-    def closeEvent(self, event):
-        if not event.spontaneous():
-            return
+    # def closeEvent(self, event):
+    #     if not event.spontaneous():
+    #         return
 
-        wants_to_close = gui_funcs.create_yes_no_question("Are you sure you want to exit?","Exit Confirmation")
+    #     wants_to_close = gui_funcs.create_yes_no_question("Are you sure you want to exit?","Exit Confirmation")
 
-        if not wants_to_close:
-            event.ignore()
-            return
+    #     if not wants_to_close:
+    #         event.ignore()
+    #         return
         
-        event.accept()  
+    #     event.accept()  
 
 
         

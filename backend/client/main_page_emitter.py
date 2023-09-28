@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QObject, pyqtSignal
 from frontend.main_page import MainPage
 
-class GameSignalEmitter(QObject):
+class MainPageEmitter(QObject):
     song_dict_received = pyqtSignal(dict)
         
     def setup_connections(self, main_page : MainPage):
