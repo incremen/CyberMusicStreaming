@@ -20,15 +20,6 @@ class ServerSocketHandler:
         self.songs_dir = songs_dir
         self.song_list = manage_songs_in_dir.get_song_list(songs_dir)
         logging.debug(pprint.pformat(self.song_list))
-    
-    def set_songs_list(self):
-        self.songs_list = []
-        for song_name in os.listdir(self.songs_dir):
-            current_song = {
-                "name": song_name
-            }
-            self.songs_list.append(current_song)
-        logging.debug(f"{self.songs_list=}")
 
     def start(self):
         @self.sio.on('connect', namespace='/')
@@ -41,6 +32,7 @@ class ServerSocketHandler:
                 song_name += ".wav"
 
             song_path = os.path.join(self.songs_dir, song_name)
+            logging.debug(f"About to play {song_path}")
             wf = wave.open(song_path, 'rb')
 
             p = pyaudio.PyAudio()
@@ -58,7 +50,7 @@ class ServerSocketHandler:
             
         @self.sio.on("song_list_request")
         def send_song_list(sid):
-            self.sio.emit("song_list", self.songs_list, room=sid)
+            self.sio.emit("song_list", self.song_list, room=sid)
 
         @self.sio.event
         def disconnect(sid):

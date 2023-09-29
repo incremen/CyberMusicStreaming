@@ -1,6 +1,7 @@
 import logging
 import wave
 import os
+from music_playing.song_class import SongData
 
 def get_song_list(song_dir):
     return [get_song_data(song_dir, song_name) for song_name in os.listdir(song_dir)]
@@ -12,12 +13,7 @@ def get_song_data(song_dir, song_name):
     
     total_secs = nframes / framerate
             
-    song_data = {
-            "name": song_name,
-            "length": total_secs,
-            "nframes": nframes,
-            "framerate": framerate
-        }
+    song_data = SongData(name=song_name, length=total_secs, nframes=nframes, framerate=framerate)
     logging.debug(f"{song_data=}")
     return song_data
     

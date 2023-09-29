@@ -5,6 +5,7 @@ from music_playing.audio_handler import AudioHandler
 import threading
 from frontend.main_page import MainPage
 from backend.client.main_page_emitter import MainPageEmitter
+from music_playing.song_class import SongData
 
 class ClientSocketHandler:
     def __init__(self):

@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWid
 from PyQt5 import uic, QtGui
 from PyQt5.QtCore import Qt
 import logging
+from music_playing.song_class import SongData
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -19,33 +20,40 @@ class MainPage(QMainWindow):
         self.setup_main_widget_properties()
         
         self.show()
+        
         self.last_row = 0
         self.last_col = -1
         
     def song_list_received(self, songs : list):
         logging.debug(f"Received song list: {songs}")
-        for song in songs:
-            self.add_song_to_grid(song["name"])
+        self.btn_to_data = {}
+        
+        for song_dict in songs:
+            logging.debug(f"{song_dict=}")
+            song_data = SongData(**song_dict)
+            logging.debug(f"{song_data=}")
+            song_text = f"{song_data.name}\n {song_data.length} seconds"
+            song_btn = QPushButton(song_text)
+            
+            self.btn_to_data.update({song_btn : song_data})
+            self.add_song_to_grid(song_btn)
     
     def setup_main_widget_properties(self):
         main_widget = self.main_widget
         self.song_grid = main_widget.findChild(QGridLayout, "song_grid")
         
-    def add_song_to_grid(self, text):
-        song_btn = QPushButton(text)
+    def add_song_to_grid(self, song_btn):
         song_btn.setFixedSize(200, 100)
         song_btn.clicked.connect(self.song_btn_click)
         self.last_col += 1
         if self.last_col == 3:
             self.last_col = 0
             self.last_row += 1
-        logging.debug(f"About to add {text} to grid at {self.last_row=}, {self.last_col=}")
         self.song_grid.addWidget(song_btn, self.last_row, self.last_col)
         
     def song_btn_click(self):
-        song_name = self.sender().text()
-        
-        self.socket_handler.request_song(song_name)
+        btn_clicked_data = self.btn_to_data[self.sender()]
+        self.socket_handler.request_song(btn_clicked_data.name)
 
         
     
