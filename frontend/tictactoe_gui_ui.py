@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_page.ui'
+## Form generated from reading UI file 'tictactoe_gui.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -39,40 +39,10 @@ class Ui_MainWindow(object):
         self.main_widget.setLayoutDirection(Qt.RightToLeft)
         self.gridLayoutWidget = QWidget(self.main_widget)
         self.gridLayoutWidget.setObjectName(u"gridLayoutWidget")
-        self.gridLayoutWidget.setGeometry(QRect(70, 10, 741, 591))
+        self.gridLayoutWidget.setGeometry(QRect(70, 10, 741, 691))
         self.song_grid = QGridLayout(self.gridLayoutWidget)
         self.song_grid.setObjectName(u"song_grid")
         self.song_grid.setContentsMargins(0, 0, 0, 0)
-        self.progressBar = QProgressBar(self.main_widget)
-        self.progressBar.setObjectName(u"progressBar")
-        self.progressBar.setGeometry(QRect(160, 650, 511, 23))
-        self.progressBar.setValue(2)
-        self.progressBar.setInvertedAppearance(True)
-        self.horizontalScrollBar = QScrollBar(self.main_widget)
-        self.horizontalScrollBar.setObjectName(u"horizontalScrollBar")
-        self.horizontalScrollBar.setGeometry(QRect(160, 680, 551, 16))
-        sizePolicy1 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.horizontalScrollBar.sizePolicy().hasHeightForWidth())
-        self.horizontalScrollBar.setSizePolicy(sizePolicy1)
-        self.horizontalScrollBar.setStyleSheet(u"QScrollBar {\n"
-"                background-color: transparent;\n"
-"                width: 10px;\n"
-"            }\n"
-"            QScrollBar::handle {\n"
-"                background-color: blue;\n"
-"                min-height: 0;\n"
-"\n"
-"            }\n"
-"            QScrollBar::add-line, QScrollBar::sub-line {\n"
-"                background-color: transparent;\n"
-"                height: 0;\n"
-"            }")
-        self.horizontalScrollBar.setSliderPosition(2)
-        self.horizontalScrollBar.setOrientation(Qt.Horizontal)
-        self.horizontalScrollBar.setInvertedAppearance(True)
-        self.horizontalScrollBar.setInvertedControls(False)
 
         self.horizontalLayout.addWidget(self.main_widget)
 

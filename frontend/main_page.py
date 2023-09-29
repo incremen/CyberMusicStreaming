@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWidget, QGridLayout
 from PyQt5 import uic, QtGui
+from PyQt5.QtCore import Qt
 import logging
 from typing import TYPE_CHECKING
 
@@ -32,6 +33,7 @@ class MainPage(QMainWindow):
         
     def add_song_to_grid(self, text):
         song_btn = QPushButton(text)
+        song_btn.setFixedSize(200, 100)
         song_btn.clicked.connect(self.song_btn_click)
         self.last_col += 1
         if self.last_col == 3:
