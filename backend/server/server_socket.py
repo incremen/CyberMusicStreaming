@@ -5,8 +5,10 @@ import logging
 import eventlet
 from eventlet import wsgi
 import os
-CHUNK = 4096
+from music_playing import manage_songs_in_dir
+import pprint
 
+CHUNK = 4096
 
 #sid - socket id
 # environ is a dictionary that contains environmental information related to the incoming connection
@@ -16,7 +18,8 @@ class ServerSocketHandler:
     def __init__(self, songs_dir):
         self.sio = socketio.Server()
         self.songs_dir = songs_dir
-        self.set_songs_list() 
+        self.song_list = manage_songs_in_dir.get_song_list(songs_dir)
+        logging.debug(pprint.pformat(self.song_list))
     
     def set_songs_list(self):
         self.songs_list = []
