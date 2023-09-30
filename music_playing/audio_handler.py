@@ -23,11 +23,13 @@ class AudioHandler:
         self.buffer = queue.Queue()
         self.main_page_emitter = main_page_emitter
         self.frames_played = 0
+        self.lock = threading.Lock()
 
     def callback(self, in_data, frame_count, time_info, status):
-        data = self.buffer.get()
+        with self.lock:
+            data = self.buffer.get()
         self.frames_played += CHUNK
-        threading.Thread(target=self.update_progress).start()
+        self.update_progress()
         return (data, pyaudio.paContinue)
 
     def update_progress(self):
@@ -36,7 +38,8 @@ class AudioHandler:
         self.main_page_emitter.update_song_progress.emit(progress)
 
     def add_to_buffer(self, data):
-        self.buffer.put(data)
+        with self.lock:
+            self.buffer.put(data)
 
     def calculate_progress(self):
         progress = (self.frames_played / self.song_data.nframes) * 100
