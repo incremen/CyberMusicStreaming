@@ -7,7 +7,7 @@ from eventlet import wsgi
 import os
 from music_playing import manage_songs_in_dir
 import pprint
-import dataclasses
+from dataclasses import asdict
 
 CHUNK = 4096
 
@@ -20,6 +20,7 @@ class ServerSocketHandler:
         self.sio = socketio.Server()
         self.songs_dir = songs_dir
         self.song_list = manage_songs_in_dir.get_song_list(songs_dir)
+        self.song_name_to_data = manage_songs_in_dir.get_name_to_song_data_dict(songs_dir)
         logging.debug(pprint.pformat(self.song_list))
 
     def start(self):
@@ -31,6 +32,8 @@ class ServerSocketHandler:
         def on_audio_request(sid, song_name: str):
             if not song_name.endswith(".wav"):
                 song_name += ".wav"
+            
+            song_data = self.song_name_to_data[song_name]
 
             song_path = os.path.join(self.songs_dir, song_name)
             logging.debug(f"About to play {song_path}")
@@ -39,6 +42,8 @@ class ServerSocketHandler:
             p = pyaudio.PyAudio()
             stream = self.setup_audio_stream(wf, p)
 
+            self.sio.emit("beginning_play", asdict(song_data), room=sid)
+            
             while True:
                 data = wf.readframes(CHUNK)
                 if not data:
@@ -51,7 +56,7 @@ class ServerSocketHandler:
             
         @self.sio.on("song_list_request")
         def send_song_list(sid):
-            song_dict_list = [dataclasses.asdict(song) for song in self.song_list]
+            song_dict_list = [asdict(song) for song in self.song_list]
             self.sio.emit("song_list", song_dict_list, room=sid)
 
         @self.sio.event

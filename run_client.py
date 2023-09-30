@@ -19,8 +19,6 @@ def main():
     
     main_page_emitter.setup_connections(main_page)
     
-    play_thread = threading.Thread(target=audio_handler.play_audio)
-    play_thread.start()
     
     client_socket_handler.connect()
     client_socket_handler.emit_to_server("song_list_request")

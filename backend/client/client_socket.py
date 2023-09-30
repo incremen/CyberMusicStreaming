@@ -12,6 +12,7 @@ class ClientSocketHandler:
         self.sio = socketio.Client(logger=True, engineio_logger=True)
         self.audio_handler = audio_handler
         self.main_page_emitter = main_page_emitter
+        self.song_data = None
 
     def connect(self):
         self.sio.connect(server_address)
@@ -19,6 +20,10 @@ class ClientSocketHandler:
         @self.sio.event
         def connect():
             logging.info('Connected to server')
+            
+        @self.sio.on("beginning_play")
+        def beginning_play(song_data_dict):
+            self.audio_handler.song_data = SongData(**song_data_dict)
 
         @self.sio.on('audio_data')
         def on_audio_data(data):

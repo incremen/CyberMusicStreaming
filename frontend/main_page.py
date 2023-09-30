@@ -45,6 +45,7 @@ class MainPage(QMainWindow):
         self.song_progress = main_widget.findChild(QProgressBar, "song_progress")
         
     def update_song_progress(self, progress):
+        logging.info(f"updating progress to {progress}")
         self.song_progress.setValue(progress)
         
     def add_song_to_grid(self, song_btn):
