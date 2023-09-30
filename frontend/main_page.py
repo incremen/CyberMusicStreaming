@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWidget, QGridLayout
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWidget, QGridLayout, QProgressBar
 from PyQt5 import uic, QtGui
 from PyQt5.QtCore import Qt
 import logging
@@ -9,9 +9,10 @@ if TYPE_CHECKING:
     from backend.client.client_socket import ClientSocketHandler
 
 class MainPage(QMainWindow):
-    def __init__(self, socket_handler ):
+    def __init__(self, socket_handler, audio_handler):
         super(MainPage, self).__init__()
         self.socket_handler = socket_handler
+        self.audio_handler = audio_handler
         
         uic.loadUi(r"frontend\main_page.ui", self)
         self.setWindowTitle(f"Stream music!")
@@ -37,10 +38,14 @@ class MainPage(QMainWindow):
             
             self.btn_to_data.update({song_btn : song_data})
             self.add_song_to_grid(song_btn)
-    
+            
     def setup_main_widget_properties(self):
         main_widget = self.main_widget
         self.song_grid = main_widget.findChild(QGridLayout, "song_grid")
+        self.song_progress = main_widget.findChild(QProgressBar, "song_progress")
+        
+    def update_song_progress(self, progress):
+        self.song_progress.setValue(progress)
         
     def add_song_to_grid(self, song_btn):
         song_btn.setFixedSize(200, 100)

@@ -3,19 +3,15 @@ import logging
 from backend import server_address
 from music_playing.audio_handler import AudioHandler
 import threading
-from frontend.main_page import MainPage
 from backend.client.main_page_emitter import MainPageEmitter
+from frontend.main_page import MainPage
 from music_playing.song_class import SongData
 
 class ClientSocketHandler:
-    def __init__(self):
+    def __init__(self, audio_handler :AudioHandler, main_page_emitter: MainPageEmitter):
         self.sio = socketio.Client(logger=True, engineio_logger=True)
-        self.audio_handler = AudioHandler()
-        self.main_page = MainPage(self)
-        self.main_page_emitter = MainPageEmitter()
-        self.main_page_emitter.setup_connections(self.main_page)
-        self.play_thread = threading.Thread(target=self.audio_handler.play_audio)
-        self.play_thread.start()
+        self.audio_handler = audio_handler
+        self.main_page_emitter = main_page_emitter
 
     def connect(self):
         self.sio.connect(server_address)
@@ -36,7 +32,6 @@ class ClientSocketHandler:
         def received_song_list(song_list):
             logging.debug(f"{song_list=}")
             self.main_page_emitter.song_list_recieved.emit(song_list)
-            
         
     def emit_to_server(self, event_name : str, data : dict = None):
         self.sio.emit(event_name, data)

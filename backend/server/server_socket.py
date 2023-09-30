@@ -7,6 +7,7 @@ from eventlet import wsgi
 import os
 from music_playing import manage_songs_in_dir
 import pprint
+import dataclasses
 
 CHUNK = 4096
 
@@ -50,7 +51,8 @@ class ServerSocketHandler:
             
         @self.sio.on("song_list_request")
         def send_song_list(sid):
-            self.sio.emit("song_list", self.song_list, room=sid)
+            song_dict_list = [dataclasses.asdict(song) for song in self.song_list]
+            self.sio.emit("song_list", song_dict_list, room=sid)
 
         @self.sio.event
         def disconnect(sid):

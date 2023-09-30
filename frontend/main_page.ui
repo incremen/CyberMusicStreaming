@@ -59,7 +59,7 @@
        </property>
        <layout class="QGridLayout" name="song_grid"/>
       </widget>
-      <widget class="QProgressBar" name="progressBar">
+      <widget class="QProgressBar" name="song_progress">
        <property name="geometry">
         <rect>
          <x>160</x>
