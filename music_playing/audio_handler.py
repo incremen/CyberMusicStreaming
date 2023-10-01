@@ -6,20 +6,10 @@ from music_playing.song_class import SongInfo, return_as_songinfo
 import threading
 import time
 
+
 CHUNK = 1024
 
-class AudioHandler:
-    def __init__(self, main_page_emitter :MainPageEmitter):
-        self.p = pyaudio.PyAudio()
-        
-        self.stream = None
-        self.buffer = queue.Queue()
-        self.main_page_emitter = main_page_emitter
-        self.frames_played = 0
-        
-        self.song_info : SongInfo= None
-        self.lock = threading.Lock()
-        
+
 class AudioHandler:
     def __init__(self, main_page_emitter :MainPageEmitter):
         self.p = pyaudio.PyAudio()
@@ -35,17 +25,21 @@ class AudioHandler:
         
         self.setup_stream()
         
-        self.playback_thread = threading.Thread(target=self.play_audio)
-        self.playback_thread.start()
+        self.play_song()
 
-    def play_audio(self):
-        while True:
+    def play_song(self):
+        logging.debug("Playing new song...")
+        
+        self.frames_played = 0
+        progress = 0
+        
+        while progress < 100:
             if self.buffer.empty():
                 time.sleep(0.01)
             else:
                 data = self.buffer.get()
                 self.stream.write(data)
-                self.frames_played += CHUNK
+                self.frames_played += CHUNK * self.song_info.nchannels *2
                 progress = self.calculate_progress()
                 self.main_page_emitter.update_song_progress.emit(progress)
                   
@@ -75,9 +69,10 @@ class AudioHandler:
         logging.debug("Added data to buffer")
 
     def calculate_progress(self):
-        progress = (self.frames_played / self.song_info.nframes) * 100
-        logging.debug(f"{self.frames_played=} / {self.song_info.nframes=} = {progress}")
+        progress = int(self.frames_played * 100 / self.song_info.nframes)
+        logging.debug(f"{self.frames_played=} / {self.song_info.nframes * self.song_info.nchannels=} = {progress}")
         return progress
+
 
     def terminate(self):
         self.stream.stop_stream()
