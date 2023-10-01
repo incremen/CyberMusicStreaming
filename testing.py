@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from music_playing.song_class import SongData
+from music_playing.song_class import SongInfo
 
 song_info_dict = {
     "name": "My Song",
@@ -10,6 +10,6 @@ song_info_dict = {
 }
 
 # Create a SongData object from the dictionary
-song_data = SongData(**song_info_dict)
+song_data = SongInfo(**song_info_dict)
 
 print(song_data)

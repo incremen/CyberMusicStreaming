@@ -39,8 +39,6 @@ class ServerSocketHandler:
             logging.debug(f"About to play {song_path}")
             wf = wave.open(song_path, 'rb')
 
-            p = pyaudio.PyAudio()
-            stream = self.setup_audio_stream(wf, p)
 
             self.sio.emit("beginning_play", asdict(song_data), room=sid)
             
@@ -50,10 +48,7 @@ class ServerSocketHandler:
                     break
 
                 self.sio.emit('audio_data', data, room=sid)
-                stream.write(data)
 
-            self.cleanup_audio_stream(stream, p)
-            
         @self.sio.on("song_list_request")
         def send_song_list(sid):
             song_dict_list = [asdict(song) for song in self.song_list]
@@ -65,20 +60,7 @@ class ServerSocketHandler:
 
         app = socketio.WSGIApp(self.sio)
         wsgi.server(eventlet.listen(('localhost', 5000)), app)
-        
-    def setup_audio_stream(self, wf, p):
-            stream = p.open(
-                format=p.get_format_from_width(wf.getsampwidth()),
-                channels=wf.getnchannels(),
-                rate=wf.getframerate(),
-                output=True,
-            )
-            return stream
 
-    def cleanup_audio_stream(self, stream, p):
-        stream.stop_stream()
-        stream.close()
-        p.terminate()
 
 
 

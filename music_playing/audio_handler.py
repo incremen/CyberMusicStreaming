@@ -2,48 +2,71 @@ import logging
 import pyaudio
 import queue
 from backend.client.main_page_emitter import MainPageEmitter
-from music_playing.song_class import SongData, return_as_songdata
+from music_playing.song_class import SongInfo, return_as_songinfo
 import threading
+import time
 
-
-CHUNK = 1024
-
+CHUNK = 8000
 
 class AudioHandler:
     def __init__(self, main_page_emitter :MainPageEmitter):
         self.p = pyaudio.PyAudio()
         
-        self.stream = self.p.open(format=self.p.get_format_from_width(2),
-                             channels=1,
-                             rate=44100,
-                             output=True,
-                             frames_per_buffer=CHUNK,
-                             stream_callback=self.callback)
-        
+        self.stream = None
         self.buffer = queue.Queue()
         self.main_page_emitter = main_page_emitter
         self.frames_played = 0
+        
+        self.song_info : SongInfo= None
+        self.lock = threading.Lock()
+        self.stream.start_stream()
+        
+class AudioHandler:
+    def __init__(self, main_page_emitter :MainPageEmitter):
+        self.p = pyaudio.PyAudio()
+        self.stream = None
+        self.buffer = queue.Queue()
+        self.main_page_emitter = main_page_emitter
+        self.frames_played = 0
+        self.song_info : SongInfo= None
         self.lock = threading.Lock()
 
-    def callback(self, in_data, frame_count, time_info, status):
-        with self.lock:
-            data = self.buffer.get()
-        self.frames_played += CHUNK
-        self.update_progress()
-        return (data, pyaudio.paContinue)
+    def start_playing(self, song_info : SongInfo):
+        self.frames_played = 0
+        self.song_info = song_info
 
-    def update_progress(self):
-        progress = self.calculate_progress()
-        logging.debug(f"Emitting {progress=}")
-        self.main_page_emitter.update_song_progress.emit(progress)
+        self.setup_stream()
+
+        progress = 0
+        
+        while progress < 100:
+            data = self.buffer.get()
+            self.stream.write(data)
+            self.frames_played += CHUNK
+            progress = self.calculate_progress()
+            self.main_page_emitter.update_song_progress.emit(progress)
+
+    def setup_stream(self):
+        if self.stream is not None:
+            self.stream.stop_stream()
+            self.stream.close()
+        
+        self.stream = self.p.open(format=self.p.get_format_from_width(2),
+                             channels=1,
+                             rate=self.song_info.framerate, 
+                             output=True,
+                             frames_per_buffer=CHUNK)
+
+        self.stream.start_stream()
 
     def add_to_buffer(self, data):
         with self.lock:
             self.buffer.put(data)
+        logging.debug("Added data to buffer")
 
     def calculate_progress(self):
-        progress = (self.frames_played / self.song_data.nframes) * 100
-        logging.debug(f"{self.frames_played=} / {self.song_data.nframes=} = {progress}")
+        progress = (self.frames_played / self.song_info.nframes) * 100
+        logging.debug(f"{self.frames_played=} / {self.song_info.nframes=} = {progress}")
         return progress
 
     def terminate(self):

@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWid
 from PyQt5 import uic, QtGui
 from PyQt5.QtCore import Qt
 import logging
-from music_playing.song_class import SongData
+from music_playing.song_class import SongInfo
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -31,7 +31,7 @@ class MainPage(QMainWindow):
         
         for song_dict in songs:
             logging.debug(f"{song_dict=}")
-            song_data = SongData(**song_dict)
+            song_data = SongInfo(**song_dict)
             logging.debug(f"{song_data=}")
             song_text = f"{song_data.name}\n {song_data.length} seconds"
             song_btn = QPushButton(song_text)
