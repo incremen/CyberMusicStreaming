@@ -21,14 +21,14 @@ class ClientSocketHandler:
         def connect():
             logging.info('Connected to server')
             
-        @self.sio.on("beginning_play")
+        @self.sio.on("sending_new_song")
         def beginning_play(song_info_dict):
             song_info = SongInfo(**song_info_dict)
-            self.audio_handler.start_playing(song_info)
+            self.audio_handler.add_to_song_queue(song_info)
 
         @self.sio.on('audio_data')
-        def on_audio_data(data):
-            self.audio_handler.add_to_buffer(data)
+        def on_audio_data(data, song_name):
+            self.audio_handler.add_to_buffer(data, song_name)
 
         @self.sio.event
         def disconnect():

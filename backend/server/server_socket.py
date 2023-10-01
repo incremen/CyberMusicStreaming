@@ -40,14 +40,14 @@ class ServerSocketHandler:
             wf = wave.open(song_path, 'rb')
 
 
-            self.sio.emit("beginning_play", asdict(song_data), room=sid)
+            self.sio.emit("sending_new_song", asdict(song_data), room=sid)
             
             while True:
                 data = wf.readframes(CHUNK)
                 if not data:
                     break
 
-                self.sio.emit('audio_data', data, room=sid)
+                self.sio.emit('audio_data', data, song_name, room=sid)
 
         @self.sio.on("song_list_request")
         def send_song_list(sid):
