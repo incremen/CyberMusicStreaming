@@ -1,6 +1,6 @@
 import socketio
 import logging
-from backend import server_address
+from backend import client_connects_to_str
 from music_playing.audio_handler import AudioHandler
 import threading
 from backend.client.main_page_emitter import MainPageEmitter
@@ -15,7 +15,7 @@ class ClientSocketHandler:
         self.main_page_emitter = main_page_emitter
         
     def connect(self):
-        self.sio.connect(server_address)
+        self.sio.connect(client_connects_to_str)
         
         @self.sio.event
         def connect():

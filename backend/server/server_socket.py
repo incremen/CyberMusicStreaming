@@ -8,7 +8,7 @@ import os
 from music_playing import manage_songs_in_dir
 import pprint
 from dataclasses import asdict
-
+from backend import server_addr_tuple
 CHUNK = 4096
 
 #sid - socket id
@@ -59,7 +59,7 @@ class ServerSocketHandler:
             logging.info('Client disconnected')
 
         app = socketio.WSGIApp(self.sio)
-        wsgi.server(eventlet.listen(('localhost', 5000)), app)
+        wsgi.server(eventlet.listen(server_addr_tuple), app)
 
 
 
