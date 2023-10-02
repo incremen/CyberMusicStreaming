@@ -24,6 +24,7 @@ class ClientSocketHandler:
         @self.sio.on("sending_new_song")
         def beginning_play(song_info_dict):
             song_info = SongInfo(**song_info_dict)
+            logging.info("About to add a new song to the queue!")
             self.audio_handler.add_to_song_queue(song_info)
 
         @self.sio.on('audio_data')

@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-
+from queue import Queue
 
 @dataclass
 class SongInfo():
@@ -8,7 +8,13 @@ class SongInfo():
     nframes: int
     framerate: int
     nchannels : int
-    
+
+
+class SongBuffer(Queue):
+    def __init__(self, info :SongInfo):
+        super().__init__()
+        self.info = info
+
 
 def return_as_songinfo(song_info_dict, **kwargs) -> SongInfo:
     if song_info_dict is None:
@@ -19,3 +25,6 @@ def return_as_songinfo(song_info_dict, **kwargs) -> SongInfo:
         return SongInfo(**song_info_dict)
     
     raise TypeError(f"{song_info_dict} is not a SongInfo or a dict")
+
+
+    

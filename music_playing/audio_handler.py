@@ -2,11 +2,10 @@ import logging
 import pyaudio
 from queue import Queue
 from backend.client.main_page_emitter import MainPageEmitter
-from music_playing.song_class import SongInfo, return_as_songinfo
+from music_playing.song_class import SongInfo, return_as_songinfo, SongBuffer
 import threading
 import time
-from music_playing.song_info_and_buffer import SongInfoAndBuffer
-
+from custom_logging import log_calls
 CHUNK = 1024
 
 
@@ -14,84 +13,87 @@ class AudioHandler:
     def __init__(self, main_page_emitter :MainPageEmitter):
         self.p = pyaudio.PyAudio()
         self.stream = None
-        self.current_song_buffer = Queue()
         self.main_page_emitter = main_page_emitter
         self.frames_played = 0
-        self.current_song_info : SongInfo= None
         self.lock = threading.Lock()
         
-        self.song_info_buffer_queue = Queue()
+        self.songs_to_play :list[SongBuffer] = []
 
+    @log_calls
     def add_to_song_queue(self, song_info :SongInfo):
-        song_buffer = Queue()
+        song_queue_was_empty = bool(self.songs_to_play) 
         
-        song_queue_was_empty = self.song_info_buffer_queue.empty()
-        self.song_info_buffer_queue.put( SongInfoAndBuffer(song_info, song_buffer ) )
+        new_song_buffer = SongBuffer(song_info)
+        self.songs_to_play.append(new_song_buffer)
+        logging.debug(f"Appended. {self.songs_to_play=}")
         
         if song_queue_was_empty:
             self.start_playing_next_song()
     
     def start_playing_next_song(self):
-        if self.song_info_buffer_queue.empty():
-            logging.info("Queue is done")
+        if not self.songs_to_play:
+            logging.info("No more songs to play")
             return
-        
-        self.current_song_info, self.current_song_buffer = self.song_info_buffer_queue.get()
-        
-        self.setup_stream()
+
+        new_song_buffer = self.songs_to_play[0]
+        new_song_info = new_song_buffer.info
+        logging.debug(f"{new_song_info=}, {new_song_buffer=}")
+        self.setup_stream(new_song_info)
         
         self.play_song()
         
         self.start_playing_next_song()
 
-    def play_song(self):
+    def play_song(self, current_song_buffer : SongBuffer):
         logging.debug("Playing new song...")
         
         self.frames_played = 0
         progress = 0
-        logging.debug(f"{self.current_song_info=}")
-        logging.debug(f"{self.current_song_buffer=}")
         
         while progress < 100:
-            if self.current_song_buffer.empty():
+            if current_song_buffer.empty():
                 time.sleep(0.01)
-            else:
-                data = self.current_song_buffer.get()
-                self.stream.write(data)
-                self.frames_played += CHUNK * self.current_song_info.nchannels *2
-                progress = self.calculate_progress()
-                self.main_page_emitter.update_song_progress.emit(progress)
+                continue
+            
+            data = current_song_buffer.get()
+            self.stream.write(data)
+            self.frames_played += CHUNK * current_song_buffer.info.nchannels *2
+            progress = self.calculate_progress()
+            self.main_page_emitter.update_song_progress.emit(progress)
 
-    def setup_stream(self):
+    def setup_stream(self, song_info :SongInfo):
+        logging.debug("Beginning of setup stream...")
         if self.stream is not None:
             self.stream.stop_stream()
             self.stream.close()
         
         self.stream = self.p.open(format=self.p.get_format_from_width(2),
-                             channels=self.current_song_info.nchannels,
-                             rate=self.current_song_info.framerate, 
+                             channels=song_info.nchannels,
+                             rate=song_info.framerate, 
                              output=True,
                              frames_per_buffer=CHUNK)
 
         self.stream.start_stream()
+        logging.debug("Finished setting up stream...")
 
     def add_to_buffer(self, data, song_name):
-        song_buffer_list = list(self.song_info_buffer_queue)
-        for song_info, song_buffer in song_buffer_list:
-            if song_info.name == song_name:
-                with self.lock:
-                    song_buffer.put(data)
-                logging.debug("Added to buffer!")
-                return
+        logging.debug(f"{song_name=}, {len(self.songs_to_play)=}")
+        for song_buffer in self.songs_to_play:
+            logging.debug(f"{song_buffer.info.name=}")
+            if song_buffer.info.name != song_name:
+                continue
+            
+            with self.lock:
+                song_buffer.put(data)
+            logging.debug("Added to buffer!")
+            return
                 
         logging.debug("Didn't find song in list")
-            
 
     def calculate_progress(self):
         progress = int(self.frames_played * 100 / self.current_song_info.nframes)
         logging.debug(f"{self.frames_played=} / {self.current_song_info.nframes * self.current_song_info.nchannels=} = {progress}")
         return progress
-
 
     def terminate(self):
         self.stream.stop_stream()
