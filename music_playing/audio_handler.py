@@ -24,14 +24,12 @@ class AudioHandler:
 
     @log_calls
     def add_to_song_queue(self, song_info :SongInfo):
-        song_queue_was_empty = not bool(self.songs_to_play) 
         
         new_song_buffer = SongBuffer(song_info)
         self.songs_to_play.append(new_song_buffer)
         logging.debug(f"Appended. {self.songs_to_play=}")
         
-        logging.debug(f"{song_queue_was_empty=}")
-        if song_queue_was_empty:
+        if len(self.songs_to_play) == 1:
             self.start_playing_next_song()
     
     @log_calls

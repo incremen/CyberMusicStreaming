@@ -6,7 +6,7 @@ from music_playing.song_class import SongInfo
 def get_song_list(song_dir):
     return [get_song_info(song_dir, song_name) for song_name in os.listdir(song_dir)]
 
-def get_name_to_song_data_dict(song_dir):
+def get_name_to_songinfo_dict(song_dir):
     song_list = get_song_list(song_dir)
     return {song_data.name : song_data for song_data in song_list}
 

@@ -20,8 +20,36 @@ class ServerSocketHandler:
         self.sio = socketio.Server()
         self.songs_dir = songs_dir
         self.song_list = manage_songs_in_dir.get_song_list(songs_dir)
-        self.song_name_to_data = manage_songs_in_dir.get_name_to_song_data_dict(songs_dir)
+        self.song_name_to_info = manage_songs_in_dir.get_name_to_songinfo_dict(songs_dir)
+        
+        self.songs_to_send = []
+        self.skip_song = False
         logging.debug(pprint.pformat(self.song_list))
+        
+    def send_song(self, song_name, sid):
+        song_path = self.get_song_path(song_name)
+    
+        song_data = self.song_name_to_info[song_name]
+
+        self.sio.emit("sending_new_song", asdict(song_data), room=sid)
+        logging.debug(f"About to play {song_path}")
+        
+        with wave.open(song_path, 'rb') as wave_file:
+            self.send_song_loop(song_name, sid, wave_file)
+
+    def get_song_path(self, song_name):
+        if not song_name.endswith(".wav"):
+            song_name += ".wav"
+        song_path = os.path.join(self.songs_dir, song_name)
+        return song_path
+
+    def send_song_loop(self, song_name, sid, wf):
+        while True:
+            song_data = wf.readframes(CHUNK)
+            if not song_data:
+                break
+            logging.debug("Sending audio data!")
+            self.sio.emit('audio_data', (song_data, song_name), room=sid)
 
     def start(self):
         @self.sio.on('connect', namespace='/')
@@ -30,24 +58,15 @@ class ServerSocketHandler:
 
         @self.sio.on('audio_request')
         def on_audio_request(sid, song_name: str):
-            if not song_name.endswith(".wav"):
-                song_name += ".wav"
-            
-            song_data = self.song_name_to_data[song_name]
+            song_path = self.get_song_path(song_name)
+    
+            song_info = self.song_name_to_info[song_name]
 
-            song_path = os.path.join(self.songs_dir, song_name)
+            self.sio.emit("sending_new_song", asdict(song_info), room=sid)
             logging.debug(f"About to play {song_path}")
-            wf = wave.open(song_path, 'rb')
-
-
-            self.sio.emit("sending_new_song", asdict(song_data), room=sid)
             
-            while True:
-                song_data = wf.readframes(CHUNK)
-                if not song_data:
-                    break
-                logging.debug("Sending audio data!")
-                self.sio.emit('audio_data', (song_data, song_name), room=sid)
+            with wave.open(song_path, 'rb') as wave_file:
+                self.send_song_loop(song_name, sid, wave_file)
 
         @self.sio.on("song_list_request")
         def send_song_list(sid):
