@@ -62,6 +62,8 @@ class AudioHandler:
             self.frames_played += CHUNK
             progress = self.calculate_progress(current_song_buffer.info)
             self.main_page_emitter.update_song_progress.emit(progress)
+            
+        self.songs_to_play.pop(0)
 
     def setup_stream(self, song_info :SongInfo):
         logging.debug("Beginning of setup stream...")
