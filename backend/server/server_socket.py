@@ -43,11 +43,11 @@ class ServerSocketHandler:
             self.sio.emit("sending_new_song", asdict(song_data), room=sid)
             
             while True:
-                data = wf.readframes(CHUNK)
-                if not data:
+                song_data = wf.readframes(CHUNK)
+                if not song_data:
                     break
-
-                self.sio.emit('audio_data', data, song_name, room=sid)
+                logging.debug("Sending audio data!")
+                self.sio.emit('audio_data', (song_data, song_name), room=sid)
 
         @self.sio.on("song_list_request")
         def send_song_list(sid):

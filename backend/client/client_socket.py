@@ -27,8 +27,9 @@ class ClientSocketHandler:
             self.audio_handler.add_to_song_queue(song_info)
 
         @self.sio.on('audio_data')
-        def on_audio_data(data, song_name):
-            self.audio_handler.add_to_buffer(data, song_name)
+        def on_audio_data(song_data, song_name):
+            logging.info("Received audio data")
+            self.audio_handler.add_to_buffer(song_data, song_name)
 
         @self.sio.event
         def disconnect():

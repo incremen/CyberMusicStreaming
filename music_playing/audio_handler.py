@@ -49,6 +49,8 @@ class AudioHandler:
         
         self.frames_played = 0
         progress = 0
+        logging.debug(f"{self.current_song_info=}")
+        logging.debug(f"{self.current_song_buffer=}")
         
         while progress < 100:
             if self.current_song_buffer.empty():
@@ -74,15 +76,16 @@ class AudioHandler:
         self.stream.start_stream()
 
     def add_to_buffer(self, data, song_name):
-        with self.lock:
-            song_buffer_list = list(self.song_info_buffer_queue)
-            
-            for song_info, song_buffer in song_buffer_list:
-                if song_info.name == song_name:
+        song_buffer_list = list(self.song_info_buffer_queue)
+        for song_info, song_buffer in song_buffer_list:
+            if song_info.name == song_name:
+                with self.lock:
                     song_buffer.put(data)
-                    return
+                logging.debug("Added to buffer!")
+                return
+                
+        logging.debug("Didn't find song in list")
             
-        logging.debug("Added data to buffer")
 
     def calculate_progress(self):
         progress = int(self.frames_played * 100 / self.current_song_info.nframes)
