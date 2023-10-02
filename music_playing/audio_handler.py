@@ -21,15 +21,17 @@ class AudioHandler:
 
     @log_calls
     def add_to_song_queue(self, song_info :SongInfo):
-        song_queue_was_empty = bool(self.songs_to_play) 
+        song_queue_was_empty = not bool(self.songs_to_play) 
         
         new_song_buffer = SongBuffer(song_info)
         self.songs_to_play.append(new_song_buffer)
         logging.debug(f"Appended. {self.songs_to_play=}")
         
+        logging.debug(f"{song_queue_was_empty=}")
         if song_queue_was_empty:
             self.start_playing_next_song()
     
+    @log_calls
     def start_playing_next_song(self):
         if not self.songs_to_play:
             logging.info("No more songs to play")
@@ -40,7 +42,7 @@ class AudioHandler:
         logging.debug(f"{new_song_info=}, {new_song_buffer=}")
         self.setup_stream(new_song_info)
         
-        self.play_song()
+        self.play_song(new_song_buffer)
         
         self.start_playing_next_song()
 
@@ -57,8 +59,8 @@ class AudioHandler:
             
             data = current_song_buffer.get()
             self.stream.write(data)
-            self.frames_played += CHUNK * current_song_buffer.info.nchannels *2
-            progress = self.calculate_progress()
+            self.frames_played += CHUNK
+            progress = self.calculate_progress(current_song_buffer.info)
             self.main_page_emitter.update_song_progress.emit(progress)
 
     def setup_stream(self, song_info :SongInfo):
@@ -90,9 +92,9 @@ class AudioHandler:
                 
         logging.debug("Didn't find song in list")
 
-    def calculate_progress(self):
-        progress = int(self.frames_played * 100 / self.current_song_info.nframes)
-        logging.debug(f"{self.frames_played=} / {self.current_song_info.nframes * self.current_song_info.nchannels=} = {progress}")
+    def calculate_progress(self, current_song_info):
+        progress = int(self.frames_played * 100 *current_song_info.nchannels*2 / current_song_info.nframes)
+        logging.debug(f"{self.frames_played=} / {current_song_info.nframes * current_song_info.nchannels=} = {progress}")
         return progress
 
     def terminate(self):

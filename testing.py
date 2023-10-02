@@ -1,15 +1,6 @@
-from dataclasses import dataclass
+from custom_logging import CustomLogger
+import logging
 
-from music_playing.song_class import SongInfo
+testing_logger = CustomLogger(log_files=["testing.log"])
 
-song_info_dict = {
-    "name": "My Song",
-    "length": 180.5,
-    "nframes": 44100,
-    "framerate": 44100
-}
-
-# Create a SongData object from the dictionary
-song_data = SongInfo(**song_info_dict)
-
-print(song_data)
+logging.info(f"{bool([])=}")
