@@ -18,6 +18,9 @@ class AudioHandler:
         self.lock = threading.Lock()
         
         self.songs_to_play :list[SongBuffer] = []
+        
+        self.play_event = threading.Event()
+        self.play_event.set()
 
     @log_calls
     def add_to_song_queue(self, song_info :SongInfo):
@@ -53,6 +56,8 @@ class AudioHandler:
         progress = 0
         
         while progress < 100:
+            self.play_event.wait()
+            
             if current_song_buffer.empty():
                 time.sleep(0.01)
                 continue
@@ -104,5 +109,11 @@ class AudioHandler:
         self.stream.close()
         self.p.terminate()
         self.frames_played = 0  
+        
+    def pause_or_resume(self):
+        if self.play_event.is_set():
+            self.play_event.clear()
+        else:
+            self.play_event.set()
 
 

@@ -7,9 +7,11 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from backend.client.client_socket import ClientSocketHandler
+    from music_playing.audio_handler import AudioHandler
+    
 
 class MainPage(QMainWindow):
-    def __init__(self, socket_handler, audio_handler):
+    def __init__(self, socket_handler :'ClientSocketHandler', audio_handler :'AudioHandler'):
         super(MainPage, self).__init__()
         self.socket_handler = socket_handler
         self.audio_handler = audio_handler
@@ -43,6 +45,12 @@ class MainPage(QMainWindow):
         main_widget = self.main_widget
         self.song_grid = main_widget.findChild(QGridLayout, "song_grid")
         self.song_progress = main_widget.findChild(QProgressBar, "song_progress")
+        self.skip_btn = main_widget.findChild(QPushButton, "skip_btn")
+        self.pause_btn = main_widget.findChild(QPushButton, "pause_btn")
+        self.pause_btn.clicked.connect(self.pause_btn_click)
+        
+    def pause_btn_click(self):
+        self.audio_handler.pause_or_resume()
         
     def update_song_progress(self, progress):
         logging.info(f"updating progress to {progress}")

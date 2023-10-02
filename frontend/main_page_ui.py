@@ -18,7 +18,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(996, 766)
+        MainWindow.resize(996, 843)
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(1)
         sizePolicy.setVerticalStretch(0)
@@ -43,14 +43,14 @@ class Ui_MainWindow(object):
         self.song_grid = QGridLayout(self.gridLayoutWidget)
         self.song_grid.setObjectName(u"song_grid")
         self.song_grid.setContentsMargins(0, 0, 0, 0)
-        self.progressBar = QProgressBar(self.main_widget)
-        self.progressBar.setObjectName(u"progressBar")
-        self.progressBar.setGeometry(QRect(160, 650, 511, 23))
-        self.progressBar.setValue(2)
-        self.progressBar.setInvertedAppearance(True)
+        self.song_progress = QProgressBar(self.main_widget)
+        self.song_progress.setObjectName(u"song_progress")
+        self.song_progress.setGeometry(QRect(160, 680, 511, 23))
+        self.song_progress.setValue(2)
+        self.song_progress.setInvertedAppearance(True)
         self.horizontalScrollBar = QScrollBar(self.main_widget)
         self.horizontalScrollBar.setObjectName(u"horizontalScrollBar")
-        self.horizontalScrollBar.setGeometry(QRect(160, 680, 551, 16))
+        self.horizontalScrollBar.setGeometry(QRect(150, 730, 551, 16))
         sizePolicy1 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
@@ -73,6 +73,12 @@ class Ui_MainWindow(object):
         self.horizontalScrollBar.setOrientation(Qt.Horizontal)
         self.horizontalScrollBar.setInvertedAppearance(True)
         self.horizontalScrollBar.setInvertedControls(False)
+        self.pause_btn = QPushButton(self.main_widget)
+        self.pause_btn.setObjectName(u"pause_btn")
+        self.pause_btn.setGeometry(QRect(264, 622, 111, 41))
+        self.skip_btn = QPushButton(self.main_widget)
+        self.skip_btn.setObjectName(u"skip_btn")
+        self.skip_btn.setGeometry(QRect(454, 622, 111, 41))
 
         self.horizontalLayout.addWidget(self.main_widget)
 
@@ -96,5 +102,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.pause_btn.setText(QCoreApplication.translate("MainWindow", u"pause", None))
+        self.skip_btn.setText(QCoreApplication.translate("MainWindow", u"skip", None))
     # retranslateUi
 
