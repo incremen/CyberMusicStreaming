@@ -48,6 +48,10 @@ class MainPage(QMainWindow):
         self.skip_btn = main_widget.findChild(QPushButton, "skip_btn")
         self.pause_btn = main_widget.findChild(QPushButton, "pause_btn")
         self.pause_btn.clicked.connect(self.pause_btn_click)
+    
+    def skip_btn_click(self):
+        self.audio_handler.skip_song()
+        self.socket_handler.skip_song()
         
     def pause_btn_click(self):
         self.audio_handler.pause_or_resume()

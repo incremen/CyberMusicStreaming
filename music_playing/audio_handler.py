@@ -6,6 +6,8 @@ from music_playing.song_class import SongInfo, return_as_songinfo, SongBuffer
 import threading
 import time
 from custom_logging import log_calls
+
+
 CHUNK = 1024
 
 
@@ -21,6 +23,8 @@ class AudioHandler:
         
         self.play_event = threading.Event()
         self.play_event.set()
+        self.current_song_buffer : SongBuffer = None
+        self.skip_song_flag : bool = False
 
     @log_calls
     def add_to_song_queue(self, song_info :SongInfo):
@@ -38,42 +42,48 @@ class AudioHandler:
             logging.info("No more songs to play")
             return
 
-        new_song_buffer = self.songs_to_play[0]
-        new_song_info = new_song_buffer.info
-        logging.debug(f"{new_song_info=}, {new_song_buffer=}")
-        self.setup_stream(new_song_info)
+        self.current_song_buffer = self.songs_to_play[0]
         
-        self.play_song(new_song_buffer)
+        logging.debug(f"{self.current_song_buffer=}")
+        self.setup_stream()
+        
+        self.play_song()
+        
+        self.current_song_buffer = None
         
         self.start_playing_next_song()
 
-    def play_song(self, current_song_buffer : SongBuffer):
+    def play_song(self):
         logging.debug("Playing new song...")
-        
         self.frames_played = 0
         progress = 0
         
-        while progress < 100:
-            self.play_event.wait()
+        while progress < 100 and not self.skip_song_flag:
             
-            if current_song_buffer.empty():
-                time.sleep(0.01)
+            if self.current_song_buffer.empty():
+                logging.debug("Song buffer empty")
+                time.sleep(0.1)
                 continue
             
-            data = current_song_buffer.get()
+            self.play_event.wait()
+            
+            data = self.current_song_buffer.get()
+            logging.debug(f"{len(data)=}")
             self.stream.write(data)
             self.frames_played += CHUNK
-            progress = self.calculate_progress(current_song_buffer.info)
+            
+            progress = self.calculate_progress(self.current_song_buffer.info)
             self.main_page_emitter.update_song_progress.emit(progress)
             
         self.songs_to_play.pop(0)
 
-    def setup_stream(self, song_info :SongInfo):
+    def setup_stream(self):
         logging.debug("Beginning of setup stream...")
         if self.stream is not None:
             self.stream.stop_stream()
             self.stream.close()
         
+        song_info = self.current_song_buffer.info
         self.stream = self.p.open(format=self.p.get_format_from_width(2),
                              channels=song_info.nchannels,
                              rate=song_info.framerate, 
@@ -85,8 +95,8 @@ class AudioHandler:
 
     def add_to_buffer(self, data, song_name):
         logging.debug(f"{song_name=}, {len(self.songs_to_play)=}")
+        
         for song_buffer in self.songs_to_play:
-            logging.debug(f"{song_buffer.info.name=}")
             if song_buffer.info.name != song_name:
                 continue
             
@@ -101,17 +111,24 @@ class AudioHandler:
         progress = int(self.frames_played * 100 *current_song_info.nchannels*2 / current_song_info.nframes)
         logging.debug(f"{self.frames_played=} / {current_song_info.nframes * current_song_info.nchannels=} = {progress}")
         return progress
-
-    def terminate(self):
-        self.stream.stop_stream()
-        self.stream.close()
-        self.p.terminate()
-        self.frames_played = 0  
         
     def pause_or_resume(self):
         if self.play_event.is_set():
             self.play_event.clear()
         else:
             self.play_event.set()
+            
+    def skip_song(self):
+        logging.info("Skipping song...")
+        if not self.current_song_buffer:
+            logging.info("Can't skip song, no song playing")
+            return
+        
+        self.skip_song_flag = True
+        self.songs_to_play[0].clear()
+        self.songs_to_play.pop(0)
+        self.skip_song_flag = False
+        
+        self.start_playing_next_song()
 
 
