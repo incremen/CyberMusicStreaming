@@ -1,7 +1,9 @@
+import threading
 import time
 import socketio
 import wave
 import logging
+from custom_logging import log_calls
 import eventlet
 from eventlet import wsgi
 import os
@@ -14,7 +16,6 @@ CHUNK = 4096
 #sid - socket id
 # environ is a dictionary that contains environmental information related to the incoming connection
 
-
 class ServerSocketHandler:
     def __init__(self, songs_dir):
         self.sio = socketio.Server()
@@ -23,7 +24,9 @@ class ServerSocketHandler:
         self.song_name_to_info = manage_songs_in_dir.get_name_to_songinfo_dict(songs_dir)
         
         self.songs_to_send : list[str]= []
-        self.skip_song_flag : bool = False
+        
+        self.skip_song_flag : bool = False        
+        
         logging.debug(pprint.pformat(self.song_list))
 
     def get_song_path(self, song_name):
@@ -39,6 +42,7 @@ class ServerSocketHandler:
 
         next_song_name = self.songs_to_send.pop(0)
         
+        self.skip_song_flag = False
         self.send_song(next_song_name, sid)
         
         self.send_next_song(sid)
@@ -56,21 +60,25 @@ class ServerSocketHandler:
 
         self.sio.emit("sending_new_song", asdict(song_info), room=sid)
         logging.debug(f"About to send {song_path}")
-            
+        
+        self.sending_song = True
         with wave.open(song_path, 'rb') as wave_file:
             self.send_song_data(song_name, sid, wave_file)
+        self.sending_song = False
 
     def send_song_data(self, song_name, sid, wf):
         while True:
-            if self.skip_song_flag:
-                self.skip_song_flag = False
-                logging.debug("Quitting loop because skip")
-                break
-            song_data = wf.readframes(CHUNK)
-            if not song_data:
-                break
-            logging.debug("Sending audio data!")
-            self.sio.emit('audio_data', (song_data, song_name), room=sid)
+             if self.skip_song_flag:
+                 self.skip_song_flag = False
+                 return
+             
+             song_data = wf.readframes(CHUNK)
+             if not song_data:
+                 return
+             
+             logging.debug("Sending audio data!")
+             self.sio.emit('audio_data', (song_data, song_name), room=sid)
+             eventlet.sleep(0.5)
 
     def start(self):
         @self.sio.on('connect', namespace='/')
@@ -89,12 +97,17 @@ class ServerSocketHandler:
         @self.sio.event
         def disconnect(sid):
             logging.info('Client disconnected')
-            
+        
         @self.sio.on('skip_song')
-        def skip_song():
+        def skip_song(sid):
+            logging.info("Beginning of skip song func")
+            if not self.sending_song:
+                logging.info("No song to skip...")
+                return
+            
             logging.info("Skipping song!")
             self.skip_song_flag = True
-
+            
         app = socketio.WSGIApp(self.sio)
         wsgi.server(eventlet.listen(server_addr_tuple), app)
         
