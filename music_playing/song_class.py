@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 from queue import Queue
+import math
+
 
 @dataclass
 class SongInfo():

@@ -16,10 +16,10 @@ def get_song_info(song_dir, song_name):
         nframes = mywav.getnframes()
         framerate = mywav.getframerate()
         nchannels = mywav.getnchannels()
-    
-    total_secs = nframes / framerate
+        
+    length = nframes / framerate
             
-    song_data = SongInfo(name=song_name, length=total_secs, nframes=nframes, framerate=framerate, nchannels=nchannels)
+    song_data = SongInfo(name=song_name, nframes=nframes, framerate=framerate, nchannels=nchannels, length=length)
     logging.debug(f"{song_data=}")
     return song_data
     

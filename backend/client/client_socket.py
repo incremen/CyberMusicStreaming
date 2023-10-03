@@ -21,7 +21,8 @@ class ClientSocketHandler:
         self.sio.emit('audio_request', song_name)
         
     def send_skip_song_event(self):
-        self.sio.emit('skip_song')
+        song_name = self.audio_handler.current_song_buffer.info.name
+        self.sio.emit('skip_song', song_name)
         
     def connect(self):
         self.sio.connect(client_connects_to_str)

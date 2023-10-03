@@ -28,6 +28,8 @@ class ServerSocketHandler:
         self.skip_song_flag : bool = False        
         
         logging.debug(pprint.pformat(self.song_list))
+        
+        self.song_being_sent : str = None
 
     def get_song_path(self, song_name):
         if not song_name.endswith(".wav"):
@@ -61,10 +63,10 @@ class ServerSocketHandler:
         self.sio.emit("sending_new_song", asdict(song_info), room=sid)
         logging.debug(f"About to send {song_path}")
         
-        self.sending_song = True
+        self.song_being_sent = song_name
         with wave.open(song_path, 'rb') as wave_file:
             self.send_song_data(song_name, sid, wave_file)
-        self.sending_song = False
+        self.song_being_sent = None
 
     def send_song_data(self, song_name, sid, wf):
         while True:
@@ -78,7 +80,7 @@ class ServerSocketHandler:
              
              logging.debug("Sending audio data!")
              self.sio.emit('audio_data', (song_data, song_name), room=sid)
-             eventlet.sleep(0.5)
+             eventlet.sleep(0.01)
 
     def start(self):
         @self.sio.on('connect', namespace='/')
@@ -99,10 +101,10 @@ class ServerSocketHandler:
             logging.info('Client disconnected')
         
         @self.sio.on('skip_song')
-        def skip_song(sid):
+        def skip_song(sid, song_name):
             logging.info("Beginning of skip song func")
-            if not self.sending_song:
-                logging.info("No song to skip...")
+            if self.song_being_sent != song_name:
+                logging.info("Not sending that anymore...")
                 return
             
             logging.info("Skipping song!")
