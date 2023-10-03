@@ -44,14 +44,18 @@ class MainPage(QMainWindow):
     def setup_main_widget_properties(self):
         main_widget = self.main_widget
         self.song_grid = main_widget.findChild(QGridLayout, "song_grid")
+        
         self.song_progress = main_widget.findChild(QProgressBar, "song_progress")
+        
         self.skip_btn = main_widget.findChild(QPushButton, "skip_btn")
+        self.skip_btn.clicked.connect(self.skip_btn_click)
+        
         self.pause_btn = main_widget.findChild(QPushButton, "pause_btn")
-        self.pause_btn.clicked.connect(self.pause_btn_click)
+        self.pause_btn.clicked.connect(self.pause_btn_click)    
     
     def skip_btn_click(self):
+        self.socket_handler.send_skip_song_event()
         self.audio_handler.skip_song()
-        self.socket_handler.skip_song()
         
     def pause_btn_click(self):
         self.audio_handler.pause_or_resume()

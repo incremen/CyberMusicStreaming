@@ -20,8 +20,9 @@ class ClientSocketHandler:
     def request_song(self, song_name : str):
         self.sio.emit('audio_request', song_name)
         
-    def skip_song(self):
+    def send_skip_song_event(self):
         self.sio.emit('skip_song')
+        
     def connect(self):
         self.sio.connect(client_connects_to_str)
         

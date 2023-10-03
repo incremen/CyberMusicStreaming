@@ -23,7 +23,7 @@ class ServerSocketHandler:
         self.song_name_to_info = manage_songs_in_dir.get_name_to_songinfo_dict(songs_dir)
         
         self.songs_to_send : list[str]= []
-        self.skip_song = False
+        self.skip_song_flag : bool = False
         logging.debug(pprint.pformat(self.song_list))
 
     def get_song_path(self, song_name):
@@ -62,8 +62,8 @@ class ServerSocketHandler:
 
     def send_song_data(self, song_name, sid, wf):
         while True:
-            if self.skip_song:
-                self.skip_song = False
+            if self.skip_song_flag:
+                self.skip_song_flag = False
                 logging.debug("Quitting loop because skip")
                 break
             song_data = wf.readframes(CHUNK)
@@ -89,14 +89,16 @@ class ServerSocketHandler:
         @self.sio.event
         def disconnect(sid):
             logging.info('Client disconnected')
+            
+        @self.sio.on('skip_song')
+        def skip_song():
+            logging.info("Skipping song!")
+            self.skip_song_flag = True
 
         app = socketio.WSGIApp(self.sio)
         wsgi.server(eventlet.listen(server_addr_tuple), app)
         
-        @self.sio.on('skip_song')
-        def skip():
-            logging.info("Skipping song!")
-            self.skip_song = True
+
             
 
 

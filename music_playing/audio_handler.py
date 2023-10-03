@@ -29,7 +29,6 @@ class AudioHandler:
         self.skip_song_flag : bool = False
         
         self.buffer_empty_condition = threading.Condition()
-        
 
     @log_calls
     def add_to_song_queue(self, song_info :SongInfo):
@@ -59,6 +58,7 @@ class AudioHandler:
         
         self.current_song_buffer = None
         
+        self.skip_song_flag = False
         self.start_playing_next_song()
 
     def play_song(self):
@@ -66,16 +66,17 @@ class AudioHandler:
         self.frames_played = 0
         progress = 0
         
-        while progress < 100 and not self.skip_song_flag:
+        while progress < 100:
+            if self.skip_song_flag:
+                break
             
+            logging.info("waiting for buffer to not be empty...")
             with self.buffer_empty_condition:
-                logging.info("waiting for buffer to not be empty...")
-                self.buffer_empty_condition.wait_for( self.current_song_buffer_not_empty)
+                self.buffer_empty_condition.wait_for(self.current_song_buffer_not_empty)
             
             self.play_event.wait()
             
             data = self.current_song_buffer.get()
-            logging.debug(f"{len(data)=}")
             self.stream.write(data)
             self.frames_played += CHUNK
             
@@ -124,7 +125,8 @@ class AudioHandler:
             self.play_event.clear()
         else:
             self.play_event.set()
-            
+    
+    @log_calls
     def skip_song(self):
         logging.info("Skipping song...")
         if not self.current_song_buffer:
@@ -132,10 +134,5 @@ class AudioHandler:
             return
         
         self.skip_song_flag = True
-        self.songs_to_play[0].clear()
-        self.songs_to_play.pop(0)
-        self.skip_song_flag = False
-        
-        self.start_playing_next_song()
 
 
