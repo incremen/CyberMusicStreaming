@@ -13,7 +13,15 @@ class ClientSocketHandler:
         self.sio = socketio.Client(logger=True, engineio_logger=True)
         self.audio_handler = audio_handler
         self.main_page_emitter = main_page_emitter
+    
+    def emit_to_server(self, event_name : str, data = None):
+        self.sio.emit(event_name, data)
+
+    def request_song(self, song_name : str):
+        self.sio.emit('audio_request', song_name)
         
+    def skip_song(self):
+        self.sio.emit('skip_song')
     def connect(self):
         self.sio.connect(client_connects_to_str)
         
@@ -41,11 +49,4 @@ class ClientSocketHandler:
             logging.debug(f"{song_list=}")
             self.main_page_emitter.song_list_recieved.emit(song_list)
         
-    def emit_to_server(self, event_name : str, data = None):
-        self.sio.emit(event_name, data)
 
-    def request_song(self, song_name : str):
-        self.sio.emit('audio_request', song_name)
-        
-    def skip_song(self):
-        self.sio.emit('skip_song')

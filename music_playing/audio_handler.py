@@ -23,8 +23,13 @@ class AudioHandler:
         
         self.play_event = threading.Event()
         self.play_event.set()
+        
         self.current_song_buffer : SongBuffer = None
+        
         self.skip_song_flag : bool = False
+        
+        self.buffer_empty_condition = threading.Condition()
+        
 
     @log_calls
     def add_to_song_queue(self, song_info :SongInfo):
@@ -35,6 +40,9 @@ class AudioHandler:
         
         if len(self.songs_to_play) == 1:
             self.start_playing_next_song()
+            
+    def current_song_buffer_not_empty(self):
+        return not self.current_song_buffer.empty()
     
     @log_calls
     def start_playing_next_song(self):
@@ -60,10 +68,9 @@ class AudioHandler:
         
         while progress < 100 and not self.skip_song_flag:
             
-            if self.current_song_buffer.empty():
-                logging.debug("Song buffer empty")
-                time.sleep(0.1)
-                continue
+            with self.buffer_empty_condition:
+                logging.info("waiting for buffer to not be empty...")
+                self.buffer_empty_condition.wait_for( self.current_song_buffer_not_empty)
             
             self.play_event.wait()
             
