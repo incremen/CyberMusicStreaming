@@ -1,3 +1,4 @@
+import eventlet
 import socketio
 import logging
 from backend import client_connects_to_str

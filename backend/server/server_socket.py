@@ -11,15 +11,20 @@ from music_playing import manage_songs_in_dir
 import pprint
 from dataclasses import asdict
 from backend import server_addr_tuple
+from concurrent.futures import ThreadPoolExecutor
+
 CHUNK = 4096
 
 #sid - socket id
 # environ is a dictionary that contains environmental information related to the incoming connection
 
 class ServerSocketHandler:
-    def __init__(self, songs_dir):
-        self.sio = socketio.Server()
+    def __init__(self, songs_dir : str):
         self.songs_dir = songs_dir
+        
+        self.sio = socketio.Server()
+        self.executor = ThreadPoolExecutor(max_workers=5)
+            
         self.song_list = manage_songs_in_dir.get_song_list(songs_dir)
         self.song_name_to_info = manage_songs_in_dir.get_name_to_songinfo_dict(songs_dir)
         
@@ -80,7 +85,7 @@ class ServerSocketHandler:
              
              logging.debug("Sending audio data!")
              self.sio.emit('audio_data', (song_data, song_name), room=sid)
-             eventlet.sleep(0.01)
+             logging.debug("Sent audio data!")
 
     def start(self):
         @self.sio.on('connect', namespace='/')
@@ -89,7 +94,7 @@ class ServerSocketHandler:
 
         @self.sio.on('audio_request')
         def on_audio_request(sid, song_name: str):
-            self.add_song_to_send_list(song_name, sid)
+            self.executor.submit(self.send_song, song_name, sid)
 
         @self.sio.on("song_list_request")
         def send_song_list(sid):
@@ -112,6 +117,7 @@ class ServerSocketHandler:
             
         app = socketio.WSGIApp(self.sio)
         wsgi.server(eventlet.listen(server_addr_tuple), app)
+        
         
 
             

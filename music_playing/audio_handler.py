@@ -55,7 +55,7 @@ class AudioHandler:
         self.setup_stream()
         
         self.play_song()
-        
+        self.songs_to_play.pop(0)
         self.current_song_buffer = None
         
         self.skip_song_flag = False
@@ -80,10 +80,9 @@ class AudioHandler:
             self.stream.write(data)
             self.frames_played += CHUNK
             
-            progress = self.calculate_progress(self.current_song_buffer.info)
+            progress = self.calculate_progress()
             self.main_page_emitter.update_song_progress.emit(progress)
             
-        self.songs_to_play.pop(0)
 
     def setup_stream(self):
         logging.debug("Beginning of setup stream...")
@@ -115,8 +114,9 @@ class AudioHandler:
                 
         logging.debug("Didn't find song in list")
 
-    def calculate_progress(self, current_song_info):
-        progress = int(self.frames_played * 100 *current_song_info.nchannels*2 / current_song_info.nframes)
+    def calculate_progress(self):
+        current_song_info = self.current_song_buffer.info
+        progress = int(self.frames_played * 200 *current_song_info.nchannels / current_song_info.nframes)
         logging.debug(f"{self.frames_played=} / {current_song_info.nframes * current_song_info.nchannels=} = {progress}")
         return progress
         

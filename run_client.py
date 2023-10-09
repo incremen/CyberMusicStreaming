@@ -7,8 +7,15 @@ from frontend.main_page import MainPage
 import sys
 import threading
 
+
+def connect_and_request_song_list(client_socket_handler):
+    client_socket_handler.connect()
+    client_socket_handler.emit_to_server("song_list_request")
+    
+    
 def main():
     custom_logger = custom_logging.CustomLogger(log_files=["client.log"])
+    custom_logger.clear_logs()
     app = QApplication(sys.argv)
     
     main_page_emitter = MainPageEmitter()
@@ -18,13 +25,15 @@ def main():
     main_page = MainPage(client_socket_handler, audio_handler)
     
     main_page_emitter.setup_connections(main_page)
-    
-    
-    client_socket_handler.connect()
-    client_socket_handler.emit_to_server("song_list_request")
+
+    client_thread = threading.Thread(target=connect_and_request_song_list, args=(client_socket_handler,))
+    client_thread.start()
 
     app.exec_()
+
+
     
 if __name__ == "__main__":
     main()
+
 
