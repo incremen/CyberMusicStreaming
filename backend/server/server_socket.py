@@ -38,6 +38,8 @@ class ServerSocketHandler:
         return song_path
     
     def send_next_song(self, sid):
+        logging.info("Sending next song!")
+        
         if not self.songs_to_send:
             logging.info("No more songs to send...")
             return
@@ -51,7 +53,7 @@ class ServerSocketHandler:
         
     def add_song_to_send_list(self, song_name, sid):
         self.songs_to_send.append(song_name)
-        
+        logging.info(f"Added {song_name} to song list")
         if len(self.songs_to_send) == 1:
             self.send_next_song(sid)
     
@@ -61,6 +63,8 @@ class ServerSocketHandler:
         song_info = self.song_name_to_info[song_name]
 
         self.sio.emit("sending_new_song", asdict(song_info), room=sid)
+        logging.info("Emitted sending_new_song event")
+        
         logging.debug(f"About to send {song_path}")
         
         self.song_being_sent = song_name
@@ -89,6 +93,7 @@ class ServerSocketHandler:
 
         @self.sio.on('audio_request')
         def on_audio_request(sid, song_name: str):
+            logging.info(f"Received audio request for {song_name}")
             self.add_song_to_send_list(song_name, sid)
 
         @self.sio.on("song_list_request")

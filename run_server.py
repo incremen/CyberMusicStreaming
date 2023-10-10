@@ -10,8 +10,7 @@ def main():
     songs_dir = os.path.abspath(r"songs")
     
     server_socket_handler = ServerSocketHandler(songs_dir)
-    server_thread = threading.Thread(target=server_socket_handler.start)
-    server_thread.start()
+    server_socket_handler.start()
     
 
 if __name__ == "__main__":
