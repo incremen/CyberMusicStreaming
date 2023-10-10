@@ -11,23 +11,19 @@ from music_playing import manage_songs_in_dir
 import pprint
 from dataclasses import asdict
 from backend import server_addr_tuple
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-from backend.server import send_song_funcs
+from concurrent.futures import ThreadPoolExecutor
+
 CHUNK = 4096
 
 #sid - socket id
 # environ is a dictionary that contains environmental information related to the incoming connection
 
-def test_function():
-    print("Test function ran!")
-
-
 class ServerSocketHandler:
     def __init__(self, songs_dir : str):
         self.songs_dir = songs_dir
-        self.executor = ProcessPoolExecutor(max_workers=5)
         
         self.sio = socketio.Server()
+        self.executor = ThreadPoolExecutor(max_workers=5)
             
         self.song_list = manage_songs_in_dir.get_song_list(songs_dir)
         self.song_name_to_info = manage_songs_in_dir.get_name_to_songinfo_dict(songs_dir)
@@ -39,11 +35,6 @@ class ServerSocketHandler:
         logging.debug(pprint.pformat(self.song_list))
         
         self.song_being_sent : str = None
-        logging.debug("Submitting")
-        self.executor.submit(test_function)
-        
-    def class_test_func(self):
-        print("Class test function ran!")
 
     def get_song_path(self, song_name):
         if not song_name.endswith(".wav"):
@@ -62,11 +53,10 @@ class ServerSocketHandler:
         self.send_song(next_song_name, sid)
         
         self.send_next_song(sid)
-    
-    @log_calls
+        
     def add_song_to_send_list(self, song_name, sid):
         self.songs_to_send.append(song_name)
-        logging.debug(f"{len(self.songs_to_send)=}")
+        
         if len(self.songs_to_send) == 1:
             self.send_next_song(sid)
     
@@ -80,8 +70,22 @@ class ServerSocketHandler:
         
         self.song_being_sent = song_name
         with wave.open(song_path, 'rb') as wave_file:
-            self.executor.submit(send_song_funcs.send_song_data, self.sio, song_name, sid, wave_file)
+            self.send_song_data(song_name, sid, wave_file)
         self.song_being_sent = None
+
+    def send_song_data(self, song_name, sid, wf):
+        while True:
+             if self.skip_song_flag:
+                 self.skip_song_flag = False
+                 return
+             
+             song_data = wf.readframes(CHUNK)
+             if not song_data:
+                 return
+             
+             logging.debug("Sending audio data!")
+             self.sio.emit('audio_data', (song_data, song_name), room=sid)
+             logging.debug("Sent audio data!")
 
     def start(self):
         @self.sio.on('connect', namespace='/')
@@ -90,8 +94,7 @@ class ServerSocketHandler:
 
         @self.sio.on('audio_request')
         def on_audio_request(sid, song_name: str):
-            logging.info("Submitting")
-            self.add_song_to_send_list(song_name, sid)
+            self.executor.submit(self.send_song, song_name, sid)
 
         @self.sio.on("song_list_request")
         def send_song_list(sid):
