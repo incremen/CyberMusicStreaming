@@ -55,10 +55,10 @@ class AudioHandler:
         self.setup_stream()
         
         self.play_song()
+        self.songs_to_play.pop(0)
         
         self.current_song_buffer = None
         
-        self.skip_song_flag = False
         self.start_playing_next_song()
 
     def play_song(self):
@@ -68,22 +68,30 @@ class AudioHandler:
         
         while progress < 100:
             if self.skip_song_flag:
+                self.skip_song_flag = False
+                logging.info("Skipping song...")
                 break
             
             logging.info("waiting for buffer to not be empty...")
-            with self.buffer_empty_condition:
-                self.buffer_empty_condition.wait_for(self.current_song_buffer_not_empty)
             
-            self.play_event.wait()
+            self.await_song_playing_conditions()
             
-            data = self.current_song_buffer.get()
-            self.stream.write(data)
-            self.frames_played += CHUNK
+            self.write_song_data()
             
-            progress = self.calculate_progress(self.current_song_buffer.info)
-            self.main_page_emitter.update_song_progress.emit(progress)
+
+    def write_song_data(self):
+        data = self.current_song_buffer.get()
+        self.stream.write(data)
+        self.frames_played += CHUNK
             
-        self.songs_to_play.pop(0)
+        progress = self.calculate_progress(self.current_song_buffer.info)
+        self.main_page_emitter.update_song_progress.emit(progress)
+
+    def await_song_playing_conditions(self):
+        with self.buffer_empty_condition:
+            self.buffer_empty_condition.wait_for(self.current_song_buffer_not_empty)
+            
+        self.play_event.wait()
 
     def setup_stream(self):
         logging.debug("Beginning of setup stream...")

@@ -9,6 +9,7 @@ import threading
 
 def main():
     custom_logger = custom_logging.CustomLogger(log_files=["client.log"])
+    custom_logger.clear_logs()
     app = QApplication(sys.argv)
     
     main_page_emitter = MainPageEmitter()
@@ -18,7 +19,6 @@ def main():
     main_page = MainPage(client_socket_handler, audio_handler)
     
     main_page_emitter.setup_connections(main_page)
-    
     
     client_socket_handler.connect()
     client_socket_handler.emit_to_server("song_list_request")
