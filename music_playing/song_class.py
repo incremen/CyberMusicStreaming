@@ -10,6 +10,7 @@ class SongInfo():
     nframes: int
     framerate: int
     nchannels : int
+    max_seq : int
 
 
 class SongBuffer(dict):
