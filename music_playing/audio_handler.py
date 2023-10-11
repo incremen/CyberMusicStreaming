@@ -16,7 +16,6 @@ class AudioHandler:
         self.p = pyaudio.PyAudio()
         self.stream = None
         self.main_page_emitter = main_page_emitter
-        self.frames_played = 0
         self.lock = threading.Lock()
         
         self.songs_to_play :list[SongBuffer] = []
@@ -37,8 +36,8 @@ class AudioHandler:
     def start_playing_next_song(self):
         if not self.songs_to_play:
             logging.error("No more songs to play")
-            raise Exception("No more songs to play")
-        
+            return
+                
         if self.current_song_buffer:
             logging.info("Can't start playing next song, current song is playing")
             return
@@ -58,8 +57,6 @@ class AudioHandler:
 
     def play_song(self):
         logging.debug("Playing new song...")
-        self.frames_played = 0
-        progress = 0
         self.next_sequence_number = 0
         while self.next_sequence_number < self.current_song_buffer.info.max_seq:
             if self.skip_song_flag:
@@ -73,10 +70,9 @@ class AudioHandler:
             self.emit_progress_to_bar()
 
     def write_song_data(self):
-        data = self.current_song_buffer[self.next_sequence_number]
+        data = self.current_song_buffer.pop(self.next_sequence_number)
         self.stream.write(data)
-        self.frames_played += CHUNK
-        self.next_sequence_number += 1  
+        self.next_sequence_number += 1
         
     def await_next_seq_num(self):
         logging.deb(f"Waiting for {self.next_sequence_number}")
