@@ -68,8 +68,7 @@ class ServerSocketHandler:
         logging.info("Emitted sending_new_song event")
 
         logging.info("Waiting for client to acknowledge...")
-        while not self.client_has_ack:
-            eventlet.sleep(0.01)
+        self.await_client_ack()
         
         logging.debug(f"About to send {song_path}") 
         
@@ -77,6 +76,11 @@ class ServerSocketHandler:
         with wave.open(song_path, 'rb') as wave_file:
             self.send_song_data(song_name, sid, wave_file)
         self.song_being_sent = None
+
+    def await_client_ack(self):
+        while not self.client_has_ack:
+            eventlet.sleep(0.01)
+        self.client_has_ack = False
 
     def send_song_data(self, song_name, sid, wf):
         sequence_number = 0
