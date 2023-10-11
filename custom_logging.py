@@ -83,7 +83,7 @@ class CustomLogger():
         Adds custom levels to the logger. Change this yourself depending on which levels you want.
 
         """
-        self.add_custom_level("read", 37, "yellow")
+        self.add_custom_level("deb", 37, "yellow")
         self.add_custom_level("write", 38, "magenta")
         
     

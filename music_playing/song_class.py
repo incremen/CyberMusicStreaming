@@ -12,14 +12,13 @@ class SongInfo():
     nchannels : int
 
 
-class SongBuffer(Queue):
+class SongBuffer(dict):
     def __init__(self, info :SongInfo):
         super().__init__()
         self.info = info
         
     def __repr__(self) -> str:
         return f"SongBuffer(of ({self.info})"
-
 
 def return_as_songinfo(song_info_dict, **kwargs) -> SongInfo:
     if song_info_dict is None:

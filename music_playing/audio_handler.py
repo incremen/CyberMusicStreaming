@@ -1,3 +1,4 @@
+import eventlet
 import logging
 import pyaudio
 from queue import Queue
@@ -8,8 +9,7 @@ import time
 from custom_logging import log_calls
 
 
-CHUNK = 1024
-
+CHUNK = 4096
 
 class AudioHandler:
     def __init__(self, main_page_emitter :MainPageEmitter):
@@ -27,17 +27,12 @@ class AudioHandler:
         self.current_song_buffer : SongBuffer = None
         
         self.skip_song_flag : bool = False
-        
-        self.buffer_empty_condition = threading.Condition()
 
     @log_calls
     def add_to_song_queue(self, song_info :SongInfo):
         new_song_buffer = SongBuffer(song_info)
         self.songs_to_play.append(new_song_buffer)
         logging.debug(f"Appended. {self.songs_to_play=}")
-            
-    def current_song_buffer_not_empty(self):
-        return not self.current_song_buffer.empty()
     
     def start_playing_next_song(self):
         if not self.songs_to_play:
@@ -65,34 +60,29 @@ class AudioHandler:
         logging.debug("Playing new song...")
         self.frames_played = 0
         progress = 0
-        
+        self.next_sequence_number = 0
         while progress < 100:
             if self.skip_song_flag:
                 self.skip_song_flag = False
                 logging.info("Skipping song...")
                 break
             
-            logging.info("waiting for buffer to not be empty...")
-            
-            self.await_song_playing_conditions()
-            
+            self.await_next_seq_num() 
+            logging.deb("Done waiting for seq num!")   
             self.write_song_data()
             progress = self.calculate_progress()
             self.main_page_emitter.update_song_progress.emit(progress)
-            
 
     def write_song_data(self):
-        data = self.current_song_buffer.get()
+        data = self.current_song_buffer[self.next_sequence_number]
         self.stream.write(data)
         self.frames_played += CHUNK
-
-
-    def await_song_playing_conditions(self):
-        with self.buffer_empty_condition:
-            self.buffer_empty_condition.wait_for(self.current_song_buffer_not_empty)
-            
-        self.play_event.wait()
-
+        self.next_sequence_number += 1  
+        
+    def await_next_seq_num(self):
+        logging.deb(f"Waiting for {self.next_sequence_number}")
+        while not self.next_sequence_number in self.current_song_buffer:
+            eventlet.sleep(0.01)
     def setup_stream(self):
         logging.debug("Beginning of setup stream...")
         if self.stream is not None:
@@ -109,7 +99,7 @@ class AudioHandler:
         self.stream.start_stream()
         logging.debug("Finished setting up stream...")
 
-    def add_to_buffer(self, data, song_name):
+    def add_to_buffer(self, data, song_name, sequence_num):
         logging.debug(f"{song_name=}, {len(self.songs_to_play)=}")
         
         for song_buffer in self.songs_to_play:
@@ -117,9 +107,8 @@ class AudioHandler:
                 continue
             
             with self.lock:
-                song_buffer.put(data)
+                self.current_song_buffer[sequence_num] = data
             logging.debug("Added to buffer!")
-            self.start_playing_next_song()
             return
                 
 

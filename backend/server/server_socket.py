@@ -32,8 +32,6 @@ class ServerSocketHandler:
         self.song_being_sent : str = None
         
         self.client_has_ack : bool = False
-        # self.client_acknowledged_event = eventlet.Event()
-        
 
     def get_song_path(self, song_name):
         if not song_name.endswith(".wav"):
@@ -81,6 +79,7 @@ class ServerSocketHandler:
         self.song_being_sent = None
 
     def send_song_data(self, song_name, sid, wf):
+        sequence_number = 0
         while True:
              if self.skip_song_flag:
                  self.skip_song_flag = False
@@ -91,8 +90,9 @@ class ServerSocketHandler:
                  return
              
              logging.debug("Sending audio data!")
-             self.sio.emit('audio_data', (song_data, song_name), room=sid)
+             self.sio.emit('audio_data', (song_data, song_name, sequence_number), room=sid)
              eventlet.sleep(0.01)
+             sequence_number += 1
 
     def start(self):
         @self.sio.on('connect', namespace='/')

@@ -38,11 +38,12 @@ class ClientSocketHandler:
             logging.info("About to add a new song to the queue!")
             self.audio_handler.add_to_song_queue(song_info)
             self.sio.emit("acknowledge")
+            self.audio_handler.start_playing_next_song()
 
         @self.sio.on('audio_data')
-        def on_audio_data(song_data, song_name):
+        def on_audio_data(song_data, song_name, sequence_number):
             logging.info("Received audio data")
-            self.audio_handler.add_to_buffer(song_data, song_name)
+            self.audio_handler.add_to_buffer(song_data, song_name, sequence_number)
 
         @self.sio.event
         def disconnect():
