@@ -13,6 +13,7 @@ class ClientSocketHandler:
     def __init__(self, audio_handler :AudioHandler, main_page_emitter: MainPageEmitter):
         self.sio = socketio.Client(logger=True, engineio_logger=True)
         self.audio_handler = audio_handler
+        self.audio_handler.socket_handler = self
         self.main_page_emitter = main_page_emitter
     
     def emit_to_server(self, event_name : str, data = None):
@@ -34,10 +35,10 @@ class ClientSocketHandler:
             
         @self.sio.on("sending_new_song")
         def new_song_stream(song_info_dict):
+            logging.info("Received sending_new_song event!")
             song_info = SongInfo(**song_info_dict)
             logging.info("About to add a new song to the queue!")
             self.audio_handler.add_to_song_queue(song_info)
-            self.sio.emit("acknowledge")
             self.audio_handler.start_playing_next_song()
 
         @self.sio.on('audio_data')

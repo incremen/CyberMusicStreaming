@@ -84,7 +84,7 @@ class CustomLogger():
 
         """
         self.add_custom_level("deb", 37, "yellow")
-        self.add_custom_level("write", 38, "magenta")
+        self.add_custom_level("checkpoint", 38, "magenta")
         
     
     def add_custom_level(self, levelName: str, levelNum: int, levelColor: str):

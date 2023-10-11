@@ -7,7 +7,10 @@ from music_playing.song_class import SongInfo, return_as_songinfo, SongBuffer
 import threading
 import time
 from custom_logging import log_calls
+from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from backend.client.client_socket import ClientSocketHandler
 
 CHUNK = 4096
 
@@ -26,6 +29,7 @@ class AudioHandler:
         self.current_song_buffer : SongBuffer = None
         
         self.skip_song_flag : bool = False
+        self.socket_handler : 'ClientSocketHandler' = None
 
     @log_calls
     def add_to_song_queue(self, song_info :SongInfo):
@@ -43,8 +47,8 @@ class AudioHandler:
             return
         
         self.current_song_buffer = self.songs_to_play[0]
+        logging.checkpoint(f"Starting to play next song: {self.current_song_buffer}")
         
-        logging.debug(f"{self.current_song_buffer=}")
         self.setup_stream()
         
         self.play_song()
@@ -56,19 +60,24 @@ class AudioHandler:
         self.start_playing_next_song()
 
     def play_song(self):
-        logging.debug("Playing new song...")
+        logging.checkpoint("Playing new song...")
         self.next_sequence_number = 0
-        while self.next_sequence_number < self.current_song_buffer.info.max_seq:
-            logging.debug(f"{self.next_sequence_number=}, {self.current_song_buffer.info.max_seq=}")
+        max_seq = self.current_song_buffer.info.max_seq
+        self.socket_handler.emit_to_server("acknowledge")
+        while self.next_sequence_number < max_seq:
+            logging.debug(f"{self.next_sequence_number=}, {max_seq=}")
+            
             if self.skip_song_flag:
                 self.skip_song_flag = False
                 logging.info("Skipping song...")
                 break
             
+            self.play_event.wait()
             self.await_next_seq_num() 
             logging.deb("Done waiting for seq num!")   
             self.write_song_data()
             self.emit_progress_to_bar()
+        logging.checkpoint("Done playing song...")
 
     def write_song_data(self):
         data = self.current_song_buffer.pop(self.next_sequence_number)
@@ -76,9 +85,10 @@ class AudioHandler:
         self.next_sequence_number += 1
         
     def await_next_seq_num(self):
-        logging.deb(f"Waiting for {self.next_sequence_number}")
-        while not self.next_sequence_number in self.current_song_buffer:
+        logging.deb(f"Waiting for {self.next_sequence_number}, {self.current_song_buffer=}")
+        while self.next_sequence_number not in self.current_song_buffer:
             eventlet.sleep(0.01)
+            
     def setup_stream(self):
         logging.debug("Beginning of setup stream...")
         if self.stream is not None:

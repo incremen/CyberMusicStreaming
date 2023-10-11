@@ -80,12 +80,13 @@ class ServerSocketHandler:
 
     def send_song_data(self, song_name, sid, wf):
         sequence_number = 0
-        while True:
+        logging.checkpoint(f"Beginning to send song: {song_name=}, {self.songs_to_send=}")
+        
+        while song_data := wf.readframes(CHUNK):
              if self.skip_song_flag:
                  self.skip_song_flag = False
                  return
              
-             song_data = wf.readframes(CHUNK)
              if not song_data:
                  return
              
@@ -93,6 +94,8 @@ class ServerSocketHandler:
              self.sio.emit('audio_data', (song_data, song_name, sequence_number), room=sid)
              eventlet.sleep(0.01)
              sequence_number += 1
+             
+        logging.checkpoint(f"Done sending song: {song_name=}, {self.songs_to_send=}")
 
     def start(self):
         @self.sio.on('connect', namespace='/')
@@ -101,7 +104,7 @@ class ServerSocketHandler:
 
         @self.sio.on('audio_request')
         def on_audio_request(sid, song_name: str):
-            logging.info(f"Received audio request for {song_name}")
+            logging.checkpoint(f"Received audio request for {song_name}")
             self.add_song_to_send_list(song_name, sid)
 
         @self.sio.on("song_list_request")
@@ -127,8 +130,6 @@ class ServerSocketHandler:
             
             logging.info("Skipping song!")
             self.skip_song_flag = True
-            
-
             
         app = socketio.WSGIApp(self.sio)
         wsgi.server(eventlet.listen(server_addr_tuple), app)
