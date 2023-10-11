@@ -59,6 +59,7 @@ class AudioHandler:
         logging.debug("Playing new song...")
         self.next_sequence_number = 0
         while self.next_sequence_number < self.current_song_buffer.info.max_seq:
+            logging.debug(f"{self.next_sequence_number=}, {self.current_song_buffer.info.max_seq=}")
             if self.skip_song_flag:
                 self.skip_song_flag = False
                 logging.info("Skipping song...")
@@ -101,8 +102,7 @@ class AudioHandler:
             if song_buffer.info.name != song_name:
                 continue
             
-            with self.lock:
-                self.current_song_buffer[sequence_num] = data
+            self.current_song_buffer[sequence_num] = data
             logging.debug("Added to buffer!")
             return
                 
