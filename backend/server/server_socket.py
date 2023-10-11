@@ -20,8 +20,8 @@ class ServerSocketHandler:
     def __init__(self, songs_dir):
         self.sio = socketio.Server()
         self.songs_dir = songs_dir
-        self.song_list = manage_songs_in_dir.get_song_list(songs_dir)
-        self.song_name_to_info = manage_songs_in_dir.get_name_to_songinfo_dict(songs_dir)
+        self.song_list = manage_songs_in_dir.get_song_list(songs_dir, CHUNK)
+        self.song_name_to_info = manage_songs_in_dir.get_name_to_songinfo_dict(songs_dir,CHUNK)
         
         self.songs_to_send : list[str]= []
         

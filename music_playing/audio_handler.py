@@ -61,7 +61,7 @@ class AudioHandler:
         self.frames_played = 0
         progress = 0
         self.next_sequence_number = 0
-        while progress < 100:
+        while self.next_sequence_number < self.current_song_buffer.info.max_seq:
             if self.skip_song_flag:
                 self.skip_song_flag = False
                 logging.info("Skipping song...")
