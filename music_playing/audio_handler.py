@@ -70,8 +70,7 @@ class AudioHandler:
             self.await_next_seq_num() 
             logging.deb("Done waiting for seq num!")   
             self.write_song_data()
-            progress = self.calculate_progress()
-            self.main_page_emitter.update_song_progress.emit(progress)
+            self.emit_progress_to_bar()
 
     def write_song_data(self):
         data = self.current_song_buffer[self.next_sequence_number]
@@ -112,10 +111,9 @@ class AudioHandler:
             return
                 
 
-    def calculate_progress(self):
-        current_song_info = self.current_song_buffer.info
-        progress = int(self.frames_played * 100 *current_song_info.nchannels*2 / current_song_info.nframes)
-        logging.debug(f"{self.frames_played=} / {current_song_info.nframes * current_song_info.nchannels=} = {progress}")
+    def emit_progress_to_bar(self):
+        progress = int(self.next_sequence_number* 100 /self.current_song_buffer.info.max_seq)
+        self.main_page_emitter.update_song_progress.emit(progress)
         return progress
         
     def pause_or_resume(self):
