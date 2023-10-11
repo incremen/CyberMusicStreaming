@@ -30,6 +30,10 @@ class ServerSocketHandler:
         logging.debug(pprint.pformat(self.song_list))
         
         self.song_being_sent : str = None
+        
+        self.client_has_ack : bool = False
+        # self.client_acknowledged_event = eventlet.Event()
+        
 
     def get_song_path(self, song_name):
         if not song_name.endswith(".wav"):
@@ -64,8 +68,12 @@ class ServerSocketHandler:
 
         self.sio.emit("sending_new_song", asdict(song_info), room=sid)
         logging.info("Emitted sending_new_song event")
+
+        logging.info("Waiting for client to acknowledge...")
+        while not self.client_has_ack:
+            eventlet.sleep(0.01)
         
-        logging.debug(f"About to send {song_path}")
+        logging.debug(f"About to send {song_path}") 
         
         self.song_being_sent = song_name
         with wave.open(song_path, 'rb') as wave_file:
@@ -104,6 +112,11 @@ class ServerSocketHandler:
         @self.sio.event
         def disconnect(sid):
             logging.info('Client disconnected')
+            
+        @self.sio.on('acknowledge')
+        def client_acknowledged(sid):
+            logging.debug("Client acknowledged")
+            self.client_has_ack = True
         
         @self.sio.on('skip_song')
         def skip_song(sid, song_name):
@@ -114,6 +127,8 @@ class ServerSocketHandler:
             
             logging.info("Skipping song!")
             self.skip_song_flag = True
+            
+
             
         app = socketio.WSGIApp(self.sio)
         wsgi.server(eventlet.listen(server_addr_tuple), app)

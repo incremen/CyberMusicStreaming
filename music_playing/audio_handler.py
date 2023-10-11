@@ -32,23 +32,22 @@ class AudioHandler:
 
     @log_calls
     def add_to_song_queue(self, song_info :SongInfo):
-        
         new_song_buffer = SongBuffer(song_info)
         self.songs_to_play.append(new_song_buffer)
         logging.debug(f"Appended. {self.songs_to_play=}")
-        
-        if len(self.songs_to_play) == 1:
-            self.start_playing_next_song()
             
     def current_song_buffer_not_empty(self):
         return not self.current_song_buffer.empty()
     
-    @log_calls
     def start_playing_next_song(self):
         if not self.songs_to_play:
-            logging.info("No more songs to play")
+            logging.error("No more songs to play")
+            raise Exception("No more songs to play")
+        
+        if self.current_song_buffer:
+            logging.info("Can't start playing next song, current song is playing")
             return
-
+        
         self.current_song_buffer = self.songs_to_play[0]
         
         logging.debug(f"{self.current_song_buffer=}")
@@ -120,9 +119,9 @@ class AudioHandler:
             with self.lock:
                 song_buffer.put(data)
             logging.debug("Added to buffer!")
+            self.start_playing_next_song()
             return
                 
-        logging.debug("Didn't find song in list")
 
     def calculate_progress(self):
         current_song_info = self.current_song_buffer.info

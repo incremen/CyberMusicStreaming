@@ -1,3 +1,4 @@
+import eventlet
 import socketio
 import logging
 from backend import client_connects_to_str
@@ -36,6 +37,7 @@ class ClientSocketHandler:
             song_info = SongInfo(**song_info_dict)
             logging.info("About to add a new song to the queue!")
             self.audio_handler.add_to_song_queue(song_info)
+            self.sio.emit("acknowledge")
 
         @self.sio.on('audio_data')
         def on_audio_data(song_data, song_name):
