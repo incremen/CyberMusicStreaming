@@ -50,7 +50,7 @@ class AudioHandler:
         logging.checkpoint(f"Starting to play next song: {self.current_song_buffer}")
         
         self.setup_stream()
-        
+        self.socket_handler.emit_to_server("acknowledge")
         self.play_song()
         logging.info("Done playing song...")
         self.songs_to_play.pop(0)
@@ -63,7 +63,8 @@ class AudioHandler:
         logging.checkpoint("Playing new song...")
         self.next_sequence_number = 0
         max_seq = self.current_song_buffer.info.max_seq
-        self.socket_handler.emit_to_server("acknowledge")
+        
+        
         while self.next_sequence_number < max_seq:
             logging.debug(f"{self.next_sequence_number=}, {max_seq=}")
             
