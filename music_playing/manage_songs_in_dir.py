@@ -25,10 +25,6 @@ def get_song_info(song_dir, song_name, chunk):
     logging.debug(f"{song_data=}")
     return song_data
 
-def get_song_path(self, song_name):
-        if not song_name.endswith(".wav"):
-            song_name += ".wav"
-        song_path = os.path.join(self.songs_dir, song_name)
-        return song_path
+
     
     

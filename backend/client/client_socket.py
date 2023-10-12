@@ -37,6 +37,7 @@ class ClientSocketHandler:
         def new_song_stream(song_info_dict):
             logging.info("Received sending_new_song event!")
             song_info = SongInfo(**song_info_dict)
+            logging.debug(f"{song_info=}")
             logging.info("About to add a new song to the queue!")
             self.audio_handler.add_to_song_queue(song_info)
             self.audio_handler.start_playing_next_song()

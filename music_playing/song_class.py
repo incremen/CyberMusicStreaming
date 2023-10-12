@@ -2,6 +2,11 @@ from dataclasses import dataclass
 from queue import Queue
 import math
 
+@dataclass
+class SongToSend():
+    name: str
+    id: int
+
 
 @dataclass
 class SongInfo():
@@ -11,6 +16,7 @@ class SongInfo():
     framerate: int
     nchannels : int
     max_seq : int
+    id : int = None
 
 
 class SongBuffer(dict):
