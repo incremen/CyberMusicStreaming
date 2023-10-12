@@ -29,7 +29,7 @@ class ServerQueueManager:
         
         self.songs_to_send : list[SongToSend]= []
         self.skip_song_flag : bool = False
-        self.song_being_sent : str = None
+        self.song_being_sent : SongToSend = None
         self.client_has_ack : bool = False
         
         self.emit = self.socket_handler.emit_to_client
@@ -41,6 +41,25 @@ class ServerQueueManager:
             song_name += ".wav"
         song_path = os.path.join(self.songs_dir, song_name)
         return song_path
+    
+    def skip_song(self, sid, song_id):
+        if not self.song_being_sent:
+            logging.info("No song being sent, skipping")
+            return
+        
+        logging.info("Beginning of skip song func")
+        if self.song_being_sent and self.song_being_sent.id == song_id:
+            logging.info("Setting skip song flag to true")
+            self.skip_song_flag = True
+            return
+        
+        for i, song in enumerate(self.songs_to_send):
+            if song.id == song_id:
+                logging.info("Found song to skip")
+                self.songs_to_send.pop(i)
+                return
+            
+        logging.info("Nothing to skip server-side")
     
     def send_next_song(self, sid):
         logging.info("Sending next song!")

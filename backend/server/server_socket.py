@@ -52,16 +52,11 @@ class ServerSocketHandler:
         
         @self.sio.on('skip_song')
         def skip_song(sid, song_name):
-            logging.info("Beginning of skip song func")
-            if self.song_queue_manager.song_being_sent != song_name:
-                logging.info("Not sending that anymore...")
-                return
-            
-            logging.info("Skipping song!")
-            self.song_queue_manager.skip_song_flag = True
+            self.song_queue_manager.skip_song(sid, song_name)
             
         app = socketio.WSGIApp(self.sio)
         wsgi.server(eventlet.listen(server_addr_tuple), app)
+
             
 
         
