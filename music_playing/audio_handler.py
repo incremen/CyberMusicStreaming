@@ -3,7 +3,7 @@ import logging
 import pyaudio
 from queue import Queue
 from backend.client.main_page_emitter import MainPageEmitter
-from music_playing.song_class import SongInfo, return_as_songinfo, SongBuffer
+from music_playing.song_class import SongInfo, SongBuffer, SongChunk
 import threading
 import time
 from custom_logging import log_calls
@@ -119,14 +119,14 @@ class AudioHandler:
         self.stream.start_stream()
         logging.debug("Finished setting up stream...")
 
-    def add_to_buffer(self, data, song_id, sequence_num):
-        logging.debug(f"{song_id=}, {self.songs_to_play=}")
+    def add_to_buffer(self, song_chunk : SongChunk):
+        logging.debug(f"{song_chunk=}, {self.songs_to_play=}")
         
         for song_buffer in self.songs_to_play:
-            if song_buffer.info.id != song_id:
+            if song_buffer.info.id != song_chunk.id:
                 continue
             
-            self.current_song_buffer[sequence_num] = data
+            song_buffer[song_chunk.seq] = song_chunk.chunk
             logging.debug("Added to buffer!")
             return
                 

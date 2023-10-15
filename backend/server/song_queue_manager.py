@@ -8,7 +8,7 @@ import eventlet
 from eventlet import wsgi
 import os
 from music_playing import manage_songs_in_dir
-from music_playing.song_class import SongInfo, SongToSend
+from music_playing.song_class import SongInfo, SongToSend, SongChunk
 import pprint
 from dataclasses import asdict
 from backend import server_addr_tuple 
@@ -119,9 +119,9 @@ class ServerQueueManager:
              
              if not song_data_chunk:
                  return
-             
+             song_chunk = SongChunk(chunk=song_data_chunk, name=song_to_send.name, id=song_to_send.id, seq=sequence_number)
              logging.send(f"Sending audio data for {song_to_send.name}(id={song_to_send.id}, seq = {sequence_number})")
-             self.emit('audio_data', (song_data_chunk, song_to_send.id, sequence_number), room=sid)
+             self.emit('audio_data', asdict(song_chunk), room=sid)
              eventlet.sleep(0.01)
              sequence_number += 1
              

@@ -20,6 +20,17 @@ class SongInfo():
     
     def __repr__(self) -> str:
         return f"SongInfo(name={self.name},max_seq={self.max_seq},id={self.id})"
+    
+
+@dataclass
+class SongChunk():
+    chunk : bytes
+    name : str
+    id : int
+    seq : int
+    
+    def __repr__(self) -> str:
+        return f"SongChunk(name={self.name},id={self.id},seq={self.seq})"
 
 
 class SongBuffer(dict):
@@ -30,15 +41,8 @@ class SongBuffer(dict):
     def __repr__(self) -> str:
         return f"SongBuffer(of ({self.info})"
 
-def return_as_songinfo(song_info_dict, **kwargs) -> SongInfo:
-    if song_info_dict is None:
-        return SongInfo(**kwargs)
-    if isinstance(song_info_dict, SongInfo):
-        return song_info_dict
-    if isinstance(song_info_dict, dict):
-        return SongInfo(**song_info_dict)
 
-    raise TypeError(f"{song_info_dict} is not a SongInfo or a dict")
+
 
 
     
