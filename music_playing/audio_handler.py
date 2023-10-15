@@ -47,9 +47,7 @@ class AudioHandler:
         song_info_list = [SongInfo(**song_dict) for song_dict in song_list]
         self.song_name_to_info = {info.name : info for info in song_info_list}
     
-    def new_song_stream(self):
-        self.next_song_id += 1
-        
+    def play_next_song(self):
         if not self.songs_to_play:
             logging.error("No more songs to play")
             return
@@ -61,6 +59,11 @@ class AudioHandler:
         self.current_song_buffer = self.songs_to_play[0]
         logging.checkpoint(f"Starting to play next song: {self.current_song_buffer}")
         
+        if self.current_song_buffer.info.id != self.next_song_id:
+            logging.error(f"Song ids don't match! {self.current_song_buffer.info.id=}, {self.next_song_id=}")
+            raise Exception(f"Song ids don't match! {self.current_song_buffer.info.id=}, {self.next_song_id=}")
+        
+        
         self.setup_stream()
         self.socket_handler.emit_to_server("acknowledge")
         self.play_song()
@@ -68,8 +71,8 @@ class AudioHandler:
         self.songs_to_play.pop(0)
         
         self.current_song_buffer = None
-        
-        self.new_song_stream()
+        self.next_song_id += 1
+        self.play_next_song()
 
     def play_song(self):
         logging.checkpoint("Playing new song...")
