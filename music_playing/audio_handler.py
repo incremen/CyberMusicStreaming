@@ -30,14 +30,26 @@ class AudioHandler:
         
         self.skip_song_flag : bool = False
         self.socket_handler : 'ClientSocketHandler' = None
+        
+        self.song_name_to_info : dict[str, SongInfo] = None
+        
+        self.next_song_id = 0
 
     @log_calls
-    def add_to_song_queue(self, song_info :SongInfo):
+    def add_to_song_queue(self, song_name : str):
+        song_info = self.song_name_to_info[song_name]
+        song_info.id = self.next_song_id
         new_song_buffer = SongBuffer(song_info)
         self.songs_to_play.append(new_song_buffer)
         logging.debug(f"Appended. {self.songs_to_play=}")
+        
+    def song_list_received(self, song_list : list[dict[str, str]]):
+        song_info_list = [SongInfo(**song_dict) for song_dict in song_list]
+        self.song_name_to_info = {info.name : info for info in song_info_list}
     
-    def start_playing_next_song(self):
+    def new_song_stream(self):
+        self.next_song_id += 1
+        
         if not self.songs_to_play:
             logging.error("No more songs to play")
             return
@@ -57,7 +69,7 @@ class AudioHandler:
         
         self.current_song_buffer = None
         
-        self.start_playing_next_song()
+        self.new_song_stream()
 
     def play_song(self):
         logging.checkpoint("Playing new song...")
