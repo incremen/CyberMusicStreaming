@@ -106,11 +106,11 @@ class AudioHandler:
         self.stream.start_stream()
         logging.debug("Finished setting up stream...")
 
-    def add_to_buffer(self, data, song_name, sequence_num):
-        logging.debug(f"{song_name=}, {len(self.songs_to_play)=}")
+    def add_to_buffer(self, data, song_id, sequence_num):
+        logging.debug(f"{song_id=}, {len(self.songs_to_play)=}")
         
         for song_buffer in self.songs_to_play:
-            if song_buffer.info.name != song_name:
+            if song_buffer.info.id != song_id:
                 continue
             
             self.current_song_buffer[sequence_num] = data

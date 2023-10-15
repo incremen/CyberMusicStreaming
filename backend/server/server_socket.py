@@ -20,10 +20,6 @@ class ServerSocketHandler:
     def __init__(self, songs_dir):
         self.sio = socketio.Server()
         self.song_queue_manager = ServerQueueManager(self, songs_dir)
-        
-    def emit_to_client(self, event_name, sid, data= None):
-        self.sio.emit(event_name, data, room=sid)
-        logging.debug(f"Emitted {event_name} to client {sid}")
 
     def start(self):
         @self.sio.on('connect', namespace='/')

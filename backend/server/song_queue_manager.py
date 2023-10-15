@@ -32,7 +32,7 @@ class ServerQueueManager:
         self.song_being_sent : SongToSend = None
         self.client_has_ack : bool = False
         
-        self.emit = self.socket_handler.emit_to_client
+        self.emit = self.socket_handler.sio.emit
         
         self.next_song_id = 0
         
@@ -87,7 +87,7 @@ class ServerQueueManager:
         song_info = self.song_name_to_info[song_to_send.name]
         song_info.id = song_to_send.id
 
-        self.emit("sending_new_song", sid, (asdict(song_info)) )
+        self.emit("sending_new_song", (asdict(song_info)),room=sid )
         logging.info("Emitted sending_new_song event")
 
         logging.info("Waiting for client to acknowledge...")
@@ -110,16 +110,16 @@ class ServerQueueManager:
         sequence_number = 0
         logging.checkpoint(f"Beginning to send song: {song_name=}, {self.songs_to_send=}")
         
-        while song_data := wf.readframes(CHUNK):
+        while song_data_chunk := wf.readframes(CHUNK):
              if self.skip_song_flag:
                  self.skip_song_flag = False
                  return
              
-             if not song_data:
+             if not song_data_chunk:
                  return
              
              logging.debug("Sending audio data!")
-             self.emit('audio_data', sid, (song_data, song_name, sequence_number))
+             self.emit('audio_data', (song_data_chunk, song_to_send.id, sequence_number), room=sid)
              eventlet.sleep(0.01)
              sequence_number += 1
              
