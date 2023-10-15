@@ -30,15 +30,9 @@ class AudioHandler:
         
         self.skip_song_flag : bool = False
         self.socket_handler : 'ClientSocketHandler' = None
-        
-        self.song_name_to_info : dict[str, SongInfo] = None
-        
-        self.next_song_id = 0
 
     @log_calls
-    def add_to_song_queue(self, song_name : str):
-        song_info = self.song_name_to_info[song_name]
-        song_info.id = self.next_song_id
+    def add_to_song_queue(self, song_info :SongInfo):
         new_song_buffer = SongBuffer(song_info)
         self.songs_to_play.append(new_song_buffer)
         logging.debug(f"Appended. {self.songs_to_play=}")
@@ -71,8 +65,8 @@ class AudioHandler:
         self.songs_to_play.pop(0)
         
         self.current_song_buffer = None
-        self.next_song_id += 1
-        self.play_next_song()
+        
+        self.new_song_stream()
 
     def play_song(self):
         logging.checkpoint("Playing new song...")
