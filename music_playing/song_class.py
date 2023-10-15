@@ -39,7 +39,7 @@ class SongBuffer(dict):
         self.order = order
         
     def __repr__(self) -> str:
-        return f"SongBuffer(of ({self.info})"
+        return f"SongBuffer({self.info.name},{self.info.max_seq}, order={self.order})"
 
 
 
