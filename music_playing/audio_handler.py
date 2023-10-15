@@ -30,12 +30,21 @@ class AudioHandler:
         
         self.skip_song_flag : bool = False
         self.socket_handler : 'ClientSocketHandler' = None
+        
+        self.next_expected_id = 0
 
     @log_calls
     def add_to_song_queue(self, song_info :SongInfo):
         new_song_buffer = SongBuffer(song_info)
+        
+        if new_song_buffer.info.id != self.next_expected_id:
+            logging.error(f"Song ids don't match! {new_song_buffer.info.id=}, {self.next_expected_id=}")
+            raise Exception(f"Song ids don't match! {new_song_buffer.info.id=}, {self.next_expected_id=}")
+        
         self.songs_to_play.append(new_song_buffer)
+        
         logging.debug(f"Appended. {self.songs_to_play=}")
+        self.next_expected_id += 1
         
     def song_list_received(self, song_list : list[dict[str, str]]):
         song_info_list = [SongInfo(**song_dict) for song_dict in song_list]
@@ -53,11 +62,6 @@ class AudioHandler:
         self.current_song_buffer = self.songs_to_play[0]
         logging.checkpoint(f"Starting to play next song: {self.current_song_buffer}")
         
-        if self.current_song_buffer.info.id != self.next_song_id:
-            logging.error(f"Song ids don't match! {self.current_song_buffer.info.id=}, {self.next_song_id=}")
-            raise Exception(f"Song ids don't match! {self.current_song_buffer.info.id=}, {self.next_song_id=}")
-        
-        
         self.setup_stream()
         self.socket_handler.emit_to_server("acknowledge")
         self.play_song()
@@ -66,7 +70,7 @@ class AudioHandler:
         
         self.current_song_buffer = None
         
-        self.new_song_stream()
+        self.play_next_song()
 
     def play_song(self):
         logging.checkpoint("Playing new song...")
@@ -116,7 +120,7 @@ class AudioHandler:
         logging.debug("Finished setting up stream...")
 
     def add_to_buffer(self, data, song_id, sequence_num):
-        logging.debug(f"{song_id=}, {len(self.songs_to_play)=}")
+        logging.debug(f"{song_id=}, {self.songs_to_play=}")
         
         for song_buffer in self.songs_to_play:
             if song_buffer.info.id != song_id:

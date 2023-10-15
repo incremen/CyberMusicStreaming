@@ -17,6 +17,9 @@ class SongInfo():
     nchannels : int
     max_seq : int
     id : int = None
+    
+    def __repr__(self) -> str:
+        return f"SongInfo(name={self.name},max_seq={self.max_seq},id={self.id})"
 
 
 class SongBuffer(dict):

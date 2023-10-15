@@ -39,7 +39,7 @@ class ClientSocketHandler:
             logging.recv(f"Received sending_new_song event! {song_info=}")
             logging.info("About to add a new song to the queue!")
             self.audio_handler.add_to_song_queue(song_info)
-            self.audio_handler.start_playing_next_song()
+            self.audio_handler.play_next_song()
 
         @self.sio.on('audio_data')
         def on_audio_data(song_data, song_id, sequence_number):
