@@ -31,20 +31,20 @@ class AudioHandler:
         self.skip_song_flag : bool = False
         self.socket_handler : 'ClientSocketHandler' = None
         
-        self.next_expected_id = 0
+        self.next_expected_order = 0
 
     @log_calls
-    def add_to_song_queue(self, song_info :SongInfo):
-        new_song_buffer = SongBuffer(song_info)
+    def add_to_song_queue(self, song_info :SongInfo, song_order : int):
+        new_song_buffer = SongBuffer(song_info, song_order)
         
-        if new_song_buffer.info.id != self.next_expected_id:
-            logging.error(f"Song ids don't match! {new_song_buffer.info.id=}, {self.next_expected_id=}")
-            raise Exception(f"Song ids don't match! {new_song_buffer.info.id=}, {self.next_expected_id=}")
+        if new_song_buffer.order != self.next_expected_order:
+            logging.error(f"Song orders don't match! {new_song_buffer.order=}, {self.next_expected_order=}")
+            raise Exception(f"Song orders don't match! {new_song_buffer.order=}, {self.next_expected_order=}")
         
         self.songs_to_play.append(new_song_buffer)
         
         logging.debug(f"Appended. {self.songs_to_play=}")
-        self.next_expected_id += 1
+        self.next_expected_order += 1
         
     def song_list_received(self, song_list : list[dict[str, str]]):
         song_info_list = [SongInfo(**song_dict) for song_dict in song_list]
@@ -123,7 +123,7 @@ class AudioHandler:
         logging.debug(f"{song_chunk=}, {self.songs_to_play=}")
         
         for song_buffer in self.songs_to_play:
-            if song_buffer.info.id != song_chunk.id:
+            if song_buffer.order != song_chunk.order:
                 continue
             
             song_buffer[song_chunk.seq] = song_chunk.chunk

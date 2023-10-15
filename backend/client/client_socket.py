@@ -23,8 +23,8 @@ class ClientSocketHandler:
         self.sio.emit('audio_request', song_name)
         
     def send_skip_song_event(self):
-        current_song_id = self.audio_handler.current_song_buffer.info.id
-        self.sio.emit('skip_song', current_song_id)
+        order = self.audio_handler.current_song_buffer.order
+        self.sio.emit('skip_song', order)
         
     def connect(self):
         self.sio.connect(client_connects_to_str)
@@ -34,11 +34,10 @@ class ClientSocketHandler:
             logging.info('Connected to server')
             
         @self.sio.on("sending_new_song")
-        def new_song_stream(song_info_dict):
+        def new_song_stream(song_info_dict, song_order):
             song_info = SongInfo(**song_info_dict)
             logging.recv(f"Received sending_new_song event! {song_info=}")
-            logging.info("About to add a new song to the queue!")
-            self.audio_handler.add_to_song_queue(song_info)
+            self.audio_handler.add_to_song_queue(song_info, song_order)
             self.audio_handler.play_next_song()
 
         @self.sio.on('audio_data')

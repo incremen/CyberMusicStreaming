@@ -49,7 +49,7 @@ class ServerQueueManager:
             return
         
         logging.info("Beginning of skip song func")
-        if self.song_being_sent and self.song_being_sent.id == song_id:
+        if self.song_being_sent and self.song_being_sent.order == song_id:
             logging.info("Setting skip song flag to true")
             self.skip_song_flag = True
             return
@@ -87,10 +87,9 @@ class ServerQueueManager:
         song_path = self.get_song_path(song_to_send.name)
     
         song_info = self.song_name_to_info[song_to_send.name]
-        song_info.id = song_to_send.id
 
-        self.emit("sending_new_song", (asdict(song_info)),room=sid )
-        logging.send(f"Emitted sending_new_song event for {song_to_send.name}(id={song_to_send.id})")
+        self.emit("sending_new_song", ((asdict(song_info)), song_to_send.order) ,room=sid )
+        logging.send(f"Emitted sending_new_song event for {song_to_send.name}(id={song_to_send.order})")
 
         logging.info("Waiting for client to acknowledge...")
         self.await_client_ack()
@@ -119,8 +118,8 @@ class ServerQueueManager:
              
              if not song_data_chunk:
                  return
-             song_chunk = SongChunk(chunk=song_data_chunk, name=song_to_send.name, id=song_to_send.id, seq=sequence_number)
-             logging.send(f"Sending audio data for {song_to_send.name}(id={song_to_send.id}, seq = {sequence_number})")
+             song_chunk = SongChunk(chunk=song_data_chunk, name=song_to_send.name, order=song_to_send.order, seq=sequence_number)
+             logging.send(f"Sending audio data for {song_to_send.name}(id={song_to_send.order}, seq = {sequence_number})")
              self.emit('audio_data', asdict(song_chunk), room=sid)
              eventlet.sleep(0.01)
              sequence_number += 1
