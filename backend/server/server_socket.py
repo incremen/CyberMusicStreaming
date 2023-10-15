@@ -28,7 +28,7 @@ class ServerSocketHandler:
 
         @self.sio.on('audio_request')
         def on_audio_request(sid, song_name: str):
-            logging.checkpoint(f"Received audio request for {song_name}")
+            logging.recv(f"Received audio request for {song_name}")
             self.song_queue_manager.add_song_to_send_list(song_name, sid)
 
         @self.sio.on("song_list_request")

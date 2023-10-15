@@ -75,7 +75,7 @@ class AudioHandler:
             
             self.play_event.wait()
             self.await_next_seq_num() 
-            logging.deb("Done waiting for seq num!")   
+            logging.debug("Done waiting for seq num!")   
             self.write_song_data()
             self.emit_progress_to_bar()
         logging.checkpoint("Done playing song...")
@@ -86,7 +86,7 @@ class AudioHandler:
         self.next_sequence_number += 1
         
     def await_next_seq_num(self):
-        logging.deb(f"Waiting for {self.next_sequence_number}, {self.current_song_buffer=}")
+        logging.debug(f"Waiting for {self.next_sequence_number}, {self.current_song_buffer=}")
         while self.next_sequence_number not in self.current_song_buffer:
             eventlet.sleep(0.01)
             

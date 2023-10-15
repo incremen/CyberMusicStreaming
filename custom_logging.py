@@ -83,8 +83,9 @@ class CustomLogger():
         Adds custom levels to the logger. Change this yourself depending on which levels you want.
 
         """
-        self.add_custom_level("deb", 37, "yellow")
-        self.add_custom_level("checkpoint", 38, "magenta")
+        self.add_custom_level("send", 37, "yellow")
+        self.add_custom_level("recv", 38, "cyan")
+        self.add_custom_level("checkpoint", 39, "magenta")
         
     
     def add_custom_level(self, levelName: str, levelNum: int, levelColor: str):
@@ -104,7 +105,7 @@ class CustomLogger():
 
         logging.getLogger().setLevel(getattr(logging, levelNameUpper))
 
-        coloredlogs.DEFAULT_LEVEL_STYLES[levelNameLower] = {"color": levelColor}
+        coloredlogs.DEFAULT_LEVEL_STYLES[levelNameLower] = {"color": levelColor, "bold": True}
         
     def setup_handlers(self, log_to_console):
         colored_formatter = self.create_colored_formatter()

@@ -43,6 +43,7 @@ class ServerQueueManager:
         return song_path
     
     def skip_song(self, sid, song_id):
+        logging.recv(f"Received skip song req for {song_id}")
         if not self.song_being_sent:
             logging.info("No song being sent, skipping")
             return
@@ -75,6 +76,7 @@ class ServerQueueManager:
         return songtosend
         
     def add_song_to_send_list(self, song_name, sid):
+        logging.checkpoint(f"Received audio request for {song_name}")
         song_to_send = self.create_new_songtosend(song_name)
         self.songs_to_send.append(song_to_send)
         logging.info(f"Added {song_name} to song list")
@@ -88,7 +90,7 @@ class ServerQueueManager:
         song_info.id = song_to_send.id
 
         self.emit("sending_new_song", (asdict(song_info)),room=sid )
-        logging.info("Emitted sending_new_song event")
+        logging.send(f"Emitted sending_new_song event for {song_to_send.name}(id={song_to_send.id})")
 
         logging.info("Waiting for client to acknowledge...")
         self.await_client_ack()
@@ -118,7 +120,7 @@ class ServerQueueManager:
              if not song_data_chunk:
                  return
              
-             logging.debug("Sending audio data!")
+             logging.send(f"Sending audio data for {song_to_send.name}(id={song_to_send.id}, seq = {sequence_number})")
              self.emit('audio_data', (song_data_chunk, song_to_send.id, sequence_number), room=sid)
              eventlet.sleep(0.01)
              sequence_number += 1

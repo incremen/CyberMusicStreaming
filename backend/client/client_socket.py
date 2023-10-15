@@ -35,16 +35,15 @@ class ClientSocketHandler:
             
         @self.sio.on("sending_new_song")
         def new_song_stream(song_info_dict):
-            logging.info("Received sending_new_song event!")
             song_info = SongInfo(**song_info_dict)
-            logging.debug(f"{song_info=}")
+            logging.recv(f"Received sending_new_song event! {song_info=}")
             logging.info("About to add a new song to the queue!")
             self.audio_handler.add_to_song_queue(song_info)
             self.audio_handler.start_playing_next_song()
 
         @self.sio.on('audio_data')
         def on_audio_data(song_data, song_id, sequence_number):
-            logging.info("Received audio data")
+            logging.recv(f"Received audio data ({song_id=}, {sequence_number=})")
             self.audio_handler.add_to_buffer(song_data, song_id, sequence_number)
 
         @self.sio.event
