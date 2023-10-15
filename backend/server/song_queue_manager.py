@@ -30,7 +30,6 @@ class ServerQueueManager:
         self.songs_to_send : list[SongToSend]= []
         self.skip_song_flag : bool = False
         self.song_being_sent : SongToSend = None
-        self.client_has_ack : bool = False
         
         self.emit = self.socket_handler.sio.emit
         
@@ -90,9 +89,6 @@ class ServerQueueManager:
 
         self.emit("sending_new_song", ((asdict(song_info)), song_to_send.order) ,room=sid )
         logging.send(f"Emitted sending_new_song event for {song_to_send.name}(id={song_to_send.order})")
-
-        logging.info("Waiting for client to acknowledge...")
-        self.await_client_ack()
         
         logging.debug(f"About to send {song_path}") 
         
@@ -100,11 +96,6 @@ class ServerQueueManager:
         with wave.open(song_path, 'rb') as wave_file:
             self.send_song_data(song_to_send, sid, wave_file)
         self.song_being_sent = None
-
-    def await_client_ack(self):
-        while not self.client_has_ack:
-            eventlet.sleep(0.01)
-        self.client_has_ack = False
 
     def send_song_data(self, song_to_send : SongToSend, sid, wf):
         song_name = song_to_send.name
@@ -114,6 +105,7 @@ class ServerQueueManager:
         while song_data_chunk := wf.readframes(CHUNK):
              if self.skip_song_flag:
                  self.skip_song_flag = False
+                 logging.checkpoint("Song skipped!")
                  return
              
              if not song_data_chunk:

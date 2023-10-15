@@ -39,11 +39,6 @@ class ServerSocketHandler:
         @self.sio.event
         def disconnect(sid):
             logging.info('Client disconnected')
-            
-        @self.sio.on('acknowledge')
-        def client_acknowledged(sid):
-            logging.debug("Client acknowledged")
-            self.song_queue_manager.client_has_ack = True
         
         @self.sio.on('skip_song')
         def skip_song(sid, song_name):
