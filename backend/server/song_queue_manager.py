@@ -52,12 +52,6 @@ class ServerQueueManager:
             logging.info("Setting skip song flag to true")
             self.skip_song_flag = True
             return
-        
-        for i, song in enumerate(self.songs_to_send):
-            if song.id == song_id:
-                logging.info("Found song to skip")
-                self.songs_to_send.pop(i)
-                return
             
         logging.info("Nothing to skip server-side")
     

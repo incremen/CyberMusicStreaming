@@ -24,7 +24,6 @@ class ServerSocketHandler:
     def emit_to_client(self, event_name, sid, data= None):
         self.sio.emit(event_name, data, room=sid)
         logging.debug(f"Emitted {event_name} to client {sid}")
-        return
 
     def start(self):
         @self.sio.on('connect', namespace='/')
