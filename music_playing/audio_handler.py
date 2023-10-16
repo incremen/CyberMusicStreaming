@@ -63,7 +63,6 @@ class AudioHandler:
         logging.checkpoint(f"Starting to play next song: {self.current_song_buffer}")
         
         self.setup_stream()
-        self.socket_handler.emit_to_server("acknowledge")
         self.play_song()
         logging.info("Done playing song...")
         self.songs_to_play.pop(0)
@@ -134,7 +133,6 @@ class AudioHandler:
     def emit_progress_to_bar(self):
         progress = int(self.next_sequence_number* 100 /self.current_song_buffer.info.max_seq)
         self.main_page_emitter.update_song_progress.emit(progress)
-        return progress
         
     def pause_or_resume(self):
         if self.play_event.is_set():

@@ -15,9 +15,8 @@ class ClientSocketHandler:
         self.audio_handler = audio_handler
         self.audio_handler.socket_handler = self
         self.main_page_emitter = main_page_emitter
-    
-    def emit_to_server(self, event_name : str, data = None):
-        self.sio.emit(event_name, data)
+        
+        self.emit_to_server= self.sio.emit
 
     def request_song(self, song_name : str):
         self.sio.emit('audio_request', song_name)
