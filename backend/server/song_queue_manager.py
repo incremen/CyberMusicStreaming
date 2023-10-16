@@ -28,12 +28,15 @@ class ServerQueueManager:
         self.song_name_to_info = manage_songs_in_dir.get_name_to_songinfo_dict(self.songs_dir, CHUNK)
         
         self.songs_to_send : list[SongToSend]= []
-        self.skip_song_flag : bool = False
         self.song_being_sent : SongToSend = None
         
         self.emit = self.socket_handler.sio.emit
         
         self.next_song_id = 0
+        
+        self.songs_to_skip : dict[int, bool] = {}
+        
+        self.check_skip_lock = threading.Semaphore(2)
         
     def get_song_path(self, song_name :str):
         if not song_name.endswith(".wav"):
@@ -41,19 +44,22 @@ class ServerQueueManager:
         song_path = os.path.join(self.songs_dir, song_name)
         return song_path
     
-    def skip_song(self, sid, song_id):
-        logging.recv(f"Received skip song req for {song_id}")
-        if not self.song_being_sent:
-            logging.info("No song being sent, skipping")
-            return
-        
-        logging.info("Beginning of skip song func")
-        if self.song_being_sent and self.song_being_sent.order == song_id:
-            logging.info("Setting skip song flag to true")
-            self.skip_song_flag = True
-            return
+    def skip_song(self, sid, song_order):
+        with self.check_skip_lock:
+            logging.recv(f"Received skip song req for {song_order=}, {self.songs_to_send=}")
             
-        logging.info("Nothing to skip server-side")
+            if self.songs_to_send[0].order == song_order:
+                self.songs_to_skip[song_order] = True
+                logging.debug(f"Set skip to true for {song_order}")
+                return
+            
+            for i, song in enumerate(self.songs_to_send,1):
+                if song.order == song_order:
+                    self.songs_to_send.pop(i)
+                    logging.debug(f"Popped {song_order}")
+                    return
+                
+            logging.error(f"Song order to skip not found: {song_order}")
     
     def send_next_song(self, sid):
         logging.info("Sending next song!")
@@ -62,11 +68,11 @@ class ServerQueueManager:
             logging.info("No more songs to send...")
             return
 
-        next_song = self.songs_to_send.pop(0)
+        next_song = self.songs_to_send[0]
         
-        self.skip_song_flag = False
         self.send_song(next_song, sid)
-        
+        self.songs_to_send.pop(0)
+        #you cant pop it earlier because it needs to stay in the list
         self.send_next_song(sid)
         
     def create_new_songtosend(self, song_name):
@@ -103,17 +109,21 @@ class ServerQueueManager:
         logging.checkpoint(f"Beginning to send song: {song_name=}, {self.songs_to_send=}")
         
         while song_data_chunk := wf.readframes(CHUNK):
-             if self.skip_song_flag:
-                 self.skip_song_flag = False
-                 logging.checkpoint("Song skipped!")
+            with self.check_skip_lock:
+                eventlet.sleep(0.01)
+                
+            if self.songs_to_skip.get(song_to_send.order):
+                 logging.checkpoint(f"Song skipped: {song_to_send}")
+                 self.songs_to_skip[song_to_send.order] = False
                  return
              
-             if not song_data_chunk:
+            if not song_data_chunk:
                  return
-             song_chunk = SongChunk(chunk=song_data_chunk, name=song_to_send.name, order=song_to_send.order, seq=sequence_number)
-             logging.send(f"Sending audio data for {song_to_send.name}(id={song_to_send.order}, seq = {sequence_number})")
-             self.emit('audio_data', asdict(song_chunk), room=sid)
-             eventlet.sleep(0.01)
-             sequence_number += 1
+            song_chunk = SongChunk(chunk=song_data_chunk, name=song_to_send.name, order=song_to_send.order, seq=sequence_number)
+            logging.send(f"Sending audio data for {song_to_send.name}(id={song_to_send.order}, seq = {sequence_number})")
+            self.emit('audio_data', asdict(song_chunk), room=sid)
+             
+
+            sequence_number += 1
              
         logging.checkpoint(f"Done sending song: {song_name=}, {self.songs_to_send=}")
