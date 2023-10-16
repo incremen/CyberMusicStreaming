@@ -8,6 +8,8 @@ import threading
 import time
 from custom_logging import log_calls
 from typing import TYPE_CHECKING
+from music_playing.song_queue import SongQueue
+
 
 if TYPE_CHECKING:
     from backend.client.client_socket import ClientSocketHandler
@@ -21,7 +23,7 @@ class AudioHandler:
         self.main_page_emitter = main_page_emitter
         self.lock = threading.Lock()
         
-        self.songs_to_play :list[SongBuffer] = []
+        self.song_queue :list[SongBuffer] = SongQueue(main_page_emitter.update_song_queue)
         
         self.play_event = threading.Event()
         self.play_event.set()
@@ -32,28 +34,27 @@ class AudioHandler:
         self.socket_handler : 'ClientSocketHandler' = None
         
         self.next_expected_order = 0
-
+        
     @log_calls
-    def add_to_song_queue(self, song_info :SongInfo, song_order : int):
-        new_song_buffer = SongBuffer(song_info, song_order)
+    def add_to_song_queue(self, song_name :str):
+        song_info = self.song_name_to_info[song_name]
+        new_song_buffer = SongBuffer(song_info, self.next_expected_order)
         
-        if new_song_buffer.order != self.next_expected_order:
-            logging.error(f"Song orders don't match! {new_song_buffer.order=}, {self.next_expected_order=}")
-            raise Exception(f"Song orders don't match! {new_song_buffer.order=}, {self.next_expected_order=}")
+        self.song_queue.append(new_song_buffer)
         
-        self.songs_to_play.append(new_song_buffer)
+        logging.debug(f"Appended. {self.song_queue=}")
         
-        logging.debug(f"Appended. {self.songs_to_play=}")
+        self.main_page_emitter.update_song_queue.emit(new_song_buffer)
+        
         self.next_expected_order += 1
         
-        self.main_page_emitter.add_song_to_queue.emit(new_song_buffer)
         
     def song_list_received(self, song_list : list[dict[str, str]]):
         song_info_list = [SongInfo(**song_dict) for song_dict in song_list]
         self.song_name_to_info = {info.name : info for info in song_info_list}
     
     def play_next_song(self):
-        if not self.songs_to_play:
+        if not self.song_queue:
             logging.error("No more songs to play")
             return
                 
@@ -61,13 +62,13 @@ class AudioHandler:
             logging.info("Can't start playing next song, current song is playing")
             return
         
-        self.current_song_buffer = self.songs_to_play[0]
+        self.current_song_buffer = self.song_queue[0]
         logging.checkpoint(f"Starting to play next song: {self.current_song_buffer}")
         
         self.setup_stream()
         self.play_song()
         logging.info("Done playing song...")
-        self.songs_to_play.pop(0)
+        self.song_queue.pop(0)
         
         self.current_song_buffer = None
         
@@ -121,9 +122,9 @@ class AudioHandler:
         logging.debug("Finished setting up stream...")
 
     def add_to_buffer(self, song_chunk : SongChunk):
-        logging.debug(f"{song_chunk=}, {self.songs_to_play=}")
+        logging.debug(f"{song_chunk=}, {self.song_queue=}")
         
-        for song_buffer in self.songs_to_play:
+        for song_buffer in self.song_queue:
             if song_buffer.order != song_chunk.order:
                 continue
             

@@ -54,10 +54,15 @@ class MainPage(QMainWindow):
         self.pause_btn.clicked.connect(self.pause_btn_click)  
         
         self.song_queue = main_widget.findChild(QListWidget, "song_queue")  
-        
-    def add_song_to_queue(self, song_buffer :SongBuffer):
-        song_text = f"{song_buffer.info.name}, order = {song_buffer.order}"
+    
+    def add_song_to_queue(self, song_buffer : SongBuffer):
+        song_text = song_buffer.__repr__()
         self.song_queue.addItem(song_text)
+    
+    def update_song_queue(self, song_list : list[SongBuffer]):
+        self.song_queue.clear()
+        for song in song_list:
+            self.add_song_to_queue(song)
     
     def skip_btn_click(self):
         self.socket_handler.send_skip_song_event()
@@ -81,7 +86,9 @@ class MainPage(QMainWindow):
         
     def song_btn_click(self):
         btn_clicked_data = self.btn_to_data[self.sender()]
+        self.audio_handler.add_to_song_queue(btn_clicked_data.name)
         self.socket_handler.request_song(btn_clicked_data.name)
+        
 
         
     
