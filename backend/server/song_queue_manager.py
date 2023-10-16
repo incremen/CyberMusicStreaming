@@ -47,6 +47,9 @@ class ServerQueueManager:
     def skip_song(self, sid, song_order):
         with self.check_skip_lock:
             logging.recv(f"Received skip song req for {song_order=}, {self.songs_to_send=}")
+            if not self.songs_to_send:
+                logging.info("No more songs to skip...")
+                return
             
             if self.songs_to_send[0].order == song_order:
                 self.songs_to_skip[song_order] = True
