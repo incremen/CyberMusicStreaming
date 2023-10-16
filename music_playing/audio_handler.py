@@ -46,6 +46,8 @@ class AudioHandler:
         logging.debug(f"Appended. {self.songs_to_play=}")
         self.next_expected_order += 1
         
+        self.main_page_emitter.add_song_to_queue.emit(new_song_buffer)
+        
     def song_list_received(self, song_list : list[dict[str, str]]):
         song_info_list = [SongInfo(**song_dict) for song_dict in song_list]
         self.song_name_to_info = {info.name : info for info in song_info_list}

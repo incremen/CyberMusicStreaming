@@ -1,8 +1,8 @@
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWidget, QGridLayout, QProgressBar
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWidget, QGridLayout, QProgressBar, QListWidget
 from PyQt5 import uic, QtGui
 from PyQt5.QtCore import Qt
 import logging
-from music_playing.song_class import SongInfo
+from music_playing.song_class import SongInfo, SongBuffer
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -51,7 +51,13 @@ class MainPage(QMainWindow):
         self.skip_btn.clicked.connect(self.skip_btn_click)
         
         self.pause_btn = main_widget.findChild(QPushButton, "pause_btn")
-        self.pause_btn.clicked.connect(self.pause_btn_click)    
+        self.pause_btn.clicked.connect(self.pause_btn_click)  
+        
+        self.song_queue = main_widget.findChild(QListWidget, "song_queue")  
+        
+    def add_song_to_queue(self, song_buffer :SongBuffer):
+        song_text = f"{song_buffer.info.name}, order = {song_buffer.order}"
+        self.song_queue.addItem(song_text)
     
     def skip_btn_click(self):
         self.socket_handler.send_skip_song_event()

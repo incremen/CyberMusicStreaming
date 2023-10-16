@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>996</width>
+    <width>1180</width>
     <height>843</height>
    </rect>
   </property>
@@ -41,7 +41,7 @@
      <widget class="QWidget" name="main_widget" native="true">
       <property name="minimumSize">
        <size>
-        <width>900</width>
+        <width>1100</width>
         <height>0</height>
        </size>
       </property>
@@ -53,7 +53,7 @@
         <rect>
          <x>70</x>
          <y>10</y>
-         <width>741</width>
+         <width>621</width>
          <height>591</height>
         </rect>
        </property>
@@ -62,67 +62,24 @@
       <widget class="QProgressBar" name="song_progress">
        <property name="geometry">
         <rect>
-         <x>160</x>
+         <x>120</x>
          <y>680</y>
          <width>511</width>
          <height>23</height>
         </rect>
        </property>
        <property name="value">
-        <number>2</number>
+        <number>0</number>
        </property>
        <property name="invertedAppearance">
         <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QScrollBar" name="horizontalScrollBar">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>730</y>
-         <width>551</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QScrollBar {
-                background-color: transparent;
-                width: 10px;
-            }
-            QScrollBar::handle {
-                background-color: blue;
-                min-height: 0;
-
-            }
-            QScrollBar::add-line, QScrollBar::sub-line {
-                background-color: transparent;
-                height: 0;
-            }</string>
-       </property>
-       <property name="sliderPosition">
-        <number>2</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="invertedAppearance">
-        <bool>true</bool>
-       </property>
-       <property name="invertedControls">
-        <bool>false</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="pause_btn">
        <property name="geometry">
         <rect>
-         <x>264</x>
-         <y>622</y>
+         <x>200</x>
+         <y>620</y>
          <width>111</width>
          <height>41</height>
         </rect>
@@ -134,14 +91,24 @@
       <widget class="QPushButton" name="skip_btn">
        <property name="geometry">
         <rect>
-         <x>454</x>
-         <y>622</y>
+         <x>400</x>
+         <y>620</y>
          <width>111</width>
          <height>41</height>
         </rect>
        </property>
        <property name="text">
         <string>skip</string>
+       </property>
+      </widget>
+      <widget class="QListWidget" name="song_queue">
+       <property name="geometry">
+        <rect>
+         <x>785</x>
+         <y>20</y>
+         <width>271</width>
+         <height>721</height>
+        </rect>
        </property>
       </widget>
      </widget>
@@ -166,7 +133,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>996</width>
+     <width>1180</width>
      <height>21</height>
     </rect>
    </property>
