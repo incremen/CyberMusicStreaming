@@ -4,7 +4,10 @@ from PyQt5.QtCore import pyqtSignal
 class SongQueue(UserList):
     def __init__(self, signal :pyqtSignal, *args):
         super().__init__(args)
-        self.emit_signal = signal.emit
+        self.signal = signal
+        
+    def emit_signal(self):
+        self.signal.emit(self.data) 
         
     def append(self, item):
         super().append(item)

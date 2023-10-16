@@ -11,7 +11,7 @@ from music_playing.song_class import SongInfo, SongChunk
 
 class ClientSocketHandler:
     def __init__(self, audio_handler :AudioHandler, main_page_emitter: MainPageEmitter):
-        self.sio = socketio.Client(logger=True, engineio_logger=True)
+        self.sio = socketio.Client(logger=False, engineio_logger=False)
         self.audio_handler = audio_handler
         self.audio_handler.socket_handler = self
         self.main_page_emitter = main_page_emitter

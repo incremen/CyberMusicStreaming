@@ -41,10 +41,7 @@ class AudioHandler:
         new_song_buffer = SongBuffer(song_info, self.next_expected_order)
         
         self.song_queue.append(new_song_buffer)
-        
         logging.debug(f"Appended. {self.song_queue=}")
-        
-        self.main_page_emitter.update_song_queue.emit(new_song_buffer)
         
         self.next_expected_order += 1
         
