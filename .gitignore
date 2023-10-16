@@ -1,3 +1,5 @@
 __pycache__
 /log
 *.pyc
+__pycache__/custom_logging.cpython-310.pyc
+music_playing/__pycache__/audio_handler.cpython-310.pyc

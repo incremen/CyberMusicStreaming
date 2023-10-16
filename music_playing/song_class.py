@@ -18,7 +18,7 @@ class SongInfo():
     max_seq : int
     
     def __repr__(self) -> str:
-        return f"SongInfo(name={self.name},max_seq={self.max_seq}"
+        return f"SongInfo(name={self.name},max_seq={self.max_seq})"
     
 
 @dataclass
