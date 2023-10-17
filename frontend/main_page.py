@@ -1,9 +1,11 @@
 from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWidget, QGridLayout, QProgressBar, QListWidget
 from PyQt5 import uic, QtGui
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QThread, pyqtSlot
 import logging
 from music_playing.song_class import SongInfo, SongBuffer
 from typing import TYPE_CHECKING
+import threading
+from frontend.skip_thread import SkipThread
 
 if TYPE_CHECKING:
     from backend.client.client_socket import ClientSocketHandler
@@ -26,6 +28,8 @@ class MainPage(QMainWindow):
         
         self.last_row = 0
         self.last_col = -1
+        
+        self.skip_lock = threading.Lock()
         
     def song_list_received(self, songs : list):
         logging.debug(f"Received song list: {songs}")
@@ -63,11 +67,19 @@ class MainPage(QMainWindow):
         self.song_queue.clear()
         for song in song_list:
             self.add_song_to_queue(song)
-    
-    def skip_btn_click(self):
-        self.skip_btn.setEnabled(False)
+
+    def skip_song_thread(self):
         self.audio_handler.skip_song()
         self.socket_handler.send_skip_song_event()
+
+    @pyqtSlot()
+    def skip_btn_click(self):
+        self.skip_btn.setEnabled(False)
+        self.skip_thread = SkipThread(self.audio_handler, self.socket_handler)
+        self.skip_thread.finished.connect(self.enable_skip_button)
+        self.skip_thread.start()
+
+    def enable_skip_button(self):
         self.skip_btn.setEnabled(True)
         
     def pause_btn_click(self):

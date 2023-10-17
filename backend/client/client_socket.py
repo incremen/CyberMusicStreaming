@@ -18,17 +18,28 @@ class ClientSocketHandler:
         
         self.emit_to_server= self.sio.emit
         
+        self.got_response = threading.Event()
+        self.await_response_lock = threading.Semaphore(2)
+        
 
     def request_song(self, song_name : str):
         self.sio.emit('audio_request', song_name)
-        
+    
+    def ack_received(self):
+        with self.await_response_lock:
+            self.got_response.set()
+    
     def send_skip_song_event(self):
-        if not self.audio_handler.current_song_buffer:
-            logging.info("No current song playing...")
-            return
-        
-        order = self.audio_handler.current_song_buffer.order
-        self.sio.emit('skip_song', order, )
+        with self.await_response_lock:
+            if not self.audio_handler.current_song_buffer:
+                logging.info("No current song playing...")
+                return
+            
+            order = self.audio_handler.current_song_buffer.order
+            self.sio.emit('skip_song', order,callback=self.ack_received)
+            
+            self.got_response.wait()
+            self.got_response.clear()
         
     def connect(self):
         self.sio.connect(client_connects_to_str)

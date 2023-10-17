@@ -23,7 +23,7 @@ class AudioHandler:
         self.main_page_emitter = main_page_emitter
         self.lock = threading.Lock()
         
-        self.song_queue = SongQueue(main_page_emitter.update_song_queue)
+        self.song_queue :list[SongBuffer]= SongQueue(main_page_emitter.update_song_queue)
         
         self.play_event = threading.Event()
         self.play_event.set()
@@ -32,10 +32,12 @@ class AudioHandler:
         
         self.skip_song_flag : bool = False
         self.skip_song_lock = threading.Lock()
+        self.skipped_song_event = threading.Event()
         
         self.socket_handler : 'ClientSocketHandler' = None
         
         self.next_expected_order = 0
+        
         
     @log_calls
     def add_to_song_queue(self, song_name :str):
@@ -66,7 +68,7 @@ class AudioHandler:
         
         self.setup_stream()
         self.play_song()
-        logging.info("Done playing song...")
+        logging.checkpoint("Done playing song...")
         self.song_queue.pop(0)
         
         self.current_song_buffer = None
@@ -77,23 +79,21 @@ class AudioHandler:
         logging.checkpoint("Playing new song...")
         self.next_sequence_number = 0
         max_seq = self.current_song_buffer.info.max_seq
-        
-        
         while self.next_sequence_number < max_seq:
             logging.debug(f"{self.next_sequence_number=}, {max_seq=}")
             
-            with self.skip_song_lock:
-                if self.skip_song_flag:
-                    self.skip_song_flag = False
-                    logging.info("Skipping song...")
-                    break
+            if self.skip_song_flag:
+                self.skip_song_flag = False
+                logging.info("Skipping song...")
+                self.skipped_song_event.set()
+                logging.debug("Set skipped song event")
+                return
             
             self.play_event.wait()
             self.await_next_seq_num() 
             logging.debug("Done waiting for seq num!")   
             self.write_song_data()
             self.emit_progress_to_bar()
-        logging.checkpoint("Done playing song...")
 
     def write_song_data(self):
         data = self.current_song_buffer.pop(self.next_sequence_number)
@@ -145,12 +145,15 @@ class AudioHandler:
     
     @log_calls
     def skip_song(self):
-        with self.skip_song_lock:
-            logging.info("Skipping song...")
-            if not self.current_song_buffer:
-                logging.info("Can't skip song, no song playing")
-                return
-            
-            self.skip_song_flag = True
+        logging.info("Skipping song...")
+        if not self.current_song_buffer:
+            logging.info("Can't skip song, no song playing")
+            return
+        
+        self.skip_song_flag = True
+        logging.debug("Waiting for skipped song event...")
+        self.skipped_song_event.wait()
+        logging.debug("Done waiting")
+        self.skipped_song_event.clear()
 
 
