@@ -3,7 +3,7 @@ import logging
 import pyaudio
 from queue import Queue
 from backend.client.main_page_emitter import MainPageEmitter
-from music_playing.song_class import SongInfo, SongBuffer, SongChunk
+from music_playing.song_classes import SongInfo, SongBuffer, SongChunk
 import threading
 import time
 from custom_logging import log_calls
@@ -17,13 +17,13 @@ if TYPE_CHECKING:
 CHUNK = 4096
 
 class AudioHandler:
-    def __init__(self, main_page_emitter :MainPageEmitter):
+    def __init__(self, main_page_emitter :MainPageEmitter, song_queue : SongQueue):
         self.p = pyaudio.PyAudio()
         self.stream = None
         self.main_page_emitter = main_page_emitter
         self.lock = threading.Lock()
         
-        self.song_queue :list[SongBuffer]= SongQueue(main_page_emitter.update_song_queue)
+        self.song_queue = song_queue
         
         self.play_event = threading.Event()
         self.play_event.set()
@@ -37,7 +37,12 @@ class AudioHandler:
         self.socket_handler : 'ClientSocketHandler' = None
         
         self.next_expected_order = 0
-        
+    
+    
+    def skip_to_song(self, song_index):
+        self.song_queue.clear_range(0, song_index)
+        self.skip_song()
+    
         
     @log_calls
     def add_to_song_queue(self, song_name :str):

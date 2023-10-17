@@ -1,6 +1,7 @@
 from collections import UserList
 from PyQt5.QtCore import pyqtSignal
 
+
 class SongQueue(UserList):
     def __init__(self, signal: pyqtSignal, *args):
         super().__init__(args)
@@ -8,7 +9,7 @@ class SongQueue(UserList):
     
     def emit_signal(self):
         self.signal.emit(self.data) 
-     
+    
     def append(self, item):
         super().append(item)
         self.emit_signal()
@@ -31,9 +32,21 @@ class SongQueue(UserList):
         return result
     
     def clear(self):
-        super().clear()
+        self.data.clear()
         self.emit_signal()
     
     def __setitem__(self, i, item):
         super().__setitem__(i, item)
         self.emit_signal()
+    
+    def clear_range(self, start, end):
+        if start < 0:
+            raise IndexError("start is less than 0")
+        if end >= len(self):
+            raise IndexError("end is greater than or equal to the length of the list")
+        
+        for i in range(start, end+1):
+            super().pop(i)
+        
+        self.emit_signal()
+

@@ -8,7 +8,7 @@ import eventlet
 from eventlet import wsgi
 import os
 from music_playing import manage_songs_in_dir
-from music_playing.song_class import SongInfo, SongToSend, SongChunk
+from music_playing.song_classes import SongInfo, SongToSend, SongChunk
 import pprint
 from dataclasses import asdict
 from backend import server_addr_tuple 

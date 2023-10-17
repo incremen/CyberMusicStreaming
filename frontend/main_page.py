@@ -2,10 +2,10 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWid
 from PyQt5 import uic, QtGui
 from PyQt5.QtCore import Qt, QThread, pyqtSlot
 import logging
-from music_playing.song_class import SongInfo, SongBuffer
+from music_playing.song_classes import SongInfo, SongBuffer
 from typing import TYPE_CHECKING
 import threading
-from frontend.skip_thread import SkipThread
+from music_playing.song_queue import SongQueue
 
 if TYPE_CHECKING:
     from backend.client.client_socket import ClientSocketHandler
@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     
 
 class MainPage(QMainWindow):
-    def __init__(self, socket_handler :'ClientSocketHandler', audio_handler :'AudioHandler'):
+    def __init__(self, socket_handler :'ClientSocketHandler', audio_handler :'AudioHandler', song_queue : SongQueue):
         super(MainPage, self).__init__()
         self.socket_handler = socket_handler
         self.audio_handler = audio_handler
@@ -31,6 +31,8 @@ class MainPage(QMainWindow):
         
         self.skip_lock = threading.Lock()
         
+        self.song_queue = song_queue
+        
     def song_list_received(self, songs : list):
         logging.debug(f"Received song list: {songs}")
         self.btn_to_data = {}
@@ -42,7 +44,7 @@ class MainPage(QMainWindow):
             song_text = f"{song_data.name}\n {song_data.length} seconds"
             song_btn = QPushButton(song_text)
             
-            self.btn_to_data.update({song_btn : song_data})
+            self.btn_to_data.update({song_btn : song_data}) 
             self.add_song_to_grid(song_btn)
             
     def setup_main_widget_properties(self):
@@ -54,11 +56,17 @@ class MainPage(QMainWindow):
         self.skip_btn = main_widget.findChild(QPushButton, "skip_btn")
         self.skip_btn.clicked.connect(self.skip_btn_click)
         
-        self.pause_btn = main_widget.findChild(QPushButton, "pause_btn")
+        self.pause_btn = main_widget.findChild(QPushButton, "pause_btn" )
         self.pause_btn.clicked.connect(self.pause_btn_click)  
         
         self.song_queue = main_widget.findChild(QListWidget, "song_queue")  
-    
+        self.song_queue.itemClicked.connect(self.song_in_queue_click)
+        
+    def song_in_queue_click(self, song_clicked):
+        index = self.song_queue.row(song_clicked)
+        logging.info("Index of song clicked:", index)    
+        self.audio_handler.skip_to_song(index)
+        
     def add_song_to_queue(self, song_buffer : SongBuffer):
         song_text = song_buffer.__repr__()
         self.song_queue.addItem(song_text)
