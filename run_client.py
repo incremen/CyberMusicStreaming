@@ -8,6 +8,13 @@ import sys
 import threading
 
 def main():
+    sys._excepthook = sys.excepthook 
+    def exception_hook(exctype, value, traceback):
+        print(exctype, value, traceback)
+        sys._excepthook(exctype, value, traceback) 
+        sys.exit(1) 
+    sys.excepthook = exception_hook 
+    
     custom_logger = custom_logging.CustomLogger(log_files=["client.log"])
     custom_logger.clear_logs()
     app = QApplication(sys.argv)

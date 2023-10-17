@@ -23,7 +23,7 @@ class AudioHandler:
         self.main_page_emitter = main_page_emitter
         self.lock = threading.Lock()
         
-        self.song_queue :list[SongBuffer] = SongQueue(main_page_emitter.update_song_queue)
+        self.song_queue = SongQueue(main_page_emitter.update_song_queue)
         
         self.play_event = threading.Event()
         self.play_event.set()
@@ -31,6 +31,7 @@ class AudioHandler:
         self.current_song_buffer : SongBuffer = None
         
         self.skip_song_flag : bool = False
+        
         self.socket_handler : 'ClientSocketHandler' = None
         
         self.next_expected_order = 0
