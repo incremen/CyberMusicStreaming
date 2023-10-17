@@ -82,12 +82,13 @@ class AudioHandler:
         while self.next_sequence_number < max_seq:
             logging.debug(f"{self.next_sequence_number=}, {max_seq=}")
             
-            if self.skip_song_flag:
-                self.skip_song_flag = False
-                logging.info("Skipping song...")
-                self.skipped_song_event.set()
-                logging.debug("Set skipped song event")
-                return
+            with self.skip_song_lock:
+                if self.skip_song_flag:
+                    self.skip_song_flag = False
+                    logging.info("Skipping song...")
+                    self.skipped_song_event.set()
+                    logging.debug("Set skipped song event")
+                    return
             
             self.play_event.wait()
             self.await_next_seq_num() 
@@ -149,8 +150,8 @@ class AudioHandler:
         if not self.current_song_buffer:
             logging.info("Can't skip song, no song playing")
             return
-        
-        self.skip_song_flag = True
+        with self.skip_song_lock:
+            self.skip_song_flag = True
         logging.debug("Waiting for skipped song event...")
         self.skipped_song_event.wait()
         logging.debug("Done waiting")

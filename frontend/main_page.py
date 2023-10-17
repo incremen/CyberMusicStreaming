@@ -72,12 +72,11 @@ class MainPage(QMainWindow):
         self.audio_handler.skip_song()
         self.socket_handler.send_skip_song_event()
 
-    @pyqtSlot()
     def skip_btn_click(self):
         self.skip_btn.setEnabled(False)
-        self.skip_thread = SkipThread(self.audio_handler, self.socket_handler)
-        self.skip_thread.finished.connect(self.enable_skip_button)
-        self.skip_thread.start()
+        self.audio_handler.skip_song() 
+        self.socket_handler.send_skip_song_event()
+        self.skip_btn.setEnabled(True)
 
     def enable_skip_button(self):
         self.skip_btn.setEnabled(True)
