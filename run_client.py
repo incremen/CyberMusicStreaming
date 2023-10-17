@@ -6,15 +6,10 @@ from backend.client.main_page_emitter import MainPageEmitter
 from frontend.main_page import MainPage
 import sys
 import threading
+import logging
+
 
 def main():
-    sys._excepthook = sys.excepthook 
-    def exception_hook(exctype, value, traceback):
-        print(exctype, value, traceback)
-        sys._excepthook(exctype, value, traceback) 
-        sys.exit(1) 
-    sys.excepthook = exception_hook 
-    
     custom_logger = custom_logging.CustomLogger(log_files=["client.log"])
     custom_logger.clear_logs()
     app = QApplication(sys.argv)
@@ -29,7 +24,6 @@ def main():
     
     client_socket_handler.connect()
     client_socket_handler.emit_to_server("song_list_request")
-
     app.exec_()
     
 if __name__ == "__main__":

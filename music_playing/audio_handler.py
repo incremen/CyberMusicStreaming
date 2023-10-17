@@ -31,6 +31,7 @@ class AudioHandler:
         self.current_song_buffer : SongBuffer = None
         
         self.skip_song_flag : bool = False
+        self.skip_song_lock = threading.Lock()
         
         self.socket_handler : 'ClientSocketHandler' = None
         
@@ -81,10 +82,11 @@ class AudioHandler:
         while self.next_sequence_number < max_seq:
             logging.debug(f"{self.next_sequence_number=}, {max_seq=}")
             
-            if self.skip_song_flag:
-                self.skip_song_flag = False
-                logging.info("Skipping song...")
-                break
+            with self.skip_song_lock:
+                if self.skip_song_flag:
+                    self.skip_song_flag = False
+                    logging.info("Skipping song...")
+                    break
             
             self.play_event.wait()
             self.await_next_seq_num() 
@@ -143,11 +145,12 @@ class AudioHandler:
     
     @log_calls
     def skip_song(self):
-        logging.info("Skipping song...")
-        if not self.current_song_buffer:
-            logging.info("Can't skip song, no song playing")
-            return
-        
-        self.skip_song_flag = True
+        with self.skip_song_lock:
+            logging.info("Skipping song...")
+            if not self.current_song_buffer:
+                logging.info("Can't skip song, no song playing")
+                return
+            
+            self.skip_song_flag = True
 
 
