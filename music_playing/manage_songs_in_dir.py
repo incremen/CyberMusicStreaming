@@ -1,7 +1,7 @@
 import logging
 import wave
 import os
-from music_playing.song_classes import SongInfo
+from music_playing.song_class import SongInfo
 import math
 from pydub import AudioSegment
 

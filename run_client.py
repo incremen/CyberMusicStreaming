@@ -5,8 +5,6 @@ from music_playing.audio_handler import AudioHandler
 from backend.client.main_page_emitter import MainPageEmitter
 from frontend.main_page import MainPage
 import sys
-from music_playing.song_classes import SongBuffer
-from music_playing.song_queue import SongQueue
 import threading
 import logging
 
@@ -17,12 +15,10 @@ def main():
     app = QApplication(sys.argv)
     
     main_page_emitter = MainPageEmitter()
-    song_queue : list[SongBuffer]= SongQueue(main_page_emitter.update_song_queue)
-    
-    audio_handler = AudioHandler(main_page_emitter, song_queue)
+    audio_handler = AudioHandler(main_page_emitter)
     client_socket_handler = ClientSocketHandler(audio_handler, main_page_emitter)
     
-    main_page = MainPage(client_socket_handler, audio_handler, song_queue)
+    main_page = MainPage(client_socket_handler, audio_handler)
     
     main_page_emitter.setup_connections(main_page)
     

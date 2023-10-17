@@ -6,7 +6,7 @@ from music_playing.audio_handler import AudioHandler
 import threading
 from backend.client.main_page_emitter import MainPageEmitter
 from frontend.main_page import MainPage
-from music_playing.song_classes import SongInfo, SongChunk
+from music_playing.song_class import SongInfo, SongChunk
 
 
 class ClientSocketHandler:

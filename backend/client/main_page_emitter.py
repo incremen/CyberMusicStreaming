@@ -1,6 +1,6 @@
 from PyQt5.QtCore import QObject, pyqtSignal
 from frontend.main_page import MainPage
-from music_playing.song_classes import SongBuffer
+from music_playing.song_class import SongBuffer
 
 class MainPageEmitter(QObject):
     song_list_recieved = pyqtSignal(list)
