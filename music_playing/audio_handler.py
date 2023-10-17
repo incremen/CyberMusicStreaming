@@ -38,6 +38,8 @@ class AudioHandler:
         
         self.next_expected_order = 0
         
+    def skip_to_song(self, index):
+        logging.checkpoint(f"Skipping to song {index}!")
         
     @log_calls
     def add_to_song_queue(self, song_name :str):

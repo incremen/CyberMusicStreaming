@@ -5,7 +5,6 @@ import logging
 from music_playing.song_class import SongInfo, SongBuffer
 from typing import TYPE_CHECKING
 import threading
-from frontend.skip_thread import SkipThread
 
 if TYPE_CHECKING:
     from backend.client.client_socket import ClientSocketHandler
@@ -58,6 +57,13 @@ class MainPage(QMainWindow):
         self.pause_btn.clicked.connect(self.pause_btn_click)  
         
         self.song_queue = main_widget.findChild(QListWidget, "song_queue")  
+        self.song_queue.itemClicked.connect(self.song_in_queue_click)
+        
+    def song_in_queue_click(self):
+        song_clicked = self.song_queue.currentItem()
+        index = self.song_queue.row(song_clicked)
+        logging.info(f"Index of song clicked {index}")    
+        self.audio_handler.skip_to_song(index)
     
     def add_song_to_queue(self, song_buffer : SongBuffer):
         song_text = song_buffer.__repr__()
