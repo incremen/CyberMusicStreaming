@@ -65,15 +65,10 @@ class MainPage(QMainWindow):
             self.add_song_to_queue(song)
     
     def skip_btn_click(self):
-        try:
-            self.skip_btn.setEnabled(False)
-            self.socket_handler.send_skip_song_event()
-            self.audio_handler.skip_song()
-            self.skip_btn.setEnabled(True)
-        except Exception as e:
-            logging.error(f"Error while skipping song: {e}")
-            self.skip_btn.setEnabled(True)
-            return
+        self.skip_btn.setEnabled(False)
+        self.audio_handler.skip_song()
+        self.socket_handler.send_skip_song_event()
+        self.skip_btn.setEnabled(True)
         
     def pause_btn_click(self):
         self.audio_handler.pause_or_resume()

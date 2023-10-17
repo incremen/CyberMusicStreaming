@@ -28,7 +28,7 @@ class ClientSocketHandler:
             return
         
         order = self.audio_handler.current_song_buffer.order
-        self.sio.emit('skip_song', order)
+        self.sio.emit('skip_song', order, )
         
     def connect(self):
         self.sio.connect(client_connects_to_str)
