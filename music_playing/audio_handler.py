@@ -38,6 +38,9 @@ class AudioHandler:
         
         self.next_expected_order = 0
         
+        self.done_playing_next_song = threading.Event()
+        self.done_playing_next_song.set()
+        
     def skip_to_song(self, index):
         song = self.song_queue[index]
         order = song.order
@@ -51,10 +54,9 @@ class AudioHandler:
         self.skip_current_song()
         logging.debug(f"Updated song queue after skipping current: {self.song_queue}")
         
-        self.song_queue.clear_range(0, index-1)
-        logging.debug(f"Updated song queue: {self.song_queue}")
+        self.song_queue.clear_until_order(order)
+        logging.debug(f"Updated song queue ({order=}): {self.song_queue}")
         
-        self.current_song_buffer = None
         self.play_event.set()
         self.play_next_song()
         
@@ -91,7 +93,6 @@ class AudioHandler:
         self.song_queue.pop(0)
         
         self.current_song_buffer = None
-        
         self.play_next_song()
 
     def play_song(self):
@@ -103,18 +104,23 @@ class AudioHandler:
             
             with self.skip_song_lock:
                 if self.skip_song_flag:
-                    self.skip_song_flag = False
-                    logging.info("Skipping song...")
-                    self.skipped_song_event.set()
-                    logging.debug("Set skipped song event")
+                    self.stop_playing_song()
                     return
-                
+            
+            logging.info("Waiting on play event...")
             self.play_event.wait()
+            logging.info("Done waiting on play event...")
             
             self.await_next_seq_num() 
             logging.debug("Done waiting for seq num!")   
             self.write_song_data()
             self.emit_progress_to_bar()
+
+    def stop_playing_song(self):
+        self.skip_song_flag = False
+        logging.info("Skipping song...")
+        self.skipped_song_event.set()
+        logging.debug("Set skipped song event")
 
     def write_song_data(self):
         data = self.current_song_buffer.pop(self.next_sequence_number)
