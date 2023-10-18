@@ -36,7 +36,7 @@ class ServerQueueManager:
         
         self.songs_to_skip : dict[int, bool] = {}
         
-        self.check_skip_lock = threading.Semaphore(2)
+        self.check_skip_lock = threading.Semaphore(3)
         
     def get_song_path(self, song_name :str):
         if not song_name.endswith(".wav"):
@@ -63,6 +63,23 @@ class ServerQueueManager:
                     return
                 
             logging.error(f"Song order to skip not found: {song_order}")
+            
+    def skip_to_song(self, sid, order_to_skip_to):
+        with self.check_skip_lock:
+            logging.recv(f"Received skip to song req for {order_to_skip_to=}, {self.songs_to_send=}")
+            if not self.songs_to_send:
+                logging.info("No more songs to skip...")
+                return
+            
+            if self.song_being_sent.order == order_to_skip_to:
+                logging.info("Already playing song to skip to")
+                return
+            
+            
+            logging.info(f"Skipping song to {order_to_skip_to}")
+            self.songs_to_skip[self.song_being_sent.order] = True
+            del self.songs_to_skip[0:order_to_skip_to]
+            logging.info(f"Updated songs to skip: {pprint.pformat(self.songs_to_skip)}")
     
     def send_next_song(self, sid):
         logging.info("Sending next song!")

@@ -19,15 +19,17 @@ class ClientSocketHandler:
         self.emit_to_server= self.sio.emit
 
     def request_song(self, song_name : str):
-        self.sio.emit('audio_request', song_name)
+        self.emit_to_server('audio_request', song_name)
+    
+    def send_skip_to_event(self, song_order):
+        self.emit_to_server("skip_to_song" ,song_order)
     
     def send_skip_song_event(self):
         if not self.audio_handler.current_song_buffer:
-            logging.info("No current song playing...")
-            return
+            logging.error("No current song playing...")
         
         order = self.audio_handler.current_song_buffer.order
-        self.sio.emit('skip_song', order)
+        self.emit_to_server('skip_song', order)
         
     def connect(self):
         self.sio.connect(client_connects_to_str)
