@@ -46,11 +46,10 @@ class AudioHandler:
         order = song.order
         
         logging.checkpoint(f"About to skip to song#{order}")
-        # self.socket_handler.send_skip_to_song_event(order)
+        self.socket_handler.send_skip_to_song_event(order)
         
         self.play_event.clear()
         
-        #skipping current song also removes an element from the list
         self.skip_current_song()
         logging.debug(f"Updated song queue after skipping current: {self.song_queue}")
         
@@ -69,7 +68,6 @@ class AudioHandler:
         logging.debug(f"Appended. {self.song_queue=}")
         
         self.next_expected_order += 1
-        
         
     def song_list_received(self, song_list : list[dict[str, str]]):
         song_info_list = [SongInfo(**song_dict) for song_dict in song_list]

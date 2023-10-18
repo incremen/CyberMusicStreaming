@@ -5,6 +5,8 @@ import logging
 from music_playing.song_class import SongInfo, SongBuffer
 from typing import TYPE_CHECKING
 import threading
+from custom_logging import log_calls
+
 
 if TYPE_CHECKING:
     from backend.client.client_socket import ClientSocketHandler
@@ -70,6 +72,7 @@ class MainPage(QMainWindow):
         song_text = song_buffer.__repr__()
         self.song_queue.addItem(song_text)
     
+    @log_calls    
     def update_song_queue(self, song_list : list[SongBuffer]):
         self.song_queue.clear()
         for song in song_list:

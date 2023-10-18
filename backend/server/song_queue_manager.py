@@ -78,8 +78,12 @@ class ServerQueueManager:
             
             logging.info(f"Skipping song to {order_to_skip_to}")
             self.songs_to_skip[self.song_being_sent.order] = True
-            del self.songs_to_skip[0:order_to_skip_to]
-            logging.info(f"Updated songs to skip: {pprint.pformat(self.songs_to_skip)}")
+            
+            songs_to_remove = [song for song in self.songs_to_send if song.order < order_to_skip_to]
+            for song in songs_to_remove:
+                self.songs_to_send.remove(song)
+                
+            logging.info(f"Updated songs to send: {pprint.pformat(self.songs_to_send)}")
     
     def send_next_song(self, sid):
         logging.info("Sending next song!")
