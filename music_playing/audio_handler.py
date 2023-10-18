@@ -47,7 +47,6 @@ class AudioHandler:
         
         logging.checkpoint(f"About to skip to song#{order}")
         self.socket_handler.send_skip_to_song_event(order)
-        
         self.play_event.clear()
         
         self.skip_current_song()
