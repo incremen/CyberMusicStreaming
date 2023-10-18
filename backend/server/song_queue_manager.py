@@ -36,6 +36,8 @@ class ServerQueueManager:
         
         self.songs_to_skip : dict[int, bool] = {}
         
+        self.pop_next_song = True
+        
         self.check_skip_lock = threading.Semaphore(3)
         
     def get_song_path(self, song_name :str):
@@ -82,7 +84,8 @@ class ServerQueueManager:
             songs_to_remove = [song for song in self.songs_to_send if song.order < order_to_skip_to]
             for song in songs_to_remove:
                 self.songs_to_send.remove(song)
-                
+            
+            self.pop_next_song = False
             logging.info(f"Updated songs to send: {pprint.pformat(self.songs_to_send)}")
     
     def send_next_song(self, sid):
@@ -95,7 +98,12 @@ class ServerQueueManager:
         next_song = self.songs_to_send[0]
         
         self.send_song(next_song, sid)
-        self.songs_to_send.pop(0)
+        
+        if self.pop_next_song:
+            self.songs_to_send.pop(0)
+        else:
+            self.pop_next_song = True
+            
         #you cant pop it earlier because it needs to stay in the list
         self.send_next_song(sid)
         
@@ -143,6 +151,7 @@ class ServerQueueManager:
              
             if not song_data_chunk:
                  return
+             
             song_chunk = SongChunk(chunk=song_data_chunk, name=song_to_send.name, order=song_to_send.order, seq=sequence_number)
             logging.send(f"Sending audio data for {song_to_send.name}(id={song_to_send.order}, seq = {sequence_number})")
             self.emit('audio_data', asdict(song_chunk), room=sid)
