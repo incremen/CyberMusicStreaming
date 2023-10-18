@@ -54,28 +54,3 @@ class SongQueue(UserList):
             super().remove(song)
             
         self.emit_signal()
-        
-    def clear_range(self, start : int, end : int):
-        """
-        Remove a range of elements from the list.
-
-        Parameters:
-            start (int): The starting index (inclusive) of the range to be removed.
-            end (int): The ending index (exclusive) of the range to be removed.
-
-        Returns:
-            None
-        """
-        
-        
-        if start < 0:
-            raise IndexError("Start index less than 0")
-        
-        if end > len(self):
-            raise IndexError("End index greater than list length")
-        
-        if start > end:
-            raise IndexError("Start index greater than end index")
-        
-        del self.data[start:end]
-        self.emit_signal()
