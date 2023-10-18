@@ -64,7 +64,7 @@ class MainPage(QMainWindow):
         index = self.song_queue.row(song_clicked)
         logging.info(f"Index of song clicked {index}")    
         self.audio_handler.skip_to_song(index)
-        self.socket_handler.send_skip_to_event(index)
+        self.socket_handler.send_skip_to_song_event(index)
     
     def add_song_to_queue(self, song_buffer : SongBuffer):
         song_text = song_buffer.__repr__()

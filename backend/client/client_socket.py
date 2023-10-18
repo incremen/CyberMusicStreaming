@@ -21,7 +21,7 @@ class ClientSocketHandler:
     def request_song(self, song_name : str):
         self.emit_to_server('audio_request', song_name)
     
-    def send_skip_to_event(self, song_order):
+    def send_skip_to_song_event(self, song_order):
         self.emit_to_server("skip_to_song" ,song_order)
     
     def send_skip_song_event(self):

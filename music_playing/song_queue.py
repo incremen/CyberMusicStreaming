@@ -38,7 +38,19 @@ class SongQueue(UserList):
         super().__setitem__(i, item)
         self.emit_signal()
         
-    def clear_range(self, start, end):
+    def clear_range(self, start : int, end : int):
+        """
+        Remove a range of elements from the list.
+
+        Parameters:
+            start (int): The starting index (inclusive) of the range to be removed.
+            end (int): The ending index (exclusive) of the range to be removed.
+
+        Returns:
+            None
+        """
+        
+        
         if start < 0:
             raise IndexError("Start index less than 0")
         
