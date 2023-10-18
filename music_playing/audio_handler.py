@@ -43,6 +43,7 @@ class AudioHandler:
         self.play_event.clear()
         self.song_queue.clear_range(0, index)
         self.skip_current_song()
+        self.play_event.set()
         
     @log_calls
     def add_to_song_queue(self, song_name :str):
@@ -87,6 +88,7 @@ class AudioHandler:
         while self.next_sequence_number < max_seq:
             logging.debug(f"{self.next_sequence_number=}, {max_seq=}")
             
+            
             with self.skip_song_lock:
                 if self.skip_song_flag:
                     self.skip_song_flag = False
@@ -94,8 +96,8 @@ class AudioHandler:
                     self.skipped_song_event.set()
                     logging.debug("Set skipped song event")
                     return
-            
             self.play_event.wait()
+            
             self.await_next_seq_num() 
             logging.debug("Done waiting for seq num!")   
             self.write_song_data()
