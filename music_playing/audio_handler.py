@@ -39,7 +39,10 @@ class AudioHandler:
         self.next_expected_order = 0
         
     def skip_to_song(self, index):
-        logging.checkpoint(f"Skipping to song {index}!")
+        logging.checkpoint(f"About to skip to song#{index}")
+        self.play_event.clear()
+        self.song_queue.clear_range(0, index)
+        self.skip_current_song()
         
     @log_calls
     def add_to_song_queue(self, song_name :str):
@@ -147,7 +150,7 @@ class AudioHandler:
             self.play_event.set()
     
     @log_calls
-    def skip_song(self):
+    def skip_current_song(self):
         logging.info("Skipping song...")
         if not self.current_song_buffer:
             logging.info("Can't skip song, no song playing")
