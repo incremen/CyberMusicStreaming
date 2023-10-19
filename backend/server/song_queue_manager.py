@@ -32,7 +32,7 @@ class ServerQueueManager:
         
         self.emit = self.socket_handler.sio.emit
         
-        self.next_song_id = 0
+        self.next_song_order = 0
         
         self.songs_to_skip : dict[int, bool] = {}
         
@@ -45,6 +45,10 @@ class ServerQueueManager:
             song_name += ".wav"
         song_path = os.path.join(self.songs_dir, song_name)
         return song_path
+    
+    def new_client_connect(self, sid):
+        logging.send("Sending next song order...")
+        self.emit("next_song_order", self.next_song_order, room=sid)
     
     def skip_song(self, sid, song_order):
         with self.check_skip_lock:
@@ -108,8 +112,8 @@ class ServerQueueManager:
         self.send_next_song(sid)
         
     def create_new_songtosend(self, song_name):
-        songtosend = SongToSend(song_name, self.next_song_id)
-        self.next_song_id += 1
+        songtosend = SongToSend(song_name, self.next_song_order)
+        self.next_song_order += 1
         return songtosend
         
     def add_song_to_send_list(self, song_name, sid):

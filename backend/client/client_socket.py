@@ -10,12 +10,10 @@ from music_playing.song_class import SongInfo, SongChunk
 
 
 class ClientSocketHandler:
-    def __init__(self, audio_handler :AudioHandler, main_page_emitter: MainPageEmitter):
+    def __init__(self, audio_handler :AudioHandler):
         self.sio = socketio.Client(logger=False, engineio_logger=False)
         self.audio_handler = audio_handler
         self.audio_handler.socket_handler = self
-        self.main_page_emitter = main_page_emitter
-        
         self.emit_to_server= self.sio.emit
 
     def request_song(self, song_name : str):
@@ -32,7 +30,6 @@ class ClientSocketHandler:
         self.emit_to_server('skip_song', order)
         
     def connect(self):
-        self.sio.connect(client_connects_to_str)
         
         @self.sio.event
         def connect():
@@ -58,6 +55,13 @@ class ClientSocketHandler:
         def received_song_list(song_list):
             logging.debug(f"{song_list=}")
             self.audio_handler.song_list_received(song_list)
-            self.main_page_emitter.song_list_recieved.emit(song_list)
+            
+        @self.sio.on("next_song_order")
+        def received_next_song_order(order):
+            logging.recv(f"received next song order: {order}")
+            self.audio_handler.received_next_order(order)
+            
+        self.sio.connect(client_connects_to_str)
+        
         
 

@@ -25,6 +25,7 @@ class ServerSocketHandler:
         @self.sio.on('connect', namespace='/')
         def connect(sid, environ):
             logging.info('Client connected')
+            self.song_queue_manager.new_client_connect(sid)
 
         @self.sio.on('audio_request')
         def on_audio_request(sid, song_name: str):

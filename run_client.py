@@ -16,7 +16,7 @@ def main():
     
     main_page_emitter = MainPageEmitter()
     audio_handler = AudioHandler(main_page_emitter)
-    client_socket_handler = ClientSocketHandler(audio_handler, main_page_emitter)
+    client_socket_handler = ClientSocketHandler(audio_handler)
     
     main_page = MainPage(client_socket_handler, audio_handler)
     

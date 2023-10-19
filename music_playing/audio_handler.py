@@ -36,11 +36,13 @@ class AudioHandler:
         
         self.socket_handler : 'ClientSocketHandler' = None
         
-        self.next_expected_order = 0
-        
         self.done_playing_next_song = threading.Event()
         self.done_playing_next_song.set()
         
+    def received_next_order(self, order):
+        self.next_expected_order = order
+        logging.debug(f"{self.next_expected_order=}")
+
     def skip_to_song(self, index):
         song = self.song_queue[index]
         order = song.order
@@ -71,6 +73,9 @@ class AudioHandler:
     def song_list_received(self, song_list : list[dict[str, str]]):
         song_info_list = [SongInfo(**song_dict) for song_dict in song_list]
         self.song_name_to_info = {info.name : info for info in song_info_list}
+        
+        self.main_page_emitter.song_list_recieved.emit(song_list)
+        
     
     def play_next_song(self):
         if not self.song_queue:
