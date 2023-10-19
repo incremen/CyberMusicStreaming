@@ -37,7 +37,6 @@ class AudioHandler:
         self.socket_handler : 'ClientSocketHandler' = None
         
         self.done_playing_next_song = threading.Event()
-        self.done_playing_next_song.set()
         
     def received_next_order(self, order):
         self.next_expected_order = order
@@ -49,7 +48,6 @@ class AudioHandler:
         
         logging.checkpoint(f"About to skip to song#{order}")
         self.socket_handler.send_skip_to_song_event(order)
-        self.play_event.clear()
         
         self.skip_current_song()
         logging.debug(f"Updated song queue after skipping current: {self.song_queue}")
@@ -57,7 +55,8 @@ class AudioHandler:
         self.song_queue.clear_until_order(order)
         logging.debug(f"Updated song queue ({order=}): {self.song_queue}")
         
-        self.play_event.set()
+        self.next_expected_order = order
+        
         self.play_next_song()
         
     @log_calls
@@ -75,7 +74,6 @@ class AudioHandler:
         self.song_name_to_info = {info.name : info for info in song_info_list}
         
         self.main_page_emitter.song_list_recieved.emit(song_list)
-        
     
     def play_next_song(self):
         if not self.song_queue:
@@ -95,8 +93,10 @@ class AudioHandler:
         self.song_queue.pop(0)
         
         self.current_song_buffer = None
+        
         self.play_next_song()
-
+        
+    @log_calls
     def play_song(self):
         logging.checkpoint("Playing new song...")
         self.next_sequence_number = 0
@@ -178,6 +178,8 @@ class AudioHandler:
             logging.info("Can't skip song, no song playing")
             return
         
+        self.socket_handler.send_skip_song_event()
+        
         with self.skip_song_lock:
             self.skip_song_flag = True
             
@@ -185,6 +187,7 @@ class AudioHandler:
         self.skipped_song_event.wait()
         logging.debug("Done waiting")
         self.skipped_song_event.clear()
+        
         
         
 

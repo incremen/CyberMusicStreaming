@@ -81,7 +81,6 @@ class MainPage(QMainWindow):
     def skip_btn_click(self):
         self.skip_btn.setEnabled(False)
         self.audio_handler.skip_current_song() 
-        self.socket_handler.send_skip_song_event()
         self.skip_btn.setEnabled(True)
 
     def enable_skip_button(self):
