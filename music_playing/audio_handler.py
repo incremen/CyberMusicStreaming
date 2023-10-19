@@ -106,7 +106,7 @@ class AudioHandler:
             
             with self.skip_song_lock:
                 if self.skip_song_flag:
-                    self.stop_playing_song()
+                    self.reset_skip()
                     return
             
             logging.info("Waiting on play event...")
@@ -118,7 +118,7 @@ class AudioHandler:
             self.write_song_data()
             self.emit_progress_to_bar()
 
-    def stop_playing_song(self):
+    def reset_skip(self):
         self.skip_song_flag = False
         logging.info("Skipping song...")
         self.skipped_song_event.set()

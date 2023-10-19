@@ -78,10 +78,6 @@ class MainPage(QMainWindow):
         for song in song_list:
             self.add_song_to_queue(song)
 
-    def skip_song_thread(self):
-        self.audio_handler.skip_current_song()
-        self.socket_handler.send_skip_song_event()
-
     def skip_btn_click(self):
         self.skip_btn.setEnabled(False)
         self.audio_handler.skip_current_song() 

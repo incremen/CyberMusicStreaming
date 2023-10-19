@@ -25,6 +25,7 @@ class ClientSocketHandler:
     def send_skip_song_event(self):
         if not self.audio_handler.current_song_buffer:
             logging.error("No current song playing...")
+            return
         
         order = self.audio_handler.current_song_buffer.order
         self.emit_to_server('skip_song', order)
