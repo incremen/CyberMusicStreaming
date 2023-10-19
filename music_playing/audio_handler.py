@@ -149,12 +149,11 @@ class AudioHandler:
         logging.debug(f"{song_chunk=}, {self.song_queue=}")
         
         for song_buffer in self.song_queue:
-            if song_buffer.order != song_chunk.order:
-                continue
-            
-            song_buffer[song_chunk.seq] = song_chunk.chunk
-            logging.debug("Added to buffer!")
-            return
+            if song_buffer.order == song_chunk.order:
+                
+                song_buffer[song_chunk.seq] = song_chunk.chunk
+                logging.debug("Added to buffer!")
+                return
                 
 
     def emit_progress_to_bar(self):
