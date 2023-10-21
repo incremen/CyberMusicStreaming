@@ -37,8 +37,11 @@ class AudioHandler:
         self.socket_handler : 'ClientSocketHandler' = None
         self.play_next_song_thread = PlayNextSongThread(self)
         
-    def start_play_next_song_thread(self):
+        self.continue_playing = True
+        
+    def start_play_songs_thread(self):
         if not self.play_next_song_thread.isRunning():
+            logging.info("Starting the thread! (it wasnt already running)")
             self.play_next_song_thread.start()
         else:
             logging.info("Play song thread is already running")
@@ -54,6 +57,8 @@ class AudioHandler:
         logging.checkpoint(f"About to skip to song#{order}")
         self.socket_handler.send_skip_to_song_event(order)
         
+        self.continue_playing = False
+        
         self.skip_current_song()
         logging.debug(f"Updated song queue after skipping current: {self.song_queue}")
         
@@ -62,7 +67,9 @@ class AudioHandler:
         
         self.next_expected_order = order
         
-        self.play_next_song()
+        self.continue_playing = True
+        logging.debug(f"Trying to restart the thread...:")
+        self.start_play_songs_thread()
         
     @log_calls
     def add_to_song_queue(self, song_name :str):
@@ -99,7 +106,8 @@ class AudioHandler:
         
         self.current_song_buffer = None
         
-        self.play_next_song()
+        if self.continue_playing:
+            self.play_next_song()
         
     @log_calls
     def play_song(self):
