@@ -3,12 +3,14 @@ from PyQt5.QtCore import pyqtSignal
 import logging
 import threading
 
-def log_change(func):
+def song_queue_method(func):
     def song_queue_info(song_queue : 'SongQueue', *args, **kwargs):
-        logging.debug(f'Before {func.__name__}: {song_queue.data}')
         with song_queue.lock:
+            logging.debug(f'Before {func.__name__}: {song_queue.data}')
             result = func(song_queue, *args, **kwargs)
-        logging.debug(f'After {func.__name__}: {song_queue.data}')
+            logging.debug(f'After {func.__name__}: {song_queue.data}')
+            song_queue.emit_signal()
+            
         return result
     return song_queue_info
 
@@ -22,44 +24,37 @@ class SongQueue(UserList):
     def emit_signal(self):
         self.signal.emit(self.data) 
      
-    @log_change
+    @song_queue_method
     def append(self, item):
         super().append(item)
-        self.emit_signal()
     
-    @log_change
+    @song_queue_method
     def extend(self, iterable):
         super().extend(iterable)
-        self.emit_signal()
     
-    @log_change
+    @song_queue_method
     def insert(self, i, item):
         super().insert(i, item)
-        self.emit_signal()
     
-    @log_change
+    @song_queue_method
     def remove(self, item):
         super().remove(item)
-        self.emit_signal()
     
-    @log_change
+    @song_queue_method
     def pop(self, i=-1):
         result = super().pop(i)
-        self.emit_signal()
         return result
     
-    @log_change
+    @song_queue_method
     def clear(self):
         super().clear()
-        self.emit_signal()
     
-    @log_change
+    @song_queue_method
     def __setitem__(self, i, item):
         super().__setitem__(i, item)
-        self.emit_signal()
         
         
-    @log_change
+    @song_queue_method
     def clear_until_order(self, order : int):
         """
         Clear all songs in the list with an order less than the order given.
@@ -74,4 +69,3 @@ class SongQueue(UserList):
         for song in songs_to_remove:
             super().remove(song)
             
-        self.emit_signal()
