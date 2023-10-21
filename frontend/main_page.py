@@ -61,6 +61,11 @@ class MainPage(QMainWindow):
         self.song_queue = main_widget.findChild(QListWidget, "song_queue")  
         self.song_queue.itemClicked.connect(self.song_in_queue_click)
         
+        
+    def get_full_song_queue(self):
+        item_text_list = [self.song_queue.item(i).text() for i in range(self.song_queue.count())]
+        return item_text_list
+        
     def song_in_queue_click(self):
         song_clicked = self.song_queue.currentItem()
         index = self.song_queue.row(song_clicked)
@@ -77,6 +82,8 @@ class MainPage(QMainWindow):
         self.song_queue.clear()
         for song in song_list:
             self.add_song_to_queue(song)
+            
+        logging.info(f"{self.get_full_song_queue()=}")
 
     def skip_btn_click(self):
         self.skip_btn.setEnabled(False)
