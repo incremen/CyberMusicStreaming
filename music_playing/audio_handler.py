@@ -9,12 +9,23 @@ import time
 from custom_logging import log_calls
 from typing import TYPE_CHECKING
 from music_playing.song_queue import SongQueue
-
+from PyQt5.QtCore import QThread
 
 if TYPE_CHECKING:
     from backend.client.client_socket import ClientSocketHandler
 
 CHUNK = 4096
+
+
+
+class PlayNextSongThread(QThread):
+    def __init__(self, audio_handler):
+        QThread.__init__(self)
+        self.audio_handler = audio_handler
+
+    def run(self):
+        self.audio_handler.play_next_song()
+
 
 class AudioHandler:
     def __init__(self, main_page_emitter :MainPageEmitter):
@@ -35,8 +46,13 @@ class AudioHandler:
         self.skipped_song_event = threading.Event()
         
         self.socket_handler : 'ClientSocketHandler' = None
+        self.play_next_song_thread = PlayNextSongThread(self)
         
-        self.done_playing_next_song = threading.Event()
+    def start_play_next_song_thread(self):
+        if not self.play_next_song_thread.isRunning():
+            self.play_next_song_thread.start()
+        else:
+            logging.info("Play song thread is already running")
         
     def received_next_order(self, order):
         self.next_expected_order = order
