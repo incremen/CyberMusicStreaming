@@ -128,6 +128,11 @@ class AudioHandler:
             self.play_event.wait()
             logging.info("Done waiting on play event...")
             
+            with self.skip_song_lock:
+                if self.skip_song_flag:
+                    self.reset_skip()
+                    return
+            
             self.await_next_seq_num() 
             logging.debug("Done waiting for seq num!")   
             self.write_song_data()
@@ -197,7 +202,8 @@ class AudioHandler:
         
         with self.skip_song_lock:
             self.skip_song_flag = True
-            
+            #play_song will get stuck forever in the loop if this event isn't set:
+            self.play_event.set()
         logging.debug("Waiting for skipped song event...")
         self.skipped_song_event.wait()
         logging.debug("Done waiting")
