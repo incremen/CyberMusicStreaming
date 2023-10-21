@@ -32,6 +32,8 @@ class MainPage(QMainWindow):
         
         self.skip_lock = threading.Lock()
         
+        self.last_signal_num = -1
+        
     def song_list_received(self, songs : list):
         logging.debug(f"Received song list: {songs}")
         self.btn_to_data = {}
@@ -78,13 +80,20 @@ class MainPage(QMainWindow):
         self.song_queue.addItem(song_text)
     
     @log_calls    
-    def update_song_queue(self, song_list : list[SongBuffer]):
+    def update_song_queue(self, song_list : list[SongBuffer], signal_num : int):
+        if signal_num < self.last_signal_num:
+            logging.info("Ignoring this signal cuz it wasnt the last")
+            logging.debug(f"{signal_num=}, {self.last_signal_num=}")
+            return
+        
         self.song_queue.clear()
         for song in song_list:
             self.add_song_to_queue(song)
             
         logging.info(f"{self.get_full_song_queue()=}")
         logging.info(f"{song_list=}")
+        
+        self.last_signal_num = signal_num
 
     def skip_btn_click(self):
         self.skip_btn.setEnabled(False)

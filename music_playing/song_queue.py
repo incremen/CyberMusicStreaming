@@ -4,7 +4,7 @@ import logging
 import threading
 
 def song_queue_method(func):
-    def song_queue_info(song_queue : 'SongQueue', *args, **kwargs):
+    def song_queue_info(song_queue : 'ClientSongQueue', *args, **kwargs):
         with song_queue.lock:
             logging.debug(f'Before {func.__name__}: {song_queue.data}')
             result = func(song_queue, *args, **kwargs)
@@ -15,14 +15,16 @@ def song_queue_method(func):
     return song_queue_info
 
 
-class SongQueue(UserList):
+class ClientSongQueue(UserList):
     def __init__(self, signal: pyqtSignal, *args):
         super().__init__(args)
         self.signal = signal
         self.lock = threading.Lock()
+        self.next_signal_num = 0
         
     def emit_signal(self):
-        self.signal.emit(self.data) 
+        self.signal.emit(self.data, self.next_signal_num) 
+        self.next_signal_num += 1
      
     @song_queue_method
     def append(self, item):

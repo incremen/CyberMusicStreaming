@@ -8,7 +8,7 @@ import threading
 import time
 from custom_logging import log_calls
 from typing import TYPE_CHECKING
-from music_playing.song_queue import SongQueue
+from music_playing.song_queue import ClientSongQueue
 from music_playing.play_song_thread import PlayNextSongThread
 
 if TYPE_CHECKING:
@@ -23,7 +23,7 @@ class AudioHandler:
         self.main_page_emitter = main_page_emitter
         self.lock = threading.Lock()
         
-        self.song_queue = SongQueue(main_page_emitter.update_song_queue)
+        self.song_queue = ClientSongQueue(main_page_emitter.update_song_queue)
         
         self.play_event = threading.Event()
         self.play_event.set()

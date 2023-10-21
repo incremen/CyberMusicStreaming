@@ -5,7 +5,7 @@ from music_playing.song_class import SongBuffer
 class MainPageEmitter(QObject):
     song_list_recieved = pyqtSignal(list)
     update_song_progress = pyqtSignal(int)
-    update_song_queue = pyqtSignal(list)
+    update_song_queue = pyqtSignal(list, int)
         
     def setup_connections(self, main_page : MainPage):
         self.song_list_recieved.connect(main_page.song_list_received)
