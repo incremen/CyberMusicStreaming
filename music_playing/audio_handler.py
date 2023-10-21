@@ -9,22 +9,12 @@ import time
 from custom_logging import log_calls
 from typing import TYPE_CHECKING
 from music_playing.song_queue import SongQueue
-from PyQt5.QtCore import QThread
+from music_playing.play_song_thread import PlayNextSongThread
 
 if TYPE_CHECKING:
     from backend.client.client_socket import ClientSocketHandler
 
 CHUNK = 4096
-
-
-class PlayNextSongThread(QThread):
-    def __init__(self, audio_handler):
-        QThread.__init__(self)
-        self.audio_handler = audio_handler
-
-    def run(self):
-        self.audio_handler.play_next_song()
-
 
 class AudioHandler:
     def __init__(self, main_page_emitter :MainPageEmitter):
