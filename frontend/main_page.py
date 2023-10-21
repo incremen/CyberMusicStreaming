@@ -84,6 +84,7 @@ class MainPage(QMainWindow):
             self.add_song_to_queue(song)
             
         logging.info(f"{self.get_full_song_queue()=}")
+        logging.info(f"{song_list=}")
 
     def skip_btn_click(self):
         self.skip_btn.setEnabled(False)

@@ -17,7 +17,6 @@ if TYPE_CHECKING:
 CHUNK = 4096
 
 
-
 class PlayNextSongThread(QThread):
     def __init__(self, audio_handler):
         QThread.__init__(self)
