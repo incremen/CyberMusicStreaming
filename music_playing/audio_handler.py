@@ -39,6 +39,8 @@ class AudioHandler:
         
         self.continue_playing = True
         
+        self.set_order_lock = threading.Lock()
+        
     def start_play_songs_thread(self):
         if not self.play_next_song_thread.isRunning():
             logging.info("Starting the thread! (it wasnt already running)")
@@ -53,6 +55,7 @@ class AudioHandler:
     def skip_to_song(self, index):
         song = self.song_queue[index]
         order = song.order
+        logging.debug(f"{self.next_expected_order=}")
         
         logging.checkpoint(f"About to skip to song#{order}")
         self.socket_handler.send_skip_to_song_event(order)
@@ -65,7 +68,6 @@ class AudioHandler:
         self.song_queue.clear_until_order(order)
         logging.debug(f"Updated song queue ({order=}): {self.song_queue}")
         
-        self.next_expected_order = order
         
         self.continue_playing = True
         logging.debug(f"Trying to restart the thread...:")
