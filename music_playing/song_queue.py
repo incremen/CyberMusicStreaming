@@ -1,13 +1,14 @@
 from collections import UserList
 from PyQt5.QtCore import pyqtSignal
 import logging
-
+import threading
 
 def log_change(func):
-    def song_queue_info(self : 'SongQueue', *args, **kwargs):
-        logging.debug(f'Before {func.__name__}: {self.data}')
-        result = func(self, *args, **kwargs)
-        logging.debug(f'After {func.__name__}: {self.data}')
+    def song_queue_info(song_queue : 'SongQueue', *args, **kwargs):
+        logging.debug(f'Before {func.__name__}: {song_queue.data}')
+        with song_queue.lock:
+            result = func(song_queue, *args, **kwargs)
+        logging.debug(f'After {func.__name__}: {song_queue.data}')
         return result
     return song_queue_info
 
@@ -16,6 +17,7 @@ class SongQueue(UserList):
     def __init__(self, signal: pyqtSignal, *args):
         super().__init__(args)
         self.signal = signal
+        self.lock = threading.Lock()
         
     def emit_signal(self):
         self.signal.emit(self.data) 
