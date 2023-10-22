@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1180</width>
-    <height>843</height>
+    <height>834</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -75,30 +75,31 @@
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="pause_btn">
-       <property name="geometry">
-        <rect>
-         <x>200</x>
-         <y>620</y>
-         <width>111</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>pause</string>
-       </property>
-      </widget>
       <widget class="QPushButton" name="skip_btn">
        <property name="geometry">
         <rect>
-         <x>400</x>
-         <y>620</y>
-         <width>111</width>
-         <height>41</height>
+         <x>640</x>
+         <y>670</y>
+         <width>81</width>
+         <height>61</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+border: none;
+qproperty-iconSize: 50px;
+
+</string>
+       </property>
        <property name="text">
-        <string>skip</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../../../Downloads2/play_button_right.png</normaloff>../../../Downloads2/play_button_right.png</iconset>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QListWidget" name="song_queue">
@@ -109,6 +110,60 @@
          <width>271</width>
          <height>721</height>
         </rect>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="back_btn">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>660</y>
+         <width>81</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+border: none;
+qproperty-iconSize: 50px;
+
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../../../Downloads2/play_button_left.png</normaloff>../../../Downloads2/play_button_left.png</iconset>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pause_btn">
+       <property name="geometry">
+        <rect>
+         <x>360</x>
+         <y>620</y>
+         <width>81</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: transparent;
+border: none;
+qproperty-iconSize: 50px;
+
+</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../../../Downloads2/pause_icon.png</normaloff>../../../Downloads2/pause_icon.png</iconset>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
      </widget>
