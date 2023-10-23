@@ -81,7 +81,7 @@ class Ui_MainWindow(object):
         icon = QIcon()
         icon.addFile(u"../../../Downloads2/play_button_left.png", QSize(), QIcon.Normal, QIcon.Off)
         self.back_btn.setIcon(icon)
-        self.back_btn.setFlat(True)
+        self.back_btn.setFlat(False)
 
         self.song_btns_layout.addWidget(self.back_btn, 1, 2, 1, 1)
 
@@ -95,7 +95,7 @@ class Ui_MainWindow(object):
         icon1 = QIcon()
         icon1.addFile(u"../../../Downloads2/play_button_right.png", QSize(), QIcon.Normal, QIcon.Off)
         self.skip_btn.setIcon(icon1)
-        self.skip_btn.setFlat(True)
+        self.skip_btn.setFlat(False)
 
         self.song_btns_layout.addWidget(self.skip_btn, 1, 0, 1, 1)
 
@@ -109,7 +109,7 @@ class Ui_MainWindow(object):
         icon2 = QIcon()
         icon2.addFile(u"../../../Downloads2/pause_icon.png", QSize(), QIcon.Normal, QIcon.Off)
         self.pause_btn.setIcon(icon2)
-        self.pause_btn.setFlat(True)
+        self.pause_btn.setFlat(False)
 
         self.song_btns_layout.addWidget(self.pause_btn, 0, 1, 1, 1)
 

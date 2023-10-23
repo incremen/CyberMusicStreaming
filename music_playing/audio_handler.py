@@ -8,7 +8,7 @@ import threading
 import time
 from custom_logging import log_calls
 from typing import TYPE_CHECKING
-from music_playing.song_queue import ClientSongQueue
+from music_playing.song_queue import EmittingSongList
 from music_playing.play_song_thread import PlayNextSongThread
 
 if TYPE_CHECKING:
@@ -23,7 +23,8 @@ class AudioHandler:
         self.main_page_emitter = main_page_emitter
         self.lock = threading.Lock()
         
-        self.song_queue = ClientSongQueue(main_page_emitter.update_song_queue)
+        self.song_queue = EmittingSongList(main_page_emitter.update_song_queue)
+        self.songs_played = EmittingSongList(main_page_emitter.update_songs_played)
         
         self.play_event = threading.Event()
         self.play_event.set()
@@ -106,6 +107,7 @@ class AudioHandler:
         logging.checkpoint("Done playing song...")
         self.song_queue.pop(0)
         
+        self.songs_played.append(self.current_song_buffer)
         self.current_song_buffer = None
         
         if self.continue_playing:

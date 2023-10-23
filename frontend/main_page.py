@@ -35,7 +35,8 @@ class MainPage(QMainWindow):
         
         self.skip_lock = threading.Lock()
         
-        self.last_signal_num = -1
+        self.last_queue_emit_num = -1
+        self.last_songs_played_emit_num = -1
         
     def song_list_received(self, songs : list):
         logging.debug(f"Received song list: {songs}")
@@ -89,26 +90,35 @@ class MainPage(QMainWindow):
         logging.info(f"Index of song clicked {index}")    
         self.audio_handler.skip_to_song(index)
         self.socket_handler.send_skip_to_song_event(index)
-    
-    def add_song_to_queue(self, song_buffer : SongBuffer):
-        song_text = song_buffer.__repr__()
-        self.song_queue_widget.addItem(song_text)
-    
-    @log_calls    
-    def update_song_queue(self, song_list : list[SongBuffer], signal_num : int):
-        if signal_num < self.last_signal_num:
-            logging.info("Ignoring this signal cuz it wasnt the last")
-            logging.debug(f"{signal_num=}, {self.last_signal_num=}")
+        
+    def update_songs_played(self, song_list : list[SongBuffer], emit_num : int):
+        if emit_num < self.last_songs_played_emit_num:
+            logging.debug(f"{emit_num=}, {self.last_songs_played_emit_num=} so returning")
             return
         
-        self.song_queue_widget.clear()
+        self.update_list_widget(song_list, self.songs_played_widget)
+        self.last_songs_played_emit_num = emit_num
+        
+    def update_song_queue(self, song_list : list[SongBuffer], emit_num : int):
+        if emit_num < self.last_queue_emit_num:
+            logging.debug(f"{emit_num=}, {self.last_queue_emit_num=} so returning")
+            return
+        
+        self.update_list_widget(song_list, self.song_queue_widget)
+        self.last_queue_emit_num = emit_num
+    
+    @log_calls    
+    def update_list_widget(self, song_list : list[SongBuffer], song_list_widget : QListWidget):
+        song_list_widget.clear()
         for song in song_list:
-            self.add_song_to_queue(song)
+            self.add_song_to_queue(song_list_widget, song)
             
         logging.info(f"{self.get_full_song_queue()=}")
         logging.info(f"{song_list=}")
         
-        self.last_signal_num = signal_num
+    def add_song_to_queue(self, song_list_widget : QListWidget, song_buffer : SongBuffer):
+        song_text = song_buffer.__repr__()
+        song_list_widget.addItem(song_text)
 
     def skip_btn_click(self):
         self.skip_btn.setEnabled(False)
