@@ -18,7 +18,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1180, 834)
+        MainWindow.resize(1158, 834)
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(1)
         sizePolicy.setVerticalStretch(0)
@@ -43,41 +43,64 @@ class Ui_MainWindow(object):
         self.song_grid = QGridLayout(self.gridLayoutWidget)
         self.song_grid.setObjectName(u"song_grid")
         self.song_grid.setContentsMargins(0, 0, 0, 0)
-        self.song_progress = QProgressBar(self.main_widget)
-        self.song_progress.setObjectName(u"song_progress")
-        self.song_progress.setGeometry(QRect(120, 680, 511, 23))
-        self.song_progress.setValue(0)
-        self.song_progress.setInvertedAppearance(True)
-        self.skip_btn = QPushButton(self.main_widget)
-        self.skip_btn.setObjectName(u"skip_btn")
-        self.skip_btn.setGeometry(QRect(640, 670, 81, 61))
-        self.skip_btn.setStyleSheet(u"background-color: transparent;\n"
-"border: none;\n"
-"qproperty-iconSize: 50px;\n"
-"\n"
-"")
-        icon = QIcon()
-        icon.addFile(u"../../../Downloads2/play_button_right.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.skip_btn.setIcon(icon)
-        self.skip_btn.setFlat(True)
-        self.song_queue = QListWidget(self.main_widget)
+        self.verticalLayoutWidget = QWidget(self.main_widget)
+        self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
+        self.verticalLayoutWidget.setGeometry(QRect(740, 10, 331, 741))
+        self.song_queue_layout = QVBoxLayout(self.verticalLayoutWidget)
+        self.song_queue_layout.setSpacing(12)
+        self.song_queue_layout.setObjectName(u"song_queue_layout")
+        self.song_queue_layout.setContentsMargins(0, 0, 0, 0)
+        self.songs_played_list = QListWidget(self.verticalLayoutWidget)
+        self.songs_played_list.setObjectName(u"songs_played_list")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.songs_played_list.sizePolicy().hasHeightForWidth())
+        self.songs_played_list.setSizePolicy(sizePolicy1)
+
+        self.song_queue_layout.addWidget(self.songs_played_list)
+
+        self.song_queue = QListWidget(self.verticalLayoutWidget)
         self.song_queue.setObjectName(u"song_queue")
-        self.song_queue.setGeometry(QRect(785, 20, 271, 721))
-        self.back_btn = QPushButton(self.main_widget)
+
+        self.song_queue_layout.addWidget(self.song_queue)
+
+        self.gridLayoutWidget_2 = QWidget(self.main_widget)
+        self.gridLayoutWidget_2.setObjectName(u"gridLayoutWidget_2")
+        self.gridLayoutWidget_2.setGeometry(QRect(140, 660, 421, 108))
+        self.song_btns_layout = QGridLayout(self.gridLayoutWidget_2)
+        self.song_btns_layout.setObjectName(u"song_btns_layout")
+        self.song_btns_layout.setContentsMargins(0, 0, 0, 0)
+        self.back_btn = QPushButton(self.gridLayoutWidget_2)
         self.back_btn.setObjectName(u"back_btn")
-        self.back_btn.setGeometry(QRect(50, 660, 81, 61))
         self.back_btn.setStyleSheet(u"background-color: transparent;\n"
 "border: none;\n"
 "qproperty-iconSize: 50px;\n"
 "\n"
 "")
-        icon1 = QIcon()
-        icon1.addFile(u"../../../Downloads2/play_button_left.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.back_btn.setIcon(icon1)
+        icon = QIcon()
+        icon.addFile(u"../../../Downloads2/play_button_left.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.back_btn.setIcon(icon)
         self.back_btn.setFlat(True)
-        self.pause_btn = QPushButton(self.main_widget)
+
+        self.song_btns_layout.addWidget(self.back_btn, 1, 2, 1, 1)
+
+        self.skip_btn = QPushButton(self.gridLayoutWidget_2)
+        self.skip_btn.setObjectName(u"skip_btn")
+        self.skip_btn.setStyleSheet(u"background-color: transparent;\n"
+"border: none;\n"
+"qproperty-iconSize: 50px;\n"
+"\n"
+"")
+        icon1 = QIcon()
+        icon1.addFile(u"../../../Downloads2/play_button_right.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.skip_btn.setIcon(icon1)
+        self.skip_btn.setFlat(True)
+
+        self.song_btns_layout.addWidget(self.skip_btn, 1, 0, 1, 1)
+
+        self.pause_btn = QPushButton(self.gridLayoutWidget_2)
         self.pause_btn.setObjectName(u"pause_btn")
-        self.pause_btn.setGeometry(QRect(360, 620, 81, 61))
         self.pause_btn.setStyleSheet(u"background-color: transparent;\n"
 "border: none;\n"
 "qproperty-iconSize: 50px;\n"
@@ -88,6 +111,25 @@ class Ui_MainWindow(object):
         self.pause_btn.setIcon(icon2)
         self.pause_btn.setFlat(True)
 
+        self.song_btns_layout.addWidget(self.pause_btn, 0, 1, 1, 1)
+
+        self.song_progress_layout = QHBoxLayout()
+        self.song_progress_layout.setObjectName(u"song_progress_layout")
+        self.horizontalSpacer_3 = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Minimum)
+
+        self.song_progress_layout.addItem(self.horizontalSpacer_3)
+
+        self.song_progress = QProgressBar(self.gridLayoutWidget_2)
+        self.song_progress.setObjectName(u"song_progress")
+        self.song_progress.setValue(0)
+        self.song_progress.setInvertedAppearance(True)
+
+        self.song_progress_layout.addWidget(self.song_progress)
+
+
+        self.song_btns_layout.addLayout(self.song_progress_layout, 1, 1, 1, 1)
+
+
         self.horizontalLayout.addWidget(self.main_widget)
 
         self.horizontalSpacer = QSpacerItem(132, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -97,7 +139,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1180, 21))
+        self.menubar.setGeometry(QRect(0, 0, 1158, 21))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -110,8 +152,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.skip_btn.setText("")
         self.back_btn.setText("")
+        self.skip_btn.setText("")
         self.pause_btn.setText("")
     # retranslateUi
 

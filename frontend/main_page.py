@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWidget, QGridLayout, QProgressBar, QListWidget
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWidget, QGridLayout, QProgressBar, QListWidget, QVBoxLayout
 from PyQt5 import uic, QtGui
 from PyQt5.QtCore import Qt, QThread, pyqtSlot
 import logging
@@ -6,7 +6,7 @@ from music_playing.song_class import SongInfo, SongBuffer
 from typing import TYPE_CHECKING
 import threading
 from custom_logging import log_calls
-
+from frontend import gui_funcs
 
 if TYPE_CHECKING:
     from backend.client.client_socket import ClientSocketHandler
@@ -39,9 +39,7 @@ class MainPage(QMainWindow):
         self.btn_to_data = {}
         
         for song_dict in songs:
-            logging.debug(f"{song_dict=}")
             song_data = SongInfo(**song_dict)
-            logging.debug(f"{song_data=}")
             song_text = f"{song_data.name}\n {song_data.length} seconds"
             song_btn = QPushButton(song_text)
             
@@ -50,34 +48,61 @@ class MainPage(QMainWindow):
             
     def setup_main_widget_properties(self):
         main_widget = self.main_widget
+        
         self.song_grid = main_widget.findChild(QGridLayout, "song_grid")
         
-        self.song_progress = main_widget.findChild(QProgressBar, "song_progress")
+        self.song_btns_layout = self.main_widget.findChild(QGridLayout, "song_btns_layout")
+        self.init_song_btns_layout()
         
-        self.skip_btn = main_widget.findChild(QPushButton, "skip_btn")
+        self.song_lists_layout = main_widget.findChild(QVBoxLayout, "song_queue_layout")
+        self.init_song_list_widgets()
+
+    def init_song_btns_layout(self):
+        # self.pause_btn = self.song_btns_layout.itemAtPosition(0, 1).widget()
+        # self.pause_btn.clicked.connect(self.pause_btn_click)
+        
+        # self.back_btn = self.song_btns_layout.itemAtPosition(0).widget()
+        
+        # self.song_progress_layout = self.song_btns_layout.itemAtPosition(1, 1).layout()
+        # self.song_progress_bar = self.song_progress_layout.itemAtPosition(1).widget()
+        # logging.debug(f"{self.song_progress_layout=}, {self.song_progress_bar=}")
+        
+        # self.skip_btn = self.song_btns_layout.itemAtPosition(2).widget()
+        # self.skip_btn.clicked.connect(self.skip_btn_click)
+        
+        
+        name_to_item = gui_funcs.get_name_to_item_from_gridlayout(self.song_btns_layout)
+        self.skip_btn = name_to_item["skip_btn"]
         self.skip_btn.clicked.connect(self.skip_btn_click)
         
-        self.pause_btn = main_widget.findChild(QPushButton, "pause_btn")
-        self.pause_btn.clicked.connect(self.pause_btn_click)  
+        self.pause_btn = name_to_item["pause_btn"]
+        self.pause_btn.clicked.connect(self.pause_btn_click)
         
-        self.song_queue = main_widget.findChild(QListWidget, "song_queue")  
-        self.song_queue.itemClicked.connect(self.song_in_queue_click)
+        self.back_btn = name_to_item["back_btn"]
         
+        self.song_progress_layout = name_to_item["song_progress_layout"]
+        self.song_progress_bar = self.song_progress_layout.itemAt(1).widget()
+
+    def init_song_list_widgets(self):
+        self.song_queue_widget = self.song_lists_layout.itemAt(1).widget()
+        self.song_queue_widget.itemClicked.connect(self.song_in_queue_click)
+        
+        self.songs_played_widget = self.song_lists_layout.itemAt(0).widget()
         
     def get_full_song_queue(self):
-        item_text_list = [self.song_queue.item(i).text() for i in range(self.song_queue.count())]
+        item_text_list = [self.song_queue_widget.item(i).text() for i in range(self.song_queue_widget.count())]
         return item_text_list
         
     def song_in_queue_click(self):
-        song_clicked = self.song_queue.currentItem()
-        index = self.song_queue.row(song_clicked)
+        song_clicked = self.song_queue_widget.currentItem()
+        index = self.song_queue_widget.row(song_clicked)
         logging.info(f"Index of song clicked {index}")    
         self.audio_handler.skip_to_song(index)
         self.socket_handler.send_skip_to_song_event(index)
     
     def add_song_to_queue(self, song_buffer : SongBuffer):
         song_text = song_buffer.__repr__()
-        self.song_queue.addItem(song_text)
+        self.song_queue_widget.addItem(song_text)
     
     @log_calls    
     def update_song_queue(self, song_list : list[SongBuffer], signal_num : int):
@@ -86,7 +111,7 @@ class MainPage(QMainWindow):
             logging.debug(f"{signal_num=}, {self.last_signal_num=}")
             return
         
-        self.song_queue.clear()
+        self.song_queue_widget.clear()
         for song in song_list:
             self.add_song_to_queue(song)
             
@@ -108,7 +133,7 @@ class MainPage(QMainWindow):
         
     def update_song_progress(self, progress):
         logging.info(f"updating progress to {progress}")
-        self.song_progress.setValue(progress)
+        self.song_progress_bar.setValue(progress)
         
     def add_song_to_grid(self, song_btn):
         song_btn.setFixedSize(200, 100)
