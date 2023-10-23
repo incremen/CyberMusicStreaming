@@ -179,7 +179,7 @@ qproperty-iconSize: 50px;
            </spacer>
           </item>
           <item>
-           <widget class="QProgressBar" name="song_progress">
+           <widget class="QProgressBar" name="song_progress_bar">
             <property name="value">
              <number>0</number>
             </property>

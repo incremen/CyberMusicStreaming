@@ -58,20 +58,7 @@ class MainPage(QMainWindow):
         self.init_song_list_widgets()
 
     def init_song_btns_layout(self):
-        # self.pause_btn = self.song_btns_layout.itemAtPosition(0, 1).widget()
-        # self.pause_btn.clicked.connect(self.pause_btn_click)
-        
-        # self.back_btn = self.song_btns_layout.itemAtPosition(0).widget()
-        
-        # self.song_progress_layout = self.song_btns_layout.itemAtPosition(1, 1).layout()
-        # self.song_progress_bar = self.song_progress_layout.itemAtPosition(1).widget()
-        # logging.debug(f"{self.song_progress_layout=}, {self.song_progress_bar=}")
-        
-        # self.skip_btn = self.song_btns_layout.itemAtPosition(2).widget()
-        # self.skip_btn.clicked.connect(self.skip_btn_click)
-        
-        
-        name_to_item = gui_funcs.get_name_to_item_from_gridlayout(self.song_btns_layout)
+        name_to_item = gui_funcs.get_name_to_item_recursive(self.song_btns_layout)
         self.skip_btn = name_to_item["skip_btn"]
         self.skip_btn.clicked.connect(self.skip_btn_click)
         
@@ -81,7 +68,7 @@ class MainPage(QMainWindow):
         self.back_btn = name_to_item["back_btn"]
         
         self.song_progress_layout = name_to_item["song_progress_layout"]
-        self.song_progress_bar = self.song_progress_layout.itemAt(1).widget()
+        self.song_progress_bar = name_to_item["song_progress_bar"]
 
     def init_song_list_widgets(self):
         self.song_queue_widget = self.song_lists_layout.itemAt(1).widget()

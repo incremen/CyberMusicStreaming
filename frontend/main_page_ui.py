@@ -119,12 +119,12 @@ class Ui_MainWindow(object):
 
         self.song_progress_layout.addItem(self.horizontalSpacer_3)
 
-        self.song_progress = QProgressBar(self.gridLayoutWidget_2)
-        self.song_progress.setObjectName(u"song_progress")
-        self.song_progress.setValue(0)
-        self.song_progress.setInvertedAppearance(True)
+        self.song_progress_bar = QProgressBar(self.gridLayoutWidget_2)
+        self.song_progress_bar.setObjectName(u"song_progress_bar")
+        self.song_progress_bar.setValue(0)
+        self.song_progress_bar.setInvertedAppearance(True)
 
-        self.song_progress_layout.addWidget(self.song_progress)
+        self.song_progress_layout.addWidget(self.song_progress_bar)
 
 
         self.song_btns_layout.addLayout(self.song_progress_layout, 1, 1, 1, 1)
