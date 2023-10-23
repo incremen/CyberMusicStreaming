@@ -50,20 +50,20 @@ class Ui_MainWindow(object):
         self.song_queue_layout.setSpacing(12)
         self.song_queue_layout.setObjectName(u"song_queue_layout")
         self.song_queue_layout.setContentsMargins(0, 0, 0, 0)
-        self.songs_played_list = QListWidget(self.verticalLayoutWidget)
-        self.songs_played_list.setObjectName(u"songs_played_list")
+        self.songs_played_widget = QListWidget(self.verticalLayoutWidget)
+        self.songs_played_widget.setObjectName(u"songs_played_widget")
         sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.songs_played_list.sizePolicy().hasHeightForWidth())
-        self.songs_played_list.setSizePolicy(sizePolicy1)
+        sizePolicy1.setHeightForWidth(self.songs_played_widget.sizePolicy().hasHeightForWidth())
+        self.songs_played_widget.setSizePolicy(sizePolicy1)
 
-        self.song_queue_layout.addWidget(self.songs_played_list)
+        self.song_queue_layout.addWidget(self.songs_played_widget)
 
-        self.song_queue = QListWidget(self.verticalLayoutWidget)
-        self.song_queue.setObjectName(u"song_queue")
+        self.song_queue_widget = QListWidget(self.verticalLayoutWidget)
+        self.song_queue_widget.setObjectName(u"song_queue_widget")
 
-        self.song_queue_layout.addWidget(self.song_queue)
+        self.song_queue_layout.addWidget(self.song_queue_widget)
 
         self.gridLayoutWidget_2 = QWidget(self.main_widget)
         self.gridLayoutWidget_2.setObjectName(u"gridLayoutWidget_2")

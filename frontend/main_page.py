@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 import threading
 from custom_logging import log_calls
 from frontend import gui_funcs
-
+import pprint
 if TYPE_CHECKING:
     from backend.client.client_socket import ClientSocketHandler
     from music_playing.audio_handler import AudioHandler
@@ -23,6 +23,9 @@ class MainPage(QMainWindow):
         self.setWindowTitle(f"Stream music!")
         
         self.main_widget = self.findChild(QWidget, "main_widget")
+        self.name_to_item = gui_funcs.get_name_to_item_recursive(self.main_widget)
+        pprint.pprint(self.name_to_item)
+        
         self.setup_main_widget_properties()
         
         self.show()
@@ -47,18 +50,18 @@ class MainPage(QMainWindow):
             self.add_song_to_grid(song_btn)
             
     def setup_main_widget_properties(self):
-        main_widget = self.main_widget
+        self.song_grid = self.name_to_item["song_grid"]
         
-        self.song_grid = main_widget.findChild(QGridLayout, "song_grid")
-        
-        self.song_btns_layout = self.main_widget.findChild(QGridLayout, "song_btns_layout")
+        self.song_btns_layout = self.name_to_item["song_btns_layout"]
         self.init_song_btns_layout()
         
-        self.song_lists_layout = main_widget.findChild(QVBoxLayout, "song_queue_layout")
+        self.song_lists_layout = self.name_to_item["song_queue_layout"]
         self.init_song_list_widgets()
 
+
     def init_song_btns_layout(self):
-        name_to_item = gui_funcs.get_name_to_item_recursive(self.song_btns_layout)
+        name_to_item = self.name_to_item
+        
         self.skip_btn = name_to_item["skip_btn"]
         self.skip_btn.clicked.connect(self.skip_btn_click)
         
@@ -71,10 +74,10 @@ class MainPage(QMainWindow):
         self.song_progress_bar = name_to_item["song_progress_bar"]
 
     def init_song_list_widgets(self):
-        self.song_queue_widget = self.song_lists_layout.itemAt(1).widget()
+        self.song_queue_widget = self.name_to_item["song_queue_widget"]
         self.song_queue_widget.itemClicked.connect(self.song_in_queue_click)
         
-        self.songs_played_widget = self.song_lists_layout.itemAt(0).widget()
+        self.songs_played_widget = self.name_to_item["songs_played_widget"]
         
     def get_full_song_queue(self):
         item_text_list = [self.song_queue_widget.item(i).text() for i in range(self.song_queue_widget.count())]

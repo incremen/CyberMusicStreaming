@@ -66,7 +66,7 @@ def get_name_to_item_from_widget_children(widget):
 
 def get_name_to_item_recursive(item):
     if not item:
-        {}
+       return {}
     
     name_to_item = {}
     name_to_item[item.objectName()] = item
@@ -81,7 +81,7 @@ def get_name_to_item_recursive(item):
     elif isinstance(item, QtWidgets.QGridLayout):
         new_name_to_item = get_name_to_item_from_gridlayout(item)
 
-        
+    name_to_item.update(new_name_to_item)
     for new_item in new_name_to_item.values():
         name_to_item.update(get_name_to_item_recursive(new_item))
 
