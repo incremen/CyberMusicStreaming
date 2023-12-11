@@ -14,9 +14,6 @@ class ClientSocketHandler:
         self.audio_handler = audio_handler
         self.audio_handler.socket_handler = self
         self.emit_to_server= self.sio.emit
-
-    def request_song(self, song_name : str):
-        self.emit_to_server('audio_request', song_name)
     
     def send_skip_to_song_event(self, song_order):
         self.emit_to_server("skip_to_song" ,song_order)

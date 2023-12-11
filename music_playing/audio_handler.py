@@ -33,6 +33,9 @@ class AudioHandler:
         self.play_next_song_thread = PlayNextSongThread(self)
         
     def start_play_next_song_thread(self):
+        if self.play_next_song_thread.isRunning():
+            logging.error("play next song thread already running")
+            return
         self.play_next_song_thread.start()
     def received_next_order(self, order):
         self.next_expected_order = order
@@ -61,8 +64,8 @@ class AudioHandler:
         
         self.song_queue.append(song_info)
         logging.debug(f"Appended. {self.song_queue=}")
-        
         self.next_expected_order += 1
+        self.start_play_next_song_thread()
         
     def song_list_received(self, song_list : list[dict[str, str]]):
         song_info_list = [SongInfo(**song_dict) for song_dict in song_list]
@@ -74,7 +77,7 @@ class AudioHandler:
         if self.current_song_index >= len(self.song_queue):
             print("Reached the end of the song queue.")
             return
-        song_name = self.song_queue[self.current_song_index].info.name
+        song_name = self.song_queue[self.current_song_index].name
         self.play_song(song_name)
         self.current_song_index += 1
         if self.current_song_index < len(self.song_queue):

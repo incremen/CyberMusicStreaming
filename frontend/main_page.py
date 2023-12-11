@@ -108,8 +108,6 @@ class MainPage(Ui_MainWindow, QMainWindow):
     def song_btn_click(self):
         btn_clicked_data = self.btn_to_info[self.sender()]
         self.audio_handler.add_to_song_queue(btn_clicked_data.name)
-        self.socket_handler.request_song(btn_clicked_data.name)
-        
 
         
     
