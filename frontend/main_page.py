@@ -6,37 +6,28 @@ from music_playing.song_class import SongInfo, SongBuffer
 from typing import TYPE_CHECKING
 import threading
 from custom_logging import log_calls
-from frontend import gui_funcs
+from frontend.main_page_ui import Ui_MainWindow
 import pprint
 if TYPE_CHECKING:
     from backend.client.client_socket import ClientSocketHandler
     from music_playing.audio_handler import AudioHandler
     
-
-class MainPage(QMainWindow):
+class MainPage(Ui_MainWindow, QMainWindow): 
     def __init__(self, socket_handler :'ClientSocketHandler', audio_handler :'AudioHandler'):
-        super(MainPage, self).__init__()
-        self.socket_handler = socket_handler
-        self.audio_handler = audio_handler
-        
-        uic.loadUi(r"frontend\main_page.ui", self)
-        self.setWindowTitle(f"Stream music!")
-        
-        self.main_widget = self.findChild(QWidget, "main_widget")
-        self.name_to_item = gui_funcs.get_name_to_item_recursive(self.main_widget)
-        pprint.pprint(self.name_to_item)
-        
-        self.setup_main_widget_properties()
-        
-        self.show()
-        
-        self.last_row = 0
-        self.last_col = -1
-        
-        self.skip_lock = threading.Lock()
-        
-        self.last_queue_emit_num = -1
-        self.last_songs_played_emit_num = -1
+       super(MainPage, self).__init__()
+       self.setupUi(self)
+       self.socket_handler = socket_handler
+       self.audio_handler = audio_handler
+
+       self.show()
+
+       self.last_row = 0
+       self.last_col = -1
+
+       self.skip_lock = threading.Lock()
+
+       self.last_queue_emit_num = -1
+       self.last_songs_played_emit_num = -1
         
     def song_list_received(self, songs : list):
         logging.debug(f"Received song list: {songs}")
@@ -49,36 +40,6 @@ class MainPage(QMainWindow):
             
             self.btn_to_data.update({song_btn : song_data})
             self.add_song_to_grid(song_btn)
-            
-    def setup_main_widget_properties(self):
-        self.song_grid = self.name_to_item["song_grid"]
-        
-        self.song_btns_layout = self.name_to_item["song_btns_layout"]
-        self.init_song_btns_layout()
-        
-        self.song_lists_layout = self.name_to_item["song_queue_layout"]
-        self.init_song_list_widgets()
-
-
-    def init_song_btns_layout(self):
-        name_to_item = self.name_to_item
-        
-        self.skip_btn = name_to_item["skip_btn"]
-        self.skip_btn.clicked.connect(self.skip_btn_click)
-        
-        self.pause_btn = name_to_item["pause_btn"]
-        self.pause_btn.clicked.connect(self.pause_btn_click)
-        
-        self.back_btn = name_to_item["back_btn"]
-        
-        self.song_progress_layout = name_to_item["song_progress_layout"]
-        self.song_progress_bar = name_to_item["song_progress_bar"]
-
-    def init_song_list_widgets(self):
-        self.song_queue_widget = self.name_to_item["song_queue_widget"]
-        self.song_queue_widget.itemClicked.connect(self.song_in_queue_click)
-        
-        self.songs_played_widget = self.name_to_item["songs_played_widget"]
         
     def get_full_song_queue(self):
         item_text_list = [self.song_queue_widget.item(i).text() for i in range(self.song_queue_widget.count())]
@@ -106,7 +67,7 @@ class MainPage(QMainWindow):
         
         self.update_list_widget(song_list, self.song_queue_widget)
         self.last_queue_emit_num = emit_num
-    
+
     @log_calls    
     def update_list_widget(self, song_list : list[SongBuffer], song_list_widget : QListWidget):
         song_list_widget.clear()
