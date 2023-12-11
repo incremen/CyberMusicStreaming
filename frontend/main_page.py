@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWid
 from PyQt5 import uic, QtGui
 from PyQt5.QtCore import Qt, QThread, pyqtSlot
 import logging
-from music_playing.song_class import SongInfo, SongBuffer
+from music_playing.song_class import SongInfo, Song
 from typing import TYPE_CHECKING
 import threading
 from custom_logging import log_calls
@@ -31,14 +31,14 @@ class MainPage(Ui_MainWindow, QMainWindow):
         
     def song_list_received(self, songs : list):
         logging.debug(f"Received song list: {songs}")
-        self.btn_to_data = {}
+        self.btn_to_info = {}
         
         for song_dict in songs:
-            song_data = SongInfo(**song_dict)
-            song_text = f"{song_data.name}\n {song_data.length} seconds"
+            song_info = SongInfo(**song_dict)
+            song_text = f"{song_info.name}\n {song_info.length} seconds"
             song_btn = QPushButton(song_text)
             
-            self.btn_to_data.update({song_btn : song_data})
+            self.btn_to_info.update({song_btn : song_info})
             self.add_song_to_grid(song_btn)
         
     def get_full_song_queue(self):
@@ -52,7 +52,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.audio_handler.skip_to_song(index)
         self.socket_handler.send_skip_to_song_event(index)
         
-    def update_songs_played(self, song_list : list[SongBuffer], emit_num : int):
+    def update_songs_played(self, song_list : list[Song], emit_num : int):
         if emit_num < self.last_songs_played_emit_num:
             logging.debug(f"{emit_num=}, {self.last_songs_played_emit_num=} so returning")
             return
@@ -60,7 +60,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.update_list_widget(song_list, self.songs_played_widget)
         self.last_songs_played_emit_num = emit_num
         
-    def update_song_queue(self, song_list : list[SongBuffer], emit_num : int):
+    def update_song_queue(self, song_list : list[Song], emit_num : int):
         if emit_num < self.last_queue_emit_num:
             logging.debug(f"{emit_num=}, {self.last_queue_emit_num=} so returning")
             return
@@ -69,7 +69,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.last_queue_emit_num = emit_num
 
     @log_calls    
-    def update_list_widget(self, song_list : list[SongBuffer], song_list_widget : QListWidget):
+    def update_list_widget(self, song_list : list[Song], song_list_widget : QListWidget):
         song_list_widget.clear()
         for song in song_list:
             self.add_song_to_queue(song_list_widget, song)
@@ -77,7 +77,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
         logging.info(f"{self.get_full_song_queue()=}")
         logging.info(f"{song_list=}")
         
-    def add_song_to_queue(self, song_list_widget : QListWidget, song_buffer : SongBuffer):
+    def add_song_to_queue(self, song_list_widget : QListWidget, song_buffer : Song):
         song_text = song_buffer.__repr__()
         song_list_widget.addItem(song_text)
 
@@ -106,7 +106,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.song_grid.addWidget(song_btn, self.last_row, self.last_col)
         
     def song_btn_click(self):
-        btn_clicked_data = self.btn_to_data[self.sender()]
+        btn_clicked_data = self.btn_to_info[self.sender()]
         self.audio_handler.add_to_song_queue(btn_clicked_data.name)
         self.socket_handler.request_song(btn_clicked_data.name)
         

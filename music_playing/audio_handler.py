@@ -3,7 +3,7 @@ import logging
 import pyaudio
 from queue import Queue
 from backend.client.main_page_emitter import MainPageEmitter
-from music_playing.song_class import SongInfo, SongBuffer, SongChunk
+from music_playing.song_class import SongInfo
 import threading
 import time
 from custom_logging import log_calls
@@ -56,9 +56,9 @@ class AudioHandler:
     @log_calls
     def add_to_song_queue(self, song_name :str):
         song_info = self.song_name_to_info[song_name]
-        new_song_buffer = SongBuffer(song_info, self.next_expected_order)
+        song_info.order = self.next_expected_order
         
-        self.song_queue.append(new_song_buffer)
+        self.song_queue.append(song_info)
         logging.debug(f"Appended. {self.song_queue=}")
         
         self.next_expected_order += 1

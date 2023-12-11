@@ -6,7 +6,6 @@ from music_playing.audio_handler import AudioHandler
 import threading
 from backend.client.main_page_emitter import MainPageEmitter
 from frontend.main_page import MainPage
-from music_playing.song_class import SongInfo, SongChunk
 
 
 class ClientSocketHandler:
@@ -35,18 +34,6 @@ class ClientSocketHandler:
         @self.sio.event
         def connect():
             logging.info('Connected to server')
-            
-        @self.sio.on("sending_new_song")
-        def new_song_stream(song_info_dict, song_order):
-            song_info = SongInfo(**song_info_dict)
-            logging.recv(f"Received sending_new_song event! {song_info=}")
-            self.audio_handler.start_play_songs_thread()
-
-        @self.sio.on('audio_data')
-        def on_audio_data(song_chunk_dict):
-            song_chunk = SongChunk(**song_chunk_dict)
-            logging.recv(f"Received audio data ({song_chunk})")
-            self.audio_handler.add_to_buffer(song_chunk)
 
         @self.sio.event
         def disconnect():

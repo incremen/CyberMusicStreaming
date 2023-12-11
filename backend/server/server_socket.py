@@ -11,21 +11,20 @@ from music_playing import manage_songs_in_dir
 import pprint
 from dataclasses import asdict
 from backend import server_addr_tuple
-from backend.server.song_queue_manager import ServerQueueManager
 
 #sid - socket id
 # environ is a dictionary that contains environmental information related to the incoming connection
 
 class ServerSocketHandler:
-    def __init__(self, songs_dir):
+    def __init__(self):
         self.sio = socketio.Server()
-        self.song_queue_manager = ServerQueueManager(self, songs_dir)
+        self.next_song_order = 0
 
     def start(self):
         @self.sio.on('connect', namespace='/')
         def connect(sid, environ):
             logging.info('Client connected')
-            self.song_queue_manager.new_client_connect(sid)
+            logging.send("Sending next song order...")
 
         @self.sio.on('audio_request')
         def on_audio_request(sid, song_name: str):
