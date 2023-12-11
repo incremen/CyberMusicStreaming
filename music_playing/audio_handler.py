@@ -31,6 +31,7 @@ class AudioHandler:
         )
         self.next_expected_order = 0
         self.play_next_song_thread = PlayNextSongThread(self)
+        self.playing_song = False
         
     def start_play_next_song_thread(self):
         if self.play_next_song_thread.isRunning():
@@ -75,7 +76,10 @@ class AudioHandler:
     
     def play_next_song(self):
         if self.current_song_index >= len(self.song_queue):
-            print("Reached the end of the song queue.")
+            logging.error("Reached the end of the song queue.")
+            return
+        if self.playing_song:
+            logging.error("Already playing a song.")
             return
         song_name = self.song_queue[self.current_song_index].name
         self.play_song(song_name)
@@ -85,27 +89,19 @@ class AudioHandler:
         
     @log_calls
     def play_song(self, song_name):
+        self.playing_song = True
         print("Playing song!")
         # url = f'http://{self.host}:{self.port}/{song_name}/index.m3u8'
         url = f'songs/{song_name}'
         logging.debug(f"Playing {url=}")
         self.player.play(url)
+        self.player.wait_for_playback()
+        self.playing_song = False
         
     @log_calls
     def skip_current_song(self):
         logging.info("Skipping song...")
         self.stop_song()
-        
-        self.socket_handler.send_skip_song_event()
-        
-        with self.skip_song_lock:
-            self.skip_song_flag = True
-            #play_song will get stuck forever in the loop if this event isn't set:
-            self.play_event.set()
-        logging.debug("Waiting for skipped song event...")
-        self.skipped_song_event.wait()
-        logging.debug("Done waiting")
-        self.skipped_song_event.clear()
         
     def stop_song(self):
         self.player.stop()
