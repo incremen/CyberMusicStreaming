@@ -67,9 +67,6 @@ class EmittingSongList(UserList):
 
         Parameters:
             order (int): The order until which the songs should be cleared.
-
-        Returns:
-            None
         """
         songs_to_remove = [song for song in self.data if song.order < order]
         for song in songs_to_remove:

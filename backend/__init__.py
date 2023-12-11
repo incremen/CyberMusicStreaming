@@ -5,3 +5,5 @@
 client_connects_to_str = "tcp://localhost:12345"
 
 server_addr_tuple = ('localhost', 12345)
+
+HLS_HOST, HLS_PORT = 'localhost', 8080

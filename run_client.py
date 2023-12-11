@@ -22,8 +22,8 @@ def main():
     
     main_page_emitter.setup_connections(main_page)
     
-    # client_socket_handler.connect()
-    # client_socket_handler.emit_to_server("song_list_request")
+    client_socket_handler.connect()
+    client_socket_handler.emit_to_server("song_list_request")
     app.exec_()
     
 if __name__ == "__main__":
