@@ -30,7 +30,6 @@ class ClientSocketHandler:
         self.emit_to_server('skip_song', order)
         
     def connect(self):
-        
         @self.sio.event
         def connect():
             logging.info('Connected to server')

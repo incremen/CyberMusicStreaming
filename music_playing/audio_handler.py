@@ -29,10 +29,11 @@ class AudioHandler:
             input_vo_keyboard=True,
             osc=True
         )
-        
+        self.next_expected_order = 0
         self.play_next_song_thread = PlayNextSongThread(self)
-        self.play_next_song_thread.start()
         
+    def start_play_next_song_thread(self):
+        self.play_next_song_thread.start()
     def received_next_order(self, order):
         self.next_expected_order = order
         logging.debug(f"{self.next_expected_order=}")
