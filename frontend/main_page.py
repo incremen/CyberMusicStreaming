@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWid
 from PyQt5 import uic, QtGui
 from PyQt5.QtCore import Qt, QThread, pyqtSlot
 import logging
-from music_playing.song_class import SongInfo, Song
+from music_playing.song_class import SongInfo
 from typing import TYPE_CHECKING
 import threading
 from custom_logging import log_calls
@@ -52,7 +52,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.audio_handler.skip_to_song(index)
         self.socket_handler.send_skip_to_song_event(index)
         
-    def update_songs_played(self, song_list : list[Song], emit_num : int):
+    def update_songs_played(self, song_list : list[SongInfo], emit_num : int):
         if emit_num < self.last_songs_played_emit_num:
             logging.debug(f"{emit_num=}, {self.last_songs_played_emit_num=} so returning")
             return
@@ -60,7 +60,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.update_list_widget(song_list, self.songs_played_widget)
         self.last_songs_played_emit_num = emit_num
         
-    def update_song_queue(self, song_list : list[Song], emit_num : int):
+    def update_song_queue(self, song_list : list[SongInfo], emit_num : int):
         if emit_num < self.last_queue_emit_num:
             logging.debug(f"{emit_num=}, {self.last_queue_emit_num=} so returning")
             return
@@ -69,7 +69,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.last_queue_emit_num = emit_num
 
     @log_calls    
-    def update_list_widget(self, song_list : list[Song], song_list_widget : QListWidget):
+    def update_list_widget(self, song_list : list[SongInfo], song_list_widget : QListWidget):
         song_list_widget.clear()
         for song in song_list:
             self.add_song_to_queue(song_list_widget, song)
@@ -77,7 +77,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
         logging.info(f"{self.get_full_song_queue()=}")
         logging.info(f"{song_list=}")
         
-    def add_song_to_queue(self, song_list_widget : QListWidget, song_buffer : Song):
+    def add_song_to_queue(self, song_list_widget : QListWidget, song_buffer : SongInfo):
         song_text = song_buffer.__repr__()
         song_list_widget.addItem(song_text)
 

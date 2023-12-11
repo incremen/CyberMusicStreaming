@@ -9,7 +9,7 @@ def main():
     custom_logger.clear_logs()
     songs_dir = os.path.abspath(r"songs")
     
-    server_socket_handler = ServerSocketHandler()
+    server_socket_handler = ServerSocketHandler(songs_dir)
     server_socket_handler.start()
     
     start_hls_server()

@@ -16,9 +16,10 @@ from backend import server_addr_tuple
 # environ is a dictionary that contains environmental information related to the incoming connection
 
 class ServerSocketHandler:
-    def __init__(self):
+    def __init__(self, song_dir):
         self.sio = socketio.Server()
         self.next_song_order = 0
+        self.song_list = manage_songs_in_dir.get_song_list(song_dir)
 
     def start(self):
         @self.sio.on('connect', namespace='/')
@@ -26,14 +27,9 @@ class ServerSocketHandler:
             logging.info('Client connected')
             logging.send("Sending next song order...")
 
-        @self.sio.on('audio_request')
-        def on_audio_request(sid, song_name: str):
-            logging.recv(f"Received audio request for {song_name}")
-            self.song_queue_manager.add_song_to_send_list(song_name, sid)
-
         @self.sio.on("song_list_request")
         def send_song_list(sid):
-            song_dict_list = [asdict(song) for song in self.song_queue_manager.song_list]
+            song_dict_list = [asdict(song) for song in self.song_list]
             self.sio.emit("song_list", song_dict_list, room=sid)
 
         @self.sio.event
