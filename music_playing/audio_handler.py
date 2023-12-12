@@ -42,19 +42,15 @@ class AudioHandler:
         logging.debug(f"{self.next_expected_order=}")
 
     def skip_to_song(self, index):
-        song = self.song_queue[index]
-        order = song.order
-        logging.debug(f"{self.next_expected_order=}")
-        logging.checkpoint(f"About to skip to song#{order}")
+        logging.checkpoint(f"About to skip to song at index{index}")
         self.skip_current_song()
-        
         logging.debug(f"Updated song queue after skipping current: {self.song_queue}")
-        
-        self.song_queue.clear_until_order(order)
-        logging.debug(f"Updated song queue ({order=}): {self.song_queue}")
-        
-        self.continue_playing = True
-        logging.debug(f"Trying to restart the thread...:")
+        #drops one index because it skipped the current song.
+        new_list = self.song_queue[index-1:]
+        logging.debug(f"{new_list=}")
+        self.song_queue.clear()
+        self.song_queue.extend(new_list)
+        logging.debug(f"Updated song queue after resetting: {self.song_queue}")
         
     @log_calls
     def add_to_song_queue(self, song_name :str):

@@ -31,19 +31,6 @@ class ServerSocketHandler:
         def send_song_list(sid):
             song_dict_list = [asdict(song) for song in self.song_list]
             self.sio.emit("song_list", song_dict_list, room=sid)
-
-        @self.sio.event
-        def disconnect(sid):
-            logging.info('Client disconnected')
-        
-        @self.sio.on('skip_song')
-        def skip_song(sid, song_name):
-            self.song_queue_manager.skip_song(sid, song_name)
-            
-        @self.sio.on("skip_to_song")
-        def on_skip_to_song(sid, song_name):
-            logging.checkpoint("Skipping to song...")
-            self.song_queue_manager.skip_to_song(sid, song_name)
             
         app = socketio.WSGIApp(self.sio)
         wsgi.server(eventlet.listen(server_addr_tuple), app)
