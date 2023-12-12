@@ -21,7 +21,6 @@ class AudioHandler:
         self.main_page_emitter = main_page_emitter
         self.song_queue = EmittingSongList(main_page_emitter.update_song_queue)
         self.songs_played = EmittingSongList(main_page_emitter.update_songs_played)
-        self.current_song_index = 0
         self.player = mpv.MPV(
             player_operation_mode='pseudo-gui',
             script_opts='osc-layout=box,osc-seekbarstyle=bar,osc-deadzonesize=0,osc-minmousemove=3,osc-visibility=always',
@@ -75,24 +74,24 @@ class AudioHandler:
         self.main_page_emitter.song_list_recieved.emit(song_list)
     
     def play_next_song(self):
-        if self.current_song_index >= len(self.song_queue):
-            logging.error("Reached the end of the song queue.")
-            return
         if self.playing_song:
             logging.error("Already playing a song.")
             return
-        song_name = self.song_queue[self.current_song_index].name
-        self.play_song(song_name)
-        self.current_song_index += 1
-        if self.current_song_index < len(self.song_queue):
-            self.play_next_song()
+        if not self.song_queue:
+            logging.error("No songs in queue to play...")
+            return
+        song_to_play = self.song_queue[0]
+        self.play_song(song_to_play)
+        self.song_queue.pop(0)
+        self.songs_played.append(song_to_play)
+        self.play_next_song()
         
     @log_calls
-    def play_song(self, song_name):
+    def play_song(self, song : SongInfo):
         self.playing_song = True
         print("Playing song!")
         # url = f'http://{self.host}:{self.port}/{song_name}/index.m3u8'
-        url = f'songs/{song_name}'
+        url = f'songs/{song.name}'
         logging.debug(f"Playing {url=}")
         self.player.play(url)
         self.player.wait_for_playback()
