@@ -8,7 +8,7 @@ import threading
 import time
 from custom_logging import log_calls
 from typing import TYPE_CHECKING
-from music_playing.song_queue import EmittingSongList
+from music_playing.song_queue import EmittingList
 from music_playing.play_song_thread import PlayNextSongThread
 import mpv
 if TYPE_CHECKING:
@@ -19,14 +19,14 @@ CHUNK = 4096
 class AudioHandler:
     def __init__(self, main_page_emitter: 'MainPageEmitter'):
         self.main_page_emitter = main_page_emitter
-        self.song_queue = EmittingSongList(main_page_emitter.update_song_queue)
-        self.songs_played = EmittingSongList(main_page_emitter.update_songs_played)
+        self.song_queue = EmittingList(main_page_emitter.update_song_queue)
+        self.songs_played = EmittingList(main_page_emitter.update_songs_played)
         self.player = mpv.MPV(
             player_operation_mode='pseudo-gui',
             script_opts='osc-layout=box,osc-seekbarstyle=bar,osc-deadzonesize=0,osc-minmousemove=3,osc-visibility=always',
             input_default_bindings=True,
             input_vo_keyboard=True,
-            osc=True
+            osc=True,
         )
         self.next_expected_order = 0
         self.play_next_song_thread = PlayNextSongThread(self)
@@ -55,7 +55,6 @@ class AudioHandler:
         
         self.continue_playing = True
         logging.debug(f"Trying to restart the thread...:")
-        self.start_play_songs_thread()
         
     @log_calls
     def add_to_song_queue(self, song_name :str):
