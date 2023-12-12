@@ -32,6 +32,8 @@ class AudioHandler:
         self.play_next_song_thread = PlayNextSongThread(self)
         self.playing_song = False
         
+        self.finished_playing_song = threading.Event()
+        
     def start_play_next_song_thread(self):
         if self.play_next_song_thread.isRunning():
             logging.error("play next song thread already running")
@@ -43,13 +45,14 @@ class AudioHandler:
 
     def skip_to_song(self, index):
         logging.checkpoint(f"About to skip to song at index{index}")
-        self.skip_current_song()
+        self.skip_song_and_wait()
         logging.debug(f"Updated song queue after skipping current: {self.song_queue}")
         #drops one index because it skipped the current song.
         new_list = self.song_queue[index-1:]
-        logging.debug(f"{new_list=}")
+        old_list = self.song_queue[:index]
         self.song_queue.clear()
         self.song_queue.extend(new_list)
+        self.songs_played.extend(old_list)
         logging.debug(f"Updated song queue after resetting: {self.song_queue}")
         
     @log_calls
@@ -89,13 +92,16 @@ class AudioHandler:
         url = f'songs/{song.name}'
         logging.debug(f"Playing {url=}")
         self.player.play(url)
+        self.finished_playing_song.clear()
         self.player.wait_for_playback()
+        self.finished_playing_song.set()
         self.playing_song = False
         
     @log_calls
-    def skip_current_song(self):
+    def skip_song_and_wait(self):
         logging.info("Skipping song...")
         self.player.stop()
+        self.finished_playing_song.wait()
         
     @log_calls
     def pause_or_resume_song(self):
