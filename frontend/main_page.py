@@ -96,7 +96,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.skip_btn.setEnabled(True)
         
     def pause_btn_click(self):
-        self.audio_handler.pause_or_resume()
+        self.audio_handler.pause_or_resume_song()
         
     def update_song_progress(self, progress):
         logging.info(f"updating progress to {progress}")

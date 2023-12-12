@@ -100,10 +100,16 @@ class AudioHandler:
     @log_calls
     def skip_current_song(self):
         logging.info("Skipping song...")
-        self.stop_song()
-        
-    def stop_song(self):
         self.player.stop()
+        
+    @log_calls
+    def pause_or_resume_song(self):
+        if not self.playing_song:
+            logging.error("No song is currently playing.")
+            return
+        self.player.pause = not self.player.pause
+        logging.info("Song paused.")
+
         
         
         
