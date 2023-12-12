@@ -18,7 +18,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
        self.setupUi(self)
        self.socket_handler = socket_handler
        self.audio_handler = audio_handler
-
+       self.setup_main_widget_properties()
        self.show()
 
        self.last_row = 0
@@ -28,6 +28,12 @@ class MainPage(Ui_MainWindow, QMainWindow):
 
        self.last_queue_emit_num = -1
        self.last_songs_played_emit_num = -1
+       
+    def setup_main_widget_properties(self):
+        self.skip_btn.clicked.connect(self.skip_btn_click)
+        
+        self.pause_btn.clicked.connect(self.pause_btn_click)  
+        self.song_queue_widget.itemClicked.connect(self.song_in_queue_click)
         
     def song_list_received(self, songs : list):
         logging.debug(f"Received song list: {songs}")
