@@ -79,8 +79,12 @@ class AudioHandler:
             logging.error("No songs in queue to play...")
             return
         song_to_play = self.song_queue[0]
+        
+        self.finished_playing_song.clear()
         self.play_song(song_to_play)
         self.song_queue.pop(0)
+        self.finished_playing_song.set()
+        
         self.songs_played.append(song_to_play)
         self.play_next_song()
         
@@ -92,9 +96,7 @@ class AudioHandler:
         url = f'songs/{song.name}'
         logging.debug(f"Playing {url=}")
         self.player.play(url)
-        self.finished_playing_song.clear()
         self.player.wait_for_playback()
-        self.finished_playing_song.set()
         self.playing_song = False
         
     @log_calls
