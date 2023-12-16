@@ -12,13 +12,23 @@ class PlayNextSongThread(QThread):
       self.continue_playing = Event()
       self.continue_playing.set()
       self.killed = False
+      self.killed_event = Event()
 
     def run(self):
         while True:
             if self.killed:
+                logging.checkpoint("I have been killed!")
+                self.killed_event.set()
                 return
             self.continue_playing.wait()
             self.play_next_song()
+            
+    def kill_and_wait(self):
+        """Also finished playing the current song"""
+        self.killed = True
+        self.audio_handler.player.stop()
+        self.killed_event.wait()
+        self.killed_event.clear()
             
     def play_next_song(self):
         if not self.audio_handler.song_queue:

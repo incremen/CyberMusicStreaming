@@ -71,22 +71,29 @@ class AudioHandler:
         self.main_page_emitter.song_list_recieved.emit(song_list)
         
     def play_last_song(self):
-        self.play_next_song_thread.kill_thread()
+            
+        self.play_next_song_thread.kill_and_wait()
         self.player.stop()
         self.play_next_song_thread = PlayNextSongThread(self)
         logging.checkpoint(f"Before\n{self.song_queue=}\n{self.songs_played=}\n")
-        if self.songs_played:
-            last_song = self.songs_played.pop()
-            self.song_queue.insert(0, last_song)
+        if not self.songs_played:
+            logging.error("No songs played")
+            return
+        for _ in range(2):
+            self.queue_last_played_song()
             
         logging.checkpoint(f"After\n{self.song_queue=}\n{self.songs_played=}\n")
         self.play_next_song_thread.start()
+
+    def queue_last_played_song(self):
+        last_song = self.songs_played.pop()
+        self.song_queue.insert(0, last_song)
         
     @log_calls
     def play_song(self, song : SongInfo):
         # url = f'http://{self.host}:{self.port}/{song_name}/index.m3u8'
         url = f'songs/{song.name}'
-        logging.checkpoint(f"Playing {url=}")
+        logging.checkpoint(f"\nPlaying {url=} because: \n{self.song_queue=}\n{self.songs_played=}\n")
         self.player.play(url)
         self.player.wait_for_playback()
         
