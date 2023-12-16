@@ -31,7 +31,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
        
     def setup_main_widget_properties(self):
         self.skip_btn.clicked.connect(self.skip_btn_click)
-        
+        self.back_btn.clicked.connect(self.back_btn_click)
         self.pause_btn.clicked.connect(self.pause_btn_click)  
         self.song_queue_widget.itemClicked.connect(self.song_in_queue_click)
         
@@ -90,9 +90,9 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.skip_btn.setEnabled(False)
         self.audio_handler.stop_playing_song() 
         self.skip_btn.setEnabled(True)
-
-    def enable_skip_button(self):
-        self.skip_btn.setEnabled(True)
+        
+    def back_btn_click(self):
+        self.audio_handler.play_last_song()
         
     def pause_btn_click(self):
         self.audio_handler.pause_or_resume_song()

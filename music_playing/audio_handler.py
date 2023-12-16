@@ -32,13 +32,15 @@ class AudioHandler:
         self.play_next_song_thread = PlayNextSongThread(self)
         self.playing_song = False
         
-        self.continue_playing_song = threading.Event()
+        self.continue_play_next_song_thread = threading.Event()
+        self.continue_play_next_song_thread.set()
         
     def start_play_next_song_thread(self):
         if self.play_next_song_thread.isRunning():
             logging.error("play next song thread already running")
             return
         self.play_next_song_thread.start()
+        
     def received_next_order(self, order):
         self.next_expected_order = order
         logging.debug(f"{self.next_expected_order=}")
@@ -46,14 +48,14 @@ class AudioHandler:
     def skip_to_song(self, index):
         logging.checkpoint(f"About to skip to song at index{index}")
         logging.checkpoint(f"Before skipping current\n{self.song_queue}\n")
-        self.continue_playing_song.clear()
+        self.continue_play_next_song_thread.clear()
         self.stop_playing_song()
         logging.checkpoint(f"After skipping current\n{self.song_queue}\n")
         #drops one index because it skipped the current song.
         for _ in range(index-1):
             self.songs_played.append(self.song_queue.pop(0))
         logging.checkpoint(f"After\n{self.song_queue=}\n{self.songs_played=}\n")
-        self.continue_playing_song.set()
+        self.continue_play_next_song_thread.set()
         
     @log_calls
     def add_to_song_queue(self, song_name :str):
@@ -84,8 +86,23 @@ class AudioHandler:
         self.song_queue.pop(0)
         
         self.songs_played.append(song_to_play)
-        self.continue_playing_song.wait()
+        
+        self.continue_play_next_song_thread.wait()
         self.play_next_song()
+        
+    def play_last_song(self):
+        # Pause the play_next_song function
+        self.continue_play_next_song_thread.
+        self.player.stop()
+
+        # Add the last song in the played_songs list to the front of the queue
+        if self.songs_played:
+            last_song = self.songs_played.pop()
+            self.song_queue.insert(0, last_song)
+
+        # Resume the play_last_song function
+        self.continue_play_next_song_thread.set()
+
         
     @log_calls
     def play_song(self, song : SongInfo):
@@ -99,7 +116,7 @@ class AudioHandler:
         
     @log_calls
     def stop_playing_song(self):
-        logging.info("Skipping song...")
+        logging.info("Stopping song...")
         self.player.stop()
         
     @log_calls
