@@ -74,14 +74,13 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.update_list_widget(song_list, self.song_queue_widget)
         self.last_queue_emit_num = emit_num
 
-    @log_calls    
     def update_list_widget(self, song_list : list[SongInfo], song_list_widget : QListWidget):
         song_list_widget.clear()
         for song in song_list:
             self.add_song_to_queue(song_list_widget, song)
             
-        logging.info(f"{self.get_full_song_queue()=}")
-        logging.info(f"{song_list=}")
+        # logging.info(f"{self.get_full_song_queue()=}")
+        # logging.info(f"{song_list=}")
         
     def add_song_to_queue(self, song_list_widget : QListWidget, song_buffer : SongInfo):
         song_text = song_buffer.__repr__()
@@ -89,7 +88,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
 
     def skip_btn_click(self):
         self.skip_btn.setEnabled(False)
-        self.audio_handler.skip_song_and_wait() 
+        self.audio_handler.stop_playing_song() 
         self.skip_btn.setEnabled(True)
 
     def enable_skip_button(self):

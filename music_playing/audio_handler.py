@@ -8,7 +8,7 @@ import threading
 import time
 from custom_logging import log_calls
 from typing import TYPE_CHECKING
-from music_playing.song_queue import EmittingList
+from music_playing.emitting_list import EmittingList
 from music_playing.play_song_thread import PlayNextSongThread
 import mpv
 if TYPE_CHECKING:
@@ -32,7 +32,7 @@ class AudioHandler:
         self.play_next_song_thread = PlayNextSongThread(self)
         self.playing_song = False
         
-        self.finished_playing_song = threading.Event()
+        self.continue_playing_song = threading.Event()
         
     def start_play_next_song_thread(self):
         if self.play_next_song_thread.isRunning():
@@ -45,15 +45,15 @@ class AudioHandler:
 
     def skip_to_song(self, index):
         logging.checkpoint(f"About to skip to song at index{index}")
-        self.skip_song_and_wait()
-        logging.debug(f"Updated song queue after skipping current: {self.song_queue}")
+        logging.checkpoint(f"Before skipping current\n{self.song_queue}\n")
+        self.continue_playing_song.clear()
+        self.stop_playing_song()
+        logging.checkpoint(f"After skipping current\n{self.song_queue}\n")
         #drops one index because it skipped the current song.
-        new_list = self.song_queue[index-1:]
-        old_list = self.song_queue[:index]
-        self.song_queue.clear()
-        self.song_queue.extend(new_list)
-        self.songs_played.extend(old_list)
-        logging.debug(f"Updated song queue after resetting: {self.song_queue}")
+        for _ in range(index-1):
+            self.songs_played.append(self.song_queue.pop(0))
+        logging.checkpoint(f"After\n{self.song_queue=}\n{self.songs_played=}\n")
+        self.continue_playing_song.set()
         
     @log_calls
     def add_to_song_queue(self, song_name :str):
@@ -80,30 +80,27 @@ class AudioHandler:
             return
         song_to_play = self.song_queue[0]
         
-        self.finished_playing_song.clear()
         self.play_song(song_to_play)
         self.song_queue.pop(0)
-        self.finished_playing_song.set()
         
         self.songs_played.append(song_to_play)
+        self.continue_playing_song.wait()
         self.play_next_song()
         
     @log_calls
     def play_song(self, song : SongInfo):
         self.playing_song = True
-        print("Playing song!")
         # url = f'http://{self.host}:{self.port}/{song_name}/index.m3u8'
         url = f'songs/{song.name}'
-        logging.debug(f"Playing {url=}")
+        logging.checkpoint(f"Playing {url=}")
         self.player.play(url)
         self.player.wait_for_playback()
         self.playing_song = False
         
     @log_calls
-    def skip_song_and_wait(self):
+    def stop_playing_song(self):
         logging.info("Skipping song...")
         self.player.stop()
-        self.finished_playing_song.wait()
         
     @log_calls
     def pause_or_resume_song(self):
@@ -116,5 +113,4 @@ class AudioHandler:
         
         
         
-
 
