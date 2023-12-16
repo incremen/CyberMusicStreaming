@@ -111,7 +111,7 @@ qproperty-iconSize: 50px;
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>../../../Downloads2/play_button_left.png</normaloff>../../../Downloads2/play_button_left.png</iconset>
+            <normaloff>../qt_images/play_button_left.png</normaloff>../qt_images/play_button_left.png</iconset>
           </property>
           <property name="flat">
            <bool>false</bool>
@@ -132,7 +132,7 @@ qproperty-iconSize: 50px;
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>../../../Downloads2/play_button_right.png</normaloff>../../../Downloads2/play_button_right.png</iconset>
+            <normaloff>../qt_images/play_button_right.png</normaloff>../qt_images/play_button_right.png</iconset>
           </property>
           <property name="flat">
            <bool>false</bool>
@@ -153,7 +153,7 @@ qproperty-iconSize: 50px;
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>../../../Downloads2/pause_icon.png</normaloff>../../../Downloads2/pause_icon.png</iconset>
+            <normaloff>../qt_images/pause_icon.svg</normaloff>../qt_images/pause_icon.svg</iconset>
           </property>
           <property name="flat">
            <bool>false</bool>
@@ -205,8 +205,6 @@ qproperty-iconSize: 50px;
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="../../../Downloads2/font.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
