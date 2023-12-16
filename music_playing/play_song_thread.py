@@ -10,6 +10,7 @@ class PlayNextSongThread(QThread):
       QThread.__init__(self)
       self.audio_handler = audio_handler
       self.continue_playing = Event()
+      self.continue_playing.set()
       self.kill_thread = False
 
     def run(self):
