@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QThread
 from threading import Event
 from typing import TYPE_CHECKING
-
+import logging
 if TYPE_CHECKING:
   from music_playing.audio_handler import AudioHandler
 
@@ -18,7 +18,21 @@ class PlayNextSongThread(QThread):
             if self.kill_thread:
                 return
             self.continue_playing.wait()
-            self.audio_handler.play_next_song()
+            self.play_next_song()
+            
+    def play_next_song(self):
+        if self.audio_handler.playing_song:
+            logging.error("Already playing a song.")
+            return
+        if not self.audio_handler.song_queue:
+            logging.error("No songs in queue to play...")
+            return
+        song_to_play = self.audio_handler.song_queue[0]
+        
+        self.audio_handler.play_song(song_to_play)
+        self.audio_handler.song_queue.pop(0)
+        
+        self.audio_handler.songs_played.append(song_to_play)
             
     def skip_current_song(self):
         self.audio_handler.player.stop()

@@ -69,22 +69,6 @@ class AudioHandler:
         self.song_name_to_info = {info.name : info for info in song_info_list}
         
         self.main_page_emitter.song_list_recieved.emit(song_list)
-    
-    def play_next_song(self):
-        if self.playing_song:
-            logging.error("Already playing a song.")
-            return
-        if not self.song_queue:
-            logging.error("No songs in queue to play...")
-            return
-        song_to_play = self.song_queue[0]
-        
-        self.play_song(song_to_play)
-        self.song_queue.pop(0)
-        
-        self.songs_played.append(song_to_play)
-        
-        self.play_next_song()
         
     def play_last_song(self):
         self.play_next_song_thread.pause_playing()
@@ -95,7 +79,6 @@ class AudioHandler:
             self.song_queue.insert(0, last_song)
 
         self.play_next_song_thread.resume_playing()
-
         
     @log_calls
     def play_song(self, song : SongInfo):
