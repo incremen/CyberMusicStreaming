@@ -11,11 +11,11 @@ class PlayNextSongThread(QThread):
       self.audio_handler = audio_handler
       self.continue_playing = Event()
       self.continue_playing.set()
-      self.kill_thread = False
+      self.killed = False
 
     def run(self):
         while True:
-            if self.kill_thread:
+            if self.killed:
                 return
             self.continue_playing.wait()
             self.play_next_song()
@@ -44,4 +44,4 @@ class PlayNextSongThread(QThread):
         self.continue_playing.set() 
         
     def kill_thread(self):
-        self.kill_thread = True
+        self.killed = True

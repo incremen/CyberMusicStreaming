@@ -71,14 +71,16 @@ class AudioHandler:
         self.main_page_emitter.song_list_recieved.emit(song_list)
         
     def play_last_song(self):
-        self.play_next_song_thread.pause_playing()
+        self.play_next_song_thread.kill_thread()
         self.player.stop()
+        self.play_next_song_thread = PlayNextSongThread(self)
+        self.play_next_song_thread.start()
 
         if self.songs_played:
             last_song = self.songs_played.pop()
             self.song_queue.insert(0, last_song)
-
-        self.play_next_song_thread.resume_playing()
+            
+        logging.checkpoint(f"After\n{self.song_queue=}\n{self.songs_played=}\n")
         
     @log_calls
     def play_song(self, song : SongInfo):
