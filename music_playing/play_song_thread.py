@@ -21,11 +21,9 @@ class PlayNextSongThread(QThread):
             self.play_next_song()
             
     def play_next_song(self):
-        if self.audio_handler.playing_song:
-            logging.error("Already playing a song.")
-            return
         if not self.audio_handler.song_queue:
             logging.error("No songs in queue to play...")
+            self.kill_thread()
             return
         song_to_play = self.audio_handler.song_queue[0]
         

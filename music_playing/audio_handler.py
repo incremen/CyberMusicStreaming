@@ -30,9 +30,9 @@ class AudioHandler:
         )
         self.next_expected_order = 0
         self.play_next_song_thread = PlayNextSongThread(self)
-        self.playing_song = False
         
     def start_play_next_song_thread(self):
+        self.play_next_song_thread.killed = False
         if self.play_next_song_thread.isRunning():
             logging.error("play next song thread already running")
             return
@@ -74,23 +74,21 @@ class AudioHandler:
         self.play_next_song_thread.kill_thread()
         self.player.stop()
         self.play_next_song_thread = PlayNextSongThread(self)
-        self.play_next_song_thread.start()
-
+        logging.checkpoint(f"Before\n{self.song_queue=}\n{self.songs_played=}\n")
         if self.songs_played:
             last_song = self.songs_played.pop()
             self.song_queue.insert(0, last_song)
             
         logging.checkpoint(f"After\n{self.song_queue=}\n{self.songs_played=}\n")
+        self.play_next_song_thread.start()
         
     @log_calls
     def play_song(self, song : SongInfo):
-        self.playing_song = True
         # url = f'http://{self.host}:{self.port}/{song_name}/index.m3u8'
         url = f'songs/{song.name}'
         logging.checkpoint(f"Playing {url=}")
         self.player.play(url)
         self.player.wait_for_playback()
-        self.playing_song = False
         
     @log_calls
     def stop_playing_song(self):
@@ -99,9 +97,6 @@ class AudioHandler:
         
     @log_calls
     def pause_or_resume_song(self):
-        if not self.playing_song:
-            logging.error("No song is currently playing.")
-            return
         self.player.pause = not self.player.pause
         logging.info("Song paused.")
 
