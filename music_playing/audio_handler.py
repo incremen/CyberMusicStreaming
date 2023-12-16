@@ -71,7 +71,7 @@ class AudioHandler:
         self.main_page_emitter.song_list_recieved.emit(song_list)
         
     def play_last_song(self):
-            
+        len_queue_before = len(self.song_queue)
         self.play_next_song_thread.kill_and_wait()
         self.player.stop()
         self.play_next_song_thread = PlayNextSongThread(self)
@@ -79,7 +79,13 @@ class AudioHandler:
         if not self.songs_played:
             logging.error("No songs played")
             return
-        for _ in range(2):
+        
+        if len_queue_before == 0:
+            times_to_queue = 1
+        else:
+            times_to_queue = 2
+        
+        for _ in range(times_to_queue):
             self.queue_last_played_song()
             
         logging.checkpoint(f"After\n{self.song_queue=}\n{self.songs_played=}\n")
