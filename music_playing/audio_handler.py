@@ -10,6 +10,7 @@ from custom_logging import log_calls
 from typing import TYPE_CHECKING
 from music_playing.emitting_list import EmittingList
 from music_playing.play_song_thread import PlayNextSongThread
+from music_playing.update_progress_thread import SongProgressThread
 import mpv
 if TYPE_CHECKING:
     from backend.client.client_socket import ClientSocketHandler
@@ -30,6 +31,8 @@ class AudioHandler:
         )
         self.next_expected_order = 0
         self.play_next_song_thread = PlayNextSongThread(self)
+        self.song_progress_thread = SongProgressThread(self)
+        self.song_progress_thread.start()
         
     def start_play_next_song_thread(self):
         self.play_next_song_thread.killed = False

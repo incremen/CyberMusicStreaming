@@ -35,6 +35,8 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.pause_btn.clicked.connect(self.pause_btn_click)  
         self.song_queue_widget.itemClicked.connect(self.song_in_queue_click)
         
+        self.song_progress_bar.setMaximum(200)
+        
     def song_list_received(self, songs : list):
         logging.debug(f"Received song list: {songs}")
         self.btn_to_info = {}
