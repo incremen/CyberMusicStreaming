@@ -1,3 +1,4 @@
+import time
 from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWidget, QGridLayout, QProgressBar, QListWidget, QVBoxLayout
 from PyQt5 import uic, QtGui
 from PyQt5.QtCore import Qt, QThread, pyqtSlot
@@ -34,8 +35,14 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.back_btn.clicked.connect(self.back_btn_click)
         self.pause_btn.clicked.connect(self.pause_btn_click)  
         self.song_queue_widget.itemClicked.connect(self.song_in_queue_click)
+        self.progress_slider.setMaximum(200)
+        self.progress_slider.sliderReleased.connect(self.seek_in_song)
         
-        self.song_progress_bar.setMaximum(200)
+    def seek_in_song(self):
+        self.audio_handler.song_progress_thread.pause = True
+        time.sleep(0.3)
+        self.audio_handler.seek_percentage(self.progress_slider.value())
+        self.audio_handler.song_progress_thread.pause = False
         
     def song_list_received(self, songs : list):
         logging.debug(f"Received song list: {songs}")
@@ -101,7 +108,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
         
     def update_song_progress(self, progress):
         logging.info(f"updating progress to {progress}")
-        self.song_progress_bar.setValue(progress)
+        self.progress_slider.setValue(progress)
         
     def add_song_to_grid(self, song_btn):
         song_btn.setFixedSize(200, 100)

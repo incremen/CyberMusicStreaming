@@ -112,6 +112,12 @@ class AudioHandler:
     def pause_or_resume_song(self):
         self.player.pause = not self.player.pause
         logging.info("Song paused.")
+        
+    def seek_percentage(self, percentage):
+        duration = self.player.duration
+        seek_position = duration * percentage / 200
+        self.player.seek(seek_position)
+
 
         
         

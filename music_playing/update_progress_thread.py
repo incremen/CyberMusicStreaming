@@ -12,10 +12,13 @@ class SongProgressThread(QThread):
         self.player = audio_handler.player
         self.emitter = audio_handler.main_page_emitter
         self.last_progress = 0
+        self.pause = False
 
     def run(self):
         while True:
             time.sleep(0.3)
+            if self.pause:
+                continue
             self.update_progress()
 
     def update_progress(self):
