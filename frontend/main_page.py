@@ -35,14 +35,13 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.back_btn.clicked.connect(self.back_btn_click)
         self.pause_btn.clicked.connect(self.pause_btn_click)  
         self.song_queue_widget.itemClicked.connect(self.song_in_queue_click)
+        
         self.progress_slider.setMaximum(PROGRESS_BAR_MAXIMUM)
+        self.progress_slider.sliderPressed.connect(self.audio_handler.pause_updating_bar)
         self.progress_slider.sliderReleased.connect(self.seek_in_song)
         
     def seek_in_song(self):
-        self.audio_handler.song_progress_thread.pause = True
-        time.sleep(0.3)
         self.audio_handler.seek_percentage(self.progress_slider.value())
-        self.audio_handler.song_progress_thread.pause = False
         
     def song_list_received(self, songs : list):
         logging.debug(f"Received song list: {songs}")

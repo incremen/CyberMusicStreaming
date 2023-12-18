@@ -121,6 +121,12 @@ class AudioHandler:
             
         seek_position = self.player.duration * percentage / PROGRESS_BAR_MAXIMUM
         self.player.seek(seek_position)
+        logging.debug(f"Player now seeking {seek_position}")
+        
+        self.song_progress_thread.resume_updating()
+        
+    def pause_updating_bar(self):
+        self.song_progress_thread.pause_updating_and_wait()
 
 
         

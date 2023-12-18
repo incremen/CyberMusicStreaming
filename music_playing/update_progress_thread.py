@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 import time
 import logging
 from frontend.main_page_config import PROGRESS_BAR_MAXIMUM
-
+import threading
 if TYPE_CHECKING:
     from music_playing.audio_handler import AudioHandler
 
@@ -15,13 +15,22 @@ class SongProgressThread(QThread):
         self.emitter = audio_handler.main_page_emitter
         self.last_progress = 0
         self.pause = False
+        self.paused_event = threading.Event()
 
     def run(self):
         while True:
             time.sleep(0.05)
             if self.pause:
+                self.paused_event.set()
                 continue
             self.update_progress()
+            
+    def pause_updating_and_wait(self):
+        self.pause = True
+        self.paused_event.wait()
+        
+    def resume_updating(self):
+        self.pause = False
 
     def update_progress(self):
         if not self.player.time_pos:
