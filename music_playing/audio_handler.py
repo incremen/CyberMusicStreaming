@@ -116,9 +116,12 @@ class AudioHandler:
         logging.info("Song paused.")
         
     def seek_value(self, percentage):
-        if not self.player.duration:
-            logging.error("Not playing a song rn")
-            
+        if not self.player.time_pos:
+            if not self.songs_played:
+                logging.error("Nothing to seek")
+                return
+            self.play_last_song()
+        
         seek_position = self.player.duration * percentage / PROGRESS_BAR_MAXIMUM
         self.player.time_pos = seek_position
         self.player.pause = False
