@@ -8,7 +8,7 @@ from pathlib import Path
 
 class HLSHandler(SimpleHTTPRequestHandler):
     def translate_path(self, requested_path):
-        segments_dir = Path('song_segments')
+        segments_dir = Path('D:\VS Code Projects (good place)\Cyber Music Streaming\song_segments')
         return_path = segments_dir / Path(requested_path).relative_to('/')
         abs_return_path = return_path.absolute()
         logging.info(f"Requested path: {requested_path}")
@@ -18,6 +18,7 @@ class HLSHandler(SimpleHTTPRequestHandler):
 
 
 def start_hls_server():
+    logging.info("Starting HLS server..")
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
     with HTTPServer((HLS_HOST, HLS_PORT), HLSHandler) as httpd:
         print(f'Serving at http://{HLS_HOST}:{HLS_PORT}')

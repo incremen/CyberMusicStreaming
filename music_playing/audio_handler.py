@@ -1,18 +1,15 @@
+import os
 from frontend.main_page_config import PROGRESS_BAR_MAXIMUM
-import eventlet
 import logging
-import pyaudio
-from queue import Queue
 from backend.client.main_page_emitter import MainPageEmitter
 from music_playing.song_class import SongInfo
-import threading
-import time
 from custom_logging import log_calls
 from typing import TYPE_CHECKING
 from music_playing.emitting_list import EmittingList
 from music_playing.play_song_thread import PlayNextSongThread
 from music_playing.update_progress_thread import SongProgressThread
 import mpv
+from backend import HLS_HOST, HLS_PORT
 if TYPE_CHECKING:
     from backend.client.client_socket import ClientSocketHandler
 
@@ -98,8 +95,8 @@ class AudioHandler:
         
     @log_calls
     def play_song(self, song : SongInfo):
-        # url = f'http://{self.host}:{self.port}/{song_name}/index.m3u8'
-        url = f'songs/{song.name}'
+        url = f'http://{HLS_HOST}:{HLS_PORT}/{song.name}/index.m3u8'
+        # url = f'songs/{song.name}'
         logging.checkpoint(f"\nPlaying {url=} because: \n{self.song_queue=}\n{self.songs_played=}\n")
         self.player.play(url)
         self.player.wait_for_playback()

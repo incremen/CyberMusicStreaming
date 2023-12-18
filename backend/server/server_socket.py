@@ -7,7 +7,7 @@ from custom_logging import log_calls
 import eventlet
 from eventlet import wsgi
 import os
-from music_playing import manage_songs_in_dir
+from backend.server import manage_songs_in_dir
 import pprint
 from dataclasses import asdict
 from backend import server_addr_tuple
