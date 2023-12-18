@@ -107,7 +107,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.audio_handler.pause_or_resume_song()
         
     def update_song_progress(self, progress):
-        logging.info(f"updating progress to {progress}")
+        # logging.info(f"updating progress to {progress}")
         self.progress_slider.setValue(progress)
         
     def add_song_to_grid(self, song_btn):

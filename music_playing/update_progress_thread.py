@@ -29,10 +29,10 @@ class SongProgressThread(QThread):
         current_position = self.player.time_pos
         total_duration = self.player.duration
         progress = int(PROGRESS_BAR_MAXIMUM *current_position / total_duration)
-        logging.debug(f"{current_position=}, {total_duration=}")
+        # logging.debug(f"{current_position=}, {total_duration=}")
         if progress == self.last_progress:
             return
-        logging.debug(f"Emitting {progress=}")
+        # logging.debug(f"Emitting {progress=}")
         self.emitter.update_song_progress.emit(progress)
         self.last_progress = progress
 
