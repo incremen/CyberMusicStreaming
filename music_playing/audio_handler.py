@@ -120,7 +120,7 @@ class AudioHandler:
             logging.error("Not playing a song rn")
             
         seek_position = self.player.duration * percentage / PROGRESS_BAR_MAXIMUM
-        self.player.command('seek', str(seek_position))
+        self.player.time_pos = seek_position
         self.player.pause = False
         logging.debug(f"Player now seeking {seek_position}")
         logging.debug(f"{self.player.time_pos=}")
