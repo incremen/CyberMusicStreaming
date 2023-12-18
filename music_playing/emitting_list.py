@@ -62,9 +62,6 @@ class EmittingList(UserList):
     @emitting_list_method
     def __setitem__(self, i, item):
         super().__setitem__(i, item)
-        
-    def __getitem__(self, i):
-        res = self.data[i]
-        return type(self)(res) if isinstance(i, slice) else res
+
 
             
