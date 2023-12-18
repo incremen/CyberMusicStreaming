@@ -2,6 +2,8 @@ from PyQt5.QtCore import QThread, QTimer, QEventLoop
 from typing import TYPE_CHECKING
 import time
 import logging
+from frontend.main_page_config import PROGRESS_BAR_MAXIMUM
+
 if TYPE_CHECKING:
     from music_playing.audio_handler import AudioHandler
 
@@ -26,7 +28,7 @@ class SongProgressThread(QThread):
             return
         current_position = self.player.time_pos
         total_duration = self.player.duration
-        progress = int(200 *current_position / total_duration)
+        progress = int(PROGRESS_BAR_MAXIMUM *current_position / total_duration)
         logging.debug(f"{current_position=}, {total_duration=}")
         if progress == self.last_progress:
             return

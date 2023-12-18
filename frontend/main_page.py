@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING
 import threading
 from custom_logging import log_calls
 from frontend.main_page_ui import Ui_MainWindow
-import pprint
+from frontend.main_page_config import PROGRESS_BAR_MAXIMUM
 if TYPE_CHECKING:
     from backend.client.client_socket import ClientSocketHandler
     from music_playing.audio_handler import AudioHandler
@@ -35,7 +35,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.back_btn.clicked.connect(self.back_btn_click)
         self.pause_btn.clicked.connect(self.pause_btn_click)  
         self.song_queue_widget.itemClicked.connect(self.song_in_queue_click)
-        self.progress_slider.setMaximum(200)
+        self.progress_slider.setMaximum(PROGRESS_BAR_MAXIMUM)
         self.progress_slider.sliderReleased.connect(self.seek_in_song)
         
     def seek_in_song(self):
