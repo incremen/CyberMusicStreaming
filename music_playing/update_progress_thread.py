@@ -18,7 +18,7 @@ class SongProgressThread(QThread):
 
     def run(self):
         while True:
-            time.sleep(0.3)
+            time.sleep(0.05)
             if self.pause:
                 continue
             self.update_progress()

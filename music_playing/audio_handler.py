@@ -1,3 +1,4 @@
+from frontend.main_page_config import PROGRESS_BAR_MAXIMUM
 import eventlet
 import logging
 import pyaudio
@@ -111,11 +112,14 @@ class AudioHandler:
     @log_calls
     def pause_or_resume_song(self):
         self.player.pause = not self.player.pause
+        
         logging.info("Song paused.")
         
     def seek_percentage(self, percentage):
-        duration = self.player.duration
-        seek_position = duration * percentage / 200
+        if not self.player.duration:
+            logging.error("Not playing a song rn")
+            
+        seek_position = self.player.duration * percentage / PROGRESS_BAR_MAXIMUM
         self.player.seek(seek_position)
 
 
