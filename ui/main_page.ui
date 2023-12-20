@@ -27,7 +27,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true">border-image: url(:images/dark_background.png) 0 0 0 0 stretch stretch;</string>
+    <string notr="true"/>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
@@ -55,7 +55,8 @@
        <enum>Qt::RightToLeft</enum>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true"> background-image: url(:images/dark_background.png);
+</string>
       </property>
       <widget class="QWidget" name="gridLayoutWidget">
        <property name="geometry">
@@ -132,8 +133,8 @@ qproperty-iconSize: 50px;
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>../qt_images/play_button_left.png</normaloff>../qt_images/play_button_left.png</iconset>
+           <iconset resource="../qt_resources/resource_file.qrc">
+            <normaloff>:/images/play_button_left.png</normaloff>:/images/play_button_left.png</iconset>
           </property>
           <property name="flat">
            <bool>false</bool>
