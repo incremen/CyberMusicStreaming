@@ -114,9 +114,9 @@
        <property name="geometry">
         <rect>
          <x>140</x>
-         <y>660</y>
-         <width>421</width>
-         <height>184</height>
+         <y>570</y>
+         <width>600</width>
+         <height>298</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="song_btns_layout">
@@ -181,6 +181,12 @@
          <layout class="QHBoxLayout" name="song_progress_layout">
           <item>
            <widget class="QSlider" name="progress_slider">
+            <property name="minimumSize">
+             <size>
+              <width>400</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="layoutDirection">
              <enum>Qt::LeftToRight</enum>
             </property>
