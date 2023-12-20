@@ -75,19 +75,17 @@ class Ui_MainWindow(object):
 
         self.gridLayoutWidget_2 = QWidget(self.main_widget)
         self.gridLayoutWidget_2.setObjectName(u"gridLayoutWidget_2")
-        self.gridLayoutWidget_2.setGeometry(QRect(140, 660, 421, 108))
+        self.gridLayoutWidget_2.setGeometry(QRect(140, 660, 421, 184))
         self.song_btns_layout = QGridLayout(self.gridLayoutWidget_2)
         self.song_btns_layout.setObjectName(u"song_btns_layout")
         self.song_btns_layout.setContentsMargins(0, 0, 0, 0)
         self.back_btn = QPushButton(self.gridLayoutWidget_2)
         self.back_btn.setObjectName(u"back_btn")
-        self.back_btn.setStyleSheet(u"background-color: transparent;\n"
-"border: none;\n"
-"qproperty-iconSize: 50px;\n"
+        self.back_btn.setStyleSheet(u"qproperty-iconSize: 80px;\n"
 "\n"
 "")
         icon = QIcon()
-        icon.addFile(u":/images/play_button_left.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/images/white_play_button_left.png", QSize(), QIcon.Normal, QIcon.Off)
         self.back_btn.setIcon(icon)
         self.back_btn.setFlat(False)
 
@@ -95,13 +93,11 @@ class Ui_MainWindow(object):
 
         self.skip_btn = QPushButton(self.gridLayoutWidget_2)
         self.skip_btn.setObjectName(u"skip_btn")
-        self.skip_btn.setStyleSheet(u"background-color: transparent;\n"
-"border: none;\n"
-"qproperty-iconSize: 50px;\n"
+        self.skip_btn.setStyleSheet(u"qproperty-iconSize: 80px;\n"
 "\n"
 "")
         icon1 = QIcon()
-        icon1.addFile(u"../qt_images/play_button_right.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u":/images/white_play_button_right.png", QSize(), QIcon.Normal, QIcon.Off)
         self.skip_btn.setIcon(icon1)
         self.skip_btn.setFlat(False)
 
@@ -109,13 +105,11 @@ class Ui_MainWindow(object):
 
         self.pause_btn = QPushButton(self.gridLayoutWidget_2)
         self.pause_btn.setObjectName(u"pause_btn")
-        self.pause_btn.setStyleSheet(u"background-color: transparent;\n"
-"border: none;\n"
-"qproperty-iconSize: 50px;\n"
+        self.pause_btn.setStyleSheet(u"qproperty-iconSize: 80px;\n"
 "\n"
 "")
         icon2 = QIcon()
-        icon2.addFile(u"../qt_images/pause_icon.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon2.addFile(u":/images/white_pause_btn.png", QSize(), QIcon.Normal, QIcon.Off)
         self.pause_btn.setIcon(icon2)
         self.pause_btn.setFlat(False)
 

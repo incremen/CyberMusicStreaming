@@ -116,16 +116,14 @@
          <x>140</x>
          <y>660</y>
          <width>421</width>
-         <height>108</height>
+         <height>184</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="song_btns_layout">
         <item row="1" column="2">
          <widget class="QPushButton" name="back_btn">
           <property name="styleSheet">
-           <string notr="true">background-color: transparent;
-border: none;
-qproperty-iconSize: 50px;
+           <string notr="true">qproperty-iconSize: 80px;
 
 </string>
           </property>
@@ -133,8 +131,8 @@ qproperty-iconSize: 50px;
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="../qt_resources/resource_file.qrc">
-            <normaloff>:/images/play_button_left.png</normaloff>:/images/play_button_left.png</iconset>
+           <iconset resource="resource_file.qrc">
+            <normaloff>:/images/white_play_button_left.png</normaloff>:/images/white_play_button_left.png</iconset>
           </property>
           <property name="flat">
            <bool>false</bool>
@@ -144,9 +142,7 @@ qproperty-iconSize: 50px;
         <item row="1" column="0">
          <widget class="QPushButton" name="skip_btn">
           <property name="styleSheet">
-           <string notr="true">background-color: transparent;
-border: none;
-qproperty-iconSize: 50px;
+           <string notr="true">qproperty-iconSize: 80px;
 
 </string>
           </property>
@@ -154,8 +150,8 @@ qproperty-iconSize: 50px;
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>../qt_images/play_button_right.png</normaloff>../qt_images/play_button_right.png</iconset>
+           <iconset resource="resource_file.qrc">
+            <normaloff>:/images/white_play_button_right.png</normaloff>:/images/white_play_button_right.png</iconset>
           </property>
           <property name="flat">
            <bool>false</bool>
@@ -165,9 +161,7 @@ qproperty-iconSize: 50px;
         <item row="0" column="1">
          <widget class="QPushButton" name="pause_btn">
           <property name="styleSheet">
-           <string notr="true">background-color: transparent;
-border: none;
-qproperty-iconSize: 50px;
+           <string notr="true">qproperty-iconSize: 80px;
 
 </string>
           </property>
@@ -175,8 +169,8 @@ qproperty-iconSize: 50px;
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>../qt_images/pause_icon.svg</normaloff>../qt_images/pause_icon.svg</iconset>
+           <iconset resource="resource_file.qrc">
+            <normaloff>:/images/white_pause_btn.png</normaloff>:/images/white_pause_btn.png</iconset>
           </property>
           <property name="flat">
            <bool>false</bool>
@@ -229,7 +223,7 @@ qproperty-iconSize: 50px;
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="../qt_resources/resource_file.qrc"/>
+  <include location="resource_file.qrc"/>
  </resources>
  <connections/>
 </ui>
