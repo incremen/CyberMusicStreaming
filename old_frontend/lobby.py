@@ -6,10 +6,10 @@ import logging
 from backend.protocol.common_json_types import MsgType
 import backend.protocol.protocols as proto
 from backend.protocol.protocols import JsonKeys
-from frontend.tictactoe import TictactoeWindow
+from ui.tictactoe import TictactoeWindow
 from custom_logging import log_calls
 from typing import TYPE_CHECKING
-from frontend.gui_funcs import create_message_box, create_yes_no_question
+from ui.gui_funcs import create_message_box, create_yes_no_question
 
 if TYPE_CHECKING:
     from backend.client_side.client_msg_handler import ClientMsgHandler
@@ -195,7 +195,7 @@ class Lobby(QMainWindow):
         self.main_widget.setStyleSheet(f"background-color: {color};")
     
     def setup_window(self):
-        uic.loadUi("frontend/lobby_gui.ui", self)
+        uic.loadUi("ui/lobby_gui.ui", self)
         self.setWindowTitle("Lobby")
         self.show()
         

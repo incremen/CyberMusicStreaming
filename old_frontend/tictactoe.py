@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWidget
-from frontend.gui_funcs import create_message_box, create_yes_no_question
+from ui.gui_funcs import create_message_box, create_yes_no_question
 from PyQt5 import uic, QtGui
 import logging
 from backend.protocol.common_json_types import MsgType
@@ -25,7 +25,7 @@ class TictactoeWindow(QMainWindow):
         self.client_name = client_name
         self.player_btn_color = player_color
         
-        uic.loadUi(r"frontend\tictactoe_gui.ui", self)
+        uic.loadUi(r"ui\tictactoe_gui.ui", self)
         self.setWindowTitle(f"Tictactoe- {client_name}")
         
         self.opponent_btn_color = None

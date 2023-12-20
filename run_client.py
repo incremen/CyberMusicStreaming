@@ -3,7 +3,7 @@ import custom_logging
 from PyQt5.QtWidgets import QApplication
 from music_playing.audio_handler import AudioHandler
 from backend.client.main_page_emitter import MainPageEmitter
-from frontend.main_page import MainPage
+from ui.main_page import MainPage
 import sys
 import threading
 import logging
