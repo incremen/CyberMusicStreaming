@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1158</width>
-    <height>834</height>
+    <width>1130</width>
+    <height>936</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,7 +22,13 @@
   <property name="layoutDirection">
    <enum>Qt::RightToLeft</enum>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:images/dark_background.png) 0 0 0 0 stretch stretch;</string>
+   </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <spacer name="horizontalSpacer_2">
@@ -47,6 +53,9 @@
       </property>
       <property name="layoutDirection">
        <enum>Qt::RightToLeft</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <widget class="QWidget" name="gridLayoutWidget">
        <property name="geometry">
@@ -80,10 +89,23 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="styleSheet">
+           <string notr="true">border-image: url(:/images/light_background.png) 0 0 0 0 stretch stretch;</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Sunken</enum>
+          </property>
          </widget>
         </item>
         <item>
-         <widget class="QListWidget" name="song_queue_widget"/>
+         <widget class="QListWidget" name="song_queue_widget">
+          <property name="styleSheet">
+           <string notr="true">border-image: url(:/images/light_background.png) 0 0 0 0 stretch stretch;</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -198,13 +220,15 @@ qproperty-iconSize: 50px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1158</width>
+     <width>1130</width>
      <height>21</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="../qt_resources/resource_file.qrc"/>
+ </resources>
  <connections/>
 </ui>
