@@ -94,8 +94,13 @@
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">border-image: url(:/images/light_background.png) 0 0 0 0 stretch stretch;
-   color: white;</string>
+           <string notr="true"> border: 2px solid white;
+ background-color: rgba(128, 128, 128, 128);
+ border-radius: 50px;
+color: white;
+
+
+</string>
           </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
@@ -108,9 +113,23 @@
         <item>
          <widget class="QListWidget" name="song_queue_widget">
           <property name="styleSheet">
-           <string notr="true">border-image: url(:/images/light_background.png) 0 0 0 0 stretch stretch;
-color: white;</string>
+           <string notr="true"> border: 2px solid white;
+ background-color: rgba(128, 128, 128, 128);
+ border-radius: 50px;
+color: white;
+
+
+
+</string>
           </property>
+          <item>
+           <property name="text">
+            <string>dummy item</string>
+           </property>
+           <property name="textAlignment">
+            <set>AlignCenter</set>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>
@@ -167,6 +186,8 @@ color: white;</string>
          <widget class="QPushButton" name="pause_btn">
           <property name="styleSheet">
            <string notr="true">qproperty-iconSize: 80px;
+ border: none;
+
 
 </string>
           </property>

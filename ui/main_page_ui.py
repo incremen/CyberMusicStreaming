@@ -57,16 +57,30 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.songs_played_widget.sizePolicy().hasHeightForWidth())
         self.songs_played_widget.setSizePolicy(sizePolicy)
-        self.songs_played_widget.setStyleSheet("border-image: url(:/images/light_background.png) 0 0 0 0 stretch stretch;\n"
-"   color: white;")
+        self.songs_played_widget.setStyleSheet(" border: 2px solid white;\n"
+" background-color: rgba(128, 128, 128, 128);\n"
+" border-radius: 50px;\n"
+"color: white;\n"
+"\n"
+"\n"
+"")
         self.songs_played_widget.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.songs_played_widget.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.songs_played_widget.setObjectName("songs_played_widget")
         self.song_queue_layout.addWidget(self.songs_played_widget)
         self.song_queue_widget = QtWidgets.QListWidget(self.verticalLayoutWidget)
-        self.song_queue_widget.setStyleSheet("border-image: url(:/images/light_background.png) 0 0 0 0 stretch stretch;\n"
-"color: white;")
+        self.song_queue_widget.setStyleSheet(" border: 2px solid white;\n"
+" background-color: rgba(128, 128, 128, 128);\n"
+" border-radius: 50px;\n"
+"color: white;\n"
+"\n"
+"\n"
+"\n"
+"")
         self.song_queue_widget.setObjectName("song_queue_widget")
+        item = QtWidgets.QListWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.song_queue_widget.addItem(item)
         self.song_queue_layout.addWidget(self.song_queue_widget)
         self.gridLayoutWidget_2 = QtWidgets.QWidget(self.main_widget)
         self.gridLayoutWidget_2.setGeometry(QtCore.QRect(140, 570, 600, 298))
@@ -98,6 +112,8 @@ class Ui_MainWindow(object):
         self.song_btns_layout.addWidget(self.skip_btn, 1, 0, 1, 1)
         self.pause_btn = QtWidgets.QPushButton(self.gridLayoutWidget_2)
         self.pause_btn.setStyleSheet("qproperty-iconSize: 80px;\n"
+" border: none;\n"
+"\n"
 "\n"
 "")
         self.pause_btn.setText("")
@@ -134,7 +150,12 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-import ui.resource_file_rc
+        __sortingEnabled = self.song_queue_widget.isSortingEnabled()
+        self.song_queue_widget.setSortingEnabled(False)
+        item = self.song_queue_widget.item(0)
+        item.setText(_translate("MainWindow", "dummy item"))
+        self.song_queue_widget.setSortingEnabled(__sortingEnabled)
+import resource_file_rc
 
 
 if __name__ == "__main__":

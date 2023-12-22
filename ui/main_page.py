@@ -1,5 +1,5 @@
 import time
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWidget, QGridLayout, QProgressBar, QListWidget, QVBoxLayout
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWidget, QGridLayout, QProgressBar, QListWidget, QVBoxLayout, QListWidgetItem
 from PyQt5 import uic, QtGui
 from PyQt5.QtCore import Qt, QThread, pyqtSlot
 import logging
@@ -96,7 +96,10 @@ class MainPage(Ui_MainWindow, QMainWindow):
         
     def add_song_to_queue(self, song_list_widget : QListWidget, song_buffer : SongInfo):
         song_text = song_buffer.__repr__()
-        song_list_widget.addItem(song_text)
+        item = QListWidgetItem(song_text)
+        item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+        song_list_widget.addItem(item)
+
 
     def skip_btn_click(self):
         self.skip_btn.setEnabled(False)
