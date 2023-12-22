@@ -53,7 +53,12 @@ class MainPage(Ui_MainWindow, QMainWindow):
             song_btn = QPushButton(song_text)
             
             # Set the style sheet to make the button text white
-            song_btn.setStyleSheet("color: white;")
+            song_btn.setStyleSheet(""" 
+                    border: 2px solid pink;
+                    background-color: rgba(128, 128, 128, 128);
+                    border-radius: 50px;
+                    color: white;
+                    """)
             
             self.btn_to_info.update({song_btn : song_info})
             self.add_song_to_grid(song_btn)
