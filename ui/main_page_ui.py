@@ -32,7 +32,10 @@ class Ui_MainWindow(object):
         self.main_widget = QtWidgets.QWidget(self.centralwidget)
         self.main_widget.setMinimumSize(QtCore.QSize(1100, 0))
         self.main_widget.setLayoutDirection(QtCore.Qt.RightToLeft)
-        self.main_widget.setStyleSheet(" background-image: url(:images/dark_background.png);\n"
+        self.main_widget.setStyleSheet("QWidget {\n"
+" background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
+"            stop:0 #4B0082, stop:1 #000000);\n"
+"}\n"
 "")
         self.main_widget.setObjectName("main_widget")
         self.gridLayoutWidget = QtWidgets.QWidget(self.main_widget)
@@ -54,13 +57,15 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.songs_played_widget.sizePolicy().hasHeightForWidth())
         self.songs_played_widget.setSizePolicy(sizePolicy)
-        self.songs_played_widget.setStyleSheet("border-image: url(:/images/light_background.png) 0 0 0 0 stretch stretch;")
+        self.songs_played_widget.setStyleSheet("border-image: url(:/images/light_background.png) 0 0 0 0 stretch stretch;\n"
+"   color: white;")
         self.songs_played_widget.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.songs_played_widget.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.songs_played_widget.setObjectName("songs_played_widget")
         self.song_queue_layout.addWidget(self.songs_played_widget)
         self.song_queue_widget = QtWidgets.QListWidget(self.verticalLayoutWidget)
-        self.song_queue_widget.setStyleSheet("border-image: url(:/images/light_background.png) 0 0 0 0 stretch stretch;")
+        self.song_queue_widget.setStyleSheet("border-image: url(:/images/light_background.png) 0 0 0 0 stretch stretch;\n"
+"color: white;")
         self.song_queue_widget.setObjectName("song_queue_widget")
         self.song_queue_layout.addWidget(self.song_queue_widget)
         self.gridLayoutWidget_2 = QtWidgets.QWidget(self.main_widget)
@@ -130,6 +135,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
 import ui.resource_file_rc
+
 
 if __name__ == "__main__":
     import sys

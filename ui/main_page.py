@@ -52,8 +52,12 @@ class MainPage(Ui_MainWindow, QMainWindow):
             song_text = f"{song_info.name}\n {song_info.length} seconds"
             song_btn = QPushButton(song_text)
             
+            # Set the style sheet to make the button text white
+            song_btn.setStyleSheet("color: white;")
+            
             self.btn_to_info.update({song_btn : song_info})
             self.add_song_to_grid(song_btn)
+
         
     def get_full_song_queue(self):
         item_text_list = [self.song_queue_widget.item(i).text() for i in range(self.song_queue_widget.count())]

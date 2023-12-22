@@ -55,7 +55,10 @@
        <enum>Qt::RightToLeft</enum>
       </property>
       <property name="styleSheet">
-       <string notr="true"> background-image: url(:images/dark_background.png);
+       <string notr="true">QWidget {
+ background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+            stop:0 #4B0082, stop:1 #000000);
+}
 </string>
       </property>
       <widget class="QWidget" name="gridLayoutWidget">
@@ -91,7 +94,8 @@
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">border-image: url(:/images/light_background.png) 0 0 0 0 stretch stretch;</string>
+           <string notr="true">border-image: url(:/images/light_background.png) 0 0 0 0 stretch stretch;
+   color: white;</string>
           </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
@@ -104,7 +108,8 @@
         <item>
          <widget class="QListWidget" name="song_queue_widget">
           <property name="styleSheet">
-           <string notr="true">border-image: url(:/images/light_background.png) 0 0 0 0 stretch stretch;</string>
+           <string notr="true">border-image: url(:/images/light_background.png) 0 0 0 0 stretch stretch;
+color: white;</string>
           </property>
          </widget>
         </item>
