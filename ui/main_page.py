@@ -21,7 +21,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
        self.setup_main_widget_properties()
        self.show()
 
-       self.last_row = 0
+       self.last_row = 1
        self.last_col = -1
 
        self.skip_lock = threading.Lock()
