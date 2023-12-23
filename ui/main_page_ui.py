@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1266, 871)
+        MainWindow.resize(1230, 871)
         self.central_widget = QtWidgets.QWidget(MainWindow)
         self.central_widget.setStyleSheet("#central_widget {\n"
 " background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
@@ -40,9 +40,24 @@ class Ui_MainWindow(object):
         self.left_box.setObjectName("left_box")
         self.gridLayout = QtWidgets.QGridLayout(self.left_box)
         self.gridLayout.setObjectName("gridLayout")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.label = QtWidgets.QLabel(self.left_box)
+        self.label.setMaximumSize(QtCore.QSize(16777215, 200))
+        font = QtGui.QFont()
+        font.setPointSize(40)
+        self.label.setFont(font)
+        self.label.setStyleSheet("border: 2px solid pink;\n"
+" background-color: rgba(128, 128, 128, 128);\n"
+"border-radius: 50px;\n"
+" color: white;")
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setObjectName("label")
+        self.verticalLayout_2.addWidget(self.label)
         self.song_grid = QtWidgets.QGridLayout()
         self.song_grid.setObjectName("song_grid")
-        self.gridLayout.addLayout(self.song_grid, 1, 0, 1, 1)
+        self.verticalLayout_2.addLayout(self.song_grid)
+        self.gridLayout.addLayout(self.verticalLayout_2, 0, 0, 1, 1)
         self.horizontalLayout.addWidget(self.left_box)
         self.right_box = QtWidgets.QGroupBox(self.big_box)
         self.right_box.setTitle("")
@@ -137,7 +152,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.big_box)
         MainWindow.setCentralWidget(self.central_widget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1266, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1230, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -150,6 +165,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.label.setText(_translate("MainWindow", "Demo Album"))
         __sortingEnabled = self.song_queue_widget.isSortingEnabled()
         self.song_queue_widget.setSortingEnabled(False)
         item = self.song_queue_widget.item(0)
