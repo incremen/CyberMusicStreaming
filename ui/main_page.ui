@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1130</width>
+    <width>1241</width>
     <height>936</height>
    </rect>
   </property>
@@ -64,10 +64,10 @@
       <widget class="QWidget" name="gridLayoutWidget">
        <property name="geometry">
         <rect>
-         <x>70</x>
+         <x>40</x>
          <y>10</y>
-         <width>2</width>
-         <height>2</height>
+         <width>651</width>
+         <height>541</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="song_grid"/>
@@ -247,7 +247,7 @@ color: white;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1130</width>
+     <width>1241</width>
      <height>21</height>
     </rect>
    </property>

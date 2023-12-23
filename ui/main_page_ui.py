@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1130, 936)
+        MainWindow.resize(1241, 936)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(1)
         sizePolicy.setVerticalStretch(0)
@@ -39,7 +39,7 @@ class Ui_MainWindow(object):
         self.main_widget.setStyleSheet("")
         self.main_widget.setObjectName("main_widget")
         self.gridLayoutWidget = QtWidgets.QWidget(self.main_widget)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(70, 10, 2, 2))
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(40, 10, 651, 541))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
         self.song_grid = QtWidgets.QGridLayout(self.gridLayoutWidget)
         self.song_grid.setContentsMargins(0, 0, 0, 0)
@@ -137,7 +137,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addItem(spacerItem1)
         MainWindow.setCentralWidget(self.central_widget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1130, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1241, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
