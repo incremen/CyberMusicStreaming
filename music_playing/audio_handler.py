@@ -21,11 +21,11 @@ class AudioHandler:
         self.song_queue = EmittingList(main_page_emitter.update_song_queue)
         self.songs_played = EmittingList(main_page_emitter.update_songs_played)
         self.player = mpv.MPV(
-            player_operation_mode='pseudo-gui',
-            script_opts='osc-layout=box,osc-seekbarstyle=bar,osc-deadzonesize=0,osc-minmousemove=3,osc-visibility=always',
-            input_default_bindings=True,
-            input_vo_keyboard=True,
-            osc=True,
+            # player_operation_mode='pseudo-gui',
+            # script_opts='osc-layout=box,osc-seekbarstyle=bar,osc-deadzonesize=0,osc-minmousemove=3,osc-visibility=always',
+            # input_default_bindings=True,
+            # input_vo_keyboard=True,
+            # osc=True,
         )
         self.next_expected_order = 0
         self.play_next_song_thread = PlayNextSongThread(self)

@@ -64,7 +64,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
                     color: white;
                     """)
             
-        self.set_custom_font(song_btn, "Helvetica", 20)
+        self.set_custom_font(song_btn, "Helvetica", 10)
         return song_btn
             
     def set_custom_font(self, widget : QWidget, font_family, font_size):
