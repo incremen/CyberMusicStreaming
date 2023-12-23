@@ -102,8 +102,11 @@ class Ui_MainWindow(object):
         __qlistwidgetitem = QListWidgetItem(self.song_queue_widget)
         __qlistwidgetitem.setTextAlignment(Qt.AlignCenter);
         self.song_queue_widget.setObjectName(u"song_queue_widget")
-        sizePolicy1.setHeightForWidth(self.song_queue_widget.sizePolicy().hasHeightForWidth())
-        self.song_queue_widget.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.song_queue_widget.sizePolicy().hasHeightForWidth())
+        self.song_queue_widget.setSizePolicy(sizePolicy2)
         self.song_queue_widget.setStyleSheet(u" border: 2px solid white;\n"
 " background-color: rgba(128, 128, 128, 128);\n"
 " border-radius: 50px;\n"
