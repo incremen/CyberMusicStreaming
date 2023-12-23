@@ -1,6 +1,5 @@
-import time
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QLabel, QWidget, QGridLayout, QProgressBar, QListWidget, QVBoxLayout, QListWidgetItem
-from PyQt5 import uic, QtGui
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QMainWindow, QPushButton, QWidget, QListWidget, QListWidgetItem
 from PyQt5.QtCore import Qt, QThread, pyqtSlot
 import logging
 from music_playing.song_class import SongInfo
@@ -50,19 +49,27 @@ class MainPage(Ui_MainWindow, QMainWindow):
         for song_dict in songs:
             song_info = SongInfo(**song_dict)
             song_text = f"{song_info.name}\n {song_info.length} seconds"
-            song_btn = QPushButton(song_text)
+            song_btn = self.create_song_btn(song_text)
             
-            # Set the style sheet to make the button text white
-            song_btn.setStyleSheet(""" 
+            self.btn_to_info.update({song_btn : song_info})
+            self.add_song_to_grid(song_btn)
+
+    def create_song_btn(self, song_text):
+        song_btn = QPushButton(song_text)
+            
+        song_btn.setStyleSheet(""" 
                     border: 2px solid pink;
                     background-color: rgba(128, 128, 128, 128);
                     border-radius: 50px;
                     color: white;
                     """)
             
-            self.btn_to_info.update({song_btn : song_info})
-            self.add_song_to_grid(song_btn)
-
+        self.set_custom_font(song_btn, "Helvetica", 20)
+        return song_btn
+            
+    def set_custom_font(self, widget : QWidget, font_family, font_size):
+        font = QFont(font_family, font_size)
+        widget.setFont(font)
         
     def get_full_song_queue(self):
         item_text_list = [self.song_queue_widget.item(i).text() for i in range(self.song_queue_widget.count())]
@@ -121,7 +128,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
         # logging.info(f"updating progress to {progress}")
         self.progress_slider.setValue(progress)
         
-    def add_song_to_grid(self, song_btn):
+    def add_song_to_grid(self, song_btn : QPushButton):
         song_btn.setFixedSize(200, 100)
         song_btn.clicked.connect(self.song_btn_click)
         self.last_col += 1
