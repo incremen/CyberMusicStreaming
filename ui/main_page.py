@@ -52,7 +52,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
             song_btn = self.create_song_btn(song_text)
             
             self.btn_to_info.update({song_btn : song_info})
-            self.add_song_to_grid(song_btn)
+            self.add_song_btn_to_grid(song_btn)
 
     def create_song_btn(self, song_text):
         song_btn = QPushButton(song_text)
@@ -101,15 +101,15 @@ class MainPage(Ui_MainWindow, QMainWindow):
     def update_list_widget(self, song_list : list[SongInfo], song_list_widget : QListWidget):
         song_list_widget.clear()
         for song in song_list:
-            self.add_song_to_queue(song_list_widget, song)
+            self.add_item_to_queue(song_list_widget, str(song))
             
         # logging.info(f"{self.get_full_song_queue()=}")
         # logging.info(f"{song_list=}")
         
-    def add_song_to_queue(self, song_list_widget : QListWidget, song_buffer : SongInfo):
-        song_text = song_buffer.__repr__()
-        item = QListWidgetItem(song_text)
+    def add_item_to_queue(self, song_list_widget : QListWidget, item_text):
+        item = QListWidgetItem(item_text)
         item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.set_custom_font(item, "Helvetica", 15)
         song_list_widget.addItem(item)
 
 
@@ -128,7 +128,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
         # logging.info(f"updating progress to {progress}")
         self.progress_slider.setValue(progress)
         
-    def add_song_to_grid(self, song_btn : QPushButton):
+    def add_song_btn_to_grid(self, song_btn : QPushButton):
         song_btn.setFixedSize(200, 100)
         song_btn.clicked.connect(self.song_btn_click)
         self.last_col += 1
