@@ -24,39 +24,30 @@
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
      <widget class="QGroupBox" name="big_box">
+      <property name="styleSheet">
+       <string notr="true">QGroupBox{
+   border: none;
+}
+</string>
+      </property>
       <property name="title">
-       <string>big box</string>
+       <string/>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QGroupBox" name="groupBox_3">
+        <widget class="QGroupBox" name="left_box">
          <property name="title">
-          <string>left box</string>
+          <string/>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_2">
-            <property name="styleSheet">
-             <string notr="true">color: white;</string>
-            </property>
-            <property name="text">
-             <string>dummy song 2</string>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="0">
            <layout class="QGridLayout" name="song_grid"/>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLabel" name="label">
-            <property name="styleSheet">
-             <string notr="true">color: white;
-		</string>
-            </property>
-            <property name="text">
-             <string>dummy song 1</string>
-            </property>
-           </widget>
           </item>
          </layout>
         </widget>
@@ -64,7 +55,10 @@
        <item>
         <widget class="QGroupBox" name="right_box">
          <property name="title">
-          <string>right box</string>
+          <string/>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
@@ -121,7 +115,7 @@ color: white;
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="pause_btn">
             <property name="styleSheet">
              <string notr="true">qproperty-iconSize: 80px;
  border: none;
@@ -139,7 +133,7 @@ color: white;
            </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="groupBox">
+           <widget class="QGroupBox" name="song_btns_box">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -149,9 +143,12 @@ color: white;
             <property name="title">
              <string>GroupBox</string>
             </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
-              <widget class="QPushButton" name="pushButton_2">
+              <widget class="QPushButton" name="back_btn">
                <property name="styleSheet">
                 <string notr="true">qproperty-iconSize: 80px;
  border: none;
@@ -169,14 +166,14 @@ color: white;
               </widget>
              </item>
              <item>
-              <widget class="QScrollBar" name="horizontalScrollBar">
+              <widget class="QScrollBar" name="progress_slider">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_3">
+              <widget class="QPushButton" name="skip_btn">
                <property name="styleSheet">
                 <string notr="true">qproperty-iconSize: 80px;
  border: none;

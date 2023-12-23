@@ -30,35 +30,29 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.big_box = QGroupBox(self.central_widget)
         self.big_box.setObjectName(u"big_box")
+        self.big_box.setStyleSheet(u"QGroupBox{\n"
+"   border: none;\n"
+"}\n"
+"")
+        self.big_box.setFlat(True)
         self.horizontalLayout = QHBoxLayout(self.big_box)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.groupBox_3 = QGroupBox(self.big_box)
-        self.groupBox_3.setObjectName(u"groupBox_3")
-        self.gridLayout = QGridLayout(self.groupBox_3)
+        self.left_box = QGroupBox(self.big_box)
+        self.left_box.setObjectName(u"left_box")
+        self.left_box.setFlat(True)
+        self.gridLayout = QGridLayout(self.left_box)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.label_2 = QLabel(self.groupBox_3)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setStyleSheet(u"color: white;")
-
-        self.gridLayout.addWidget(self.label_2, 0, 0, 1, 1)
-
         self.song_grid = QGridLayout()
         self.song_grid.setObjectName(u"song_grid")
 
         self.gridLayout.addLayout(self.song_grid, 1, 0, 1, 1)
 
-        self.label = QLabel(self.groupBox_3)
-        self.label.setObjectName(u"label")
-        self.label.setStyleSheet(u"color: white;\n"
-"		")
 
-        self.gridLayout.addWidget(self.label, 0, 1, 1, 1)
-
-
-        self.horizontalLayout.addWidget(self.groupBox_3)
+        self.horizontalLayout.addWidget(self.left_box)
 
         self.right_box = QGroupBox(self.big_box)
         self.right_box.setObjectName(u"right_box")
+        self.right_box.setFlat(True)
         self.verticalLayout = QVBoxLayout(self.right_box)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.songs_played_widget = QListWidget(self.right_box)
@@ -97,58 +91,59 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.song_queue_widget)
 
-        self.pushButton = QPushButton(self.right_box)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setStyleSheet(u"qproperty-iconSize: 80px;\n"
+        self.pause_btn = QPushButton(self.right_box)
+        self.pause_btn.setObjectName(u"pause_btn")
+        self.pause_btn.setStyleSheet(u"qproperty-iconSize: 80px;\n"
 " border: none;\n"
 "\n"
 "\n"
 "")
         icon = QIcon()
         icon.addFile(u":/images/white_pause_btn.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton.setIcon(icon)
+        self.pause_btn.setIcon(icon)
 
-        self.verticalLayout.addWidget(self.pushButton)
+        self.verticalLayout.addWidget(self.pause_btn)
 
-        self.groupBox = QGroupBox(self.right_box)
-        self.groupBox.setObjectName(u"groupBox")
-        self.groupBox.setMinimumSize(QSize(0, 100))
-        self.horizontalLayout_3 = QHBoxLayout(self.groupBox)
+        self.song_btns_box = QGroupBox(self.right_box)
+        self.song_btns_box.setObjectName(u"song_btns_box")
+        self.song_btns_box.setMinimumSize(QSize(0, 100))
+        self.song_btns_box.setFlat(True)
+        self.horizontalLayout_3 = QHBoxLayout(self.song_btns_box)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.pushButton_2 = QPushButton(self.groupBox)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setStyleSheet(u"qproperty-iconSize: 80px;\n"
+        self.back_btn = QPushButton(self.song_btns_box)
+        self.back_btn.setObjectName(u"back_btn")
+        self.back_btn.setStyleSheet(u"qproperty-iconSize: 80px;\n"
 " border: none;\n"
 "\n"
 "\n"
 "")
         icon1 = QIcon()
         icon1.addFile(u":/images/white_play_button_left.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton_2.setIcon(icon1)
+        self.back_btn.setIcon(icon1)
 
-        self.horizontalLayout_3.addWidget(self.pushButton_2)
+        self.horizontalLayout_3.addWidget(self.back_btn)
 
-        self.horizontalScrollBar = QScrollBar(self.groupBox)
-        self.horizontalScrollBar.setObjectName(u"horizontalScrollBar")
-        self.horizontalScrollBar.setOrientation(Qt.Horizontal)
+        self.progress_slider = QScrollBar(self.song_btns_box)
+        self.progress_slider.setObjectName(u"progress_slider")
+        self.progress_slider.setOrientation(Qt.Horizontal)
 
-        self.horizontalLayout_3.addWidget(self.horizontalScrollBar)
+        self.horizontalLayout_3.addWidget(self.progress_slider)
 
-        self.pushButton_3 = QPushButton(self.groupBox)
-        self.pushButton_3.setObjectName(u"pushButton_3")
-        self.pushButton_3.setStyleSheet(u"qproperty-iconSize: 80px;\n"
+        self.skip_btn = QPushButton(self.song_btns_box)
+        self.skip_btn.setObjectName(u"skip_btn")
+        self.skip_btn.setStyleSheet(u"qproperty-iconSize: 80px;\n"
 " border: none;\n"
 "\n"
 "\n"
 "")
         icon2 = QIcon()
         icon2.addFile(u":/images/white_play_button_right.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton_3.setIcon(icon2)
+        self.skip_btn.setIcon(icon2)
 
-        self.horizontalLayout_3.addWidget(self.pushButton_3)
+        self.horizontalLayout_3.addWidget(self.skip_btn)
 
 
-        self.verticalLayout.addWidget(self.groupBox)
+        self.verticalLayout.addWidget(self.song_btns_box)
 
 
         self.horizontalLayout.addWidget(self.right_box)
@@ -172,11 +167,9 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.big_box.setTitle(QCoreApplication.translate("MainWindow", u"big box", None))
-        self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"left box", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"dummy song 2", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"dummy song 1", None))
-        self.right_box.setTitle(QCoreApplication.translate("MainWindow", u"right box", None))
+        self.big_box.setTitle("")
+        self.left_box.setTitle("")
+        self.right_box.setTitle("")
 
         __sortingEnabled = self.song_queue_widget.isSortingEnabled()
         self.song_queue_widget.setSortingEnabled(False)
@@ -184,9 +177,9 @@ class Ui_MainWindow(object):
         ___qlistwidgetitem.setText(QCoreApplication.translate("MainWindow", u"dummy item", None));
         self.song_queue_widget.setSortingEnabled(__sortingEnabled)
 
-        self.pushButton.setText("")
-        self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"GroupBox", None))
-        self.pushButton_2.setText("")
-        self.pushButton_3.setText("")
+        self.pause_btn.setText("")
+        self.song_btns_box.setTitle(QCoreApplication.translate("MainWindow", u"GroupBox", None))
+        self.back_btn.setText("")
+        self.skip_btn.setText("")
     # retranslateUi
 

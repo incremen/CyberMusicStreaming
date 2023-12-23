@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1241</width>
+    <width>1297</width>
     <height>936</height>
    </rect>
   </property>
@@ -52,7 +52,7 @@
       <property name="minimumSize">
        <size>
         <width>1100</width>
-        <height>0</height>
+        <height>500</height>
        </size>
       </property>
       <property name="layoutDirection">
@@ -64,9 +64,9 @@
       <widget class="QWidget" name="gridLayoutWidget">
        <property name="geometry">
         <rect>
-         <x>40</x>
+         <x>30</x>
          <y>10</y>
-         <width>651</width>
+         <width>661</width>
          <height>541</height>
         </rect>
        </property>
@@ -163,6 +163,26 @@ color: white;
           </property>
          </widget>
         </item>
+        <item row="1" column="1">
+         <layout class="QHBoxLayout" name="song_progress_layout">
+          <item>
+           <widget class="QSlider" name="progress_slider">
+            <property name="minimumSize">
+             <size>
+              <width>400</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
         <item row="1" column="0">
          <widget class="QPushButton" name="skip_btn">
           <property name="styleSheet">
@@ -203,26 +223,6 @@ color: white;
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <layout class="QHBoxLayout" name="song_progress_layout">
-          <item>
-           <widget class="QSlider" name="progress_slider">
-            <property name="minimumSize">
-             <size>
-              <width>400</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="layoutDirection">
-             <enum>Qt::LeftToRight</enum>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
        </layout>
       </widget>
      </widget>
@@ -247,7 +247,7 @@ color: white;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1241</width>
+     <width>1297</width>
      <height>21</height>
     </rect>
    </property>

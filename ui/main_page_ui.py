@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui\main_page.ui'
+# Form implementation generated from reading ui file 'ui\test_file.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -14,14 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1241, 936)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(1)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
-        MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setLayoutDirection(QtCore.Qt.RightToLeft)
-        MainWindow.setStyleSheet("")
+        MainWindow.resize(1266, 871)
         self.central_widget = QtWidgets.QWidget(MainWindow)
         self.central_widget.setStyleSheet("#central_widget {\n"
 " background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
@@ -29,30 +22,36 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.central_widget.setObjectName("central_widget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.central_widget)
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.central_widget)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.big_box = QtWidgets.QGroupBox(self.central_widget)
+        self.big_box.setStyleSheet("QGroupBox{\n"
+"   border: none;\n"
+"}\n"
+"")
+        self.big_box.setTitle("")
+        self.big_box.setFlat(True)
+        self.big_box.setObjectName("big_box")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.big_box)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        spacerItem = QtWidgets.QSpacerItem(132, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem)
-        self.main_widget = QtWidgets.QWidget(self.central_widget)
-        self.main_widget.setMinimumSize(QtCore.QSize(1100, 0))
-        self.main_widget.setLayoutDirection(QtCore.Qt.RightToLeft)
-        self.main_widget.setStyleSheet("")
-        self.main_widget.setObjectName("main_widget")
-        self.gridLayoutWidget = QtWidgets.QWidget(self.main_widget)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(40, 10, 651, 541))
-        self.gridLayoutWidget.setObjectName("gridLayoutWidget")
-        self.song_grid = QtWidgets.QGridLayout(self.gridLayoutWidget)
-        self.song_grid.setContentsMargins(0, 0, 0, 0)
+        self.left_box = QtWidgets.QGroupBox(self.big_box)
+        self.left_box.setTitle("")
+        self.left_box.setFlat(True)
+        self.left_box.setObjectName("left_box")
+        self.gridLayout = QtWidgets.QGridLayout(self.left_box)
+        self.gridLayout.setObjectName("gridLayout")
+        self.song_grid = QtWidgets.QGridLayout()
         self.song_grid.setObjectName("song_grid")
-        self.verticalLayoutWidget = QtWidgets.QWidget(self.main_widget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(740, 10, 331, 741))
-        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
-        self.song_queue_layout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
-        self.song_queue_layout.setContentsMargins(0, 0, 0, 0)
-        self.song_queue_layout.setSpacing(12)
-        self.song_queue_layout.setObjectName("song_queue_layout")
-        self.songs_played_widget = QtWidgets.QListWidget(self.verticalLayoutWidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addLayout(self.song_grid, 1, 0, 1, 1)
+        self.horizontalLayout.addWidget(self.left_box)
+        self.right_box = QtWidgets.QGroupBox(self.big_box)
+        self.right_box.setTitle("")
+        self.right_box.setFlat(True)
+        self.right_box.setObjectName("right_box")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.right_box)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.songs_played_widget = QtWidgets.QListWidget(self.right_box)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.songs_played_widget.sizePolicy().hasHeightForWidth())
@@ -67,8 +66,13 @@ class Ui_MainWindow(object):
         self.songs_played_widget.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.songs_played_widget.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.songs_played_widget.setObjectName("songs_played_widget")
-        self.song_queue_layout.addWidget(self.songs_played_widget)
-        self.song_queue_widget = QtWidgets.QListWidget(self.verticalLayoutWidget)
+        self.verticalLayout.addWidget(self.songs_played_widget)
+        self.song_queue_widget = QtWidgets.QListWidget(self.right_box)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.song_queue_widget.sizePolicy().hasHeightForWidth())
+        self.song_queue_widget.setSizePolicy(sizePolicy)
         self.song_queue_widget.setStyleSheet(" border: 2px solid white;\n"
 " background-color: rgba(128, 128, 128, 128);\n"
 " border-radius: 50px;\n"
@@ -81,63 +85,59 @@ class Ui_MainWindow(object):
         item = QtWidgets.QListWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignCenter)
         self.song_queue_widget.addItem(item)
-        self.song_queue_layout.addWidget(self.song_queue_widget)
-        self.gridLayoutWidget_2 = QtWidgets.QWidget(self.main_widget)
-        self.gridLayoutWidget_2.setGeometry(QtCore.QRect(140, 570, 600, 298))
-        self.gridLayoutWidget_2.setObjectName("gridLayoutWidget_2")
-        self.song_btns_layout = QtWidgets.QGridLayout(self.gridLayoutWidget_2)
-        self.song_btns_layout.setContentsMargins(0, 0, 0, 0)
-        self.song_btns_layout.setObjectName("song_btns_layout")
-        self.back_btn = QtWidgets.QPushButton(self.gridLayoutWidget_2)
-        self.back_btn.setStyleSheet("qproperty-iconSize: 80px;\n"
-"\n"
-"")
-        self.back_btn.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/images/white_play_button_left.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.back_btn.setIcon(icon)
-        self.back_btn.setFlat(False)
-        self.back_btn.setObjectName("back_btn")
-        self.song_btns_layout.addWidget(self.back_btn, 1, 2, 1, 1)
-        self.skip_btn = QtWidgets.QPushButton(self.gridLayoutWidget_2)
-        self.skip_btn.setStyleSheet("qproperty-iconSize: 80px;\n"
-"\n"
-"")
-        self.skip_btn.setText("")
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(":/images/white_play_button_right.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.skip_btn.setIcon(icon1)
-        self.skip_btn.setFlat(False)
-        self.skip_btn.setObjectName("skip_btn")
-        self.song_btns_layout.addWidget(self.skip_btn, 1, 0, 1, 1)
-        self.pause_btn = QtWidgets.QPushButton(self.gridLayoutWidget_2)
+        self.verticalLayout.addWidget(self.song_queue_widget)
+        self.pause_btn = QtWidgets.QPushButton(self.right_box)
         self.pause_btn.setStyleSheet("qproperty-iconSize: 80px;\n"
 " border: none;\n"
 "\n"
 "\n"
 "")
         self.pause_btn.setText("")
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/images/white_pause_btn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pause_btn.setIcon(icon2)
-        self.pause_btn.setFlat(False)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/images/white_pause_btn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pause_btn.setIcon(icon)
         self.pause_btn.setObjectName("pause_btn")
-        self.song_btns_layout.addWidget(self.pause_btn, 0, 1, 1, 1)
-        self.song_progress_layout = QtWidgets.QHBoxLayout()
-        self.song_progress_layout.setObjectName("song_progress_layout")
-        self.progress_slider = QtWidgets.QSlider(self.gridLayoutWidget_2)
-        self.progress_slider.setMinimumSize(QtCore.QSize(400, 0))
-        self.progress_slider.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.verticalLayout.addWidget(self.pause_btn)
+        self.song_btns_box = QtWidgets.QGroupBox(self.right_box)
+        self.song_btns_box.setMinimumSize(QtCore.QSize(0, 100))
+        self.song_btns_box.setFlat(True)
+        self.song_btns_box.setObjectName("song_btns_box")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.song_btns_box)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.back_btn = QtWidgets.QPushButton(self.song_btns_box)
+        self.back_btn.setStyleSheet("qproperty-iconSize: 80px;\n"
+" border: none;\n"
+"\n"
+"\n"
+"")
+        self.back_btn.setText("")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(":/images/white_play_button_left.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.back_btn.setIcon(icon1)
+        self.back_btn.setObjectName("back_btn")
+        self.horizontalLayout_3.addWidget(self.back_btn)
+        self.progress_slider = QtWidgets.QScrollBar(self.song_btns_box)
         self.progress_slider.setOrientation(QtCore.Qt.Horizontal)
         self.progress_slider.setObjectName("progress_slider")
-        self.song_progress_layout.addWidget(self.progress_slider)
-        self.song_btns_layout.addLayout(self.song_progress_layout, 1, 1, 1, 1)
-        self.horizontalLayout.addWidget(self.main_widget)
-        spacerItem1 = QtWidgets.QSpacerItem(132, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem1)
+        self.horizontalLayout_3.addWidget(self.progress_slider)
+        self.skip_btn = QtWidgets.QPushButton(self.song_btns_box)
+        self.skip_btn.setStyleSheet("qproperty-iconSize: 80px;\n"
+" border: none;\n"
+"\n"
+"\n"
+"")
+        self.skip_btn.setText("")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(":/images/white_play_button_right.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.skip_btn.setIcon(icon2)
+        self.skip_btn.setObjectName("skip_btn")
+        self.horizontalLayout_3.addWidget(self.skip_btn)
+        self.verticalLayout.addWidget(self.song_btns_box)
+        self.horizontalLayout.addWidget(self.right_box)
+        self.horizontalLayout_2.addWidget(self.big_box)
         MainWindow.setCentralWidget(self.central_widget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1241, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1266, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -155,6 +155,7 @@ class Ui_MainWindow(object):
         item = self.song_queue_widget.item(0)
         item.setText(_translate("MainWindow", "dummy item"))
         self.song_queue_widget.setSortingEnabled(__sortingEnabled)
+        self.song_btns_box.setTitle(_translate("MainWindow", "GroupBox"))
 import resource_file_rc
 
 
