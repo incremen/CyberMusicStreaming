@@ -47,17 +47,7 @@ class Ui_MainWindow(object):
         self.label_2 = QLabel(self.left_box)
         self.label_2.setObjectName(u"label_2")
 
-        self.song_grid.addWidget(self.label_2, 1, 0, 1, 1)
-
-        self.label_3 = QLabel(self.left_box)
-        self.label_3.setObjectName(u"label_3")
-
-        self.song_grid.addWidget(self.label_3, 1, 1, 1, 1)
-
-        self.label_4 = QLabel(self.left_box)
-        self.label_4.setObjectName(u"label_4")
-
-        self.song_grid.addWidget(self.label_4, 1, 2, 1, 1)
+        self.song_grid.addWidget(self.label_2, 2, 0, 1, 1)
 
         self.label = QLabel(self.left_box)
         self.label.setObjectName(u"label")
@@ -82,6 +72,37 @@ class Ui_MainWindow(object):
 
         self.song_grid.addWidget(self.label, 0, 0, 1, 3)
 
+        self.label_4 = QLabel(self.left_box)
+        self.label_4.setObjectName(u"label_4")
+
+        self.song_grid.addWidget(self.label_4, 2, 2, 1, 1)
+
+        self.label_3 = QLabel(self.left_box)
+        self.label_3.setObjectName(u"label_3")
+
+        self.song_grid.addWidget(self.label_3, 2, 1, 1, 1)
+
+        self.label_5 = QLabel(self.left_box)
+        self.label_5.setObjectName(u"label_5")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
+        self.label_5.setSizePolicy(sizePolicy1)
+        self.label_5.setMaximumSize(QSize(16777215, 80))
+        font1 = QFont()
+        font1.setPointSize(15)
+        self.label_5.setFont(font1)
+        self.label_5.setStyleSheet(u" border: 2px solid gold;\n"
+" background-color: rgba(128, 128, 128, 128);\n"
+" border-radius: 30px;\n"
+"color: white;\n"
+"\n"
+"\n"
+"")
+
+        self.song_grid.addWidget(self.label_5, 1, 0, 1, 1)
+
 
         self.gridLayout.addLayout(self.song_grid, 0, 0, 1, 1)
 
@@ -100,11 +121,11 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.songs_played_widget = QListWidget(self.right_box)
         self.songs_played_widget.setObjectName(u"songs_played_widget")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.songs_played_widget.sizePolicy().hasHeightForWidth())
-        self.songs_played_widget.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.songs_played_widget.sizePolicy().hasHeightForWidth())
+        self.songs_played_widget.setSizePolicy(sizePolicy2)
         self.songs_played_widget.setStyleSheet(u" border: 2px solid white;\n"
 " background-color: rgba(128, 128, 128, 128);\n"
 " border-radius: 50px;\n"
@@ -121,8 +142,8 @@ class Ui_MainWindow(object):
         __qlistwidgetitem = QListWidgetItem(self.song_queue_widget)
         __qlistwidgetitem.setTextAlignment(Qt.AlignCenter);
         self.song_queue_widget.setObjectName(u"song_queue_widget")
-        sizePolicy1.setHeightForWidth(self.song_queue_widget.sizePolicy().hasHeightForWidth())
-        self.song_queue_widget.setSizePolicy(sizePolicy1)
+        sizePolicy2.setHeightForWidth(self.song_queue_widget.sizePolicy().hasHeightForWidth())
+        self.song_queue_widget.setSizePolicy(sizePolicy2)
         self.song_queue_widget.setStyleSheet(u" border: 2px solid white;\n"
 " background-color: rgba(128, 128, 128, 128);\n"
 " border-radius: 50px;\n"
@@ -213,9 +234,10 @@ class Ui_MainWindow(object):
         self.big_box.setTitle("")
         self.left_box.setTitle("")
         self.label_2.setText("")
-        self.label_3.setText("")
-        self.label_4.setText("")
         self.label.setText(QCoreApplication.translate("MainWindow", u"Demo Album", None))
+        self.label_4.setText("")
+        self.label_3.setText("")
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Find more albums!", None))
         self.right_box.setTitle("")
 
         __sortingEnabled = self.song_queue_widget.isSortingEnabled()

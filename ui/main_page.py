@@ -21,8 +21,8 @@ class MainPage(Ui_MainWindow, QMainWindow):
        self.setup_main_widget_properties()
        self.show()
 
-       self.last_row = 1
-       self.last_col = -1
+       self.last_song_grid_row = 2
+       self.last_song_grid_col = -1
 
        self.skip_lock = threading.Lock()
 
@@ -131,11 +131,11 @@ class MainPage(Ui_MainWindow, QMainWindow):
     def add_song_btn_to_grid(self, song_btn : QPushButton):
         song_btn.setFixedSize(200, 100)
         song_btn.clicked.connect(self.song_btn_click)
-        self.last_col += 1
-        if self.last_col == 3:
-            self.last_col = 0
-            self.last_row += 1
-        self.song_grid.addWidget(song_btn, self.last_row, self.last_col)
+        self.last_song_grid_col += 1
+        if self.last_song_grid_col == 3:
+            self.last_song_grid_col = 0
+            self.last_song_grid_row += 1
+        self.song_grid.addWidget(song_btn, self.last_song_grid_row, self.last_song_grid_col)
         
     def song_btn_click(self):
         btn_clicked_data = self.btn_to_info[self.sender()]
