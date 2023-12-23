@@ -1,5 +1,5 @@
 import os
-from ui.main_page_config import PROGRESS_BAR_MAXIMUM
+from ui.main_page.main_page_config import PROGRESS_BAR_MAXIMUM
 import logging
 from backend.client.main_page_emitter import MainPageEmitter
 from music_playing.song_class import SongInfo

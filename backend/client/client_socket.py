@@ -5,7 +5,7 @@ from backend import client_connects_to_str
 from music_playing.audio_handler import AudioHandler
 import threading
 from backend.client.main_page_emitter import MainPageEmitter
-from ui.main_page import MainPage
+from ui.main_page.main_page import MainPage
 
 
 class ClientSocketHandler:

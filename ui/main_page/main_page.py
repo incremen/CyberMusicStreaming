@@ -6,8 +6,8 @@ from music_playing.song_class import SongInfo
 from typing import TYPE_CHECKING
 import threading
 from custom_logging import log_calls
-from ui.main_page_ui import Ui_MainWindow
-from ui.main_page_config import PROGRESS_BAR_MAXIMUM
+from ui.main_page.main_page_ui import Ui_MainWindow
+from ui.main_page.main_page_config import PROGRESS_BAR_MAXIMUM
 if TYPE_CHECKING:
     from backend.client.client_socket import ClientSocketHandler
     from music_playing.audio_handler import AudioHandler

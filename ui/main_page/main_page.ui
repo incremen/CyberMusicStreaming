@@ -234,7 +234,7 @@ color: white;
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="resource_file.qrc">
+             <iconset resource="../resource_file.qrc">
               <normaloff>:/images/white_pause_btn.png</normaloff>:/images/white_pause_btn.png</iconset>
             </property>
            </widget>
@@ -267,7 +267,7 @@ color: white;
                 <string/>
                </property>
                <property name="icon">
-                <iconset resource="resource_file.qrc">
+                <iconset resource="../resource_file.qrc">
                  <normaloff>:/images/white_play_button_left.png</normaloff>:/images/white_play_button_left.png</iconset>
                </property>
               </widget>
@@ -292,7 +292,7 @@ color: white;
                 <string/>
                </property>
                <property name="icon">
-                <iconset resource="resource_file.qrc">
+                <iconset resource="../resource_file.qrc">
                  <normaloff>:/images/white_play_button_right.png</normaloff>:/images/white_play_button_right.png</iconset>
                </property>
               </widget>
@@ -321,7 +321,7 @@ color: white;
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="resource_file.qrc"/>
+  <include location="../resource_file.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -1,5 +1,5 @@
 from PyQt5.QtCore import QObject, pyqtSignal
-from ui.main_page import MainPage
+from ui.main_page.main_page import MainPage
 
 class MainPageEmitter(QObject):
     song_list_recieved = pyqtSignal(list)
