@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1086</width>
+    <width>1120</width>
     <height>922</height>
    </rect>
   </property>
@@ -55,27 +55,26 @@
          <property name="font">
           <font>
            <family>Arial</family>
-           <pointsize>60</pointsize>
+           <pointsize>40</pointsize>
           </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>CrossCursor</cursorShape>
          </property>
          <property name="styleSheet">
           <string notr="true">QLineEdit {
  border: 2px solid gold;
  background-color: rgba(255, 255, 0, 80); 
- border-radius: 30px;
  color: gold;
- font-family: Arial;
- padding: 30px;
- box-shadow: 0px 0px 10px gold;
+border: none;
+border-radius:30px;
 }
 
-QLineEdit:focus {
- outline: 2px solid gold;
-}
+
 </string>
          </property>
          <property name="text">
-          <string>Find a song...</string>
+          <string>    Made for Itamar. </string>
          </property>
         </widget>
        </item>
@@ -100,6 +99,9 @@ QLineEdit:focus {
              <pointsize>40</pointsize>
             </font>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="styleSheet">
             <string notr="true"> border: 2px solid white;
  background-image: url(:/album_pics/img_4.png);
@@ -120,7 +122,7 @@ hits</string>
          <item row="0" column="0">
           <widget class="QPushButton" name="pushButton">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -135,6 +137,9 @@ hits</string>
             <font>
              <pointsize>40</pointsize>
             </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="styleSheet">
             <string notr="true"> border: 2px solid white;
@@ -172,11 +177,15 @@ albums</string>
              <pointsize>40</pointsize>
             </font>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="styleSheet">
             <string notr="true"> border: 2px solid white;
  background-image: url(:/album_pics/img_3.png);
  border-radius: 30px;
 color: white;
+text-shadow: 2px 2px 2px black;	
 
 
 </string>
@@ -192,7 +201,7 @@ albums</string>
          <item row="1" column="0">
           <widget class="QPushButton" name="pushButton_9">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -207,6 +216,9 @@ albums</string>
             <font>
              <pointsize>40</pointsize>
             </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="styleSheet">
             <string notr="true"> border: 2px solid white;
@@ -242,7 +254,15 @@ asdf</string>
            <property name="font">
             <font>
              <pointsize>40</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+             <underline>false</underline>
+             <stylestrategy>PreferDefault</stylestrategy>
+             <kerning>true</kerning>
             </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="styleSheet">
             <string notr="true"> border: 2px solid white;
@@ -258,6 +278,9 @@ color: white;
 
 
 hits</string>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -279,6 +302,9 @@ hits</string>
             <font>
              <pointsize>40</pointsize>
             </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="styleSheet">
             <string notr="true"> border: 2px solid white;
@@ -316,6 +342,9 @@ asdf</string>
              <pointsize>40</pointsize>
             </font>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="styleSheet">
             <string notr="true"> border: 2px solid white;
  background-image: url(:/album_pics/img_7.png);
@@ -352,6 +381,9 @@ asdf</string>
              <pointsize>40</pointsize>
             </font>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="styleSheet">
             <string notr="true"> border: 2px solid white;
  background-image: url(:/album_pics/img_8.png);
@@ -381,7 +413,7 @@ asdf</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1086</width>
+     <width>1120</width>
      <height>21</height>
     </rect>
    </property>
