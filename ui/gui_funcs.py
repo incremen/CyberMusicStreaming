@@ -35,6 +35,25 @@ def get_name_to_item_from_gridlayout(grid_layout):
     return name_to_item
 
 
+
+def get_objects_from_boxlayout(box_layout):
+    objects = []
+    for i in range(box_layout.count()):
+        item = box_layout.itemAt(i)
+        if not item:
+            continue
+
+        if widget := item.widget():
+            objects.append(widget)
+                
+        elif layout := item.layout():
+            objects.append(layout)
+    logging.debug(f"{objects=}")
+
+    return objects
+
+
+
 def get_name_to_item_from_boxlayout(box_layout):
     name_to_item = {}
     for i in range(box_layout.count()):
