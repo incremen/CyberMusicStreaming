@@ -26,9 +26,10 @@ class Ui_MainWindow(object):
 "            stop:0 #4B0082, stop:1 #000000);\n"
 "}\n"
 "")
+        self.horizontalLayout_6 = QHBoxLayout(self.central_widget)
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.groupBox = QGroupBox(self.central_widget)
         self.groupBox.setObjectName(u"groupBox")
-        self.groupBox.setGeometry(QRect(30, 20, 1041, 771))
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -126,6 +127,9 @@ class Ui_MainWindow(object):
 
 
         self.gridLayout_2.addLayout(self.horizontalLayout_5, 0, 0, 1, 1)
+
+
+        self.horizontalLayout_6.addWidget(self.groupBox)
 
         MainWindow.setCentralWidget(self.central_widget)
         self.menubar = QMenuBar(MainWindow)
