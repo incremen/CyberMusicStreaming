@@ -18,4 +18,6 @@ generate_qrc(
 """
 pyuic5 -x ui\main_page\main_page.ui -o ui\main_page\main_page_ui.py
 pyrcc5 ui\resource_file.qrc -o resource_file_rc.py\
+    
+pyuic5 -x ui\albums_page\albums_page.ui -o ui\albums_page\albums_page_ui.py
 """

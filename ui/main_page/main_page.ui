@@ -109,9 +109,9 @@ color: white;
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QLabel" name="label_5">
+             <widget class="QPushButton" name="search_btn">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -119,12 +119,12 @@ color: white;
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>80</height>
+                <height>60</height>
                </size>
               </property>
               <property name="font">
                <font>
-                <pointsize>15</pointsize>
+                <pointsize>13</pointsize>
                </font>
               </property>
               <property name="styleSheet">
@@ -137,7 +137,7 @@ color: white;
 </string>
               </property>
               <property name="text">
-               <string>Find more albums!</string>
+               <string>Find more!</string>
               </property>
              </widget>
             </item>

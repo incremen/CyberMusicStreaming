@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'albums_page.ui'
+## Form generated from reading UI file 'search_page.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
