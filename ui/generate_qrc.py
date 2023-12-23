@@ -2,22 +2,25 @@ import os
 
 import os
 
+import os
+
 def generate_qrc(directories, qrc_file):
- with open(qrc_file, 'w') as f:
-    f.write('<RCC>\n')
-    f.write(' <qresource prefix="/">\n')
-    for directory in directories:
-        for filename in os.listdir(directory):
-            f.write(f' <file>{os.path.relpath(directory)}/{filename}</file>\n')
-    f.write(' </qresource>\n')
-    f.write('</RCC>\n')
+    with open(qrc_file, 'w') as f:
+        f.write('<RCC>\n')
+        f.write(' <qresource prefix="/">\n')
+        for directory in directories:
+            for filename in os.listdir(directory):
+                f.write(f' <file>{os.path.basename(directory)}/{filename}</file>\n')
+        f.write(' </qresource>\n')
+        f.write('</RCC>\n')
 
 directories = [
-  r'D:\VS Code Projects (good place)\Cyber Music Streaming\ui\images', 
-  r'D:\VS Code Projects (good place)\Cyber Music Streaming\ui\album_pics',
+ r'D:\VS Code Projects (good place)\Cyber Music Streaming\ui\images', 
+ r'D:\VS Code Projects (good place)\Cyber Music Streaming\ui\album_pics',
 ]
 
 generate_qrc(directories, 'resource_file.qrc')
+
 
 
 """
