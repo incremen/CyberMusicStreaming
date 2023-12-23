@@ -8,6 +8,8 @@ import threading
 from custom_logging import log_calls
 from ui.main_page.main_page_ui import Ui_MainWindow
 from ui.main_page.main_page_config import PROGRESS_BAR_MAXIMUM
+from ui.search_page.search_page import SearchWindow
+
 if TYPE_CHECKING:
     from backend.client.client_socket import ClientSocketHandler
     from music_playing.audio_handler import AudioHandler
@@ -38,6 +40,11 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.progress_slider.setMaximum(PROGRESS_BAR_MAXIMUM)
         self.progress_slider.sliderPressed.connect(self.audio_handler.pause_or_resume_song)
         self.progress_slider.sliderReleased.connect(self.seek_in_song)
+        
+        self.search_btn.clicked.connect(self.search_btn_click)
+        
+    def search_btn_click(self):
+        self.search_page = SearchWindow()
         
     def seek_in_song(self):
         self.audio_handler.seek_value(self.progress_slider.value())
