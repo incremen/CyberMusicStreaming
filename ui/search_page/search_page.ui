@@ -17,7 +17,7 @@
    <property name="styleSheet">
     <string notr="true">#central_widget {
  background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-            stop:0 #4B0082, stop:1 #000000);
+           stop:0 #4B0082, stop:0.5 #000000, stop:1 #4B0082);
 }
 </string>
    </property>
@@ -63,11 +63,9 @@
          </property>
          <property name="styleSheet">
           <string notr="true">QLineEdit {
- border: 2px solid gold;
- background-color: rgba(255, 255, 0, 80); 
- color: gold;
-border: none;
-border-radius:30px;
+ background-color: rgba(255, 255, 255, 150); 
+ color: black;
+border-radius:20px;
 }
 
 
