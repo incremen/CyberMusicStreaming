@@ -1,8 +1,8 @@
-from backend.client.client_socket import ClientSocketHandler
+from client.client_socket import ClientSocketHandler
 import custom_logging
 from PyQt5.QtWidgets import QApplication
 from music_playing.audio_handler import AudioHandler
-from backend.client.main_page_emitter import MainPageEmitter
+from client.main_page_emitter import MainPageEmitter
 from ui.login_page.login_page import LoginWindow
 import sys
 import threading

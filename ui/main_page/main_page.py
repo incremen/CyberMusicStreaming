@@ -11,7 +11,7 @@ from ui.main_page.main_page_config import PROGRESS_BAR_MAXIMUM
 from ui.search_page.search_page import SearchWindow
 
 if TYPE_CHECKING:
-    from backend.client.client_socket import ClientSocketHandler
+    from client.client_socket import ClientSocketHandler
     from music_playing.audio_handler import AudioHandler
     
 class MainPage(Ui_MainWindow, QMainWindow): 
