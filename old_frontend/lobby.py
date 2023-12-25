@@ -12,7 +12,7 @@ from typing import TYPE_CHECKING
 from ui.gui_funcs import create_message_box, create_yes_no_question
 
 if TYPE_CHECKING:
-    from backend.client_side.client_msg_handler import ClientMsgHandler
+    from client_side.client_msg_handler import ClientMsgHandler
 
 class Lobby(QMainWindow):
     def __init__(self, client_logger, msg_handler, lobby_emitter):

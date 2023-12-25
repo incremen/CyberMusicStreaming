@@ -5,27 +5,30 @@ from music_playing.audio_handler import AudioHandler
 from client.main_page_emitter import MainPageEmitter
 from ui.login_page.login_page import LoginWindow
 import sys
-import threading
-import logging
+from client.shared_state import SharedState
+from client.window_manager import WindowManager
 
 
 def main():
-    custom_logger = custom_logging.CustomLogger(log_files=["client.log"])
-    custom_logger.clear_logs()
-    app = QApplication(sys.argv)
-    
-    main_page_emitter = MainPageEmitter()
-    audio_handler = AudioHandler(main_page_emitter)
-    client_socket_handler = ClientSocketHandler(audio_handler)
-    
-    login_window = LoginWindow(client_socket_handler, audio_handler)
-    
-    main_page_emitter.setup_connections(login_window.main_window)
-    
-    client_socket_handler.connect()
-    client_socket_handler.emit_to_server("song_list_request")
-    app.exec_()
-    
+  custom_logger = custom_logging.CustomLogger(log_files=["client.log"])
+  custom_logger.clear_logs()
+  app = QApplication(sys.argv)
+  
+  main_page_emitter = MainPageEmitter()
+  audio_handler = AudioHandler(main_page_emitter)
+  client_socket_handler = ClientSocketHandler(audio_handler)
+  
+  shared_state = SharedState(socket_handler=client_socket_handler, audio_handler=audio_handler, main_page_emitter=main_page_emitter)
+  window_manager = WindowManager(shared_state)
+  
+  window_manager.show_window(LoginWindow)
+  
+  client_socket_handler.connect()
+  client_socket_handler.emit_to_server("song_list_request")
+  app.exec_()
+  
+  
 if __name__ == "__main__":
-    main()
+  main()
+
 

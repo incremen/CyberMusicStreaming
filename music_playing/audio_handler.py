@@ -1,7 +1,7 @@
 import os
 from ui.main_page.main_page_config import PROGRESS_BAR_MAXIMUM
 import logging
-from backend.client.main_page_emitter import MainPageEmitter
+from client.main_page_emitter import MainPageEmitter
 from music_playing.song_class import SongInfo
 from custom_logging import log_calls
 from typing import TYPE_CHECKING
@@ -11,7 +11,7 @@ from music_playing.update_progress_thread import SongProgressThread
 import mpv
 from backend import HLS_HOST, HLS_PORT
 if TYPE_CHECKING:
-    from backend.client.client_socket import ClientSocketHandler
+    from client.client_socket import ClientSocketHandler
 
 CHUNK = 4096
 
