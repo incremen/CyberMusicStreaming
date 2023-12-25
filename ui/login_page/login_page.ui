@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1136</width>
-    <height>803</height>
+    <width>945</width>
+    <height>887</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,17 +23,19 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_3">
     <item>
-     <widget class="QGroupBox" name="form_box">
-      <property name="maximumSize">
-       <size>
-        <width>900</width>
-        <height>1100</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">#form_box{
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QGroupBox" name="form_box">
+        <property name="maximumSize">
+         <size>
+          <width>900</width>
+          <height>1100</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#form_box{
  border: 2px solid black;
- background-color: rgba(255, 255, 255, 200);
+ background-color: rgba(255, 255, 255, 220);
 color: white;
 border-top-left-radius: 80px;
 border-bottom-right-radius: 80px;
@@ -41,87 +43,88 @@ border-top-right-radius: 10px;
 }
 
 </string>
-      </property>
-      <property name="title">
-       <string/>
-      </property>
-      <property name="flat">
-       <bool>true</bool>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QLabel" name="label">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>100</height>
-          </size>
-         </property>
-         <property name="baseSize">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>40</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: black;</string>
-         </property>
-         <property name="text">
-          <string>If you dont log in, who will?</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <layout class="QFormLayout" name="formLayout">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_2">
+        </property>
+        <property name="title">
+         <string/>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QLabel" name="label">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="minimumSize">
+           <property name="maximumSize">
             <size>
-             <width>200</width>
+             <width>16777215</width>
              <height>100</height>
+            </size>
+           </property>
+           <property name="baseSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
             </size>
            </property>
            <property name="font">
             <font>
-             <pointsize>15</pointsize>
+             <pointsize>40</pointsize>
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true"> border: 2px solid black;
- background-color: rgba(128, 128, 128, 128);
+            <string notr="true">color: black;</string>
+           </property>
+           <property name="text">
+            <string>If you dont log in, who will?</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QFormLayout" name="formLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>15</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"> border: 2px solid black;
+ background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+           stop:0 #4B0082, stop:0.5 #000000, stop:1 #4B0082);
 color: white;
 border-top-left-radius: 20px;
 border-bottom-left-radius: 20px;
@@ -129,76 +132,81 @@ border-bottom-left-radius: 20px;
 
 
 </string>
-           </property>
-           <property name="text">
-            <string>Enter username:</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEdit">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>100</height>
-            </size>
-           </property>
-           <property name="baseSize">
-            <size>
-             <width>0</width>
-             <height>100</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>80</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true"> border: 2px solid black;
- background-color: transparent;
+             </property>
+             <property name="text">
+              <string>Enter username:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="lineEdit">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="baseSize">
+              <size>
+               <width>0</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>30</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"> border: 2px solid black;
+ background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+           stop:0 #4B0082, stop:0.5 #000000, stop:1 #4B0082);
 color: white;
 border-top-right-radius: 20px;
 border-bottom-right-radius: 20px;
 
 </string>
-           </property>
-           <property name="text">
-            <string>asdf</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_6">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>200</width>
-             <height>100</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>15</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true"> border: 2px solid black;
- background-color: rgba(128, 128, 128, 128);
+             </property>
+             <property name="text">
+              <string>Itamar</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>15</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"> border: 2px solid black;
+ background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+           stop:0 #4B0082, stop:0.5 #000000, stop:1 #4B0082);
 color: white;
 border-top-left-radius: 20px;
 border-bottom-left-radius: 20px;
@@ -206,19 +214,159 @@ border-bottom-left-radius: 20px;
 
 
 </string>
-           </property>
-           <property name="text">
-            <string>Enter password: </string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
+             </property>
+             <property name="text">
+              <string>Enter password: </string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lineEdit_2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="baseSize">
+              <size>
+               <width>0</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>30</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"> border: 2px solid black;
+ background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+           stop:0 #4B0082, stop:0.5 #000000, stop:1 #4B0082);
+color: white;
+border-top-right-radius: 20px;
+border-bottom-right-radius: 20px;
+
+</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_5">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>15</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"> border: 2px solid black;
+ background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+           stop:0 #4B0082, stop:0.5 #000000, stop:1 #4B0082);
+color: white;
+border-top-left-radius: 20px;
+border-bottom-left-radius: 20px;
+
+
+
+</string>
+             </property>
+             <property name="text">
+              <string>Insert asdf</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="lineEdit_3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="baseSize">
+              <size>
+               <width>0</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>30</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"> border: 2px solid black;
+ background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+           stop:0 #4B0082, stop:0.5 #000000, stop:1 #4B0082);
+color: white;
+border-top-right-radius: 20px;
+border-bottom-right-radius: 20px;
+
+</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit_2">
+         <item>
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_2">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+            <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -226,191 +374,64 @@ border-bottom-left-radius: 20px;
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>100</height>
+             <height>0</height>
             </size>
-           </property>
-           <property name="baseSize">
-            <size>
-             <width>0</width>
-             <height>100</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>80</pointsize>
-            </font>
            </property>
            <property name="styleSheet">
-            <string notr="true"> border: 2px solid black;
- background-color: transparent;
-color: white;
-border-top-right-radius: 20px;
-border-bottom-right-radius: 20px;
-
-</string>
+            <string notr="true">border: none;</string>
            </property>
-           <property name="text">
+           <property name="title">
             <string/>
            </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_5">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>200</width>
-             <height>100</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>15</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true"> border: 2px solid black;
- background-color: rgba(128, 128, 128, 128);
-color: white;
-border-top-left-radius: 20px;
-border-bottom-left-radius: 20px;
-
-
-
-</string>
-           </property>
-           <property name="text">
-            <string>Insert profile picture</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLineEdit" name="lineEdit_3">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>100</height>
-            </size>
-           </property>
-           <property name="baseSize">
-            <size>
-             <width>0</width>
-             <height>100</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>80</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true"> border: 2px solid black;
- background-color: transparent;
-color: white;
-border-top-right-radius: 20px;
-border-bottom-right-radius: 20px;
-
-</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_2">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">border: none;</string>
-         </property>
-         <property name="title">
-          <string/>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QPushButton" name="pushButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>40</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"> border: 10px solid black;
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QPushButton" name="pushButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>40</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"> border: 10px solid black;
 
  background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-           stop:0 #ffffff, stop:1 #C0C0C0 );
-color: black;
+           stop:0 #4B0082, stop:0.5 #000000, stop:1 #4B0082);
+
+
+color: white;
 border-top-left-radius: 30px;
 border-bottom-right-radius: 70px;
 
 
 </string>
-            </property>
-            <property name="text">
-             <string>Ready!</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout"/>
-       </item>
-      </layout>
-     </widget>
+              </property>
+              <property name="text">
+               <string>Ready!</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout"/>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -419,7 +440,7 @@ border-bottom-right-radius: 70px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1136</width>
+     <width>945</width>
      <height>21</height>
     </rect>
    </property>
