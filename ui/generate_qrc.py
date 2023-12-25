@@ -25,7 +25,9 @@ generate_qrc(directories, 'resource_file.qrc')
 
 """
 pyuic5 -x ui\main_page\main_page.ui -o ui\main_page\main_page_ui.py
+pyuic5 -x ui\search_page\search_page.ui -o ui\search_page\search_page_ui.py
+pyuic5 -x ui\login_page\login_page.ui -o ui\login_page\login_page_ui.py
+
 pyrcc5 ui\resource_file.qrc -o resource_file_rc.py\
     
-pyuic5 -x ui\search_page\search_page.ui -o ui\search_page\search_page_ui.py
 """

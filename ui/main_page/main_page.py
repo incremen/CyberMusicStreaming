@@ -21,7 +21,6 @@ class MainPage(Ui_MainWindow, QMainWindow):
        self.socket_handler = socket_handler
        self.audio_handler = audio_handler
        self.setup_main_widget_properties()
-       self.show()
 
        self.last_song_grid_row = 2
        self.last_song_grid_col = -1
