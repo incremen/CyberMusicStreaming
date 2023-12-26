@@ -9,23 +9,19 @@ from custom_logging import log_calls
 from ui.album_page.album_window_ui import Ui_MainWindow
 from ui.album_page.album_window_config import PROGRESS_BAR_MAXIMUM
 from ui.search_page.search_window import SearchWindow
+
+
 from ui.window_interface import WindowInterface
-from PyQt5 import QtCore
+
 
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
     from music_playing.audio_handler import AudioHandler
     from client.shared_state import SharedState
     from client.window_manager import WindowManager
-    
-from abc import ABCMeta
 
-pyqtWrapperType = type(QtCore.QObject)
 
-class CombinedMeta(pyqtWrapperType, ABCMeta):
-    pass
-
-class AlbumWindow(Ui_MainWindow, QMainWindow, WindowInterface, metaclass=CombinedMeta): 
+class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow): 
     def __init__(self, shared_state :'SharedState', window_manager :'WindowManager'):
         super(AlbumWindow, self).__init__()
 
