@@ -58,6 +58,7 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.progress_slider.sliderReleased.connect(self.seek_in_song)
         
         self.search_btn.clicked.connect(self.search_btn_click)
+        
         self.play_list_widget.setAcceptDrops(True)
         self.play_list_widget.dragEnterEvent = lambda event: drag_enter_event(self.play_list_widget, event)
         self.play_list_widget.dropEvent = lambda event: drop_event(self.play_list_widget, event)
@@ -69,27 +70,36 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.on_change_to_playlist_tab()
         
     def tab_changed(self, index):
-        time.sleep(0.1)
         if index == 0:
             self.on_change_to_main_tab()
             
         elif index == 1:
             self.on_change_to_playlist_tab()
+
+    def get_grid_btns(self):
+        grid_widgets = gui_funcs.get_objects_from_boxlayout(self.song_grid)
+        return [widget for widget in grid_widgets if isinstance(widget, QPushButton)]
     
     def on_change_to_main_tab(self):
         logging.checkpoint("On change to main tab")
-        grid_btns = gui_funcs.get_objects_from_boxlayout(self.song_grid)
+        grid_btns = self.get_grid_btns()
         for btn in grid_btns:
-           btn.mousePressEvent = None
-           btn.mouseMoveEvent = None
+            self.disable_drag(btn)
                 
     def on_change_to_playlist_tab(self):
         logging.checkpoint("On change to playlist tab")
-        grid_btns = gui_funcs.get_objects_from_boxlayout(self.song_grid)
+        grid_btns = self.get_grid_btns()
         for btn in grid_btns:
-            btn.mousePressEvent = lambda event, btn=btn: mouse_press_event(btn, event)
-            btn.mouseMoveEvent = lambda event, btn=btn: mouse_move_event(btn, event)
-           
+            self.enable_drag(btn)
+
+    def enable_drag(self, btn):
+        btn.mousePressEvent = lambda event, btn=btn: mouse_press_event(btn, event)
+        btn.mouseMoveEvent = lambda event, btn=btn: mouse_move_event(btn, event)
+        
+    def disable_drag(self, btn):
+        btn.mousePressEvent = None
+        btn.mouseMoveEvent = None
+        btn.clicked.connect(self.song_btn_click)
         
     def search_btn_click(self):
         self.window_manager.start_window(SearchWindow)
