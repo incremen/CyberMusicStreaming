@@ -33,10 +33,10 @@ def drag_enter_event(widget, event):
         event.acceptProposedAction()
 
 
-def drop_event(widget, event):
+def drop_event(list_widget, event):
     pos = event.pos()
     text = event.mimeData().text()
-    print(f"Got dropped {text}")
+    list_widget.addItem(text)
     event.acceptProposedAction()
 
 

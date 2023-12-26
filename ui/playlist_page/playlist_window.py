@@ -34,3 +34,7 @@ class PlaylistWindow(Ui_MainWindow, QMainWindow):
         self.song_queue_widget.setAcceptDrops(True)
         self.song_queue_widget.dragEnterEvent = lambda event: drag_enter_event(self.song_queue_widget, event)
         self.song_queue_widget.dropEvent = lambda event: drop_event(self.song_queue_widget, event)
+        #drag move event
+        self.song_queue_widget.dragMoveEvent = lambda event: drag_enter_event(self.song_queue_widget, event)
+        
+        
