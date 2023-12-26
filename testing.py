@@ -1,7 +1,7 @@
 import testing.drag_test_window 
 from PyQt5.QtWidgets import QApplication
 import sys
-
+from testing.working_dummy import *
 
 def main():
     app = QApplication(sys.argv)
