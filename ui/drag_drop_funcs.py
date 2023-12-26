@@ -1,5 +1,4 @@
-import sys
-import logging
+import gui_funcs
 from PyQt5.QtWidgets import QApplication, QLabel, QWidget
 from PyQt5.QtGui import QDrag, QPixmap, QPainter, QCursor
 from PyQt5.QtCore import QMimeData, Qt
@@ -35,11 +34,9 @@ def drag_enter_event(widget, event):
 def drop_event(list_widget, event):
     pos = event.pos()
     text = event.mimeData().text()
-    item = QListWidgetItem(item_text)
-    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-    gui_funcs.set_custom_font(item, "Helvetica", 15)
-    song_list_widget.addItem(item)
-    list_widget.addItem(text)
+    gui_funcs.add_item_to_list_widget(list_widget, text)
     event.acceptProposedAction()
+
+
 
 

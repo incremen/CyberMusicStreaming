@@ -1,9 +1,18 @@
 from PyQt5.QtWidgets import QMessageBox
 import logging
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QListWidgetItem
 from PyQt5.QtGui import QFont
+from PyQt5.QtCore import Qt
 
+
+
+def add_item_to_list_widget(list_widget, text):
+    item = QListWidgetItem(text)
+    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+    set_custom_font(item, "Helvetica", 15)
+    list_widget.addItem(item)
+    
 
 def set_custom_font(widget : QWidget, font_family, font_size):
     font = QFont(font_family, font_size)

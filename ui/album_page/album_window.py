@@ -12,7 +12,7 @@ from ui.search_page.search_window import SearchWindow
 # from ui.drag_drop_funcs import drag_enter_event, drop_event, mouse_move_event, mouse_press_event
 from testing.working_dummy import *
 from functools import partial
-
+from ui import gui_funcs
 from ui.window_interface import WindowInterface
 
 
@@ -128,7 +128,7 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def update_list_widget(self, song_list : list[SongInfo], song_list_widget : QListWidget):
         song_list_widget.clear()
         for song in song_list:
-            self.add_item_to_queue(song_list_widget, str(song))
+            gui_funcs.add_item_to_list_widget(song_list_widget, song.name)
             
         # logging.info(f"{self.get_full_song_queue()=}")
         # logging.info(f"{song_list=}")
