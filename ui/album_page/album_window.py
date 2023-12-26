@@ -93,12 +93,10 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
                     color: white; 
                     """)
             
-        self.set_custom_font(song_btn, "Helvetica", 10)
+        gui_funcs.set_custom_font(song_btn, "Helvetica", 10)
         return song_btn
             
-    def set_custom_font(self, widget : QWidget, font_family, font_size):
-        font = QFont(font_family, font_size)
-        widget.setFont(font)
+
         
     def get_full_song_queue(self):
         item_text_list = [self.song_queue_widget.item(i).text() for i in range(self.song_queue_widget.count())]
@@ -138,7 +136,7 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def add_item_to_queue(self, song_list_widget : QListWidget, item_text):
         item = QListWidgetItem(item_text)
         item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.set_custom_font(item, "Helvetica", 15)
+        gui_funcs.set_custom_font(item, "Helvetica", 15)
         song_list_widget.addItem(item)
 
 

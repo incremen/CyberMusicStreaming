@@ -1,6 +1,14 @@
 from PyQt5.QtWidgets import QMessageBox
 import logging
 from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtGui import QFont
+
+
+def set_custom_font(widget : QWidget, font_family, font_size):
+    font = QFont(font_family, font_size)
+    widget.setFont(font)
+
 
 
 def create_message_box(text, title):
