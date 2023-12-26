@@ -1,7 +1,7 @@
 import os
 from ui.main_page.main_page_config import PROGRESS_BAR_MAXIMUM
 import logging
-from client.main_page_emitter import MainPageEmitter
+from client.main_page_emitter import WindowEmitter
 from music_playing.song_class import SongInfo
 from custom_logging import log_calls
 from typing import TYPE_CHECKING
@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 CHUNK = 4096
 
 class AudioHandler:
-    def __init__(self, main_page_emitter: 'MainPageEmitter'):
+    def __init__(self, main_page_emitter: 'WindowEmitter'):
         self.main_page_emitter = main_page_emitter
         self.song_queue = EmittingList(main_page_emitter.update_song_queue)
         self.songs_played = EmittingList(main_page_emitter.update_songs_played)

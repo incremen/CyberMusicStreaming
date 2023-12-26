@@ -13,13 +13,14 @@ from ui.search_page.search_page import SearchWindow
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
     from music_playing.audio_handler import AudioHandler
+    from client.shared_state import SharedState
     
 class MainPage(Ui_MainWindow, QMainWindow): 
-    def __init__(self, socket_handler :'ClientSocketHandler', audio_handler :'AudioHandler'):
+    def __init__(self, shared_state :'SharedState'):
        super(MainPage, self).__init__()
        self.setupUi(self)
-       self.socket_handler = socket_handler
-       self.audio_handler = audio_handler
+       self.socket_handler = shared_state.socket_handler
+       self.audio_handler = shared_state.audio_handler
        self.setup_main_widget_properties()
 
        self.last_song_grid_row = 2

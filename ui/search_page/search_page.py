@@ -3,12 +3,18 @@ from PyQt5.QtWidgets import QMainWindow, QPushButton, QWidget, QListWidget, QLis
 import ui.main_page.main_page
 from ui import gui_funcs
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from client.client_socket import ClientSocketHandler
+    from music_playing.audio_handler import AudioHandler
+    from client.shared_state import SharedState
 
 class SearchWindow(Ui_MainWindow, QMainWindow): 
-   def __init__(self, socket_handler, audio_handler):
+   def __init__(self, shared_state :'SharedState'):
        super(SearchWindow, self).__init__()
-       self.socket_handler = socket_handler
-       self.audio_handler = audio_handler
+       self.socket_handler = shared_state.socket_handler
+       self.audio_handler = shared_state.audio_handler
        self.setupUi(self)
        self.setup_btns()
        self.show()

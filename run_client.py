@@ -2,7 +2,7 @@ from client.client_socket import ClientSocketHandler
 import custom_logging
 from PyQt5.QtWidgets import QApplication
 from music_playing.audio_handler import AudioHandler
-from client.main_page_emitter import MainPageEmitter
+from client.main_page_emitter import WindowEmitter
 from ui.login_page.login_page import LoginWindow
 import sys
 from client.shared_state import SharedState
@@ -14,11 +14,11 @@ def main():
   custom_logger.clear_logs()
   app = QApplication(sys.argv)
   
-  main_page_emitter = MainPageEmitter()
-  audio_handler = AudioHandler(main_page_emitter)
+  window_emitter = WindowEmitter()
+  audio_handler = AudioHandler(window_emitter)
   client_socket_handler = ClientSocketHandler(audio_handler)
   
-  shared_state = SharedState(socket_handler=client_socket_handler, audio_handler=audio_handler, main_page_emitter=main_page_emitter)
+  shared_state = SharedState(socket_handler=client_socket_handler, audio_handler=audio_handler)
   window_manager = WindowManager(shared_state)
   
   window_manager.show_window(LoginWindow)
