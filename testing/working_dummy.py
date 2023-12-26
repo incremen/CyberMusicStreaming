@@ -5,39 +5,38 @@ from PyQt5.QtGui import QDrag, QPixmap, QPainter, QCursor
 from PyQt5.QtCore import QMimeData, Qt
 
 
-def mouse_press_event(self, event):
+def mouse_press_event(widget, event):
     if event.button() == Qt.MouseButton.LeftButton:
-        self.drag_start_position = event.pos()
+        widget.drag_start_position = event.pos()
 
 
-def mouseMoveEvent(self, event):
+def mouse_move_event(widget, event):
     if not (event.buttons() & Qt.MouseButton.LeftButton):
         return
-    if (event.pos() - self.drag_start_position).manhattanLength() < QApplication.startDragDistance():
+    if (event.pos() - widget.drag_start_position).manhattanLength() < QApplication.startDragDistance():
         return
-    drag = QDrag(self)
+    drag = QDrag(widget)
     mimedata = QMimeData()
-    mimedata.setText(self.text())
+    mimedata.setText(widget.text())
     drag.setMimeData(mimedata)
-    pixmap = QPixmap(self.size())
+    pixmap = QPixmap(widget.size())
     painter = QPainter(pixmap)
-    painter.drawPixmap(self.rect(), self.grab())
+    painter.drawPixmap(widget.rect(), widget.grab())
     painter.end()
     drag.setPixmap(pixmap)
     drag.setHotSpot(event.pos())
     drag.exec_(Qt.DropAction.CopyAction | Qt.DropAction.MoveAction)
 
 
-def dragEnterEvent(self, event):
+def drag_enter_event(widget, event):
     if event.mimeData().hasText():
         event.acceptProposedAction()
 
 
-def dropEvent(self, event):
+def drop_event(widget, event):
     pos = event.pos()
     text = event.mimeData().text()
-    self.setText(text)
-    print(f'Dropped label with text: {text} at position: {pos}')
+    print(f"Got dropped {text}")
     event.acceptProposedAction()
 
 

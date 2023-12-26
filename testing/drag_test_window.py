@@ -17,11 +17,11 @@ class TestWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     self.setupUi(self)
     
     self.drag_widget.mousePressEvent = lambda event: mouse_press_event(self.drag_widget, event)
-    self.drag_widget.mouseMoveEvent = lambda event: mouseMoveEvent(self.drag_widget, event)
+    self.drag_widget.mouseMoveEvent = lambda event: mouse_move_event(self.drag_widget, event)
     
     self.drop_widget.setAcceptDrops(True)
-    self.drop_widget.dragEnterEvent = lambda event: dragEnterEvent(self.drop_widget, event)
-    self.drop_widget.dropEvent = lambda event: dropEvent(self.drop_widget, event)
+    self.drop_widget.dragEnterEvent = lambda event: drag_enter_event(self.drop_widget, event)
+    self.drop_widget.dropEvent = lambda event: drop_event(self.drop_widget, event)
 
        
 

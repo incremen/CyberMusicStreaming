@@ -90,13 +90,13 @@ class Ui_MainWindow(object):
 "")
         self.search_btn.setObjectName("search_btn")
         self.song_grid.addWidget(self.search_btn, 1, 0, 1, 1)
-        self.label_2 = QtWidgets.QLabel(self.left_box)
-        self.label_2.setStyleSheet("                    border: 2px solid pink;\n"
+        self.song_label = QtWidgets.QLabel(self.left_box)
+        self.song_label.setStyleSheet("                    border: 2px solid pink;\n"
 "                    background-color: rgba(128, 128, 128, 128);\n"
 "                    border-radius: 50px;\n"
 "                    color: white; ")
-        self.label_2.setObjectName("label_2")
-        self.song_grid.addWidget(self.label_2, 2, 0, 1, 1)
+        self.song_label.setObjectName("song_label")
+        self.song_grid.addWidget(self.song_label, 2, 0, 1, 1)
         self.gridLayout.addLayout(self.song_grid, 0, 0, 1, 1)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem, 1, 0, 1, 1)
@@ -143,7 +143,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "Demo Album"))
         self.search_btn.setText(_translate("MainWindow", "Find more!"))
-        self.label_2.setText(_translate("MainWindow", "Song btn!"))
+        self.song_label.setText(_translate("MainWindow", "Song btn!"))
 import resource_file_rc
 
 

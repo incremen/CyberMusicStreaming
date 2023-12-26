@@ -1,11 +1,10 @@
-import testing.drag_test_window 
 from PyQt5.QtWidgets import QApplication
+from ui.playlist_page.playlist_window import PlaylistWindow
 import sys
-from testing.working_dummy import *
 
 def main():
     app = QApplication(sys.argv)
-    test_window = testing.drag_test_window.TestWindow()
+    test_window = PlaylistWindow()
     test_window.show()
     sys.exit(app.exec_())
 
