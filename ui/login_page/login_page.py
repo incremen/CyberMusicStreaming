@@ -1,6 +1,6 @@
 from ui.login_page.login_page_ui import Ui_MainWindow
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QWidget, QListWidget, QListWidgetItem
-import ui.main_page.main_window
+import ui.album_page.album_window
 from ui import gui_funcs
 from typing import TYPE_CHECKING
 

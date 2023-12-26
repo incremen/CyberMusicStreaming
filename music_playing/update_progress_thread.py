@@ -2,7 +2,7 @@ from PyQt5.QtCore import QThread, QTimer, QEventLoop
 from typing import TYPE_CHECKING
 import time
 import logging
-from ui.main_page.main_page_config import PROGRESS_BAR_MAXIMUM
+from ui.album_page.album_window_config import PROGRESS_BAR_MAXIMUM
 import threading
 if TYPE_CHECKING:
     from music_playing.audio_handler import AudioHandler

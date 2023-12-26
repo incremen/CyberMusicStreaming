@@ -1,5 +1,5 @@
 from ui.login_page.login_page import LoginWindow
-from ui.main_page.main_window import MainWindow
+from ui.album_page.album_window import AlbumWindow
 from ui.search_page.search_window import SearchWindow
 from client.shared_state import SharedState
 
@@ -9,7 +9,7 @@ class WindowManager:
       self.shared_state = shared_state
       self.windows = {
           LoginWindow: LoginWindow(self.shared_state, self),
-          MainWindow: MainWindow(self.shared_state, self),
+          AlbumWindow: AlbumWindow(self.shared_state, self),
           SearchWindow: SearchWindow(self.shared_state, self)
           # Add more windows as needed...
       }

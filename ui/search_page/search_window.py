@@ -3,13 +3,13 @@ from PyQt5.QtWidgets import QMainWindow, QPushButton, QWidget, QListWidget, QLis
 from ui import gui_funcs
 
 from typing import TYPE_CHECKING
-from ui.main_page import main_window
+from ui.album_page import album_window
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
     from music_playing.audio_handler import AudioHandler
     from client.shared_state import SharedState
     from client.window_manager import WindowManager
-    from ui.main_page.main_window import MainWindow
+    from ui.album_page.album_window import AlbumWindow
 
 class SearchWindow(Ui_MainWindow, QMainWindow): 
    def __init__(self, shared_state :'SharedState', window_manager :'WindowManager'):
@@ -27,7 +27,7 @@ class SearchWindow(Ui_MainWindow, QMainWindow):
            
    def album_btn_click(self, btn_clicked):
       self.window_manager.hide_window(SearchWindow)
-      self.window_manager.show_window(main_window.MainWindow)
+      self.window_manager.show_window(album_window.AlbumWindow)
     
        
         

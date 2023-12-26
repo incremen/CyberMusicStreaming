@@ -6,8 +6,8 @@ from music_playing.song_class import SongInfo
 from typing import TYPE_CHECKING
 import threading
 from custom_logging import log_calls
-from ui.main_page.main_page_ui import Ui_MainWindow
-from ui.main_page.main_page_config import PROGRESS_BAR_MAXIMUM
+from ui.album_page.album_window_ui import Ui_MainWindow
+from ui.album_page.album_window_config import PROGRESS_BAR_MAXIMUM
 from ui.search_page.search_window import SearchWindow
 
 if TYPE_CHECKING:
@@ -16,12 +16,13 @@ if TYPE_CHECKING:
     from client.shared_state import SharedState
     from client.window_manager import WindowManager
     
-class MainWindow(Ui_MainWindow, QMainWindow): 
+class AlbumWindow(Ui_MainWindow, QMainWindow): 
     def __init__(self, shared_state :'SharedState', window_manager :'WindowManager'):
-       super(MainWindow, self).__init__()
+       super(AlbumWindow, self).__init__()
        self.setupUi(self)
        self.socket_handler = shared_state.socket_handler
        self.audio_handler = shared_state.audio_handler
+       self.window_manager = window_manager
        self.setup_main_widget_properties()
 
        self.last_song_grid_row = 2
@@ -45,7 +46,8 @@ class MainWindow(Ui_MainWindow, QMainWindow):
         self.search_btn.clicked.connect(self.search_btn_click)
         
     def search_btn_click(self):
-        self.search_page = SearchWindow(self.socket_handler, self.audio_handler)
+        self.window_manager.show_window(SearchWindow)
+        self.hide()
         
     def seek_in_song(self):
         self.audio_handler.seek_value(self.progress_slider.value())
@@ -69,7 +71,7 @@ class MainWindow(Ui_MainWindow, QMainWindow):
                     border: 2px solid pink;
                     background-color: rgba(128, 128, 128, 128);
                     border-radius: 50px;
-                    color: white;
+                    color: white; 
                     """)
             
         self.set_custom_font(song_btn, "Helvetica", 10)
