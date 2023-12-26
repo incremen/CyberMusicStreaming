@@ -3,8 +3,7 @@ from PyQt5.QtWidgets import QMainWindow, QPushButton, QWidget, QListWidget, QLis
 import ui.album_page.album_window
 from ui import gui_funcs
 from typing import TYPE_CHECKING
-
-
+from ui.window_interface import WindowInterface
 from ui.search_page.search_window import SearchWindow
 
 
@@ -16,7 +15,7 @@ if TYPE_CHECKING:
 
 
 
-class LoginWindow(Ui_MainWindow, QMainWindow): 
+class LoginWindow(Ui_MainWindow, WindowInterface, QMainWindow): 
     def __init__(self, shared_state :'SharedState', window_manager :'WindowManager'):
        super(LoginWindow, self).__init__()
        self.socket_handler = shared_state.socket_handler

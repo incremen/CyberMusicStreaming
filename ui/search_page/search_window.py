@@ -1,9 +1,11 @@
 from ui.search_page.search_page_ui import Ui_MainWindow
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QWidget, QListWidget, QListWidgetItem
 from ui import gui_funcs
-
+from ui.window_interface import WindowInterface
 from typing import TYPE_CHECKING
 from ui.album_page import album_window
+
+
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
     from music_playing.audio_handler import AudioHandler
@@ -11,7 +13,8 @@ if TYPE_CHECKING:
     from client.window_manager import WindowManager
     from ui.album_page.album_window import AlbumWindow
 
-class SearchWindow(Ui_MainWindow, QMainWindow): 
+
+class SearchWindow(Ui_MainWindow, WindowInterface, QMainWindow): 
     def __init__(self, shared_state :'SharedState', window_manager :'WindowManager'):
        super(SearchWindow, self).__init__()
        self.socket_handler = shared_state.socket_handler
