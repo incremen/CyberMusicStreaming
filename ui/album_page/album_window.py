@@ -87,8 +87,8 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         logging.checkpoint("On change to playlist tab")
         grid_btns = gui_funcs.get_objects_from_boxlayout(self.song_grid)
         for btn in grid_btns:
-           btn.mousePressEvent = lambda event: mouse_press_event(btn, event)
-           btn.mouseMoveEvent = lambda event: mouse_move_event(btn, event)
+            btn.mousePressEvent = lambda event, btn=btn: mouse_press_event(btn, event)
+            btn.mouseMoveEvent = lambda event, btn=btn: mouse_move_event(btn, event)
            
         
     def search_btn_click(self):
@@ -106,9 +106,8 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
             song_info = SongInfo(**song_dict)
             song_text = f"{song_info.name}\n {song_info.length} seconds"
             song_btn = self.create_song_btn(song_text)
-            song_btn.mousePressEvent = lambda event: mouse_press_event(song_btn, event)
-            song_btn.mouseMoveEvent = lambda event: mouse_move_event(song_btn, event)
-            
+            song_btn.mousePressEvent = lambda event, song_btn=song_btn: mouse_press_event(song_btn, event)
+            song_btn.mouseMoveEvent = lambda event, song_btn=song_btn: mouse_move_event(song_btn, event)
             self.btn_to_info.update({song_btn : song_info})
             self.add_song_btn_to_grid(song_btn)
 
