@@ -3,7 +3,7 @@ import logging
 from PyQt5.QtWidgets import QApplication, QLabel, QWidget
 from PyQt5.QtGui import QDrag, QPixmap, QPainter, QCursor
 from PyQt5.QtCore import QMimeData, Qt
-
+from ui import gui_funcs
 
 def mouse_press_event(widget, event):
     if event.button() == Qt.MouseButton.LeftButton:
@@ -36,7 +36,6 @@ def drag_enter_event(widget, event):
 def drop_event(list_widget, event):
     pos = event.pos()
     text = event.mimeData().text()
-    list_widget.addItem(text)
-    event.acceptProposedAction()
+    gui_funcs.add_item_to_list_widget(list_widget, text)
 
 
