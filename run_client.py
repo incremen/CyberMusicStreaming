@@ -21,7 +21,7 @@ def main():
   shared_state = SharedState(socket_handler=client_socket_handler, audio_handler=audio_handler)
   window_manager = WindowManager(shared_state)
   
-  window_manager.show_window(LoginWindow)
+  window_manager.start_window(LoginWindow)
   
   client_socket_handler.connect()
   client_socket_handler.emit_to_server("song_list_request")

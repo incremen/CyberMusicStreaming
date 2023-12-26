@@ -9,6 +9,8 @@ from custom_logging import log_calls
 from ui.album_page.album_window_ui import Ui_MainWindow
 from ui.album_page.album_window_config import PROGRESS_BAR_MAXIMUM
 from ui.search_page.search_window import SearchWindow
+from ui.window_interface import WindowInterface
+from PyQt5 import QtCore
 
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
@@ -16,22 +18,35 @@ if TYPE_CHECKING:
     from client.shared_state import SharedState
     from client.window_manager import WindowManager
     
-class AlbumWindow(Ui_MainWindow, QMainWindow): 
+from abc import ABCMeta
+
+pyqtWrapperType = type(QtCore.QObject)
+
+class CombinedMeta(pyqtWrapperType, ABCMeta):
+    pass
+
+class AlbumWindow(Ui_MainWindow, QMainWindow, WindowInterface, metaclass=CombinedMeta): 
     def __init__(self, shared_state :'SharedState', window_manager :'WindowManager'):
-       super(AlbumWindow, self).__init__()
-       self.setupUi(self)
-       self.socket_handler = shared_state.socket_handler
-       self.audio_handler = shared_state.audio_handler
-       self.window_manager = window_manager
-       self.setup_main_widget_properties()
+        super(AlbumWindow, self).__init__()
 
-       self.last_song_grid_row = 2
-       self.last_song_grid_col = -1
+        self.setupUi(self)
+        self.socket_handler = shared_state.socket_handler
+        self.audio_handler = shared_state.audio_handler
+        self.window_manager = window_manager
+        self.setup_main_widget_properties()
+        
 
-       self.skip_lock = threading.Lock()
+        self.last_song_grid_row = 2
+        self.last_song_grid_col = -1
 
-       self.last_queue_emit_num = -1
-       self.last_songs_played_emit_num = -1
+        self.skip_lock = threading.Lock()
+
+        self.last_queue_emit_num = -1
+        self.last_songs_played_emit_num = -1
+       
+    def start(self):
+       self.socket_handler.emit_to_server("song_list_request")
+       self.show()
        
     def setup_main_widget_properties(self):
         self.skip_btn.clicked.connect(self.skip_btn_click)
@@ -46,7 +61,7 @@ class AlbumWindow(Ui_MainWindow, QMainWindow):
         self.search_btn.clicked.connect(self.search_btn_click)
         
     def search_btn_click(self):
-        self.window_manager.show_window(SearchWindow)
+        self.window_manager.start_window(SearchWindow)
         self.hide()
         
     def seek_in_song(self):

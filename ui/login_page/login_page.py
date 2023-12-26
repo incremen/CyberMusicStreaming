@@ -25,11 +25,14 @@ class LoginWindow(Ui_MainWindow, QMainWindow):
        self.setupUi(self)
        self.setup_btns()
        
+    def start(self):
+        self.show()
+       
     def setup_btns(self):
        self.ready_btn.clicked.connect(self.ready_btn_click)
        
     def ready_btn_click(self):
-        self.window_manager.show_window(SearchWindow)
+        self.window_manager.start_window(SearchWindow)
         self.window_manager.hide_window(LoginWindow)
            
 

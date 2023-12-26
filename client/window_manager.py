@@ -14,10 +14,10 @@ class WindowManager:
           # Add more windows as needed...
       }
 
-    def show_window(self, window_class):
+    def start_window(self, window_class):
         window = self.windows.get(window_class)
         if window is not None:
-            window.show()
+            window.start()
 
     def hide_window(self, window_class):
         window = self.windows.get(window_class)
