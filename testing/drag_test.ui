@@ -27,7 +27,7 @@
      <string>drag me</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="drop_widget">
     <property name="geometry">
      <rect>
       <x>510</x>

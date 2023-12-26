@@ -20,9 +20,9 @@ class Ui_MainWindow(object):
         self.drag_widget = QtWidgets.QLabel(self.centralwidget)
         self.drag_widget.setGeometry(QtCore.QRect(150, 130, 47, 13))
         self.drag_widget.setObjectName("drag_widget")
-        self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(510, 300, 81, 16))
-        self.label_2.setObjectName("label_2")
+        self.drop_widget = QtWidgets.QLabel(self.centralwidget)
+        self.drop_widget.setGeometry(QtCore.QRect(510, 300, 81, 16))
+        self.drop_widget.setObjectName("drop_widget")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
@@ -39,7 +39,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.drag_widget.setText(_translate("MainWindow", "drag me"))
-        self.label_2.setText(_translate("MainWindow", "drop_widget"))
+        self.drop_widget.setText(_translate("MainWindow", "drop_widget"))
 
 
 if __name__ == "__main__":
