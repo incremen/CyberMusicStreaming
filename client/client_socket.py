@@ -2,14 +2,15 @@ import socketio
 import logging
 from backend import client_connects_to_str
 from music_playing.audio_handler import AudioHandler
-
+from client.window_emitter import WindowEmitter
 
 class ClientSocketHandler:
-    def __init__(self, audio_handler :AudioHandler):
+    def __init__(self, audio_handler :AudioHandler, window_emitter : WindowEmitter):
         self.sio = socketio.Client(logger=False, engineio_logger=False)
+        self.window_emitter = window_emitter
         self.audio_handler = audio_handler
         self.audio_handler.socket_handler = self
-        self.emit_to_server= self.sio.emit
+        emit_to_server= self.sio.emit
     
     def send_skip_to_song_event(self, song_order):
         self.emit_to_server("skip_to_song" ,song_order)
@@ -34,7 +35,7 @@ class ClientSocketHandler:
         @self.sio.on("song_list")
         def received_song_list(song_list):
             logging.debug(f"{song_list=}")
-            self.audio_handler.song_list_received(song_list)
+            self.window_emitter.song_list_recieved.emit(song_list)
             
         @self.sio.on("next_song_order")
         def received_next_song_order(order):

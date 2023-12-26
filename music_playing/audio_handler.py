@@ -1,7 +1,7 @@
 import os
 from ui.album_page.album_window_config import PROGRESS_BAR_MAXIMUM
 import logging
-from client.main_page_emitter import WindowEmitter
+from client.window_emitter import WindowEmitter
 from music_playing.song_class import SongInfo
 from custom_logging import log_calls
 from typing import TYPE_CHECKING
@@ -64,12 +64,6 @@ class AudioHandler:
         logging.debug(f"Appended. {self.song_queue=}")
         self.next_expected_order += 1
         self.start_play_next_song_thread()
-        
-    def song_list_received(self, song_list : list[dict[str, str]]):
-        song_info_list = [SongInfo(**song_dict) for song_dict in song_list]
-        self.song_name_to_info = {info.name : info for info in song_info_list}
-        
-        self.main_page_emitter.song_list_recieved.emit(song_list)
         
     def play_last_song(self):
         queue_length_before = len(self.song_queue)
