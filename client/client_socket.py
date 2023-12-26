@@ -5,12 +5,12 @@ from music_playing.audio_handler import AudioHandler
 from client.window_emitter import WindowEmitter
 
 class ClientSocketHandler:
-    def __init__(self, audio_handler :AudioHandler, window_emitter : WindowEmitter):
+    def __init__(self, audio_handler :AudioHandler, window_manager : WindowEmitter):
         self.sio = socketio.Client(logger=False, engineio_logger=False)
-        self.window_emitter = window_emitter
+        self.window_emitter = window_manager
         self.audio_handler = audio_handler
         self.audio_handler.socket_handler = self
-        emit_to_server= self.sio.emit
+        self.emit_to_server= self.sio.emit
     
     def send_skip_to_song_event(self, song_order):
         self.emit_to_server("skip_to_song" ,song_order)
