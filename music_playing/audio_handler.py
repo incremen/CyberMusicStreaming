@@ -28,9 +28,13 @@ class AudioHandler:
             # osc=True,
         )
         self.next_expected_order = 0
+        
+        self.song_name_to_info = {}
+        
         self.play_next_song_thread = PlayNextSongThread(self)
         self.song_progress_thread = SongProgressThread(self)
         self.song_progress_thread.start()
+        
         
     def start_play_next_song_thread(self):
         self.play_next_song_thread.killed = False
@@ -54,6 +58,12 @@ class AudioHandler:
             self.songs_played.append(self.song_queue.pop(0))
         logging.checkpoint(f"After\n{self.song_queue=}\n{self.songs_played=}\n")
         self.play_next_song_thread.resume_playing()
+        
+    def song_list_received(self, song_list : list[dict[str, str]]):
+        song_info_list = [SongInfo(**song_dict) for song_dict in song_list]
+        self.song_name_to_info = {info.name : info for info in song_info_list}
+        
+        self.main_page_emitter.song_list_recieved.emit(song_list)
         
     @log_calls
     def add_to_song_queue(self, song_name :str):
