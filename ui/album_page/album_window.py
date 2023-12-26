@@ -62,6 +62,30 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.play_list_widget.dropEvent = lambda event: drop_event(self.play_list_widget, event)
         self.play_list_widget.dragMoveEvent = lambda event: drag_enter_event(self.play_list_widget, event)
         
+        self.right_tab.currentChanged.connect(self.tab_changed)
+        
+    def tab_changed(self, index):
+        if index == 0:
+            self.on_change_to_main_tab()
+            
+        elif index == 1:
+            self.on_change_to_playlist_tab()
+    
+    def on_change_to_main_tab(self):
+        logging.checkpoint("On change to main tab")
+        grid_btns = gui_funcs.get_objects_from_boxlayout(self.song_grid)
+        for btn in grid_btns:
+           btn.mousePressEvent = None
+           btn.mouseMoveEvent = None
+                
+    def on_change_to_playlist_tab(self):
+        logging.checkpoint("On change to playlist tab")
+        grid_btns = gui_funcs.get_objects_from_boxlayout(self.song_grid)
+        for btn in grid_btns:
+           btn.mousePressEvent = lambda event: mouse_press_event(btn, event)
+           btn.mouseMoveEvent = lambda event: mouse_move_event(btn, event)
+           
+        
     def search_btn_click(self):
         self.window_manager.start_window(SearchWindow)
         self.hide()
