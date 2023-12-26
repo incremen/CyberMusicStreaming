@@ -57,12 +57,14 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.progress_slider.sliderReleased.connect(self.seek_in_song)
         
         self.search_btn.clicked.connect(self.search_btn_click)
+        
         self.play_list_widget.setAcceptDrops(True)
         self.play_list_widget.dragEnterEvent = lambda event: drag_enter_event(self.play_list_widget, event)
         self.play_list_widget.dropEvent = lambda event: drop_event(self.play_list_widget, event)
         self.play_list_widget.dragMoveEvent = lambda event: drag_enter_event(self.play_list_widget, event)
         
         self.right_tab.currentChanged.connect(self.tab_changed)
+        self.right_tab.setCurrentIndex(0)
         
     def tab_changed(self, index):
         if index == 0:
@@ -71,19 +73,29 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         elif index == 1:
             self.on_change_to_playlist_tab()
     
+    def set_button_events(self, set_event_func):
+        logging.checkpoint("Setting button events")
+        grid_objs = gui_funcs.get_objects_from_boxlayout(self.song_grid)
+        grid_btns = [obj for obj in grid_objs if isinstance(obj, QPushButton)]
+        
+        for btn in grid_btns:
+            set_event_func(btn)
+
+    def disable_drag(self, btn):
+        btn.mousePressEvent = None
+        btn.mouseMoveEvent = None
+
+    def enable_drag(self, btn):
+        btn.mousePressEvent = lambda event: mouse_press_event(btn, event)
+        btn.mouseMoveEvent = lambda event: mouse_move_event(btn, event)
+
     def on_change_to_main_tab(self):
-        logging.checkpoint("On change to main tab")
-        grid_btns = gui_funcs.get_objects_from_boxlayout(self.song_grid)
-        for btn in grid_btns:
-           btn.mousePressEvent = None
-           btn.mouseMoveEvent = None
-                
+        self.set_button_events(self.disable_drag)
+
     def on_change_to_playlist_tab(self):
-        logging.checkpoint("On change to playlist tab")
-        grid_btns = gui_funcs.get_objects_from_boxlayout(self.song_grid)
-        for btn in grid_btns:
-           btn.mousePressEvent = lambda event: mouse_press_event(btn, event)
-           btn.mouseMoveEvent = lambda event: mouse_move_event(btn, event)
+        self.set_button_events(self.enable_drag)
+
+           
            
         
     def search_btn_click(self):
@@ -101,8 +113,8 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
             song_info = SongInfo(**song_dict)
             song_text = f"{song_info.name}\n {song_info.length} seconds"
             song_btn = self.create_song_btn(song_text)
-            song_btn.mousePressEvent = lambda event: mouse_press_event(song_btn, event)
-            song_btn.mouseMoveEvent = lambda event: mouse_move_event(song_btn, event)
+            song_btn.mousePressEvent = None
+            song_btn.mouseMoveEvent = None
             
             self.btn_to_info.update({song_btn : song_info})
             self.add_song_btn_to_grid(song_btn)
