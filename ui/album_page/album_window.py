@@ -70,10 +70,13 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.on_change_to_playlist_tab()
         
     def tab_changed(self, index):
+        
         if index == 0:
+            self.on_change_to_playlist_tab()
             self.on_change_to_main_tab()
             
         elif index == 1:
+            self.on_change_to_main_tab()
             self.on_change_to_playlist_tab()
 
     def get_grid_btns(self):
@@ -99,7 +102,6 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def disable_drag(self, btn):
         btn.mousePressEvent = None
         btn.mouseMoveEvent = None
-        btn.clicked.connect(self.song_btn_click)
         
     def search_btn_click(self):
         self.window_manager.start_window(SearchWindow)
