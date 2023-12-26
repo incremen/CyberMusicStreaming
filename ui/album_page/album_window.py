@@ -9,7 +9,8 @@ from custom_logging import log_calls
 from ui.album_page.album_window_ui import Ui_MainWindow
 from ui.album_page.album_window_config import PROGRESS_BAR_MAXIMUM
 from ui.search_page.search_window import SearchWindow
-from ui.drag_drop_funcs import drag_enter_event, drop_event, mouse_move_event, mouse_press_event
+# from ui.drag_drop_funcs import drag_enter_event, drop_event, mouse_move_event, mouse_press_event
+from testing.working_dummy import *
 from functools import partial
 
 from ui.window_interface import WindowInterface
@@ -57,9 +58,9 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         
         self.search_btn.clicked.connect(self.search_btn_click)
         self.play_list_widget.setAcceptDrops(True)
-        self.song_queue_widget.dragEnterEvent = lambda event: drag_enter_event(self.song_queue_widget, event)
-        self.song_queue_widget.dropEvent = lambda event: drop_event(self.song_queue_widget, event)
-        self.song_queue_widget.dragMoveEvent = lambda event: drag_enter_event(self.song_queue_widget, event)
+        self.play_list_widget.dragEnterEvent = lambda event: drag_enter_event(self.play_list_widget, event)
+        self.play_list_widget.dropEvent = lambda event: drop_event(self.play_list_widget, event)
+        self.play_list_widget.dragMoveEvent = lambda event: drag_enter_event(self.play_list_widget, event)
         
     def search_btn_click(self):
         self.window_manager.start_window(SearchWindow)
