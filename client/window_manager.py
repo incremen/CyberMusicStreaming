@@ -1,5 +1,5 @@
 from ui.login_page.login_page import LoginWindow
-from ui.main_page.main_page import MainWindow
+from ui.main_page.main_window import MainWindow
 from ui.search_page.search_window import SearchWindow
 from client.shared_state import SharedState
 

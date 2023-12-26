@@ -1,5 +1,5 @@
 from PyQt5.QtCore import QObject, pyqtSignal
-from ui.main_page.main_page import MainWindow
+from ui.main_page.main_window import MainWindow
 
 class WindowEmitter(QObject):
     song_list_recieved = pyqtSignal(list)
