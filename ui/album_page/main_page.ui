@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1230</width>
+    <width>1231</width>
     <height>871</height>
    </rect>
   </property>
@@ -160,49 +160,65 @@ color: white;
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="right_box">
-         <property name="title">
-          <string/>
+        <widget class="QTabWidget" name="right_tab">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
-         <property name="flat">
-          <bool>true</bool>
+         <property name="styleSheet">
+          <string notr="true">QTabWidget::pane {
+   border: 0;
+}
+
+QTabBar::tab {
+}
+</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout">
-          <item>
-           <widget class="QListWidget" name="songs_played_widget">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"> border: 2px solid white;
+         <property name="currentIndex">
+          <number>1</number>
+         </property>
+         <widget class="QWidget" name="song_queue" native="true">
+          <attribute name="title">
+           <string/>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QListWidget" name="songs_played_widget">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"> border: 2px solid white;
  background-color: rgba(128, 128, 128, 128);
  border-radius: 50px;
 color: white;
 
 
 </string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Sunken</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QListWidget" name="song_queue_widget">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"> border: 2px solid white;
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListWidget" name="song_queue_widget">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"> border: 2px solid white;
  background-color: rgba(128, 128, 128, 128);
  border-radius: 50px;
 color: white;
@@ -210,97 +226,133 @@ color: white;
 
 
 </string>
-            </property>
-            <item>
+             </property>
+             <item>
+              <property name="text">
+               <string>dummy item</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pause_btn">
+             <property name="styleSheet">
+              <string notr="true">qproperty-iconSize: 80px;
+ border: none;
+
+
+</string>
+             </property>
              <property name="text">
-              <string>dummy item</string>
+              <string/>
              </property>
-             <property name="textAlignment">
-              <set>AlignCenter</set>
+             <property name="icon">
+              <iconset resource="../resource_file.qrc">
+               <normaloff>:/images/white_pause_btn.png</normaloff>:/images/white_pause_btn.png</iconset>
              </property>
-            </item>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pause_btn">
-            <property name="styleSheet">
-             <string notr="true">qproperty-iconSize: 80px;
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="song_btns_box">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="title">
+              <string>GroupBox</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <item>
+               <widget class="QPushButton" name="back_btn">
+                <property name="styleSheet">
+                 <string notr="true">qproperty-iconSize: 80px;
  border: none;
 
 
 </string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="../resource_file.qrc">
-              <normaloff>:/images/white_pause_btn.png</normaloff>:/images/white_pause_btn.png</iconset>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="song_btns_box">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="title">
-             <string>GroupBox</string>
-            </property>
-            <property name="flat">
-             <bool>true</bool>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_3">
-             <item>
-              <widget class="QPushButton" name="back_btn">
-               <property name="styleSheet">
-                <string notr="true">qproperty-iconSize: 80px;
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="../resource_file.qrc">
+                  <normaloff>:/images/white_play_button_left.png</normaloff>:/images/white_play_button_left.png</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QScrollBar" name="progress_slider">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="skip_btn">
+                <property name="styleSheet">
+                 <string notr="true">qproperty-iconSize: 80px;
  border: none;
 
 
 </string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset resource="../resource_file.qrc">
-                 <normaloff>:/images/white_play_button_left.png</normaloff>:/images/white_play_button_left.png</iconset>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QScrollBar" name="progress_slider">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="skip_btn">
-               <property name="styleSheet">
-                <string notr="true">qproperty-iconSize: 80px;
- border: none;
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="../resource_file.qrc">
+                  <normaloff>:/images/white_play_button_right.png</normaloff>:/images/white_play_button_right.png</iconset>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab">
+          <property name="styleSheet">
+           <string notr="true">background: transparent;</string>
+          </property>
+          <attribute name="title">
+           <string>Page</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QListWidget" name="play_list_widget">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"> border: 2px solid white;
+ background-color: rgba(128, 128, 128, 128);
+ border-radius: 50px;
+color: white;
 
 
 </string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset resource="../resource_file.qrc">
-                 <normaloff>:/images/white_play_button_right.png</normaloff>:/images/white_play_button_right.png</iconset>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Sunken</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </item>
       </layout>
@@ -313,7 +365,7 @@ color: white;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1230</width>
+     <width>1231</width>
      <height>21</height>
     </rect>
    </property>
