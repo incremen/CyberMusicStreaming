@@ -1,3 +1,4 @@
+import time
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QWidget, QListWidget, QListWidgetItem
 from PyQt5.QtCore import Qt, QThread, pyqtSlot
@@ -64,7 +65,11 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         
         self.right_tab.currentChanged.connect(self.tab_changed)
         
+        self.right_tab.setCurrentIndex(1)
+        self.on_change_to_playlist_tab()
+        
     def tab_changed(self, index):
+        time.sleep(0.1)
         if index == 0:
             self.on_change_to_main_tab()
             

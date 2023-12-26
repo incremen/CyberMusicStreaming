@@ -26,6 +26,7 @@ def mouse_move_event(widget, event):
     drag.setPixmap(pixmap)
     drag.setHotSpot(event.pos())
     drag.exec_(Qt.DropAction.CopyAction | Qt.DropAction.MoveAction)
+    logging.checkpoint(f"Did mouse move for {widget.text()}")
 
 
 def drag_enter_event(widget, event):
