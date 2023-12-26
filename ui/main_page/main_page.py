@@ -8,16 +8,17 @@ import threading
 from custom_logging import log_calls
 from ui.main_page.main_page_ui import Ui_MainWindow
 from ui.main_page.main_page_config import PROGRESS_BAR_MAXIMUM
-from ui.search_page.search_page import SearchWindow
+from ui.search_page.search_window import SearchWindow
 
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
     from music_playing.audio_handler import AudioHandler
     from client.shared_state import SharedState
+    from client.window_manager import WindowManager
     
-class MainPage(Ui_MainWindow, QMainWindow): 
-    def __init__(self, shared_state :'SharedState'):
-       super(MainPage, self).__init__()
+class MainWindow(Ui_MainWindow, QMainWindow): 
+    def __init__(self, shared_state :'SharedState', window_manager :'WindowManager'):
+       super(MainWindow, self).__init__()
        self.setupUi(self)
        self.socket_handler = shared_state.socket_handler
        self.audio_handler = shared_state.audio_handler
