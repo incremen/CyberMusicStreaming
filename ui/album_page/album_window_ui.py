@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui\main_page\main_page.ui'
+# Form implementation generated from reading ui file 'ui\album_page\album_window.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1230, 871)
+        MainWindow.resize(1231, 871)
         self.central_widget = QtWidgets.QWidget(MainWindow)
         self.central_widget.setStyleSheet("#central_widget {\n"
 " background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
@@ -99,13 +99,25 @@ class Ui_MainWindow(object):
         self.gridLayout.addItem(spacerItem, 1, 0, 1, 1)
         self.gridLayout.setRowStretch(0, 1)
         self.horizontalLayout.addWidget(self.left_box)
-        self.right_box = QtWidgets.QGroupBox(self.big_box)
-        self.right_box.setTitle("")
-        self.right_box.setFlat(True)
-        self.right_box.setObjectName("right_box")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.right_box)
+        self.right_tab = QtWidgets.QTabWidget(self.big_box)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.right_tab.sizePolicy().hasHeightForWidth())
+        self.right_tab.setSizePolicy(sizePolicy)
+        self.right_tab.setStyleSheet("QTabWidget::pane {\n"
+"   border: 0;\n"
+"}\n"
+"\n"
+"QTabBar::tab {\n"
+"}\n"
+"")
+        self.right_tab.setObjectName("right_tab")
+        self.song_queue = QtWidgets.QWidget()
+        self.song_queue.setObjectName("song_queue")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.song_queue)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.songs_played_widget = QtWidgets.QListWidget(self.right_box)
+        self.songs_played_widget = QtWidgets.QListWidget(self.song_queue)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -122,7 +134,7 @@ class Ui_MainWindow(object):
         self.songs_played_widget.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.songs_played_widget.setObjectName("songs_played_widget")
         self.verticalLayout.addWidget(self.songs_played_widget)
-        self.song_queue_widget = QtWidgets.QListWidget(self.right_box)
+        self.song_queue_widget = QtWidgets.QListWidget(self.song_queue)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -141,7 +153,7 @@ class Ui_MainWindow(object):
         item.setTextAlignment(QtCore.Qt.AlignCenter)
         self.song_queue_widget.addItem(item)
         self.verticalLayout.addWidget(self.song_queue_widget)
-        self.pause_btn = QtWidgets.QPushButton(self.right_box)
+        self.pause_btn = QtWidgets.QPushButton(self.song_queue)
         self.pause_btn.setStyleSheet("qproperty-iconSize: 80px;\n"
 " border: none;\n"
 "\n"
@@ -153,7 +165,7 @@ class Ui_MainWindow(object):
         self.pause_btn.setIcon(icon)
         self.pause_btn.setObjectName("pause_btn")
         self.verticalLayout.addWidget(self.pause_btn)
-        self.song_btns_box = QtWidgets.QGroupBox(self.right_box)
+        self.song_btns_box = QtWidgets.QGroupBox(self.song_queue)
         self.song_btns_box.setMinimumSize(QtCore.QSize(0, 100))
         self.song_btns_box.setFlat(True)
         self.song_btns_box.setObjectName("song_btns_box")
@@ -188,11 +200,35 @@ class Ui_MainWindow(object):
         self.skip_btn.setObjectName("skip_btn")
         self.horizontalLayout_3.addWidget(self.skip_btn)
         self.verticalLayout.addWidget(self.song_btns_box)
-        self.horizontalLayout.addWidget(self.right_box)
+        self.right_tab.addTab(self.song_queue, "")
+        self.tab = QtWidgets.QWidget()
+        self.tab.setStyleSheet("background: transparent;")
+        self.tab.setObjectName("tab")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.tab)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.play_list_widget = QtWidgets.QListWidget(self.tab)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.play_list_widget.sizePolicy().hasHeightForWidth())
+        self.play_list_widget.setSizePolicy(sizePolicy)
+        self.play_list_widget.setStyleSheet(" border: 2px solid white;\n"
+" background-color: rgba(128, 128, 128, 128);\n"
+" border-radius: 50px;\n"
+"color: white;\n"
+"\n"
+"\n"
+"")
+        self.play_list_widget.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.play_list_widget.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.play_list_widget.setObjectName("play_list_widget")
+        self.verticalLayout_2.addWidget(self.play_list_widget)
+        self.right_tab.addTab(self.tab, "")
+        self.horizontalLayout.addWidget(self.right_tab)
         self.horizontalLayout_2.addWidget(self.big_box)
         MainWindow.setCentralWidget(self.central_widget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1230, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1231, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -200,6 +236,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
+        self.right_tab.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -213,6 +250,7 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "dummy item"))
         self.song_queue_widget.setSortingEnabled(__sortingEnabled)
         self.song_btns_box.setTitle(_translate("MainWindow", "GroupBox"))
+        self.right_tab.setTabText(self.right_tab.indexOf(self.tab), _translate("MainWindow", "Page"))
 import resource_file_rc
 
 

@@ -9,7 +9,8 @@ from custom_logging import log_calls
 from ui.album_page.album_window_ui import Ui_MainWindow
 from ui.album_page.album_window_config import PROGRESS_BAR_MAXIMUM
 from ui.search_page.search_window import SearchWindow
-
+from ui.drag_drop_funcs import drag_enter_event, drop_event, mouse_move_event, mouse_press_event
+from functools import partial
 
 from ui.window_interface import WindowInterface
 
@@ -29,7 +30,7 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.socket_handler = shared_state.socket_handler
         self.audio_handler = shared_state.audio_handler
         self.window_manager = window_manager
-        self.setup_main_widget_properties()
+        self.setup_widgets()
         
 
         self.last_song_grid_row = 2
@@ -44,7 +45,7 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
        self.socket_handler.emit_to_server("song_list_request")
        self.show()
        
-    def setup_main_widget_properties(self):
+    def setup_widgets(self):
         self.skip_btn.clicked.connect(self.skip_btn_click)
         self.back_btn.clicked.connect(self.back_btn_click)
         self.pause_btn.clicked.connect(self.pause_btn_click)  
@@ -55,6 +56,10 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.progress_slider.sliderReleased.connect(self.seek_in_song)
         
         self.search_btn.clicked.connect(self.search_btn_click)
+        self.play_list_widget.setAcceptDrops(True)
+        self.song_queue_widget.dragEnterEvent = lambda event: drag_enter_event(self.song_queue_widget, event)
+        self.song_queue_widget.dropEvent = lambda event: drop_event(self.song_queue_widget, event)
+        self.song_queue_widget.dragMoveEvent = lambda event: drag_enter_event(self.song_queue_widget, event)
         
     def search_btn_click(self):
         self.window_manager.start_window(SearchWindow)
@@ -71,6 +76,8 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
             song_info = SongInfo(**song_dict)
             song_text = f"{song_info.name}\n {song_info.length} seconds"
             song_btn = self.create_song_btn(song_text)
+            song_btn.mousePressEvent = lambda event: mouse_press_event(song_btn, event)
+            song_btn.mouseMoveEvent = lambda event: mouse_move_event(song_btn, event)
             
             self.btn_to_info.update({song_btn : song_info})
             self.add_song_btn_to_grid(song_btn)
