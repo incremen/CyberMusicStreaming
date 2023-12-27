@@ -199,7 +199,10 @@ class Ui_MainWindow(object):
         self.controller_box = QGroupBox(self.vertical_box)
         self.controller_box.setObjectName(u"controller_box")
         self.controller_box.setMinimumSize(QSize(0, 100))
-        self.controller_box.setStyleSheet(u"border: none;")
+        self.controller_box.setStyleSheet(u"#controller_box\n"
+"{\n"
+"border: none;\n"
+"}")
         self.controller_box.setFlat(True)
         self.verticalLayout_4 = QVBoxLayout(self.controller_box)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
@@ -219,7 +222,8 @@ class Ui_MainWindow(object):
         self.song_btns_box = QGroupBox(self.controller_box)
         self.song_btns_box.setObjectName(u"song_btns_box")
         self.song_btns_box.setMinimumSize(QSize(0, 100))
-        self.song_btns_box.setStyleSheet(u"border: none;")
+        self.song_btns_box.setStyleSheet(u"#song_btns_box{\n"
+"border: none;}")
         self.song_btns_box.setFlat(True)
         self.horizontalLayout_3 = QHBoxLayout(self.song_btns_box)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
@@ -246,7 +250,10 @@ class Ui_MainWindow(object):
 "\n"
 "QScrollBar::handle {\n"
 " background-color:  rgba(255, 105, 180, 100);\n"
+" min-width: 20px;\n"
 "}\n"
+"\n"
+"\n"
 "\n"
 "")
         self.progress_slider.setOrientation(Qt.Horizontal)

@@ -65,25 +65,24 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.play_list_widget.dragMoveEvent = lambda event: drag_enter_event(self.play_list_widget, event)
         
         self.right_tab.currentChanged.connect(self.tab_changed)
-        
+        self.on_change_to_queue_tab()
         self.right_tab.setCurrentIndex(1)
-        self.on_change_to_playlist_tab()
         
     def tab_changed(self, index):
-        
+        logging.debug(f"{index=}")
         if index == 0:
-            self.on_change_to_playlist_tab()
-            self.on_change_to_main_tab()
+            self.song_list_received(self.song_list, enable = True)
             
         elif index == 1:
-            self.on_change_to_main_tab()
-            self.on_change_to_playlist_tab()
+            self.song_list_received(self.song_list, enable = False)
+            
+        self.right_tab.setCurrentIndex(index)
 
     def get_grid_btns(self):
         grid_widgets = gui_funcs.get_objects_from_boxlayout(self.song_grid)
         return [widget for widget in grid_widgets if isinstance(widget, QPushButton)]
     
-    def on_change_to_main_tab(self):
+    def on_change_to_queue_tab(self):
         logging.checkpoint("On change to main tab")
         grid_btns = self.get_grid_btns()
         for btn in grid_btns:
@@ -110,16 +109,20 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def seek_in_song(self):
         self.audio_handler.seek_value(self.progress_slider.value())
         
-    def song_list_received(self, songs : list):
+    def song_list_received(self, songs : list, enable = False):
+        self.delete_from_grid(4)
+        self.last_song_grid_row = 2
+        self.last_song_grid_col = -1
         logging.debug(f"Received song list: {songs}")
+        self.song_list = songs
         self.btn_to_info = {}
         
         for song_dict in songs:
             song_info = SongInfo(**song_dict)
             song_text = f"{song_info.name}\n {song_info.length} seconds"
             song_btn = self.create_song_btn(song_text)
-            song_btn.mousePressEvent = lambda event, song_btn=song_btn: mouse_press_event(song_btn, event)
-            song_btn.mouseMoveEvent = lambda event, song_btn=song_btn: mouse_move_event(song_btn, event)
+            if enable:
+                self.enable_drag(song_btn)
             self.btn_to_info.update({song_btn : song_info})
             self.add_song_btn_to_grid(song_btn)
 
@@ -203,6 +206,15 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
             self.last_song_grid_col = 0
             self.last_song_grid_row += 1
         self.song_grid.addWidget(song_btn, self.last_song_grid_row, self.last_song_grid_col)
+        
+    def delete_from_grid(self, start_index):
+        while self.song_grid.count() > start_index:
+            item = self.song_grid.takeAt(start_index)
+            widget = item.widget()
+            if widget:
+                widget.deleteLater()
+
+
         
     def song_btn_click(self):
         btn_clicked_data = self.btn_to_info[self.sender()]

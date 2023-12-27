@@ -291,7 +291,10 @@ color: white;
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">border: none;</string>
+          <string notr="true">#controller_box
+{
+border: none;
+}</string>
          </property>
          <property name="title">
           <string>GroupBox</string>
@@ -327,7 +330,8 @@ color: white;
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">border: none;</string>
+             <string notr="true">#song_btns_box{
+border: none;}</string>
             </property>
             <property name="title">
              <string>GroupBox</string>
@@ -372,7 +376,10 @@ background-color:   rgba(128, 128, 128, 60);
 
 QScrollBar::handle {
  background-color:  rgba(255, 105, 180, 100);
+ min-width: 20px;
 }
+
+
 
 </string>
                </property>
