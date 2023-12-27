@@ -239,6 +239,16 @@ class Ui_MainWindow(object):
 
         self.progress_slider = QScrollBar(self.song_btns_box)
         self.progress_slider.setObjectName(u"progress_slider")
+        self.progress_slider.setMinimumSize(QSize(0, 50))
+        self.progress_slider.setStyleSheet(u"QScrollBar {\n"
+"background-color:   rgba(128, 128, 128, 60);\n"
+"}\n"
+"\n"
+"QScrollBar::handle {\n"
+" background-color:  rgba(255, 105, 180, 100);\n"
+"}\n"
+"\n"
+"")
         self.progress_slider.setOrientation(Qt.Horizontal)
 
         self.horizontalLayout_3.addWidget(self.progress_slider)
