@@ -110,7 +110,7 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.audio_handler.seek_value(self.progress_slider.value())
         
     def song_list_received(self, songs : list, enable = False):
-        self.delete_from_grid(4)
+        self.delete_from_grid(5)
         self.last_song_grid_row = 2
         self.last_song_grid_col = -1
         logging.debug(f"Received song list: {songs}")

@@ -26,7 +26,7 @@ def main():
     album_window = window_manager.get_window(AlbumWindow)
     window_emitter.setup_album_page_connections(album_window)
     
-    window_manager.start_window(AlbumWindow)
+    window_manager.start_window(LoginWindow)
     
     app.exec_()
   
