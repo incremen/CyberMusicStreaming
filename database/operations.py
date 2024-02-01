@@ -2,8 +2,7 @@ from database.models import Playlist
 import logging
 
 
-def add_song_to_playlist(session, playlist_id, song):
-    playlist = session.query(Playlist).filter_by(id=playlist_id).first()
+def add_song_to_playlist(session, playlist : Playlist, song : Playlist):
     items = eval(playlist.items)
     logging.debug(f"{items=}")
     items.append(song)
@@ -11,8 +10,7 @@ def add_song_to_playlist(session, playlist_id, song):
     playlist.items = str(items)
     session.commit()
 
-def remove_song_from_playlist(session, playlist_id, song):
-    playlist = session.query(Playlist).filter_by(id=playlist_id).first()
+def remove_song_from_playlist(session, playlist: Playlist, song : str):
     items = eval(playlist.items)
     items.remove(song)
     playlist.items = str(items)
