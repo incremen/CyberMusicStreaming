@@ -1,4 +1,4 @@
-from ui.search_page.search_page_ui import Ui_MainWindow
+from ui.user_playlists.user_playlists_ui import Ui_MainWindow
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QWidget, QListWidget, QListWidgetItem
 from ui import gui_funcs
 from ui.window_interface import WindowInterface
@@ -14,9 +14,9 @@ if TYPE_CHECKING:
     from ui.album_page.album_window import AlbumWindow
 
 
-class UserPlaylists(Ui_MainWindow, WindowInterface, QMainWindow): 
+class UserPlaylistsWindow(Ui_MainWindow, WindowInterface, QMainWindow): 
     def __init__(self, shared_state :'SharedState', window_manager :'WindowManager'):
-       super(UserPlaylists, self).__init__()
+       super(UserPlaylistsWindow, self).__init__()
        self.socket_handler = shared_state.socket_handler
        self.audio_handler = shared_state.audio_handler
        self.window_manager = window_manager
@@ -32,7 +32,7 @@ class UserPlaylists(Ui_MainWindow, WindowInterface, QMainWindow):
             btn.clicked.connect(self.album_btn_click)
            
     def album_btn_click(self, btn_clicked):
-      self.window_manager.hide_window(UserPlaylists)
+      self.window_manager.hide_window(UserPlaylistsWindow)
       self.window_manager.start_window(album_window.AlbumWindow)
     
        
