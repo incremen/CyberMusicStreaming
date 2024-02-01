@@ -18,32 +18,32 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1120, 922)
+        MainWindow.resize(1123, 922)
         self.central_widget = QWidget(MainWindow)
         self.central_widget.setObjectName(u"central_widget")
         self.central_widget.setStyleSheet(u"#central_widget {\n"
 " background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
 "           stop:0 #4B0082, stop:0.5 #000000, stop:1 #4B0082);\n"
 "}\n"
-"")
+"QGroupBox {border: none;}")
         self.horizontalLayout_6 = QHBoxLayout(self.central_widget)
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
-        self.groupBox = QGroupBox(self.central_widget)
-        self.groupBox.setObjectName(u"groupBox")
+        self.albums_boxlayout = QGroupBox(self.central_widget)
+        self.albums_boxlayout.setObjectName(u"albums_boxlayout")
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
-        self.groupBox.setSizePolicy(sizePolicy)
-        self.groupBox.setMaximumSize(QSize(16777215, 1000))
-        self.groupBox.setStyleSheet(u"#groupBox {border: none;\n"
+        sizePolicy.setHeightForWidth(self.albums_boxlayout.sizePolicy().hasHeightForWidth())
+        self.albums_boxlayout.setSizePolicy(sizePolicy)
+        self.albums_boxlayout.setMaximumSize(QSize(16777215, 1000))
+        self.albums_boxlayout.setStyleSheet(u"#groupBox {border: none;\n"
 "}")
-        self.groupBox.setFlat(True)
-        self.gridLayout_2 = QGridLayout(self.groupBox)
+        self.albums_boxlayout.setFlat(True)
+        self.gridLayout_2 = QGridLayout(self.albums_boxlayout)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.album_grid = QGridLayout()
         self.album_grid.setObjectName(u"album_grid")
-        self.pushButton_7 = QPushButton(self.groupBox)
+        self.pushButton_7 = QPushButton(self.albums_boxlayout)
         self.pushButton_7.setObjectName(u"pushButton_7")
         sizePolicy1 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
         sizePolicy1.setHorizontalStretch(0)
@@ -65,7 +65,7 @@ class Ui_MainWindow(object):
 
         self.album_grid.addWidget(self.pushButton_7, 0, 3, 1, 1)
 
-        self.pushButton = QPushButton(self.groupBox)
+        self.pushButton = QPushButton(self.albums_boxlayout)
         self.pushButton.setObjectName(u"pushButton")
         sizePolicy2 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         sizePolicy2.setHorizontalStretch(0)
@@ -85,7 +85,7 @@ class Ui_MainWindow(object):
 
         self.album_grid.addWidget(self.pushButton, 0, 0, 1, 1)
 
-        self.pushButton_6 = QPushButton(self.groupBox)
+        self.pushButton_6 = QPushButton(self.albums_boxlayout)
         self.pushButton_6.setObjectName(u"pushButton_6")
         sizePolicy1.setHeightForWidth(self.pushButton_6.sizePolicy().hasHeightForWidth())
         self.pushButton_6.setSizePolicy(sizePolicy1)
@@ -103,7 +103,7 @@ class Ui_MainWindow(object):
 
         self.album_grid.addWidget(self.pushButton_6, 0, 2, 1, 1)
 
-        self.pushButton_9 = QPushButton(self.groupBox)
+        self.pushButton_9 = QPushButton(self.albums_boxlayout)
         self.pushButton_9.setObjectName(u"pushButton_9")
         sizePolicy3 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy3.setHorizontalStretch(0)
@@ -123,7 +123,7 @@ class Ui_MainWindow(object):
 
         self.album_grid.addWidget(self.pushButton_9, 1, 0, 1, 1)
 
-        self.pushButton_4 = QPushButton(self.groupBox)
+        self.pushButton_4 = QPushButton(self.albums_boxlayout)
         self.pushButton_4.setObjectName(u"pushButton_4")
         sizePolicy1.setHeightForWidth(self.pushButton_4.sizePolicy().hasHeightForWidth())
         self.pushButton_4.setSizePolicy(sizePolicy1)
@@ -148,7 +148,7 @@ class Ui_MainWindow(object):
 
         self.album_grid.addWidget(self.pushButton_4, 0, 1, 1, 1)
 
-        self.pushButton_13 = QPushButton(self.groupBox)
+        self.pushButton_13 = QPushButton(self.albums_boxlayout)
         self.pushButton_13.setObjectName(u"pushButton_13")
         sizePolicy1.setHeightForWidth(self.pushButton_13.sizePolicy().hasHeightForWidth())
         self.pushButton_13.setSizePolicy(sizePolicy1)
@@ -165,7 +165,7 @@ class Ui_MainWindow(object):
 
         self.album_grid.addWidget(self.pushButton_13, 1, 1, 1, 1)
 
-        self.pushButton_14 = QPushButton(self.groupBox)
+        self.pushButton_14 = QPushButton(self.albums_boxlayout)
         self.pushButton_14.setObjectName(u"pushButton_14")
         sizePolicy1.setHeightForWidth(self.pushButton_14.sizePolicy().hasHeightForWidth())
         self.pushButton_14.setSizePolicy(sizePolicy1)
@@ -182,7 +182,7 @@ class Ui_MainWindow(object):
 
         self.album_grid.addWidget(self.pushButton_14, 1, 2, 1, 1)
 
-        self.pushButton_12 = QPushButton(self.groupBox)
+        self.pushButton_12 = QPushButton(self.albums_boxlayout)
         self.pushButton_12.setObjectName(u"pushButton_12")
         sizePolicy1.setHeightForWidth(self.pushButton_12.sizePolicy().hasHeightForWidth())
         self.pushButton_12.setSizePolicy(sizePolicy1)
@@ -202,12 +202,14 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addLayout(self.album_grid, 3, 0, 1, 1)
 
-        self.groupBox_2 = QGroupBox(self.groupBox)
-        self.groupBox_2.setObjectName(u"groupBox_2")
-        self.groupBox_2.setMinimumSize(QSize(0, 100))
-        self.horizontalLayout_3 = QHBoxLayout(self.groupBox_2)
+        self.top_btns_box = QGroupBox(self.albums_boxlayout)
+        self.top_btns_box.setObjectName(u"top_btns_box")
+        self.top_btns_box.setMinimumSize(QSize(0, 100))
+        self.top_btns_box.setStyleSheet(u"QGroupBox {border: none;}")
+        self.top_btns_box.setFlat(True)
+        self.horizontalLayout_3 = QHBoxLayout(self.top_btns_box)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.lineEdit = QLineEdit(self.groupBox_2)
+        self.lineEdit = QLineEdit(self.top_btns_box)
         self.lineEdit.setObjectName(u"lineEdit")
         font2 = QFont()
         font2.setFamily(u"Arial")
@@ -225,27 +227,28 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_3.addWidget(self.lineEdit)
 
-        self.groupBox_3 = QGroupBox(self.groupBox_2)
+        self.groupBox_3 = QGroupBox(self.top_btns_box)
         self.groupBox_3.setObjectName(u"groupBox_3")
         self.verticalLayout = QVBoxLayout(self.groupBox_3)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.pushButton_2 = QPushButton(self.groupBox_3)
-        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.see_own_playlists_btn = QPushButton(self.groupBox_3)
+        self.see_own_playlists_btn.setObjectName(u"see_own_playlists_btn")
         font3 = QFont()
-        font3.setPointSize(20)
-        self.pushButton_2.setFont(font3)
-        self.pushButton_2.setStyleSheet(u"QPushButton {\n"
-" background-color: rgba(255, 255, 255, 150); \n"
-" color: black;\n"
-"border-radius:20px;\n"
+        font3.setPointSize(22)
+        self.see_own_playlists_btn.setFont(font3)
+        self.see_own_playlists_btn.setStyleSheet(u"QPushButton {\n"
+" background-color: rgba(255, 255, 255, 90); \n"
+" color: white;\n"
+"border-radius:10px;\n"
+"border: 5px solid purple;\n"
 "}\n"
 "\n"
 "\n"
 "")
 
-        self.verticalLayout.addWidget(self.pushButton_2)
+        self.verticalLayout.addWidget(self.see_own_playlists_btn)
 
-        self.verticalSpacer = QSpacerItem(20, 10, QSizePolicy.Minimum, QSizePolicy.Minimum)
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Minimum)
 
         self.verticalLayout.addItem(self.verticalSpacer)
 
@@ -253,20 +256,20 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.addWidget(self.groupBox_3)
 
 
-        self.gridLayout_2.addWidget(self.groupBox_2, 2, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.top_btns_box, 2, 0, 1, 1)
 
-        self.horizontalLayout_5 = QHBoxLayout()
-        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.albums_box_layout = QHBoxLayout()
+        self.albums_box_layout.setObjectName(u"albums_box_layout")
 
-        self.gridLayout_2.addLayout(self.horizontalLayout_5, 0, 0, 1, 1)
+        self.gridLayout_2.addLayout(self.albums_box_layout, 0, 0, 1, 1)
 
 
-        self.horizontalLayout_6.addWidget(self.groupBox)
+        self.horizontalLayout_6.addWidget(self.albums_boxlayout)
 
         MainWindow.setCentralWidget(self.central_widget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1120, 21))
+        self.menubar.setGeometry(QRect(0, 0, 1123, 21))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -279,7 +282,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.groupBox.setTitle("")
+        self.albums_boxlayout.setTitle("")
         self.pushButton_7.setText(QCoreApplication.translate("MainWindow", u"Summer \n"
 "\n"
 "\n"
@@ -312,9 +315,9 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "asdf", None))
-        self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"GroupBox", None))
+        self.top_btns_box.setTitle("")
         self.lineEdit.setText(QCoreApplication.translate("MainWindow", u"    Made for Itamar. ", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"GroupBox", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"See your own playlists", None))
+        self.see_own_playlists_btn.setText(QCoreApplication.translate("MainWindow", u"See your own playlists", None))
     # retranslateUi
 
