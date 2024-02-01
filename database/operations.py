@@ -1,8 +1,13 @@
-# operations.py
+from database.models import Playlist
+import logging
+
+
 def add_song_to_playlist(session, playlist_id, song):
     playlist = session.query(Playlist).filter_by(id=playlist_id).first()
     items = eval(playlist.items)
+    logging.debug(f"{items=}")
     items.append(song)
+    logging.debug(f"items after appending: {items}")
     playlist.items = str(items)
     session.commit()
 

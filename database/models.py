@@ -27,3 +27,6 @@ class Playlist(Base):
 
     def __repr__(self):
         return f"<Playlist(id={self.id}, items={self.items}, user_id={self.user_id})>"
+    
+    def get_as_list(self):
+        return eval(self.items)

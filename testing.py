@@ -1,32 +1,29 @@
-import logging
-from PyQt5.QtWidgets import QApplication
-from ui.playlist_page.playlist_window import PlaylistWindow
-import sys
-from scipy.special import factorial
-
-
-import math
-
-millnames = ['',' Thousand',' Million',' Billion',' Trillion']
-
-def millify(n):
-    n = float(n)
-    millidx = max(0,min(len(millnames)-1,
-                        int(math.floor(0 if n == 0 else math.log10(abs(n))/3))))
-
-    return '{:.0f}{}'.format(n / 10**(3 * millidx), millnames[millidx])
-
+from database.models import User, Playlist, Base
+from database.operations import add_song_to_playlist, remove_song_from_playlist
+from database.utils import log_user_and_playlists
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine
+from custom_logging import CustomLogger
 
 def main():
+    custom_logger = CustomLogger(log_files=["testing.log"])
+    engine = create_engine('sqlite:///:memory:')
+    Base.metadata.create_all(engine)
+    session = Session(bind=engine)
 
-    k = 6
-    n = 16
+    user1 = User(username="user1", password="pass1")
+    session.add(user1)
+    session.commit()
 
-    n_fact = factorial(n)
-    kn_fact = factorial(k*n)
+    playlist1 = Playlist(items="['song1', 'song2']", user=user1)
+    session.add(playlist1)
+    session.commit()
 
-    result = kn_fact / (n_fact**2)
-    print(millify(result))
-    
+    log_user_and_playlists(session, user1.id)
+
+    add_song_to_playlist(session, playlist1.id, 'song3')
+    remove_song_from_playlist(session, playlist1.id, 'song1')
+    log_user_and_playlists(session, user1.id)
+
 if __name__ == "__main__":
     main()
