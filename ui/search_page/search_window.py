@@ -40,6 +40,6 @@ class SearchWindow(Ui_MainWindow, WindowInterface, QMainWindow):
            
    def album_btn_click(self, btn_clicked):
       self.window_manager.hide_window(SearchWindow)
-    
+      self.window_manager.start_window(album_window.AlbumWindow)
        
         
