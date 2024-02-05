@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from client.client_socket import ClientSocketHandler
 from music_playing.audio_handler import AudioHandler
-from client.window_emitter import WindowEmitter
+from client.album_window_emitter import AlbumWindowEmitter
 
 @dataclass
 class SharedState:

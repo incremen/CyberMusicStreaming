@@ -32,20 +32,26 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.socket_handler = shared_state.socket_handler
         self.audio_handler = shared_state.audio_handler
         self.window_manager = window_manager
-        self.setup_widgets()
         
 
         self.last_song_grid_row = 2
         self.last_song_grid_col = -1
 
         self.skip_lock = threading.Lock()
-
+        self.song_list = None
         self.last_queue_emit_num = -1
         self.last_songs_played_emit_num = -1
        
     def start(self):
-       self.socket_handler.emit_to_server("song_list_request")
-       self.show()
+        self.socket_handler.emit_to_server("song_list_request")
+        while True:
+            if not self.song_list:
+                time.sleep(0.5)
+                logging.debug(f"{self.song_list=}")
+            else:
+                break
+        self.setup_widgets()
+        self.show()
        
     def setup_widgets(self):
         self.skip_btn.clicked.connect(self.skip_btn_click)
@@ -58,25 +64,24 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.progress_slider.sliderReleased.connect(self.seek_in_song)
         
         self.search_btn.clicked.connect(self.search_btn_click)
+        self.playlist_widget.setAcceptDrops(True)
+        self.playlist_widget.dragEnterEvent = lambda event: drag_enter_event(self.playlist_widget, event)
+        self.playlist_widget.dropEvent = lambda event: drop_event(self.playlist_widget, event)
+        self.playlist_widget.dragMoveEvent = lambda event: drag_enter_event(self.playlist_widget, event)
+        self.tab_widget.currentChanged.connect(self.tab_changed)
         
-        self.play_list_widget.setAcceptDrops(True)
-        self.play_list_widget.dragEnterEvent = lambda event: drag_enter_event(self.play_list_widget, event)
-        self.play_list_widget.dropEvent = lambda event: drop_event(self.play_list_widget, event)
-        self.play_list_widget.dragMoveEvent = lambda event: drag_enter_event(self.play_list_widget, event)
-        
-        self.right_tab.currentChanged.connect(self.tab_changed)
+        self.tab_widget.setCurrentIndex(1)
         self.on_change_to_queue_tab()
-        self.right_tab.setCurrentIndex(1)
         
     def tab_changed(self, index):
         logging.debug(f"{index=}")
         if index == 0:
-            self.song_list_received(self.song_list, enable = True)
+            self.song_list_received(self.song_list, enable_drag = True)
             
         elif index == 1:
-            self.song_list_received(self.song_list, enable = False)
+            self.song_list_received(self.song_list, enable_drag = False)
             
-        self.right_tab.setCurrentIndex(index)
+        self.tab_widget.setCurrentIndex(index)
 
     def get_grid_btns(self):
         grid_widgets = gui_funcs.get_objects_from_boxlayout(self.song_grid)
@@ -109,22 +114,23 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def seek_in_song(self):
         self.audio_handler.seek_value(self.progress_slider.value())
         
-    def song_list_received(self, songs : list, enable = False):
+    def song_list_received(self, songs : list, enable_drag = False):
+        self.song_list = songs
+        logging.info(f"{self.song_list=}")
         self.delete_from_grid(5)
         self.last_song_grid_row = 2
         self.last_song_grid_col = -1
         logging.debug(f"Received song list: {songs}")
-        self.song_list = songs
         self.btn_to_info = {}
-        
         for song_dict in songs:
             song_info = SongInfo(**song_dict)
             song_text = f"{song_info.name}\n {song_info.length} seconds"
             song_btn = self.create_song_btn(song_text)
-            if enable:
+            if enable_drag:
                 self.enable_drag(song_btn)
             self.btn_to_info.update({song_btn : song_info})
             self.add_song_btn_to_grid(song_btn)
+            
 
     def create_song_btn(self, song_text):
         song_btn = QPushButton(song_text)

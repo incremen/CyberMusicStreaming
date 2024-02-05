@@ -1,7 +1,7 @@
 import os
 from ui.album_page.album_window_config import PROGRESS_BAR_MAXIMUM
 import logging
-from client.window_emitter import WindowEmitter
+from client.album_window_emitter import AlbumWindowEmitter
 from music_playing.song_class import SongInfo
 from custom_logging import log_calls
 from typing import TYPE_CHECKING
@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 CHUNK = 4096
 
 class AudioHandler:
-    def __init__(self, main_page_emitter: 'WindowEmitter'):
+    def __init__(self, main_page_emitter: 'AlbumWindowEmitter'):
         self.main_page_emitter = main_page_emitter
         self.song_queue = EmittingList(main_page_emitter.update_song_queue)
         self.songs_played = EmittingList(main_page_emitter.update_songs_played)
@@ -63,7 +63,7 @@ class AudioHandler:
         song_info_list = [SongInfo(**song_dict) for song_dict in song_list]
         self.song_name_to_info = {info.name : info for info in song_info_list}
         
-        self.main_page_emitter.song_list_recieved.emit(song_list)
+        self.main_page_emitter.song_list_received.emit(song_list)
         
     @log_calls
     def add_to_song_queue(self, song_name :str):
