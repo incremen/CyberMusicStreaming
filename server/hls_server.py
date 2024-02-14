@@ -8,7 +8,7 @@ from pathlib import Path
 
 class HLSHandler(SimpleHTTPRequestHandler):
     def translate_path(self, requested_path):
-        segments_dir = Path('D:\VS Code Projects (good place)\Cyber Music Streaming\song_segments')
+        segments_dir = Path(r'D:\vs_code_projects_good_place\cyber_music_streaming\song_segments')
         return_path = segments_dir / Path(requested_path).relative_to('/')
         abs_return_path = return_path.absolute()
         logging.info(f"Requested path: {requested_path}")
