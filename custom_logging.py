@@ -18,8 +18,6 @@ class CustomLogger():
         log_dir = 'log'
         
         log_to_console = True
-        
-        log_on_init = True
         """
         self.add_custom_levels()
         self.name = None

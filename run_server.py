@@ -11,7 +11,6 @@ def main():
     server_thread = threading.Thread(target=start_hls_server)
     server_thread.start()
     
-    
     server_socket_handler = ServerSocketHandler(songs_dir)
     server_socket_handler.start()
     

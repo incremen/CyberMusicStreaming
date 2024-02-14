@@ -2,12 +2,12 @@ import socketio
 import logging
 from backend import client_connects_to_str
 from music_playing.audio_handler import AudioHandler
-from client.album_window_emitter import AlbumWindowEmitter
+from client.window_emitter import WindowEmitter
 
 class ClientSocketHandler:
-    def __init__(self, audio_handler :AudioHandler, album_window_emitter : AlbumWindowEmitter):
+    def __init__(self, audio_handler :AudioHandler, window_manager : WindowEmitter):
         self.sio = socketio.Client(logger=False, engineio_logger=False)
-        self.album_window_emitter = album_window_emitter
+        self.window_emitter = window_manager
         self.audio_handler = audio_handler
         self.audio_handler.socket_handler = self
         self.emit_to_server= self.sio.emit
@@ -34,9 +34,8 @@ class ClientSocketHandler:
         
         @self.sio.on("song_list")
         def received_song_list(song_list):
-            logging.debug(f"Client socket received{song_list=}")
+            logging.debug(f"{song_list=}")
             self.audio_handler.song_list_received(song_list)
-            self.album_window_emitter.song_list_received.emit(song_list)
             
         @self.sio.on("next_song_order")
         def received_next_song_order(order):

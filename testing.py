@@ -4,11 +4,17 @@ import database.utils as utils
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 from custom_logging import CustomLogger
-from database import client_db_funcs
+
 def main():
     custom_logger = CustomLogger(log_files=["testing.log"])
-    session = client_db_funcs.create_session()
-    client_db_funcs.clear_user_playlists(session)
+    database_url = "sqlite:///database/test_db.db"
+    engine = create_engine(database_url)
+    # utils.reset_tables(engine)
+    session = Session(bind=engine)
+
+    # user1 = User(username="Itamar", password="password")
+    # session.add(user1)
+    # session.commit()
     utils.log_all_users_playlists(session)
 
 
