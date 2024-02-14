@@ -1,11 +1,14 @@
-from backend.client.client_socket import ClientSocketHandler
+from client.client_socket import ClientSocketHandler
 import custom_logging
 from PyQt5.QtWidgets import QApplication
 from music_playing.audio_handler import AudioHandler
-from backend.client.main_page_emitter import MainPageEmitter
-from frontend.main_page import MainPage
+from client.album_window_emitter import AlbumWindowEmitter
+from ui.login_page.login_page import LoginWindow
 import sys
-import threading
+from client.shared_state import SharedState
+from client.window_manager import WindowManager
+from ui.album_page.album_window import AlbumWindow
+
 
 
 def connect_and_request_song_list(client_socket_handler):
@@ -18,21 +21,22 @@ def main():
     custom_logger.clear_logs()
     app = QApplication(sys.argv)
     
-    main_page_emitter = MainPageEmitter()
-    audio_handler = AudioHandler(main_page_emitter)
-    client_socket_handler = ClientSocketHandler(audio_handler, main_page_emitter)
+    album_window_emitter = AlbumWindowEmitter()
+    audio_handler = AudioHandler(album_window_emitter)
+    client_socket_handler = ClientSocketHandler(audio_handler, album_window_emitter)
+    client_socket_handler.connect()
     
-    main_page = MainPage(client_socket_handler, audio_handler)
+    shared_state = SharedState(socket_handler=client_socket_handler, audio_handler=audio_handler)
+    window_manager = WindowManager(shared_state)
     
-    main_page_emitter.setup_connections(main_page)
-
-    client_thread = threading.Thread(target=connect_and_request_song_list, args=(client_socket_handler,))
-    client_thread.start()
-
+    album_window = window_manager.get_window(AlbumWindow)
+    album_window_emitter.setup_album_page_connections(album_window)
+    
+    window_manager.start_window(AlbumWindow)
+    
     app.exec_()
-
-
-    
+  
+  
 if __name__ == "__main__":
     main()
 
