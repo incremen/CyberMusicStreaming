@@ -10,7 +10,7 @@ from custom_logging import log_calls
 from ui.album_page.album_window_ui import Ui_MainWindow
 from ui.album_page.album_window_config import PROGRESS_BAR_MAXIMUM
 from ui.search_page.search_window import SearchWindow
-from ui.drag_drop_funcs import drag_enter_event, drop_event, mouse_move_event, mouse_press_event, enable_drag, disable_drag
+from ui.drag_drop_funcs import drag_enter_event, drop_event, mouse_move_event, mouse_press_event, enable_drag, disable_drag, make_widget_accept_drops
 from functools import partial
 from ui import gui_funcs
 from ui.window_interface import WindowInterface
@@ -58,14 +58,13 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         
         self.search_btn.clicked.connect(self.search_btn_click)
         
-        self.play_list_widget.setAcceptDrops(True)
-        self.play_list_widget.dragEnterEvent = lambda event: drag_enter_event(self.play_list_widget, event)
-        self.play_list_widget.dropEvent = lambda event: drop_event(self.play_list_widget, event)
-        self.play_list_widget.dragMoveEvent = lambda event: drag_enter_event(self.play_list_widget, event)
+        make_widget_accept_drops(self.play_list_widget)
         
         self.right_tab.currentChanged.connect(self.tab_changed)
         self.on_change_to_queue_tab()
         self.right_tab.setCurrentIndex(1)
+
+
         
     def tab_changed(self, index):
         logging.debug(f"{index=}")

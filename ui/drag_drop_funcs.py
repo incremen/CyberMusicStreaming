@@ -36,6 +36,13 @@ def drop_event(list_widget, event):
     text = event.mimeData().text()
     gui_funcs.add_item_to_list_widget(list_widget, text)
     event.acceptProposedAction()
+    
+    
+def make_widget_accept_drops(widget : QWidget):
+    widget.setAcceptDrops(True)
+    widget.dragEnterEvent = lambda event: drag_enter_event(widget, event)
+    widget.dropEvent = lambda event: drop_event(widget, event)
+    widget.dragMoveEvent = lambda event: drag_enter_event(widget, event)
 
 
 def enable_drag(widget : QWidget):
