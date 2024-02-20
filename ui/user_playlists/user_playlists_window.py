@@ -33,6 +33,9 @@ class UserPlaylistsWindow(Ui_MainWindow, WindowInterface, QMainWindow):
            
     def album_btn_click(self, btn_clicked):
       self.window_manager.hide_window(UserPlaylistsWindow)
+      
+      album_window_obj = self.window_manager.windows[album_window.AlbumWindow]
+      album_window_obj.album_mode = "query_local"
       self.window_manager.start_window(album_window.AlbumWindow)
     
        

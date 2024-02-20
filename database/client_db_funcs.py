@@ -15,6 +15,12 @@ def create_playlist_for_user(session, playlist_items : list):
     session.add(playlist)
     session.commit()
     
+def get_user_playlists(session):
+    user = session.query(User).first()
+    return user.playlists    
+
+def get_user(session):
+    return session.query(User).first()
     
 def update_user_playlist(session, new_playlist_items: list):
     user = session.query(User).first()
