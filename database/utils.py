@@ -20,4 +20,7 @@ def log_all_users_playlists(session):
 def reset_tables(engine):
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
+    
+    
+
 

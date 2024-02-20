@@ -8,10 +8,18 @@ from custom_logging import CustomLogger
 DATABASE_URL = "sqlite:///database/test_db.db"
 
 
-def create_playlist_for_user(session, playlist_items):
+def create_playlist_for_user(session, playlist_items : list):
     user = session.query(User).first()
-    playlist = Playlist(items=playlist_items, user=user)
+    playlist_str = repr(playlist_items)
+    playlist = Playlist(items=playlist_str, user=user)
     session.add(playlist)
+    session.commit()
+    
+    
+def update_user_playlist(session, new_playlist_items: list):
+    user = session.query(User).first()
+    playlist = user.playlists[0]
+    playlist.items = repr(new_playlist_items)
     session.commit()
     
 
