@@ -1,5 +1,5 @@
-import gui_funcs
-from PyQt5.QtWidgets import QApplication, QLabel, QWidget
+from ui import gui_funcs
+from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QPushButton
 from PyQt5.QtGui import QDrag, QPixmap, QPainter, QCursor
 from PyQt5.QtCore import QMimeData, Qt
 
@@ -38,5 +38,11 @@ def drop_event(list_widget, event):
     event.acceptProposedAction()
 
 
-
+def enable_drag(self, widget : QWidget):
+    widget.mousePressEvent = lambda event, btn=widget: mouse_press_event(btn, event)
+    widget.mouseMoveEvent = lambda event, btn=widget: mouse_move_event(btn, event)
+    
+def disable_drag(self, widget : QWidget):
+    widget.mousePressEvent = None
+    widget.mouseMoveEvent = None
 

@@ -10,8 +10,7 @@ from custom_logging import log_calls
 from ui.album_page.album_window_ui import Ui_MainWindow
 from ui.album_page.album_window_config import PROGRESS_BAR_MAXIMUM
 from ui.search_page.search_window import SearchWindow
-# from ui.drag_drop_funcs import drag_enter_event, drop_event, mouse_move_event, mouse_press_event
-from testing.working_dummy import *
+from ui.drag_drop_funcs import drag_enter_event, drop_event, mouse_move_event, mouse_press_event, enable_drag, disable_drag
 from functools import partial
 from ui import gui_funcs
 from ui.window_interface import WindowInterface
