@@ -10,7 +10,7 @@ from custom_logging import log_calls
 from ui.album_page.album_window_ui import Ui_MainWindow
 from ui.album_page.album_window_config import PROGRESS_BAR_MAXIMUM
 from ui.search_page.search_window import SearchWindow
-from ui.drag_drop_funcs import drag_enter_event, drop_event, mouse_move_event, mouse_press_event, enable_drag, disable_drag, make_widget_accept_drops
+from ui.drag_drop_funcs import make_widget_draggable, make_widget_not_draggable, make_list_widget_accept_drops
 from functools import partial
 from ui import gui_funcs
 from ui.window_interface import WindowInterface
@@ -58,7 +58,7 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         
         self.search_btn.clicked.connect(self.search_btn_click)
         
-        make_widget_accept_drops(self.play_list_widget)
+        make_list_widget_accept_drops(self.play_list_widget)
         
         self.right_tab.currentChanged.connect(self.tab_changed)
         self.on_change_to_queue_tab()
@@ -84,13 +84,13 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         logging.checkpoint("On change to main tab")
         grid_btns = self.get_grid_btns()
         for btn in grid_btns:
-            disable_drag(btn)
+            make_widget_not_draggable(btn)
                 
     def on_change_to_playlist_tab(self):
         logging.checkpoint("On change to playlist tab")
         grid_btns = self.get_grid_btns()
         for btn in grid_btns:
-            enable_drag(btn)
+            make_widget_draggable(btn)
         
     def search_btn_click(self):
         self.window_manager.start_window(SearchWindow)
@@ -112,7 +112,7 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
             song_text = f"{song_info.name}\n {song_info.length} seconds"
             song_btn = self.create_song_btn(song_text)
             if enable:
-                enable_drag(song_btn)
+                make_widget_draggable(song_btn)
             self.btn_to_info.update({song_btn : song_info})
             self.add_song_btn_to_grid(song_btn)
 
