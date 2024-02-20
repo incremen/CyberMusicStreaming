@@ -15,6 +15,8 @@ from functools import partial
 from ui import gui_funcs
 from ui.window_interface import WindowInterface
 from database import client_db_funcs
+from dataclasses import asdict
+
 
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
@@ -48,12 +50,18 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         if self.album_mode == "query_server":
             self.socket_handler.emit_to_server("song_list_request")
         if self.album_mode == "query_local":
-            session = client_db_funcs.create_session()
-            user = client_db_funcs.get_user(session)
-            user_playlist_items = user.playlists[0].items
-            self.song_list = eval(user_playlist_items)
-            self.song_list_received(self.song_list)
+            self.query_db_for_song_list()
         self.show()
+
+    def query_db_for_song_list(self):
+        session = client_db_funcs.create_session()
+        user = client_db_funcs.get_user(session)
+        user_playlist_items = user.playlists[0].items
+        self.song_list = eval(user_playlist_items)
+        songinfo_list = [SongInfo(song, 1, 1, 1, 1) for song in self.song_list]
+        song_dict_list = [asdict(songinfo) for songinfo in songinfo_list]
+        self.song_list = song_dict_list
+        self.song_list_received(self.song_list)
        
     def setup_widgets(self):
         self.skip_btn.clicked.connect(self.skip_btn_click)
