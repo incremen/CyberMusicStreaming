@@ -86,10 +86,10 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def tab_changed(self, index):
         logging.debug(f"{index=}")
         if index == 0:
-            self.song_list_received(self.song_list, enable = True)
+            self.song_list_received(self.song_list, enable_drag = True)
             
         elif index == 1:
-            self.song_list_received(self.song_list, enable = False)
+            self.song_list_received(self.song_list, enable_drag = False)
             
         self.right_tab.setCurrentIndex(index)
 
@@ -116,22 +116,30 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def seek_in_song(self):
         self.audio_handler.seek_value(self.progress_slider.value())
         
-    def song_list_received(self, songs : list, enable = False):
+    def song_list_received(self, songs : list, enable_drag = False):
+        logging.debug(f"Received song list: {songs}")
+        self.clear_all_song_btns(songs)
+        
+        for song_dict in songs:
+            self.add_song_btn(enable_drag, song_dict)
+
+    def add_song_btn(self, enable_drag, song_dict):
+        song_info = SongInfo(**song_dict)
+        song_text = f"{song_info.name}\n {song_info.length} seconds"
+        song_btn = self.create_song_btn(song_text)
+            
+        if enable_drag:
+            make_widget_draggable(song_btn)
+                
+        self.btn_to_info.update({song_btn : song_info})
+        self.add_song_btn_to_grid(song_btn)
+
+    def clear_all_song_btns(self, songs):
         self.delete_from_grid(5)
         self.last_song_grid_row = 2
         self.last_song_grid_col = -1
-        logging.debug(f"Received song list: {songs}")
         self.song_list = songs
         self.btn_to_info = {}
-        
-        for song_dict in songs:
-            song_info = SongInfo(**song_dict)
-            song_text = f"{song_info.name}\n {song_info.length} seconds"
-            song_btn = self.create_song_btn(song_text)
-            if enable:
-                make_widget_draggable(song_btn)
-            self.btn_to_info.update({song_btn : song_info})
-            self.add_song_btn_to_grid(song_btn)
 
     def create_song_btn(self, song_text):
         song_btn = QPushButton(song_text)
