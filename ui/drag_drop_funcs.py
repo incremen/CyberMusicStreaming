@@ -38,11 +38,11 @@ def drop_event(list_widget, event):
     event.acceptProposedAction()
 
 
-def enable_drag(self, widget : QWidget):
+def enable_drag(widget : QWidget):
     widget.mousePressEvent = lambda event, btn=widget: mouse_press_event(btn, event)
     widget.mouseMoveEvent = lambda event, btn=widget: mouse_move_event(btn, event)
     
-def disable_drag(self, widget : QWidget):
+def disable_drag(widget : QWidget):
     widget.mousePressEvent = None
     widget.mouseMoveEvent = None
 

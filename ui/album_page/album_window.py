@@ -85,21 +85,13 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         logging.checkpoint("On change to main tab")
         grid_btns = self.get_grid_btns()
         for btn in grid_btns:
-            self.disable_drag(btn)
+            disable_drag(btn)
                 
     def on_change_to_playlist_tab(self):
         logging.checkpoint("On change to playlist tab")
         grid_btns = self.get_grid_btns()
         for btn in grid_btns:
-            self.enable_drag(btn)
-
-    def enable_drag(self, btn):
-        btn.mousePressEvent = lambda event, btn=btn: mouse_press_event(btn, event)
-        btn.mouseMoveEvent = lambda event, btn=btn: mouse_move_event(btn, event)
-        
-    def disable_drag(self, btn):
-        btn.mousePressEvent = None
-        btn.mouseMoveEvent = None
+            enable_drag(btn)
         
     def search_btn_click(self):
         self.window_manager.start_window(SearchWindow)
@@ -121,7 +113,7 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
             song_text = f"{song_info.name}\n {song_info.length} seconds"
             song_btn = self.create_song_btn(song_text)
             if enable:
-                self.enable_drag(song_btn)
+                enable_drag(song_btn)
             self.btn_to_info.update({song_btn : song_info})
             self.add_song_btn_to_grid(song_btn)
 
