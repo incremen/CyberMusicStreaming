@@ -101,26 +101,26 @@ class Ui_MainWindow(object):
 "")
         self.pushButton_6.setObjectName("pushButton_6")
         self.album_grid.addWidget(self.pushButton_6, 0, 2, 1, 1)
-        self.pushButton_9 = QtWidgets.QPushButton(self.albums_boxlayout)
+        self.your_playlist = QtWidgets.QPushButton(self.albums_boxlayout)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_9.sizePolicy().hasHeightForWidth())
-        self.pushButton_9.setSizePolicy(sizePolicy)
-        self.pushButton_9.setMaximumSize(QtCore.QSize(200, 16777215))
+        sizePolicy.setHeightForWidth(self.your_playlist.sizePolicy().hasHeightForWidth())
+        self.your_playlist.setSizePolicy(sizePolicy)
+        self.your_playlist.setMaximumSize(QtCore.QSize(200, 16777215))
         font = QtGui.QFont()
         font.setPointSize(40)
-        self.pushButton_9.setFont(font)
-        self.pushButton_9.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton_9.setStyleSheet(" border: 2px solid white;\n"
+        self.your_playlist.setFont(font)
+        self.your_playlist.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.your_playlist.setStyleSheet(" border: 2px solid white;\n"
 " background-image: url(:/album_pics/img_5.png);\n"
 " border-radius: 30px;\n"
 "color: white;\n"
 "\n"
 "\n"
 "")
-        self.pushButton_9.setObjectName("pushButton_9")
-        self.album_grid.addWidget(self.pushButton_9, 1, 0, 1, 1)
+        self.your_playlist.setObjectName("your_playlist")
+        self.album_grid.addWidget(self.your_playlist, 1, 0, 1, 1)
         self.pushButton_4 = QtWidgets.QPushButton(self.albums_boxlayout)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -286,10 +286,8 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "albums"))
-        self.pushButton_9.setText(_translate("MainWindow", "asdf \n"
-"\n"
-"\n"
-"asdf"))
+        self.your_playlist.setText(_translate("MainWindow", "your \n"
+" playlist"))
         self.pushButton_4.setText(_translate("MainWindow", "Top \n"
 "\n"
 "\n"

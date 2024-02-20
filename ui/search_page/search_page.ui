@@ -168,7 +168,7 @@ albums</string>
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QPushButton" name="pushButton_9">
+          <widget class="QPushButton" name="your_playlist">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -199,10 +199,8 @@ color: white;
 </string>
            </property>
            <property name="text">
-            <string>asdf 
-
-
-asdf</string>
+            <string>your 
+ playlist</string>
            </property>
           </widget>
          </item>
