@@ -39,6 +39,8 @@ class SearchWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       self.window_manager.start_window(UserPlaylistsWindow)
            
    def album_btn_click(self, btn_clicked):
+      self.album_window = self.window_manager.get_window(album_window.AlbumWindow)
+      self.album_window.album_mode = "query_server"
       self.window_manager.hide_window(SearchWindow)
       self.window_manager.start_window(album_window.AlbumWindow)
        
