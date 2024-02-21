@@ -70,8 +70,17 @@ class Song(Base):
         secondary=song_playlist_association,
         back_populates='songs'
     )
-
+    
+    def as_dict(self):
+        """
+        Return a dictionary representation of the object, with keys as column names and values as attribute values.
+        Doesn't include id or playlist id
+        """
+        song_dict = {c.name: getattr(self, c.name) for c in self.__table__.columns}
+        del song_dict['id']
+        del song_dict['playlist_id']
+        return song_dict
+    
     def __repr__(self):
-        
         return f"Song(id={self.id}, name={self.name}, length={self.length}, \
 nframes={self.nframes}, framerate={self.framerate}, nchannels={self.nchannels}, playlist_id={self.playlist_id})"

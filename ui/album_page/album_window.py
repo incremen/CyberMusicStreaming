@@ -56,10 +56,9 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def query_db_for_song_list(self):
         session = client_db_funcs.create_session()
         user = client_db_funcs.get_first_user(session)
-        user_playlist_items = user.playlists[0].items
-        self.song_list = eval(user_playlist_items)
-        songinfo_list = [SongInfo(song, 1, 1, 1, 1) for song in self.song_list]
-        song_dict_list = [asdict(songinfo) for songinfo in songinfo_list]
+        user_playlist = user.playlists[0]
+        logging.checkpoint(f"got {user_playlist=} from db")
+        song_dict_list = [song.as_dict() for song in user_playlist.songs]
         self.song_list = song_dict_list
         self.song_list_received(self.song_list)
        
