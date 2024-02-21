@@ -9,7 +9,7 @@ class SongInfo():
     nframes: int
     framerate: int
     nchannels : int
-    id : int = None
+    id : int
     
     def __repr__(self) -> str:
         return f"SongInfo(name={self.name})"
