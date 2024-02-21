@@ -38,4 +38,8 @@ def create_session():
     engine = create_engine(DATABASE_URL)
     session = Session(bind=engine)
     return session
+
+
+def get_engine():
+    return create_engine(DATABASE_URL)
     

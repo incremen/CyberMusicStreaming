@@ -22,6 +22,7 @@ class Playlist(Base):
     id = Column(Integer, primary_key=True)
     items = Column(Text)
     user_id = Column(Integer, ForeignKey('users.id'))
+    name = Column(String)
 
     user = relationship('User', back_populates='playlists')
     songs = relationship('Song', back_populates='playlist')
@@ -43,5 +44,5 @@ class Song(Base):
     playlist = relationship('Playlist', back_populates='songs')
 
     def __repr__(self):
-        return f"<Song(id={self.id}, name={self.name}, length={self.length}, nframes={self.nframes}, 
-    framerate={self.framerate}, nchannels={self.nchannels}, playlist_id={self.playlist_id})>"
+        return f"""<Song(id={self.id}, name={self.name}, length={self.length}, 
+    nframes={self.nframes}, framerate={self.framerate}, nchannels={self.nchannels}, playlist_id={self.playlist_id})>"""
