@@ -1,31 +1,21 @@
-from database.models import User, Playlist, Base
+from database.models import User, Playlist, Base, Song
 import database.utils as utils
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 from custom_logging import CustomLogger
 
+
 DATABASE_URL = "sqlite:///database/test_db.db"
 
 
 
-def create_playlist_for_user(session, playlist_items : list):
+def update_playlist(session : Session, playlist : Playlist, to_add : list[Song] | Song):
     user = session.query(User).first()
-    playlist_str = repr(playlist_items)
-    playlist = Playlist(items=playlist_str, user=user)
-    session.add(playlist)
-    session.commit()
-    
-def get_user_playlists(session):
-    user = session.query(User).first()
-    return user.playlists    
-
-def get_user(session):
-    return session.query(User).first()
-    
-def update_user_playlist(session, new_playlist_items: list):
-    user = session.query(User).first()
-    playlist = user.playlists[0]
-    playlist.items = repr(new_playlist_items)
+    playlist.songs = []
+    if isinstance(to_add, Song):
+        new_playlist_items = [to_add]
+    for song in new_playlist_items:
+        playlist.songs.append(song)
     session.commit()
     
 

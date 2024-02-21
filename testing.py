@@ -12,10 +12,12 @@ def main():
     custom_logger.clear_logs()
     session = client_db_funcs.create_session()
     utils.reset_tables(client_db_funcs.get_engine())
-    create_dummy_data(session)
+    # create_dummy_data(session)
     
     utils.log_all_users_playlists(session)
 
+
+def create_dummy_user(session)
 
 def create_dummy_data(session):
     user1 = User(username="user1")
