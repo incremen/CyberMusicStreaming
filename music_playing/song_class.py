@@ -10,7 +10,6 @@ class SongInfo():
     framerate: int
     nchannels : int
     id : int = None
-    order : int = None
     
     def __repr__(self) -> str:
         return f"SongInfo(name={self.name})"

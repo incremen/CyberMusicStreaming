@@ -18,14 +18,12 @@ from backend import server_addr_tuple
 class ServerSocketHandler:
     def __init__(self, song_dir):
         self.sio = socketio.Server()
-        self.next_song_order = 0
         self.song_list = manage_songs_in_dir.get_song_list(song_dir)
 
     def start(self):
         @self.sio.on('connect', namespace='/')
         def connect(sid, environ):
             logging.info('Client connected')
-            logging.send("Sending next song order...")
 
         @self.sio.on("song_list_request")
         def send_song_list(sid):

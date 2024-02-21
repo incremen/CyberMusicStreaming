@@ -27,7 +27,6 @@ class AudioHandler:
             # input_vo_keyboard=True,
             # osc=True,
         )
-        self.next_expected_order = 0
         
         self.song_name_to_info = {}
         
@@ -42,10 +41,7 @@ class AudioHandler:
             logging.error("play next song thread already running")
             return
         self.play_next_song_thread.start()
-        
-    def received_next_order(self, order):
-        self.next_expected_order = order
-        logging.debug(f"{self.next_expected_order=}")
+
 
     def skip_to_song(self, index):
         logging.checkpoint(f"About to skip to song at index{index}")
@@ -70,13 +66,11 @@ class AudioHandler:
         try: 
             song_info = self.song_name_to_info[song_name]
         except KeyError:
-            default_song_dict = {'framerate': 44100, 'length': 62.13451247165533, 'name': 'american', 'nchannels': 2, 'nframes': 2740132.0, 'order': None}
+            default_song_dict = {'framerate': 44100, 'length': 62.13451247165533, 'name': 'american', 'nchannels': 2, 'nframes': 2740132.0}
             song_info = SongInfo(**default_song_dict)
-        song_info.order = self.next_expected_order
         
         self.song_queue.append(song_info)
         logging.debug(f"Appended. {self.song_queue=}")
-        self.next_expected_order += 1
         self.start_play_next_song_thread()
         
     def play_last_song(self):

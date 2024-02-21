@@ -40,7 +40,6 @@ class ClientSocketHandler:
         @self.sio.on("next_song_order")
         def received_next_song_order(order):
             logging.recv(f"received next song order: {order}")
-            self.audio_handler.received_next_order(order)
             
         self.sio.connect(client_connects_to_str)
         
