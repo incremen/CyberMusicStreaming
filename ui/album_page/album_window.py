@@ -61,6 +61,7 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         song_dict_list = [song.as_dict() for song in user_playlist.songs]
         self.song_list = song_dict_list
         self.song_list_received(self.song_list)
+        session.close()
        
     def setup_widgets(self):
         self.skip_btn.clicked.connect(self.skip_btn_click)
