@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 from custom_logging import CustomLogger
 from database import client_db_funcs
 import logging
+import os
 from server.manage_songs_in_dir import load_songs_to_db
 
 
@@ -14,7 +15,8 @@ def main():
     custom_logger.clear_logs()
     session = client_db_funcs.create_session()
     utils.reset_tables(client_db_funcs.get_engine())
-    load_songs_to_db(session)
+    songs_dir = os.path.abspath(r"songs")
+    load_songs_to_db(songs_dir)
     utils.log_all_songs(session)
 
 
