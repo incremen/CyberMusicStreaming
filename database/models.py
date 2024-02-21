@@ -74,10 +74,8 @@ class Song(Base):
     def as_dict(self):
         """
         Return a dictionary representation of the object, with keys as column names and values as attribute values.
-        Doesn't include id.
         """
         song_dict = {c.name: getattr(self, c.name) for c in self.__table__.columns}
-        del song_dict['id']
         return song_dict
     
     def __repr__(self):

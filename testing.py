@@ -7,7 +7,7 @@ from custom_logging import CustomLogger
 from database import client_db_funcs
 import logging
 import os
-from server.manage_songs_in_dir import load_songs_to_db
+from server.manage_songs_in_dir import load_songs_to_db, get_song_list
 
 
 def main():
@@ -16,7 +16,10 @@ def main():
     session = client_db_funcs.create_session()
     utils.reset_tables(client_db_funcs.get_engine())
     songs_dir = os.path.abspath(r"songs")
+    
+    
     load_songs_to_db(songs_dir)
+    logging.debug(f"{get_song_list()=}")
     utils.log_all_songs(session)
 
 
