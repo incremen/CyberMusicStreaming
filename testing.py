@@ -12,11 +12,10 @@ def main():
     custom_logger = CustomLogger(log_files=["testing.log"]) 
     custom_logger.clear_logs()
     session = client_db_funcs.create_session()
-    # utils.reset_tables(client_db_funcs.get_engine())
-    # create_dummy_user_playlist(session)
-    song1 = Song(name="Song 1", length=3.5, nframes=300, framerate=44100, nchannels=2)
-    logging.debug(pprint.pformat(song1.as_dict()))
-    # utils.log_all_users_playlists(session)
+    utils.reset_tables(client_db_funcs.get_engine())
+    create_dummy_user_playlist(session)
+    # create_dummy_data(session)
+    utils.log_all_users_playlists(session)
 
 
 def create_dummy_user_playlist(session : Session):
