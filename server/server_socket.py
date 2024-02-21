@@ -11,15 +11,17 @@ from server import manage_songs_in_dir
 import pprint
 from dataclasses import asdict
 from backend import server_addr_tuple
-
+from database import utils
 #sid - socket id
 # environ is a dictionary that contains environmental information related to the incoming connection
 
 class ServerSocketHandler:
     def __init__(self, song_dir):
         self.sio = socketio.Server()
-        manage_songs_in_dir.load_songs_to_db(song_dir)
-        self.song_list = manage_songs_in_dir.get_song_list(song_dir)
+        session = utils.create_session()
+        # manage_songs_in_dir.load_songs_to_db(song_dir, session)
+        self.song_list = manage_songs_in_dir.get_song_list(session)
+        session.close()
 
     def start(self):
         @self.sio.on('connect', namespace='/')

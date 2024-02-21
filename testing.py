@@ -8,19 +8,18 @@ from database import client_db_funcs
 import logging
 import os
 from server.manage_songs_in_dir import load_songs_to_db, get_song_list
+from server import manage_songs_in_dir
 
 
 def main():
     custom_logger = CustomLogger(log_files=["testing.log"]) 
     custom_logger.clear_logs()
-    session = client_db_funcs.create_session()
-    utils.reset_tables(client_db_funcs.get_engine())
-    songs_dir = os.path.abspath(r"songs")
-    
-    
-    load_songs_to_db(songs_dir)
-    logging.debug(f"{get_song_list()=}")
-    utils.log_all_songs(session)
+    song_dir = os.path.abspath(r"songs")
+    session = utils.create_session()
+    # manage_songs_in_dir.load_songs_to_db(song_dir, session)
+    song_list = manage_songs_in_dir.get_song_list(session)
+    logging.debug(f"{song_list=}")
+    session.close()
 
 
 def create_dummy_user_playlist(session : Session):
