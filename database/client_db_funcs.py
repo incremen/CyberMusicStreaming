@@ -3,10 +3,7 @@ import database.utils as utils
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 from custom_logging import CustomLogger
-
-
-DATABASE_URL = "sqlite:///database/test_db.db"
-
+from database import DATABASE_URL
 
 
 def update_playlist(session : Session, playlist : Playlist, to_add : list[Song] | Song):

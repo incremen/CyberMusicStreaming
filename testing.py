@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 from custom_logging import CustomLogger
 from database import client_db_funcs
 import logging
+from server.manage_songs_in_dir import load_songs_to_db
 
 
 def main():
@@ -13,9 +14,8 @@ def main():
     custom_logger.clear_logs()
     session = client_db_funcs.create_session()
     utils.reset_tables(client_db_funcs.get_engine())
-    create_dummy_user_playlist(session)
-    # create_dummy_data(session)
-    utils.log_all_users_playlists(session)
+    load_songs_to_db(session)
+    utils.log_all_songs(session)
 
 
 def create_dummy_user_playlist(session : Session):

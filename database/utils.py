@@ -1,6 +1,7 @@
-from database.models import User, Playlist, Base
+from database.models import User, Playlist, Base, Song
 import logging
-
+from database import DATABASE_URL
+from sqlalchemy import create_engine
 
 def log_user_and_playlists(session, user: User):
     logging.info(f"\n{user}")
@@ -13,6 +14,10 @@ def log_user_and_playlists(session, user: User):
         
         for song in playlist.songs:
             logging.debug(f"{song}")
+            
+def log_all_songs(session):
+    for song in session.query(Song).all():
+        logging.debug(song)
         
         
 def log_all_users_playlists(session):
@@ -24,7 +29,11 @@ def reset_tables(engine):
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
 
-    
+
+def create_session():
+    engine = create_engine(DATABASE_URL)
+    from sqlalchemy.orm import Session
+    return Session(bind=engine)
     
 
 
