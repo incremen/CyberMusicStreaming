@@ -24,14 +24,28 @@ def create_dummy_data(session):
     playlist3 = Playlist(name="playlist3")
     playlist4 = Playlist(name="playlist4")
 
+    # Associate playlists with users
     user1.playlists.append(playlist1)
     user1.playlists.append(playlist2)
     user2.playlists.append(playlist1)
     user2.playlists.append(playlist2)
+    user2.playlists.append(playlist4)
 
-    session.add_all([user1, user2, playlist1, playlist2, playlist3, playlist4])
-        
+    song1 = Song(name="Song  1", length=3.5, nframes=300, framerate=44100, nchannels=2)
+    song2 = Song(name="Song  2", length=4.0, nframes=400, framerate=44100, nchannels=2)
+    song3 = Song(name="Song  3", length=5.0, nframes=500, framerate=44100, nchannels=2)
+    song4 = Song(name="Song  4", length=6.0, nframes=600, framerate=44100, nchannels=2)
+    song5 = Song(name="Song  5", length=7.0, nframes=700, framerate=44100, nchannels=2)
+
+    playlist1.songs.extend([song1, song2, song3])
+    playlist2.songs.extend([song2, song3, song4])
+    playlist3.songs.extend([song3, song4, song5])
+    playlist4.songs.extend([song4, song5, song1])
+
+    session.add_all([user1, user2, playlist1, playlist2, playlist3, playlist4, song1, song2, song3, song4, song5])
+
     session.commit()
+
 
 
 if __name__ == "__main__":

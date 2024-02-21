@@ -12,6 +12,13 @@ user_playlist_association = Table(
     Column('playlist_id', Integer, ForeignKey('playlists.id'))
 )
 
+song_playlist_association = Table(
+    'song_playlist_association',
+    Base.metadata,
+    Column('song_id', Integer, ForeignKey('songs.id')),
+    Column('playlist_id', Integer, ForeignKey('playlists.id'))
+)
+
 class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
@@ -39,7 +46,11 @@ class Playlist(Base):
         secondary=user_playlist_association,
         back_populates='playlists'
     )
-    songs = relationship('Song', back_populates='playlist')
+    songs = relationship(
+        'Song',
+        secondary=song_playlist_association,
+        back_populates='playlists'
+    )
     def __repr__(self):
         return f"Playlist(name={self.name}, id={self.id})"
 
@@ -54,7 +65,11 @@ class Song(Base):
     nchannels = Column(Integer)
     playlist_id = Column(Integer, ForeignKey('playlists.id'))
 
-    playlist = relationship('Playlist', back_populates='songs')
+    playlists = relationship(
+        'Playlist',
+        secondary=song_playlist_association,
+        back_populates='songs'
+    )
 
     def __repr__(self):
         
