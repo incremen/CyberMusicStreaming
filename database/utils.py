@@ -9,7 +9,7 @@ def log_user_and_playlists(session, user: User):
         return
     
     for playlist in user.playlists:
-        logging.debug(f"Playlist ID: {playlist.id}, Items: {playlist.items}")
+        logging.debug(f"Playlist ID: {playlist.id}")
         
         # Iterate through the songs in the playlist
         for song in playlist.songs:

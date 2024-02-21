@@ -20,7 +20,6 @@ class User(Base):
 class Playlist(Base):
     __tablename__ = 'playlists'
     id = Column(Integer, primary_key=True)
-    items = Column(Text)
     user_id = Column(Integer, ForeignKey('users.id'))
     name = Column(String)
 
@@ -28,7 +27,7 @@ class Playlist(Base):
     songs = relationship('Song', back_populates='playlist')
 
     def __repr__(self):
-        return f"<Playlist(id={self.id}, items={self.items}, user_id={self.user_id})>"
+        return f"<Playlist(id={self.id}, , user_id={self.user_id})>"
 
 
 class Song(Base):
