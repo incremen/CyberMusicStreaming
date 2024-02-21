@@ -67,7 +67,11 @@ class AudioHandler:
         
     @log_calls
     def add_to_song_queue(self, song_name :str):
-        song_info = self.song_name_to_info[song_name]
+        try: 
+            song_info = self.song_name_to_info[song_name]
+        except KeyError:
+            default_song_dict = {'framerate': 44100, 'length': 62.13451247165533, 'name': 'american', 'nchannels': 2, 'nframes': 2740132.0, 'order': None}
+            song_info = SongInfo(**default_song_dict)
         song_info.order = self.next_expected_order
         
         self.song_queue.append(song_info)
