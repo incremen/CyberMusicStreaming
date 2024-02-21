@@ -34,6 +34,10 @@ def create_session():
     engine = create_engine(DATABASE_URL)
     from sqlalchemy.orm import Session
     return Session(bind=engine)
+
+
+def get_all_songs(session):
+    return session.query(Song).all()
     
 
 

@@ -1,7 +1,7 @@
 import logging
 import wave
 import os
-from music_playing.song_class import SongInfo
+from music_playing.song_class import SongInfo, song_orm_to_songinfo
 from pathlib import Path
 from pydub import AudioSegment
 from database.models import Song
@@ -9,8 +9,10 @@ from dataclasses import asdict
 from database import utils
 
 
-def get_song_list(song_dir):
-    return [get_song_info(song_dir, song_name) for song_name in os.listdir(song_dir)]
+def get_song_list():
+    session = utils.create_session()
+    songs = session.query(Song).all()
+    return [song_orm_to_songinfo(song) for song in songs]
 
 
 def load_songs_to_db(song_dir):

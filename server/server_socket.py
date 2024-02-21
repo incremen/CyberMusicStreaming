@@ -18,6 +18,7 @@ from backend import server_addr_tuple
 class ServerSocketHandler:
     def __init__(self, song_dir):
         self.sio = socketio.Server()
+        manage_songs_in_dir.load_songs_to_db(song_dir)
         self.song_list = manage_songs_in_dir.get_song_list(song_dir)
 
     def start(self):

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from queue import Queue
 import math
-
+from database.models import Song
 @dataclass
 class SongInfo():
     name: str
@@ -16,7 +16,7 @@ class SongInfo():
 
 
 
-
-
+def song_orm_to_songinfo(song: Song):
+    return SongInfo(**song.as_dict())
 
     
