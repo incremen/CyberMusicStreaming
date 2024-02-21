@@ -14,7 +14,7 @@ class User(Base):
     playlists = relationship('Playlist', back_populates='user')
 
     def __repr__(self):
-        return f"<User(id={self.id}, username={self.username})>"
+        return f"User(id={self.id}, username={self.username})"
 
 
 class Playlist(Base):
@@ -27,7 +27,7 @@ class Playlist(Base):
     songs = relationship('Song', back_populates='playlist')
 
     def __repr__(self):
-        return f"<Playlist(id={self.id}, , user_id={self.user_id})>"
+        return f"Playlist(id={self.id}, , user_id={self.user_id})"
 
 
 class Song(Base):
@@ -43,5 +43,6 @@ class Song(Base):
     playlist = relationship('Playlist', back_populates='songs')
 
     def __repr__(self):
-        return f"""<Song(id={self.id}, name={self.name}, length={self.length}, 
-    nframes={self.nframes}, framerate={self.framerate}, nchannels={self.nchannels}, playlist_id={self.playlist_id})>"""
+        
+        return f"Song(id={self.id}, name={self.name}, length={self.length}, \
+nframes={self.nframes}, framerate={self.framerate}, nchannels={self.nchannels}, playlist_id={self.playlist_id})"

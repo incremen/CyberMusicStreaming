@@ -7,6 +7,7 @@ from custom_logging import CustomLogger
 from database import client_db_funcs
 def main():
     custom_logger = CustomLogger(log_files=["testing.log"])
+    custom_logger.clear_logs()
     session = client_db_funcs.create_session()
     
     create_dummy_data(session)
