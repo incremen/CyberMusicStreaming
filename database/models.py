@@ -27,7 +27,7 @@ class Playlist(Base):
     songs = relationship('Song', back_populates='playlist')
 
     def __repr__(self):
-        return f"Playlist(id={self.id}, , user_id={self.user_id})"
+        return f"Playlist(name = {self.name}, id={self.id},user_id={self.user_id})"
 
 
 class Song(Base):
