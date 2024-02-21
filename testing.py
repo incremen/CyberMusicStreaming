@@ -12,12 +12,22 @@ def main():
     custom_logger.clear_logs()
     session = client_db_funcs.create_session()
     utils.reset_tables(client_db_funcs.get_engine())
-    # create_dummy_data(session)
+    create_dummy_user_playlist(session)
     
     utils.log_all_users_playlists(session)
 
 
-def create_dummy_user(session)
+def create_dummy_user_playlist(session : Session):
+    user1 = User(username="user1")
+    session.add(user1)
+    playlist1 = Playlist(name="playlist1")
+    user1.playlists.append(playlist1)
+    song1 = Song(name="Song 1", length=3.5, nframes=300, framerate=44100, nchannels=2)
+    song2 = Song(name="Song 2", length=4.0, nframes=400, framerate=44100, nchannels=2)
+    playlist1.songs.extend([song1, song2])
+    session.add(user1)
+    session.commit()
+
 
 def create_dummy_data(session):
     user1 = User(username="user1")
@@ -35,11 +45,11 @@ def create_dummy_data(session):
     user2.playlists.append(playlist2)
     user2.playlists.append(playlist4)
 
-    song1 = Song(name="Song  1", length=3.5, nframes=300, framerate=44100, nchannels=2)
-    song2 = Song(name="Song  2", length=4.0, nframes=400, framerate=44100, nchannels=2)
-    song3 = Song(name="Song  3", length=5.0, nframes=500, framerate=44100, nchannels=2)
-    song4 = Song(name="Song  4", length=6.0, nframes=600, framerate=44100, nchannels=2)
-    song5 = Song(name="Song  5", length=7.0, nframes=700, framerate=44100, nchannels=2)
+    song1 = Song(name="Song 1", length=3.5, nframes=300, framerate=44100, nchannels=2)
+    song2 = Song(name="Song 2", length=4.0, nframes=400, framerate=44100, nchannels=2)
+    song3 = Song(name="Song 3", length=5.0, nframes=500, framerate=44100, nchannels=2)
+    song4 = Song(name="Song 4", length=6.0, nframes=600, framerate=44100, nchannels=2)
+    song5 = Song(name="Song 5", length=7.0, nframes=700, framerate=44100, nchannels=2)
 
     playlist1.songs.extend([song1, song2, song3])
     playlist2.songs.extend([song2, song3, song4])
