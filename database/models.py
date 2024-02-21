@@ -1,9 +1,16 @@
 # models.py
-from sqlalchemy import create_engine, Column, Integer, String, Text, ForeignKey, Float
+from sqlalchemy import create_engine, Column, Integer, String, Text, ForeignKey, Float, Table
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
+
+user_playlist_association = Table(
+    'user_playlist_association',
+    Base.metadata,
+    Column('user_id', Integer, ForeignKey('users.id')),
+    Column('playlist_id', Integer, ForeignKey('playlists.id'))
+)
 
 class User(Base):
     __tablename__ = 'users'
@@ -11,23 +18,30 @@ class User(Base):
     username = Column(String)
     password = Column(String)
 
-    playlists = relationship('Playlist', back_populates='user')
+    # Use the association table for the many-to-many relationship
+    playlists = relationship(
+        'Playlist',
+        secondary=user_playlist_association,
+        back_populates='users'
+    )
 
     def __repr__(self):
         return f"User(id={self.id}, username={self.username})"
 
-
 class Playlist(Base):
     __tablename__ = 'playlists'
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.id'))
     name = Column(String)
 
-    user = relationship('User', back_populates='playlists')
+    # Use the association table for the many-to-many relationship
+    users = relationship(
+        'User',
+        secondary=user_playlist_association,
+        back_populates='playlists'
+    )
     songs = relationship('Song', back_populates='playlist')
-
     def __repr__(self):
-        return f"Playlist(name = {self.name}, id={self.id},user_id={self.user_id})"
+        return f"Playlist(name={self.name}, id={self.id})"
 
 
 class Song(Base):
