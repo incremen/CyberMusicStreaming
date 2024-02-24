@@ -20,7 +20,6 @@ class ServerSocketHandler:
         self.sio = socketio.Server()
         logging.info("Started sio server...")
         session = utils.create_session()
-        # manage_songs_in_dir.load_songs_to_db(song_dir, session)
         self.song_list = manage_songs_in_dir.get_song_list(session)
         logging.info(f"{self.song_list=}")
         session.close()

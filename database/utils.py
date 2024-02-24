@@ -3,7 +3,7 @@ import logging
 from database import SQLITE_PATH
 from sqlalchemy import create_engine
 
-def log_user_and_playlists(session, user: User):
+def log_user_and_playlists(user: User):
     logging.info(f"\n{user}")
     if not user.playlists:
         logging.debug("User has no playlists")
@@ -22,7 +22,7 @@ def log_all_songs(session):
         
 def log_all_users_playlists(session):
     for user in session.query(User).all():
-        log_user_and_playlists(session, user)
+        log_user_and_playlists(user)
         
 
 def reset_tables(engine):

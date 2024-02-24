@@ -7,7 +7,6 @@ from database import SQLITE_PATH
 
 
 def update_playlist(session : Session, playlist : Playlist, to_add : list[Song] | Song):
-    user = session.query(User).first()
     playlist.songs = []
     if isinstance(to_add, Song):
         new_playlist_items = [to_add]
