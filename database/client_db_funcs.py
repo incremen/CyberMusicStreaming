@@ -3,7 +3,7 @@ import database.utils as utils
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 from custom_logging import CustomLogger
-from database import DATABASE_URL
+from database import SQLITE_PATH
 
 
 def update_playlist(session : Session, playlist : Playlist, to_add : list[Song] | Song):
@@ -22,7 +22,7 @@ def clear_user_playlists(session):
     
     
 def create_session():
-    engine = create_engine(DATABASE_URL)
+    engine = create_engine(SQLITE_PATH)
     session = Session(bind=engine)
     return session
 
@@ -32,5 +32,5 @@ def get_first_user(session):
 
 
 def get_engine():
-    return create_engine(DATABASE_URL)
+    return create_engine(SQLITE_PATH)
     

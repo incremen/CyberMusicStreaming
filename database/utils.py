@@ -1,6 +1,6 @@
 from database.models import User, Playlist, Base, Song
 import logging
-from database import DATABASE_URL
+from database import SQLITE_PATH
 from sqlalchemy import create_engine
 
 def log_user_and_playlists(session, user: User):
@@ -31,7 +31,7 @@ def reset_tables(engine):
 
 
 def create_session():
-    engine = create_engine(DATABASE_URL)
+    engine = create_engine(SQLITE_PATH)
     from sqlalchemy.orm import Session
     return Session(bind=engine)
 
