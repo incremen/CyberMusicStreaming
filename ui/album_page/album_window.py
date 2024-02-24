@@ -45,6 +45,7 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.last_songs_played_emit_num = -1
         
         self.album_mode = "query_server"
+        self.songs_in_playlist = []
        
     def start(self):
         if self.album_mode == "query_server":
@@ -75,13 +76,16 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         
         self.search_btn.clicked.connect(self.search_btn_click)
         
-        make_list_widget_accept_drops(self.play_list_widget)
+        make_list_widget_accept_drops(self.play_list_widget, self.add_btn_to_playlist)
         
         self.right_tab.currentChanged.connect(self.tab_changed)
         self.on_change_to_queue_tab()
         self.right_tab.setCurrentIndex(1)
-
-
+        
+    def add_btn_to_playlist(self, song_btn : QPushButton):
+        self.songs_in_playlist.append(song_btn)
+        logging.info("Added button to playlist...")
+        logging.debug(f"{self.songs_in_playlist=}")
         
     def tab_changed(self, index):
         logging.debug(f"{index=}")

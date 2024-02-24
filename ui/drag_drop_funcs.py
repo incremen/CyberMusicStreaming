@@ -1,3 +1,4 @@
+import logging
 from ui import gui_funcs
 from PyQt5.QtWidgets import QApplication, QLabel, QWidget, QPushButton, QListWidget
 from PyQt5.QtGui import QDrag, QPixmap, QPainter, QCursor, QDragEnterEvent, QDragMoveEvent, QDropEvent
@@ -9,15 +10,17 @@ from PyQt5.QtGui import QDragEnterEvent
 
 
 
-def make_list_widget_accept_drops(widget : QWidget):
+def make_list_widget_accept_drops(widget : QWidget, function_on_add = None):
     """
     Sets the given widget to accept drops and assigns event handlers for drag enter, drop, and drag move events.
+    Function on add is called with the dropped widget as an argument when the drop event is triggered.
 
     """
     widget.setAcceptDrops(True)
     widget.dragEnterEvent = lambda event: drag_enter_event_to_accept_drops(widget, event)
-    widget.dropEvent = lambda event: list_widget_accept_drop_event(widget, event)
+    widget.dropEvent = lambda event: list_widget_accept_drop_event(widget, event, function_on_add)
     widget.dragMoveEvent = lambda event: drag_enter_event_to_accept_drops(widget, event)
+    
 
 
 def make_widget_draggable(widget : QWidget):
@@ -95,15 +98,18 @@ def drag_enter_event_to_accept_drops(widget, event : QDragEnterEvent):
         event.acceptProposedAction()
 
 
-def list_widget_accept_drop_event(list_widget : QListWidget, event):
+def list_widget_accept_drop_event(list_widget : QListWidget, event : QDropEvent, function_on_add = None):
     """
     A function to handle the drop event for a list widget.
     
     Drop event uses gui_funcs.add_item_to_list_widget to add the widget.
+    Also uses an option function_on_add with the dropped widget as an argument.
     """
     pos = event.pos()
     text = event.mimeData().text()
     gui_funcs.add_item_to_list_widget(list_widget, text)
+    if function_on_add:
+        function_on_add(text)
     event.acceptProposedAction()
     
     
