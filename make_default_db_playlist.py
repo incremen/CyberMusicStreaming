@@ -31,11 +31,17 @@ def main():
 
 def create_default_playlist(song_dir, session):
     playlist1 = Playlist(name="default_playlist", id = 1)
-    for song_dict in manage_songs_in_dir.get_all_song_info_dicts_in_dir(song_dir):
-        new_song = Song(**song_dict)
+    songs_dicts = manage_songs_in_dir.get_all_song_info_dicts_in_dir(song_dir)
+    logging.debug(f"{songs_dicts=}")
+    for id, song_dict in enumerate(songs_dicts, start = 1):
+        new_song = Song(**song_dict, id=id)
         playlist1.songs.append(new_song)
+        session.add(new_song)
+    session.commit()
     session.add(playlist1)
     session.commit()
+    
+    
     
     
 

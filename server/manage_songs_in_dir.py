@@ -16,9 +16,9 @@ def get_all_songs_in_db(session):
 
 def get_all_song_info_dicts_in_dir(song_dir) -> list[dict]:
     song_dicts = []
-    for id, song in enumerate(os.listdir(song_dir)):
+    for song in os.listdir(song_dir):
         song_dict = get_song_info_dict(song_dir, song)
-    song_dicts.append(song_dict)
+        song_dicts.append(song_dict)
     return song_dicts
 
 
