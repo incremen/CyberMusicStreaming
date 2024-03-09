@@ -16,9 +16,7 @@ def main():
     custom_logger.clear_logs()
     song_dir = os.path.abspath(r"songs")
     session = utils.create_session()
-    # manage_songs_in_dir.load_songs_to_db(song_dir, session)
-    song_list = manage_songs_in_dir.get_song_list(session)
-    logging.debug(f"{song_list=}")
+    create_dummy_user_playlist(session)
     session.close()
 
 

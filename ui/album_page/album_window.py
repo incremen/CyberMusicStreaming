@@ -16,7 +16,7 @@ from ui import gui_funcs
 from ui.window_interface import WindowInterface
 from database import client_db_funcs
 from dataclasses import asdict
-
+from database.models import User
 
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
