@@ -8,7 +8,7 @@ from custom_logging import CustomLogger
 from database import client_db_funcs
 import logging
 import os
-from server.manage_songs_in_dir import load_songs_to_db, get_song_list
+from server.manage_songs_in_dir import load_songs_to_db, get_all_songs_in_db
 from server import manage_songs_in_dir
 
 # default_songs = [{'name': 'american', 'length': 62.13451247165533, 'nframes': 2740132, 'framerate': 44100, 'nchannels': 2, 'id': 0},
@@ -21,15 +21,23 @@ def main():
     custom_logger = CustomLogger(log_files=["testing.log"]) 
     custom_logger.clear_logs()
     song_dir = os.path.abspath(r"songs")
-    songs_list = get_song_list(song_dir)
     session = utils.create_session()
+    create_default_playlist(song_dir, session)
+    utils.reset_tables()
+    utils.log_all_playlists(session)
+    utils.log_all_songs(session)
     session.close()
 
 
-def create_default_playlist(songs_list):
-    playlist1 = Playlist(name="default_playlist")
-    for song in songs_list:
-        playlist1.songs.append(song)
+def create_default_playlist(song_dir, session):
+    playlist1 = Playlist(name="default_playlist", id = 1)
+    for song_dict in manage_songs_in_dir.get_all_song_info_dicts_in_dir(song_dir):
+        new_song = Song(**song_dict)
+        playlist1.songs.append(new_song)
+    session.add(playlist1)
+    session.commit()
+    
+    
 
 
 if __name__ == "__main__":

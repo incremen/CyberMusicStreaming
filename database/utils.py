@@ -16,6 +16,7 @@ def log_user_and_playlists(user: User):
             logging.debug(f"{song}")
             
 def log_all_songs(session):
+    logging.debug("Logging all songs")
     for song in session.query(Song).all():
         logging.debug(song)
         
@@ -24,6 +25,14 @@ def log_all_users_playlists(session):
     for user in session.query(User).all():
         log_user_and_playlists(user)
         
+def log_all_playlists(session):
+    logging.debug("Logging all playlists")
+    logging.debug("Playlist count: " + str(session.query(Playlist).count()))
+    all_playlists = session.query(Playlist).all()
+    for playlist in all_playlists:
+        logging.debug(playlist)
+    if not all_playlists:
+        logging.debug("No playlists")
 
 def reset_tables():
     engine = create_engine(SQLITE_PATH)

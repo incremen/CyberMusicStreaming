@@ -40,7 +40,6 @@ class Playlist(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
 
-    # Use the association table for the many-to-many relationship
     users = relationship(
         'User',
         secondary=user_playlist_association,
@@ -57,7 +56,7 @@ class Playlist(Base):
 
 class Song(Base):
     __tablename__ = 'songs'
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String)
     length = Column(Float)
     nframes = Column(Integer)
