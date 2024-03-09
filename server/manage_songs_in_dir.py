@@ -23,6 +23,12 @@ def load_songs_to_db(song_dir, session):
 
 
 def get_song_info(song_dir, song_name, id : int):
+    song_dict = get_song_info_dict(song_dir, song_name, id)
+    song_info = SongInfo(**song_dict)
+    logging.debug(f"{song_info=}")
+    return song_info
+
+def get_song_info_dict(song_dir, song_name, id):
     song_path = Path(song_dir) / song_name
     audio = AudioSegment.from_wav(str(song_path))
     nframes = audio.frame_count()
@@ -30,9 +36,8 @@ def get_song_info(song_dir, song_name, id : int):
     nchannels = audio.channels
 
     length = nframes / framerate
-    song_info = SongInfo(name=song_path.stem, nframes=nframes, framerate=framerate, nchannels=nchannels, length=length, id = id)
-    logging.debug(f"{song_info=}")
-    return song_info
+    song_dict =  {"name": song_path.stem, "nframes": nframes, "framerate": framerate, "nchannels": nchannels, "length": length, "id": id}
+    return song_dict
 
 
     

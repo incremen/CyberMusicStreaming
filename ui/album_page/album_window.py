@@ -51,6 +51,7 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         if self.album_mode == "query_server":
             self.socket_handler.emit_to_server("song_list_request")
         if self.album_mode == "query_local":
+            logging.checkpoint("Querying local...")
             self.query_db_for_song_list()
         self.show()
 
