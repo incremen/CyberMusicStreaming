@@ -16,8 +16,8 @@ def get_song_list(session):
 
 def load_songs_to_db(song_dir, session):
     for id, song in enumerate(os.listdir(song_dir)):
-        song_info = get_song_info(song_dir, song, id)
-        song = Song(**asdict(song_info))
+        song_dict = get_song_info_dict(song_dir, song, id)
+        song = Song(**song_dict)
         session.add(song)
     session.commit()
 

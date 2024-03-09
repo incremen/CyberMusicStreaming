@@ -25,7 +25,8 @@ def log_all_users_playlists(session):
         log_user_and_playlists(user)
         
 
-def reset_tables(engine):
+def reset_tables():
+    engine = create_engine(SQLITE_PATH)
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
 
