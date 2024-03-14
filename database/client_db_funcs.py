@@ -30,6 +30,10 @@ def get_first_user(session):
     return session.query(User).first()
 
 
+def get_first_playlist(session):
+    return session.query(Playlist).first()
+
+
 def get_engine():
     return create_engine(SQLITE_PATH)
     
