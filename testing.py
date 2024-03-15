@@ -11,40 +11,34 @@ from server.manage_songs_in_dir import load_songs_to_db, get_all_songs_in_db
 from server import manage_songs_in_dir
 from database.login_manager import LoginManager
 from database import SQLITE_PATH
-from returns.result import Success, Failure
+from result import Ok, Err, Result, is_ok, is_err
 
 def main():
     custom_logger = CustomLogger(log_files=["testing.log"]) 
     custom_logger.clear_logs()
     song_dir = os.path.abspath(r"songs")
     session = utils.create_session()
-
     login_manager = LoginManager(SQLITE_PATH)
 
-    result = login_manager.create_new_account('john_doe', 'password123')
-    if isinstance(result, Success):
-        print(f"New account created for user: {result.value.username}")
+    username = 'testuser'
+    password = 'testpassword'
+    result = login_manager.create_new_account(username, password)
+    if is_ok(result):
+        logging.info("New account created successfully.")
     else:
-        print(f"Failed to create account: {result.fail}")
+        logging.error(f"Failed to create account: {result.unwrap_err()}")
 
-    result = login_manager.login('john_doe', 'password123')
-    if isinstance(result, Success):
-        print(f"User {result.value.username} logged in successfully")
+    result = login_manager.login(username, password)
+    if is_ok(result):
+        logging.info("Login successful.")
     else:
-        print(f"Failed to log in: {result.failure.decode()}")
-
-    result = login_manager.login('john_doe', 'wrong_password')
-    if isinstance(result, Success):
-        print(f"User {result.value.username} logged in successfully")
-    else:
-        print(f"Failed to log in: {result.failure.decode()}")
+        logging.error(f"Login failed: {result.unwrap_err()}")
 
     result = login_manager.logout()
-    if isinstance(result, Success):
-        print("User logged out successfully")
+    if is_ok(result):
+        logging.info("Logout successful.")
     else:
-        print(f"Failed to log out: {result.failure.decode()}")
-    debug_vars(result)
+        logging.error(f"Logout failed: {result.unwrap_err()}")
     utils.log_all_songs(session)    
 
 
