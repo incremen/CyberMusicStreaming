@@ -3,23 +3,49 @@ from database.models import User, Playlist, Base, Song
 import database.utils as utils
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
-from custom_logging import CustomLogger
+from custom_logging import CustomLogger, debug_vars
 from database import client_db_funcs
 import logging
 import os
 from server.manage_songs_in_dir import load_songs_to_db, get_all_songs_in_db
 from server import manage_songs_in_dir
-
+from database.login_manager import LoginManager
+from database import SQLITE_PATH
+from returns.result import Success, Failure
 
 def main():
     custom_logger = CustomLogger(log_files=["testing.log"]) 
     custom_logger.clear_logs()
     song_dir = os.path.abspath(r"songs")
     session = utils.create_session()
-    # utils.reset_tables()
-    # load_songs_to_db(song_dir, session)
+
+    login_manager = LoginManager(SQLITE_PATH)
+
+    result = login_manager.create_new_account('john_doe', 'password123')
+    if isinstance(result, Success):
+        print(f"New account created for user: {result.value.username}")
+    else:
+        print(f"Failed to create account: {result.fail}")
+
+    result = login_manager.login('john_doe', 'password123')
+    if isinstance(result, Success):
+        print(f"User {result.value.username} logged in successfully")
+    else:
+        print(f"Failed to log in: {result.failure.decode()}")
+
+    result = login_manager.login('john_doe', 'wrong_password')
+    if isinstance(result, Success):
+        print(f"User {result.value.username} logged in successfully")
+    else:
+        print(f"Failed to log in: {result.failure.decode()}")
+
+    result = login_manager.logout()
+    if isinstance(result, Success):
+        print("User logged out successfully")
+    else:
+        print(f"Failed to log out: {result.failure.decode()}")
+    debug_vars(result)
     utils.log_all_songs(session)    
-    session.close()
 
 
 def create_dummy_user_playlist(session : Session):
