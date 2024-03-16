@@ -1,4 +1,4 @@
-from ui.login_page.login_page import LoginWindow
+from ui.login_page.login_window import LoginWindow
 from ui.album_page.album_window import AlbumWindow
 from ui.search_page.search_window import SearchWindow
 from client.shared_state import SharedState

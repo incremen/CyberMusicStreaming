@@ -200,6 +200,15 @@ class Ui_MainWindow(object):
         self.lineEdit_3.setObjectName("lineEdit_3")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.lineEdit_3)
         self.verticalLayout.addLayout(self.formLayout)
+        self.already_have_account_btn = QtWidgets.QPushButton(self.form_box)
+        font = QtGui.QFont()
+        font.setPointSize(40)
+        self.already_have_account_btn.setFont(font)
+        self.already_have_account_btn.setStyleSheet("border: 2px solid black;\n"
+"border-top-left-radius: 20px;\n"
+"border-top-right-radius: 20px;")
+        self.already_have_account_btn.setObjectName("already_have_account_btn")
+        self.verticalLayout.addWidget(self.already_have_account_btn)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem1)
         self.groupBox_2 = QtWidgets.QGroupBox(self.form_box)
@@ -264,6 +273,7 @@ class Ui_MainWindow(object):
         self.lineEdit.setText(_translate("MainWindow", "Itamar"))
         self.label_6.setText(_translate("MainWindow", "Enter password: "))
         self.label_5.setText(_translate("MainWindow", "Insert asdf"))
+        self.already_have_account_btn.setText(_translate("MainWindow", "I already have an account 🤓"))
         self.ready_btn.setText(_translate("MainWindow", "Ready!"))
 
 

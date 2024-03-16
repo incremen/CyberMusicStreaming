@@ -5,6 +5,7 @@ from ui import gui_funcs
 from typing import TYPE_CHECKING
 from ui.window_interface import WindowInterface
 from ui.search_page.search_window import SearchWindow
+from ui.login_page.login_window import LoginWindow
 
 
 if TYPE_CHECKING:
@@ -29,6 +30,11 @@ class SignupWindow(Ui_MainWindow, WindowInterface, QMainWindow):
        
     def setup_btns(self):
        self.ready_btn.clicked.connect(self.ready_btn_click)
+       self.already_have_account_btn.clicked.connect(self.already_have_account_btn_click)
+       
+    def already_have_account_btn_click(self):
+        self.window_manager.start_window(LoginWindow)
+        self.window_manager.hide_window(SignupWindow)
        
     def ready_btn_click(self):
         self.window_manager.start_window(SearchWindow)
