@@ -7,12 +7,12 @@ from ui.window_interface import WindowInterface
 from ui.search_page.search_window import SearchWindow
 from ui.login_page.login_window import LoginWindow
 
-
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
     from music_playing.audio_handler import AudioHandler
     from client.shared_state import SharedState
     from client.window_manager import WindowManager
+import logging
 
 
 
@@ -22,6 +22,7 @@ class SignupWindow(Ui_MainWindow, WindowInterface, QMainWindow):
        self.socket_handler = shared_state.socket_handler
        self.audio_handler = shared_state.audio_handler
        self.window_manager = window_manager
+       self.login_manager = shared_state.login_manager
        self.setupUi(self)
        self.setup_btns()
        
@@ -33,12 +34,20 @@ class SignupWindow(Ui_MainWindow, WindowInterface, QMainWindow):
        self.already_have_account_btn.clicked.connect(self.already_have_account_btn_click)
        
     def already_have_account_btn_click(self):
+
         self.window_manager.start_window(LoginWindow)
         self.window_manager.hide_window(SignupWindow)
        
     def ready_btn_click(self):
-        self.window_manager.start_window(SearchWindow)
-        self.window_manager.hide_window(SignupWindow)
+        username = self.username_input.text()
+        password = self.password_input.text()
+        result = self.login_manager.create_new_account(username, password)
+        if result.is_ok():
+            logging.info("New account created successfully.")
+        else:
+            logging.error(f"Failed to create account: {result.unwrap_err()}")
+        # self.window_manager.start_window(SearchWindow)
+        # self.window_manager.hide_window(SignupWindow)
            
 
            

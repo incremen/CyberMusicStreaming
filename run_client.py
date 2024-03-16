@@ -10,7 +10,8 @@ from client.window_manager import WindowManager
 from ui.album_page.album_window import AlbumWindow
 from ui.search_page.search_window import SearchWindow
 from ui.signup_page.signup_window import SignupWindow
-
+from database.login_manager import LoginManager
+from database import SQLITE_PATH
 def main():
     custom_logger = custom_logging.CustomLogger(log_files=["client.log"])
     custom_logger.clear_logs()
@@ -20,8 +21,8 @@ def main():
     audio_handler = AudioHandler(window_emitter)
     client_socket_handler = ClientSocketHandler(audio_handler, window_emitter)
     # client_socket_handler.connect()
-    
-    shared_state = SharedState(socket_handler=client_socket_handler, audio_handler=audio_handler)
+    login_manager = LoginManager(SQLITE_PATH)
+    shared_state = SharedState(socket_handler=client_socket_handler, audio_handler=audio_handler, login_manager=login_manager)
     window_manager = WindowManager(shared_state)
     
     album_window = window_manager.get_window(AlbumWindow)
