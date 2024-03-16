@@ -15,7 +15,7 @@ class WindowManager:
            AlbumWindow: AlbumWindow(self.shared_state, self),
            SearchWindow: SearchWindow(self.shared_state, self),
            UserPlaylistsWindow: UserPlaylistsWindow(self.shared_state, self),
-        #    SignupWindow: SignupWindow(self.shared_state, self)
+           SignupWindow: SignupWindow(self.shared_state, self)
        }
          
     def get_window(self, window_class):
