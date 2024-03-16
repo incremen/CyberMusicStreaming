@@ -80,7 +80,7 @@ border-top-right-radius: 10px;
             <string notr="true">color: black;</string>
            </property>
            <property name="text">
-            <string>If you dont log in, who will?</string>
+            <string>If you don't log in, who will?</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -142,7 +142,7 @@ border-bottom-left-radius: 20px;
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QLineEdit" name="lineEdit">
+            <widget class="QLineEdit" name="username_input">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -224,7 +224,7 @@ border-bottom-left-radius: 20px;
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEdit_2">
+            <widget class="QLineEdit" name="password_input">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -349,6 +349,23 @@ border-bottom-right-radius: 20px;
             </widget>
            </item>
           </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="dont_have_account_btn">
+           <property name="font">
+            <font>
+             <pointsize>40</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">border: 2px solid black;
+border-top-left-radius: 20px;
+border-top-right-radius: 20px;</string>
+           </property>
+           <property name="text">
+            <string>I don't have an account 🤓</string>
+           </property>
+          </widget>
          </item>
          <item>
           <spacer name="verticalSpacer_2">

@@ -85,18 +85,18 @@ class Ui_MainWindow(object):
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName("label_2")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_2)
-        self.lineEdit = QtWidgets.QLineEdit(self.form_box)
+        self.username_input = QtWidgets.QLineEdit(self.form_box)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
-        self.lineEdit.setSizePolicy(sizePolicy)
-        self.lineEdit.setMinimumSize(QtCore.QSize(0, 100))
-        self.lineEdit.setBaseSize(QtCore.QSize(0, 100))
+        sizePolicy.setHeightForWidth(self.username_input.sizePolicy().hasHeightForWidth())
+        self.username_input.setSizePolicy(sizePolicy)
+        self.username_input.setMinimumSize(QtCore.QSize(0, 100))
+        self.username_input.setBaseSize(QtCore.QSize(0, 100))
         font = QtGui.QFont()
         font.setPointSize(30)
-        self.lineEdit.setFont(font)
-        self.lineEdit.setStyleSheet(" border: 2px solid black;\n"
+        self.username_input.setFont(font)
+        self.username_input.setStyleSheet(" border: 2px solid black;\n"
 " background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
 "           stop:0 #4B0082, stop:0.5 #000000, stop:1 #4B0082);\n"
 "color: white;\n"
@@ -104,9 +104,9 @@ class Ui_MainWindow(object):
 "border-bottom-right-radius: 20px;\n"
 "\n"
 "")
-        self.lineEdit.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-        self.lineEdit.setObjectName("lineEdit")
-        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.lineEdit)
+        self.username_input.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.username_input.setObjectName("username_input")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.username_input)
         self.label_6 = QtWidgets.QLabel(self.form_box)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
@@ -130,18 +130,18 @@ class Ui_MainWindow(object):
         self.label_6.setAlignment(QtCore.Qt.AlignCenter)
         self.label_6.setObjectName("label_6")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_6)
-        self.lineEdit_2 = QtWidgets.QLineEdit(self.form_box)
+        self.password_input = QtWidgets.QLineEdit(self.form_box)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit_2.sizePolicy().hasHeightForWidth())
-        self.lineEdit_2.setSizePolicy(sizePolicy)
-        self.lineEdit_2.setMinimumSize(QtCore.QSize(0, 100))
-        self.lineEdit_2.setBaseSize(QtCore.QSize(0, 100))
+        sizePolicy.setHeightForWidth(self.password_input.sizePolicy().hasHeightForWidth())
+        self.password_input.setSizePolicy(sizePolicy)
+        self.password_input.setMinimumSize(QtCore.QSize(0, 100))
+        self.password_input.setBaseSize(QtCore.QSize(0, 100))
         font = QtGui.QFont()
         font.setPointSize(30)
-        self.lineEdit_2.setFont(font)
-        self.lineEdit_2.setStyleSheet(" border: 2px solid black;\n"
+        self.password_input.setFont(font)
+        self.password_input.setStyleSheet(" border: 2px solid black;\n"
 " background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
 "           stop:0 #4B0082, stop:0.5 #000000, stop:1 #4B0082);\n"
 "color: white;\n"
@@ -149,10 +149,10 @@ class Ui_MainWindow(object):
 "border-bottom-right-radius: 20px;\n"
 "\n"
 "")
-        self.lineEdit_2.setText("")
-        self.lineEdit_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.lineEdit_2.setObjectName("lineEdit_2")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.lineEdit_2)
+        self.password_input.setText("")
+        self.password_input.setAlignment(QtCore.Qt.AlignCenter)
+        self.password_input.setObjectName("password_input")
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.password_input)
         self.label_5 = QtWidgets.QLabel(self.form_box)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
@@ -200,6 +200,15 @@ class Ui_MainWindow(object):
         self.lineEdit_3.setObjectName("lineEdit_3")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.lineEdit_3)
         self.verticalLayout.addLayout(self.formLayout)
+        self.dont_have_account_btn = QtWidgets.QPushButton(self.form_box)
+        font = QtGui.QFont()
+        font.setPointSize(40)
+        self.dont_have_account_btn.setFont(font)
+        self.dont_have_account_btn.setStyleSheet("border: 2px solid black;\n"
+"border-top-left-radius: 20px;\n"
+"border-top-right-radius: 20px;")
+        self.dont_have_account_btn.setObjectName("dont_have_account_btn")
+        self.verticalLayout.addWidget(self.dont_have_account_btn)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem1)
         self.groupBox_2 = QtWidgets.QGroupBox(self.form_box)
@@ -259,11 +268,12 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "If you dont log in, who will?"))
+        self.label.setText(_translate("MainWindow", "If you don\'t log in, who will?"))
         self.label_2.setText(_translate("MainWindow", "Enter username:"))
-        self.lineEdit.setText(_translate("MainWindow", "Itamar"))
+        self.username_input.setText(_translate("MainWindow", "Itamar"))
         self.label_6.setText(_translate("MainWindow", "Enter password: "))
         self.label_5.setText(_translate("MainWindow", "Insert asdf"))
+        self.dont_have_account_btn.setText(_translate("MainWindow", "I don\'t have an account 🤓"))
         self.ready_btn.setText(_translate("MainWindow", "Ready!"))
 
 
