@@ -15,23 +15,27 @@ if TYPE_CHECKING:
 
 
 class UserPlaylistsWindow(Ui_MainWindow, WindowInterface, QMainWindow): 
-    def __init__(self, shared_state :'SharedState', window_manager :'WindowManager'):
+   def __init__(self, shared_state :'SharedState', window_manager :'WindowManager'):
        super(UserPlaylistsWindow, self).__init__()
        self.socket_handler = shared_state.socket_handler
        self.audio_handler = shared_state.audio_handler
        self.window_manager = window_manager
+       self.login_manager = shared_state.login_manager
        self.setupUi(self)
        self.setup_btns()
        
-    def start(self):
-       self.show()
+   def start(self):
+      self.show()
+      current_user = self.login_manager.current_user
+      user_info_text = f"username: {current_user.username} \npassword: {current_user.password}"
+      self.user_info_label.setText(user_info_text)
        
-    def setup_btns(self):
-         grid_btns = gui_funcs.get_objects_from_boxlayout(self.album_grid)
-         for btn in grid_btns:
-            btn.clicked.connect(self.album_btn_click)
+   def setup_btns(self):
+      grid_btns = gui_funcs.get_objects_from_boxlayout(self.album_grid)
+      for btn in grid_btns:
+         btn.clicked.connect(self.album_btn_click)
            
-    def album_btn_click(self, btn_clicked):
+   def album_btn_click(self, btn_clicked):
       self.window_manager.hide_window(UserPlaylistsWindow)
       
       album_window_obj = self.window_manager.windows[album_window.AlbumWindow]
