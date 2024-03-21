@@ -49,7 +49,8 @@ class Playlist(Base):
     songs = relationship(
         'Song',
         secondary=song_playlist_association,
-        back_populates='playlists'
+        back_populates='playlists',
+        lazy='subquery'
     )
     def __repr__(self):
         return f"Playlist(name={self.name}, id={self.id})"

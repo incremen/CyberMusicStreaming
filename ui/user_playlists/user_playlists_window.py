@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 from ui.album_page import album_window
 from ui.login_page import login_window
 from itertools import zip_longest
+import logging
 
 
 if TYPE_CHECKING:
@@ -56,8 +57,8 @@ class UserPlaylistsWindow(Ui_MainWindow, WindowInterface, QMainWindow):
          playlist_btn.setText(playlist.name)
          self.playlist_btn_to_playlist[playlist_btn] = playlist
            
-   def playlist_btn_click(self, btn_clicked):
-      self.playlist_btn_clicked = btn_clicked
+   def playlist_btn_click(self):
+      self.playlist_btn_clicked = self.sender()
       
       self.window_manager.hide_window(UserPlaylistsWindow)
       
