@@ -43,10 +43,11 @@ class SignupWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         result = self.login_manager.create_new_account(username, password)
         if result.is_ok():
             logging.info("New account created successfully.")
+            self.window_manager.start_window(SearchWindow)
+            self.window_manager.hide_window(SignupWindow)
         else:
             logging.error(f"Failed to create account: {result.unwrap_err()}")
-        # self.window_manager.start_window(SearchWindow)
-        # self.window_manager.hide_window(SignupWindow)
+
            
 
            
