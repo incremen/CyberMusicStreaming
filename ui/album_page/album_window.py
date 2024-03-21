@@ -16,9 +16,10 @@ from ui import gui_funcs
 from ui.window_interface import WindowInterface
 from database import client_db_funcs
 from dataclasses import asdict
-from database.models import User
+from database.models import User, Playlist
 from database import utils
 from ui.user_playlists.user_playlists_window import UserPlaylistsWindow
+
 
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
@@ -64,16 +65,20 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         user_playlist_window : UserPlaylistsWindow = self.window_manager.get_window(UserPlaylistsWindow)
         last_playlist = user_playlist_window.get_last_clicked_playlist()
         utils.log_playlist(last_playlist)
+        self.load_playlist(last_playlist)
 
     def query_db_for_song_list(self):
         session = client_db_funcs.create_session()
         user_playlist = client_db_funcs.get_first_playlist(session)
         logging.checkpoint(f"got {user_playlist=} from db")
-        song_dict_list = [song.as_dict() for song in user_playlist.songs]
+        self.load_playlist(user_playlist)
+        session.close()
+
+    def load_playlist(self, playlist : Playlist):
+        song_dict_list = [song.as_dict() for song in playlist.songs]
         self.audio_handler.song_list_received(song_dict_list)
         self.song_list = song_dict_list
         self.song_list_received(self.song_list)
-        session.close()
        
     def setup_widgets(self):
         self.skip_btn.clicked.connect(self.skip_btn_click)
