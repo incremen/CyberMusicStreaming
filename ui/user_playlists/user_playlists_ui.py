@@ -30,6 +30,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.albums_boxlayout.sizePolicy().hasHeightForWidth())
         self.albums_boxlayout.setSizePolicy(sizePolicy)
+        self.albums_boxlayout.setMinimumSize(QtCore.QSize(0, 100))
         self.albums_boxlayout.setMaximumSize(QtCore.QSize(16777215, 1000))
         self.albums_boxlayout.setStyleSheet("#groupBox {border: none;\n"
 "}")
@@ -38,6 +39,28 @@ class Ui_MainWindow(object):
         self.albums_boxlayout.setObjectName("albums_boxlayout")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.albums_boxlayout)
         self.gridLayout_2.setObjectName("gridLayout_2")
+        self.sign_out_btn_box = QtWidgets.QGroupBox(self.albums_boxlayout)
+        self.sign_out_btn_box.setMinimumSize(QtCore.QSize(0, 80))
+        self.sign_out_btn_box.setStyleSheet("#groupBox {border: none;\n"
+"}")
+        self.sign_out_btn_box.setObjectName("sign_out_btn_box")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.sign_out_btn_box)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
+        self.sign_out_btn = QtWidgets.QPushButton(self.sign_out_btn_box)
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        self.sign_out_btn.setFont(font)
+        self.sign_out_btn.setStyleSheet(" border: 2px solid pink;\n"
+" border-radius: 5px;\n"
+"color: black;\n"
+"background-color: white;\n"
+"\n"
+"")
+        self.sign_out_btn.setObjectName("sign_out_btn")
+        self.horizontalLayout.addWidget(self.sign_out_btn)
+        self.gridLayout_2.addWidget(self.sign_out_btn_box, 1, 0, 1, 1)
         self.album_grid = QtWidgets.QGridLayout()
         self.album_grid.setObjectName("album_grid")
         self.pushButton_7 = QtWidgets.QPushButton(self.albums_boxlayout)
@@ -205,7 +228,7 @@ class Ui_MainWindow(object):
         self.pushButton_12.setText("")
         self.pushButton_12.setObjectName("pushButton_12")
         self.album_grid.addWidget(self.pushButton_12, 1, 3, 1, 1)
-        self.gridLayout_2.addLayout(self.album_grid, 3, 0, 1, 1)
+        self.gridLayout_2.addLayout(self.album_grid, 5, 0, 1, 1)
         self.top_btns_box = QtWidgets.QGroupBox(self.albums_boxlayout)
         self.top_btns_box.setMinimumSize(QtCore.QSize(0, 100))
         self.top_btns_box.setStyleSheet("QGroupBox {border: none;}")
@@ -235,7 +258,17 @@ class Ui_MainWindow(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.groupBox_3)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout_3.addWidget(self.groupBox_3)
-        self.gridLayout_2.addWidget(self.top_btns_box, 2, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.top_btns_box, 3, 0, 1, 1)
+        self.user_info_label = QtWidgets.QLabel(self.albums_boxlayout)
+        self.user_info_label.setMinimumSize(QtCore.QSize(0, 100))
+        font = QtGui.QFont()
+        font.setPointSize(22)
+        self.user_info_label.setFont(font)
+        self.user_info_label.setStyleSheet(" border: 2px solid white; \n"
+"border-radius: 30px;\n"
+"color: white;")
+        self.user_info_label.setObjectName("user_info_label")
+        self.gridLayout_2.addWidget(self.user_info_label, 4, 0, 1, 1)
         self.albums_box_layout = QtWidgets.QHBoxLayout()
         self.albums_box_layout.setObjectName("albums_box_layout")
         self.gridLayout_2.addLayout(self.albums_box_layout, 0, 0, 1, 1)
@@ -255,9 +288,13 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.sign_out_btn_box.setTitle(_translate("MainWindow", "GroupBox"))
+        self.sign_out_btn.setText(_translate("MainWindow", "Sign out"))
         self.pushButton.setText(_translate("MainWindow", "Dummy 1"))
         self.lineEdit.setText(_translate("MainWindow", "Your own playlists:"))
         self.groupBox_3.setTitle(_translate("MainWindow", "GroupBox"))
+        self.user_info_label.setText(_translate("MainWindow", "username: idk \n"
+" password: idk"))
 import resource_file_rc
 
 

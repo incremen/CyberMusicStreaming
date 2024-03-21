@@ -30,6 +30,12 @@ QGroupBox {border: none;}</string>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>100</height>
+       </size>
+      </property>
       <property name="maximumSize">
        <size>
         <width>16777215</width>
@@ -47,7 +53,59 @@ QGroupBox {border: none;}</string>
        <bool>true</bool>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="3" column="0">
+       <item row="1" column="0">
+        <widget class="QGroupBox" name="sign_out_btn_box">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>80</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#groupBox {border: none;
+}</string>
+         </property>
+         <property name="title">
+          <string>GroupBox</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="sign_out_btn">
+            <property name="font">
+             <font>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"> border: 2px solid pink;
+ border-radius: 5px;
+color: black;
+background-color: white;
+
+</string>
+            </property>
+            <property name="text">
+             <string>Sign out</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="5" column="0">
         <layout class="QGridLayout" name="album_grid">
          <item row="0" column="3">
           <widget class="QPushButton" name="pushButton_7">
@@ -339,7 +397,7 @@ color: white;
          </item>
         </layout>
        </item>
-       <item row="2" column="0">
+       <item row="3" column="0">
         <widget class="QGroupBox" name="top_btns_box">
          <property name="minimumSize">
           <size>
@@ -392,6 +450,30 @@ border-radius:20px;
            </widget>
           </item>
          </layout>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="user_info_label">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"> border: 2px solid white; 
+border-radius: 30px;
+color: white;</string>
+         </property>
+         <property name="text">
+          <string>username: idk 
+ password: idk</string>
+         </property>
         </widget>
        </item>
        <item row="0" column="0">
