@@ -18,12 +18,13 @@ from database import client_db_funcs
 from dataclasses import asdict
 from database.models import User
 from database import utils
+from ui.user_playlists.user_playlists_window import UserPlaylistsWindow
+
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
     from music_playing.audio_handler import AudioHandler
     from client.shared_state import SharedState
     from client.window_manager import WindowManager
-    from ui.user_playlists.user_playlists_window import UserPlaylistsWindow
 
 
 class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow): 
