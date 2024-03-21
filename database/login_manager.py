@@ -27,6 +27,7 @@ class LoginManager:
         new_user = User(username=username, password=password)
         session.add(new_user)
         session.commit()
+        self.current_user = new_user
         logging.info(f"Account for user {username} created successfully")
         return Ok(new_user)
 
