@@ -4,7 +4,7 @@ from ui import gui_funcs
 from ui.window_interface import WindowInterface
 from typing import TYPE_CHECKING
 from ui.album_page import album_window
-
+from ui.login_page import login_window
 
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
@@ -26,11 +26,16 @@ class UserPlaylistsWindow(Ui_MainWindow, WindowInterface, QMainWindow):
        
    def start(self):
       self.show()
-      current_user = self.login_manager.current_user
-      user_info_text = f"username: {current_user.username} \npassword: {current_user.password}"
-      self.user_info_label.setText(user_info_text)
+      self.show_user_info()
+
+   def show_user_info(self):
+       current_user = self.login_manager.current_user
+       user_info_text = f"username: {current_user.username} \npassword: {current_user.password}"
+       self.user_info_label.setText(user_info_text)
        
    def setup_btns(self):
+      self.sign_out_btn.clicked.connect(self.signout_btn_click)
+      
       grid_btns = gui_funcs.get_objects_from_boxlayout(self.album_grid)
       for btn in grid_btns:
          btn.clicked.connect(self.album_btn_click)
@@ -41,6 +46,11 @@ class UserPlaylistsWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       album_window_obj = self.window_manager.windows[album_window.AlbumWindow]
       album_window_obj.album_mode = "query_local"
       self.window_manager.start_window(album_window.AlbumWindow)
+      
+   def signout_btn_click(self, btn_clicked):
+      self.login_manager.logout()
+      self.window_manager.hide_window(UserPlaylistsWindow)
+      self.window_manager.start_window(login_window.LoginWindow)
     
        
         

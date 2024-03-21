@@ -4,7 +4,7 @@ import ui.album_page.album_window
 from ui import gui_funcs
 from typing import TYPE_CHECKING
 from ui.window_interface import WindowInterface
-from ui.search_page.search_window import SearchWindow
+from ui.search_page import search_window
 from ui.signup_page import signup_window
 import logging
 
@@ -41,7 +41,7 @@ class LoginWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         result = self.login_manager.login(username, password)
         if result.is_ok():
             logging.info("Login successful.")
-            self.window_manager.start_window(SearchWindow)
+            self.window_manager.start_window(search_window.SearchWindow)
             self.window_manager.hide_window(LoginWindow)
         else:
             logging.error(f"Failed to login: {result.unwrap_err()}")

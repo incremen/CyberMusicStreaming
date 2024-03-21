@@ -4,7 +4,7 @@ import ui.album_page.album_window
 from ui import gui_funcs
 from typing import TYPE_CHECKING
 from ui.window_interface import WindowInterface
-from ui.search_page.search_window import SearchWindow
+from ui.search_page import search_window
 from ui.login_page import login_window
 
 if TYPE_CHECKING:
@@ -43,7 +43,7 @@ class SignupWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         result = self.login_manager.create_new_account(username, password)
         if result.is_ok():
             logging.info("New account created successfully.")
-            self.window_manager.start_window(SearchWindow)
+            self.window_manager.start_window(search_window.SearchWindow)
             self.window_manager.hide_window(SignupWindow)
         else:
             logging.error(f"Failed to create account: {result.unwrap_err()}")
