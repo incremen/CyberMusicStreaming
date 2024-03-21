@@ -25,10 +25,13 @@ class LoginManager:
             logging.error(error_message)
             return Err(error_message)
         new_user = User(username=username, password=password)
+        
+        self.current_user = new_user
         session.add(new_user)
         session.expunge(new_user)
         session.commit()
         session.close()
+        
         logging.info(f"Account for user {username} created successfully")
         return Ok(new_user)
 
