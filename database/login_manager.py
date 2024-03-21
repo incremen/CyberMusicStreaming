@@ -28,7 +28,7 @@ class LoginManager:
         
         self.current_user = new_user
         session.add(new_user)
-        session.expunge(new_user)
+        session.expunge_all()
         session.commit()
         session.close()
         
@@ -48,7 +48,7 @@ class LoginManager:
             logging.error(error_message)
             return Err(error_message)
         self.current_user = user
-        session.expunge(user)
+        session.expunge_all()
         session.close()
         logging.info(f"User {username} logged in successfully")
         return Ok(user)

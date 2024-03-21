@@ -19,7 +19,11 @@ def main():
     song_dir = os.path.abspath(r"songs")
     session = utils.create_session()
     login_manager = LoginManager(SQLITE_PATH)
+    
+    create_dummy_user_playlist(session)
 
+
+def test_creating_accounts(session, login_manager):
     username = 'testuser'
     password = 'testpassword'
     result = login_manager.create_new_account(username, password)
@@ -39,11 +43,11 @@ def main():
         logging.info("Logout successful.")
     else:
         logging.error(f"Logout failed: {result.unwrap_err()}")
-    utils.log_all_songs(session)    
+    utils.log_all_songs(session)   
 
 
 def create_dummy_user_playlist(session : Session):
-    user1 = User(username="user1")
+    user1 = User(username="1", password="1")
     session.add(user1)
     playlist1 = Playlist(name="playlist1")
     user1.playlists.append(playlist1)

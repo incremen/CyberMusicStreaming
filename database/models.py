@@ -29,7 +29,8 @@ class User(Base):
     playlists = relationship(
         'Playlist',
         secondary=user_playlist_association,
-        back_populates='users'
+        back_populates='users',
+        lazy='subquery'
     )
 
     def __repr__(self):
