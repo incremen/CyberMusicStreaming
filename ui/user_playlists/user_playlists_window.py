@@ -5,6 +5,8 @@ from ui.window_interface import WindowInterface
 from typing import TYPE_CHECKING
 from ui.album_page import album_window
 from ui.login_page import login_window
+from itertools import zip_longest
+
 
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
@@ -22,11 +24,13 @@ class UserPlaylistsWindow(Ui_MainWindow, WindowInterface, QMainWindow):
        self.window_manager = window_manager
        self.login_manager = shared_state.login_manager
        self.setupUi(self)
+       self.playlist_btn_to_playlist = {}
        self.setup_btns()
        
    def start(self):
       self.show()
       self.show_user_info()
+      self.setup_btns_text()
 
    def show_user_info(self):
        current_user = self.login_manager.current_user
@@ -40,9 +44,21 @@ class UserPlaylistsWindow(Ui_MainWindow, WindowInterface, QMainWindow):
          self.btn_1, self.btn_2, self.btn_3, self.btn_4, self.btn_5, self.btn_6, self.btn_7, self.btn_8
       ]
       for btn in self.playlist_btns:
-         btn.clicked.connect(self.playlist_btn)
+         btn.clicked.connect(self.playlist_btn_click)
+         
+   def setup_btns_text(self):
+      user_playlists = self.login_manager.current_user.playlists
+      for playlist, playlist_btn in zip_longest(user_playlists, self.playlist_btns):
+         if not playlist:
+            playlist_btn.setText("+")
+            continue
+         
+         playlist_btn.setText(playlist.name)
+         self.playlist_btn_to_playlist[playlist_btn] = playlist
            
-   def playlist_btn(self, btn_clicked):
+   def playlist_btn_click(self, btn_clicked):
+      self.playlist_btn_clicked = btn_clicked
+      
       self.window_manager.hide_window(UserPlaylistsWindow)
       
       album_window_obj = self.window_manager.windows[album_window.AlbumWindow]
