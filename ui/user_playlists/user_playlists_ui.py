@@ -63,92 +63,92 @@ class Ui_MainWindow(object):
         self.gridLayout_2.addWidget(self.sign_out_btn_box, 1, 0, 1, 1)
         self.album_grid = QtWidgets.QGridLayout()
         self.album_grid.setObjectName("album_grid")
-        self.pushButton_7 = QtWidgets.QPushButton(self.albums_boxlayout)
+        self.btn_4 = QtWidgets.QPushButton(self.albums_boxlayout)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_7.sizePolicy().hasHeightForWidth())
-        self.pushButton_7.setSizePolicy(sizePolicy)
-        self.pushButton_7.setMaximumSize(QtCore.QSize(200, 16777215))
+        sizePolicy.setHeightForWidth(self.btn_4.sizePolicy().hasHeightForWidth())
+        self.btn_4.setSizePolicy(sizePolicy)
+        self.btn_4.setMaximumSize(QtCore.QSize(200, 16777215))
         font = QtGui.QFont()
         font.setPointSize(40)
-        self.pushButton_7.setFont(font)
-        self.pushButton_7.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton_7.setStyleSheet(" border: 2px solid white;\n"
+        self.btn_4.setFont(font)
+        self.btn_4.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_4.setStyleSheet(" border: 2px solid white;\n"
 " border-radius: 30px;\n"
 "color: white;\n"
 "\n"
 "\n"
 "")
-        self.pushButton_7.setText("")
-        self.pushButton_7.setObjectName("pushButton_7")
-        self.album_grid.addWidget(self.pushButton_7, 0, 3, 1, 1)
-        self.pushButton = QtWidgets.QPushButton(self.albums_boxlayout)
+        self.btn_4.setText("")
+        self.btn_4.setObjectName("btn_4")
+        self.album_grid.addWidget(self.btn_4, 0, 3, 1, 1)
+        self.btn_1 = QtWidgets.QPushButton(self.albums_boxlayout)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
-        self.pushButton.setSizePolicy(sizePolicy)
-        self.pushButton.setMaximumSize(QtCore.QSize(200, 16777215))
+        sizePolicy.setHeightForWidth(self.btn_1.sizePolicy().hasHeightForWidth())
+        self.btn_1.setSizePolicy(sizePolicy)
+        self.btn_1.setMaximumSize(QtCore.QSize(200, 16777215))
         font = QtGui.QFont()
         font.setPointSize(30)
-        self.pushButton.setFont(font)
-        self.pushButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton.setStyleSheet(" border: 2px solid white;\n"
+        self.btn_1.setFont(font)
+        self.btn_1.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_1.setStyleSheet(" border: 2px solid white;\n"
 " border-radius: 30px;\n"
 "color: white;\n"
 "\n"
 "\n"
 "")
-        self.pushButton.setObjectName("pushButton")
-        self.album_grid.addWidget(self.pushButton, 0, 0, 1, 1)
-        self.pushButton_6 = QtWidgets.QPushButton(self.albums_boxlayout)
+        self.btn_1.setObjectName("btn_1")
+        self.album_grid.addWidget(self.btn_1, 0, 0, 1, 1)
+        self.btn_3 = QtWidgets.QPushButton(self.albums_boxlayout)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_6.sizePolicy().hasHeightForWidth())
-        self.pushButton_6.setSizePolicy(sizePolicy)
-        self.pushButton_6.setMaximumSize(QtCore.QSize(200, 16777215))
+        sizePolicy.setHeightForWidth(self.btn_3.sizePolicy().hasHeightForWidth())
+        self.btn_3.setSizePolicy(sizePolicy)
+        self.btn_3.setMaximumSize(QtCore.QSize(200, 16777215))
         font = QtGui.QFont()
         font.setPointSize(40)
-        self.pushButton_6.setFont(font)
-        self.pushButton_6.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton_6.setStyleSheet(" border: 2px solid white;\n"
+        self.btn_3.setFont(font)
+        self.btn_3.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_3.setStyleSheet(" border: 2px solid white;\n"
 " border-radius: 30px;\n"
 "color: white;\n"
 "\n"
 "\n"
 "")
-        self.pushButton_6.setText("")
-        self.pushButton_6.setObjectName("pushButton_6")
-        self.album_grid.addWidget(self.pushButton_6, 0, 2, 1, 1)
-        self.pushButton_9 = QtWidgets.QPushButton(self.albums_boxlayout)
+        self.btn_3.setText("")
+        self.btn_3.setObjectName("btn_3")
+        self.album_grid.addWidget(self.btn_3, 0, 2, 1, 1)
+        self.btn_5 = QtWidgets.QPushButton(self.albums_boxlayout)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_9.sizePolicy().hasHeightForWidth())
-        self.pushButton_9.setSizePolicy(sizePolicy)
-        self.pushButton_9.setMaximumSize(QtCore.QSize(200, 16777215))
+        sizePolicy.setHeightForWidth(self.btn_5.sizePolicy().hasHeightForWidth())
+        self.btn_5.setSizePolicy(sizePolicy)
+        self.btn_5.setMaximumSize(QtCore.QSize(200, 16777215))
         font = QtGui.QFont()
         font.setPointSize(40)
-        self.pushButton_9.setFont(font)
-        self.pushButton_9.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton_9.setStyleSheet(" border: 2px solid white;\n"
+        self.btn_5.setFont(font)
+        self.btn_5.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_5.setStyleSheet(" border: 2px solid white;\n"
 " border-radius: 30px;\n"
 "color: white;\n"
 "\n"
 "\n"
 "")
-        self.pushButton_9.setText("")
-        self.pushButton_9.setObjectName("pushButton_9")
-        self.album_grid.addWidget(self.pushButton_9, 1, 0, 1, 1)
-        self.pushButton_4 = QtWidgets.QPushButton(self.albums_boxlayout)
+        self.btn_5.setText("")
+        self.btn_5.setObjectName("btn_5")
+        self.album_grid.addWidget(self.btn_5, 1, 0, 1, 1)
+        self.btn_2 = QtWidgets.QPushButton(self.albums_boxlayout)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_4.sizePolicy().hasHeightForWidth())
-        self.pushButton_4.setSizePolicy(sizePolicy)
-        self.pushButton_4.setMaximumSize(QtCore.QSize(200, 16777215))
+        sizePolicy.setHeightForWidth(self.btn_2.sizePolicy().hasHeightForWidth())
+        self.btn_2.setSizePolicy(sizePolicy)
+        self.btn_2.setMaximumSize(QtCore.QSize(200, 16777215))
         font = QtGui.QFont()
         font.setPointSize(40)
         font.setBold(False)
@@ -156,78 +156,78 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         font.setKerning(True)
         font.setStyleStrategy(QtGui.QFont.PreferDefault)
-        self.pushButton_4.setFont(font)
-        self.pushButton_4.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton_4.setStyleSheet(" border: 2px solid white;\n"
+        self.btn_2.setFont(font)
+        self.btn_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_2.setStyleSheet(" border: 2px solid white;\n"
 " border-radius: 30px;\n"
 "color: white;\n"
 "\n"
 "\n"
 "")
-        self.pushButton_4.setText("")
-        self.pushButton_4.setFlat(False)
-        self.pushButton_4.setObjectName("pushButton_4")
-        self.album_grid.addWidget(self.pushButton_4, 0, 1, 1, 1)
-        self.pushButton_13 = QtWidgets.QPushButton(self.albums_boxlayout)
+        self.btn_2.setText("")
+        self.btn_2.setFlat(False)
+        self.btn_2.setObjectName("btn_2")
+        self.album_grid.addWidget(self.btn_2, 0, 1, 1, 1)
+        self.btn_6 = QtWidgets.QPushButton(self.albums_boxlayout)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_13.sizePolicy().hasHeightForWidth())
-        self.pushButton_13.setSizePolicy(sizePolicy)
-        self.pushButton_13.setMaximumSize(QtCore.QSize(200, 16777215))
+        sizePolicy.setHeightForWidth(self.btn_6.sizePolicy().hasHeightForWidth())
+        self.btn_6.setSizePolicy(sizePolicy)
+        self.btn_6.setMaximumSize(QtCore.QSize(200, 16777215))
         font = QtGui.QFont()
         font.setPointSize(40)
-        self.pushButton_13.setFont(font)
-        self.pushButton_13.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton_13.setStyleSheet(" border: 2px solid white;\n"
+        self.btn_6.setFont(font)
+        self.btn_6.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_6.setStyleSheet(" border: 2px solid white;\n"
 " border-radius: 30px;\n"
 "color: white;\n"
 "\n"
 "\n"
 "")
-        self.pushButton_13.setText("")
-        self.pushButton_13.setObjectName("pushButton_13")
-        self.album_grid.addWidget(self.pushButton_13, 1, 1, 1, 1)
-        self.pushButton_14 = QtWidgets.QPushButton(self.albums_boxlayout)
+        self.btn_6.setText("")
+        self.btn_6.setObjectName("btn_6")
+        self.album_grid.addWidget(self.btn_6, 1, 1, 1, 1)
+        self.btn_7 = QtWidgets.QPushButton(self.albums_boxlayout)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_14.sizePolicy().hasHeightForWidth())
-        self.pushButton_14.setSizePolicy(sizePolicy)
-        self.pushButton_14.setMaximumSize(QtCore.QSize(200, 16777215))
+        sizePolicy.setHeightForWidth(self.btn_7.sizePolicy().hasHeightForWidth())
+        self.btn_7.setSizePolicy(sizePolicy)
+        self.btn_7.setMaximumSize(QtCore.QSize(200, 16777215))
         font = QtGui.QFont()
         font.setPointSize(40)
-        self.pushButton_14.setFont(font)
-        self.pushButton_14.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton_14.setStyleSheet(" border: 2px solid white;\n"
+        self.btn_7.setFont(font)
+        self.btn_7.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_7.setStyleSheet(" border: 2px solid white;\n"
 " border-radius: 30px;\n"
 "color: white;\n"
 "\n"
 "\n"
 "")
-        self.pushButton_14.setText("")
-        self.pushButton_14.setObjectName("pushButton_14")
-        self.album_grid.addWidget(self.pushButton_14, 1, 2, 1, 1)
-        self.pushButton_12 = QtWidgets.QPushButton(self.albums_boxlayout)
+        self.btn_7.setText("")
+        self.btn_7.setObjectName("btn_7")
+        self.album_grid.addWidget(self.btn_7, 1, 2, 1, 1)
+        self.btn_8 = QtWidgets.QPushButton(self.albums_boxlayout)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_12.sizePolicy().hasHeightForWidth())
-        self.pushButton_12.setSizePolicy(sizePolicy)
-        self.pushButton_12.setMaximumSize(QtCore.QSize(200, 16777215))
+        sizePolicy.setHeightForWidth(self.btn_8.sizePolicy().hasHeightForWidth())
+        self.btn_8.setSizePolicy(sizePolicy)
+        self.btn_8.setMaximumSize(QtCore.QSize(200, 16777215))
         font = QtGui.QFont()
         font.setPointSize(40)
-        self.pushButton_12.setFont(font)
-        self.pushButton_12.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton_12.setStyleSheet(" border: 2px solid white;\n"
+        self.btn_8.setFont(font)
+        self.btn_8.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_8.setStyleSheet(" border: 2px solid white;\n"
 " border-radius: 30px;\n"
 "color: white;\n"
 "\n"
 "\n"
 "")
-        self.pushButton_12.setText("")
-        self.pushButton_12.setObjectName("pushButton_12")
-        self.album_grid.addWidget(self.pushButton_12, 1, 3, 1, 1)
+        self.btn_8.setText("")
+        self.btn_8.setObjectName("btn_8")
+        self.album_grid.addWidget(self.btn_8, 1, 3, 1, 1)
         self.gridLayout_2.addLayout(self.album_grid, 5, 0, 1, 1)
         self.top_btns_box = QtWidgets.QGroupBox(self.albums_boxlayout)
         self.top_btns_box.setMinimumSize(QtCore.QSize(0, 100))
@@ -290,7 +290,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.sign_out_btn_box.setTitle(_translate("MainWindow", "GroupBox"))
         self.sign_out_btn.setText(_translate("MainWindow", "Sign out"))
-        self.pushButton.setText(_translate("MainWindow", "Dummy 1"))
+        self.btn_1.setText(_translate("MainWindow", "Dummy 1"))
         self.lineEdit.setText(_translate("MainWindow", "Your own playlists:"))
         self.groupBox_3.setTitle(_translate("MainWindow", "GroupBox"))
         self.user_info_label.setText(_translate("MainWindow", "username: idk \n"

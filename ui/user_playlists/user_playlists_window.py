@@ -36,11 +36,13 @@ class UserPlaylistsWindow(Ui_MainWindow, WindowInterface, QMainWindow):
    def setup_btns(self):
       self.sign_out_btn.clicked.connect(self.signout_btn_click)
       
-      grid_btns = gui_funcs.get_objects_from_boxlayout(self.album_grid)
-      for btn in grid_btns:
-         btn.clicked.connect(self.album_btn_click)
+      self.playlist_btns = [
+         self.btn_1, self.btn_2, self.btn_3, self.btn_4, self.btn_5, self.btn_6, self.btn_7, self.btn_8
+      ]
+      for btn in self.playlist_btns:
+         btn.clicked.connect(self.playlist_btn)
            
-   def album_btn_click(self, btn_clicked):
+   def playlist_btn(self, btn_clicked):
       self.window_manager.hide_window(UserPlaylistsWindow)
       
       album_window_obj = self.window_manager.windows[album_window.AlbumWindow]
