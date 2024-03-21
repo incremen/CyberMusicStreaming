@@ -62,7 +62,7 @@ class UserPlaylistsWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       self.window_manager.hide_window(UserPlaylistsWindow)
       
       album_window_obj = self.window_manager.windows[album_window.AlbumWindow]
-      album_window_obj.album_mode = "query_local"
+      album_window_obj.album_mode = "query_playlist"
       self.window_manager.start_window(album_window.AlbumWindow)
       
    def signout_btn_click(self, btn_clicked):
@@ -70,5 +70,6 @@ class UserPlaylistsWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       self.window_manager.hide_window(UserPlaylistsWindow)
       self.window_manager.start_window(login_window.LoginWindow)
     
-       
+   def get_last_clicked_playlist(self):
+      return self.playlist_btn_to_playlist[self.playlist_btn_clicked] 
         

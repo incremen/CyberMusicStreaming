@@ -10,10 +10,13 @@ def log_user_and_playlists(user: User):
         return
     
     for playlist in user.playlists:
-        logging.debug(f"\n{playlist}")
+        log_playlist(playlist)
+
+def log_playlist(playlist):
+    logging.debug(f"\n{playlist}")
         
-        for song in playlist.songs:
-            logging.debug(f"{song}")
+    for song in playlist.songs:
+        logging.debug(f"{song}")
             
 def log_all_songs(session):
     logging.debug("Logging all songs")
@@ -31,7 +34,9 @@ def log_all_users(session):
     for user in all_users:
         logging.debug(user)
     if not all_users:
-        logging.debug("No users")        
+        logging.debug("No users") 
+        
+               
 def log_all_playlists(session):
     logging.debug("Logging all playlists")
     logging.debug("Playlist count: " + str(session.query(Playlist).count()))

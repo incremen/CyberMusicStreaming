@@ -17,12 +17,13 @@ from ui.window_interface import WindowInterface
 from database import client_db_funcs
 from dataclasses import asdict
 from database.models import User
-
+from database import utils
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
     from music_playing.audio_handler import AudioHandler
     from client.shared_state import SharedState
     from client.window_manager import WindowManager
+    from ui.user_playlists.user_playlists_window import UserPlaylistsWindow
 
 
 class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow): 
@@ -50,10 +51,18 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def start(self):
         if self.album_mode == "query_server":
             self.socket_handler.emit_to_server("song_list_request")
+        if self.album_mode == "query_playlist":
+            self.load_playlist_clicked()
         if self.album_mode == "query_local":
             logging.checkpoint("Querying local...")
             self.query_db_for_song_list()
         self.show()
+        
+    def load_playlist_clicked(self):
+        logging.debug("Showing users playlist...")
+        user_playlist_window : UserPlaylistsWindow = self.window_manager.get_window(UserPlaylistsWindow)
+        last_playlist = user_playlist_window.get_last_clicked_playlist()
+        utils.log_playlist(last_playlist)
 
     def query_db_for_song_list(self):
         session = client_db_funcs.create_session()
