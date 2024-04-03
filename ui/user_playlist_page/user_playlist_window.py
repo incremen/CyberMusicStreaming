@@ -8,8 +8,7 @@ from typing import TYPE_CHECKING
 import threading
 from custom_logging import log_calls
 from ui.album_page.album_window_ui import Ui_MainWindow
-from ui.album_page.album_window_config import PROGRESS_BAR_MAXIMUM
-from ui.search_page.search_window import SearchWindow
+from ui.user_playlist_page.user_playlist_config import PROGRESS_BAR_MAXIMUM
 from ui.drag_drop_funcs import make_widget_draggable, make_widget_not_draggable, make_list_widget_accept_drops
 from functools import partial
 from ui import gui_funcs
@@ -18,7 +17,7 @@ from database import client_db_funcs
 from dataclasses import asdict
 from database.models import User, Playlist, Song
 from database import utils
-from ui.user_profile.user_profile_window import UserProfileWindow
+from ui.user_profile import user_profile_window
 
 
 if TYPE_CHECKING:
@@ -26,11 +25,12 @@ if TYPE_CHECKING:
     from music_playing.audio_handler import AudioHandler
     from client.shared_state import SharedState
     from client.window_manager import WindowManager
+    
 
 
-class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow): 
+class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow): 
     def __init__(self, shared_state :'SharedState', window_manager :'WindowManager'):
-        super(AlbumWindow, self).__init__()
+        super(UserPlaylistWindow, self).__init__()
 
         self.setupUi(self)
         self.socket_handler = shared_state.socket_handler
@@ -73,7 +73,7 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         
     def load_playlist_clicked(self):
         logging.debug("Showing users playlist...")
-        user_playlist_window : UserProfileWindow = self.window_manager.get_window(UserProfileWindow)
+        user_playlist_window  = self.window_manager.get_window(user_profile_window.UserProfileWindow)
         last_playlist = user_playlist_window.get_last_clicked_playlist()
         utils.log_playlist(last_playlist)
         self.load_playlist(last_playlist)
@@ -100,8 +100,6 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.progress_slider.setMaximum(PROGRESS_BAR_MAXIMUM)
         self.progress_slider.sliderPressed.connect(self.audio_handler.pause_or_resume_song)
         self.progress_slider.sliderReleased.connect(self.seek_in_song)
-        
-        self.search_btn.clicked.connect(self.search_btn_click)
         
         make_list_widget_accept_drops(self.play_list_widget, self.add_btn_to_playlist)
         
@@ -139,10 +137,6 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         grid_btns = self.get_grid_btns()
         for btn in grid_btns:
             make_widget_draggable(btn)
-        
-    def search_btn_click(self):
-        self.window_manager.start_window(SearchWindow)
-        self.hide()
         
     def seek_in_song(self):
         self.audio_handler.seek_value(self.progress_slider.value())

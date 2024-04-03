@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     from client.shared_state import SharedState
     from client.window_manager import WindowManager
     from ui.album_page.album_window import AlbumWindow
-from ui.user_playlists.user_playlists_window import UserPlaylistsWindow
+from ui.user_profile.user_profile_window import UserProfileWindow
 
 
 class SearchWindow(Ui_MainWindow, WindowInterface, QMainWindow): 
@@ -36,7 +36,7 @@ class SearchWindow(Ui_MainWindow, WindowInterface, QMainWindow):
             
    def user_playlists_btn_click(self, btn_clicked):
       self.window_manager.hide_window(SearchWindow)
-      self.window_manager.start_window(UserPlaylistsWindow)
+      self.window_manager.start_window(UserProfileWindow)
            
    def album_btn_click(self, btn_clicked):
       self.album_window = self.window_manager.get_window(album_window.AlbumWindow)

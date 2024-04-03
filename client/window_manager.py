@@ -3,8 +3,9 @@ from ui.album_page.album_window import AlbumWindow
 from ui.search_page.search_window import SearchWindow
 from client.shared_state import SharedState
 from ui.window_interface import WindowInterface
-from ui.user_playlists.user_playlists_window import UserPlaylistsWindow
+from ui.user_profile.user_profile_window import UserProfileWindow
 from ui.signup_page.signup_window import SignupWindow
+from ui.user_playlist_page.user_playlist_window import UserPlaylistWindow
 import logging
 
 class WindowManager:
@@ -14,8 +15,9 @@ class WindowManager:
            LoginWindow: LoginWindow(self.shared_state, self),
            AlbumWindow: AlbumWindow(self.shared_state, self),
            SearchWindow: SearchWindow(self.shared_state, self),
-           UserPlaylistsWindow: UserPlaylistsWindow(self.shared_state, self),
-           SignupWindow: SignupWindow(self.shared_state, self)
+           UserProfileWindow: UserProfileWindow(self.shared_state, self),
+           SignupWindow: SignupWindow(self.shared_state, self),
+           UserProfileWindow: UserPlaylistWindow(self.shared_state, self)
        }
          
     def get_window(self, window_class):

@@ -1,4 +1,4 @@
-from ui.user_playlists.user_playlists_ui import Ui_MainWindow
+from ui.user_profile.user_playlists_ui import Ui_MainWindow
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QWidget, QListWidget, QListWidgetItem
 from ui import gui_funcs
 from ui.window_interface import WindowInterface
@@ -7,6 +7,7 @@ from ui.album_page import album_window
 from ui.login_page import login_window
 from itertools import zip_longest
 import logging
+from ui.user_playlist_page.user_playlist_window import UserPlaylistWindow
 
 
 if TYPE_CHECKING:
@@ -17,9 +18,9 @@ if TYPE_CHECKING:
     from ui.album_page.album_window import AlbumWindow
 
 
-class UserPlaylistsWindow(Ui_MainWindow, WindowInterface, QMainWindow): 
+class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow): 
    def __init__(self, shared_state :'SharedState', window_manager :'WindowManager'):
-       super(UserPlaylistsWindow, self).__init__()
+       super(UserProfileWindow, self).__init__()
        self.socket_handler = shared_state.socket_handler
        self.audio_handler = shared_state.audio_handler
        self.window_manager = window_manager
@@ -66,12 +67,12 @@ class UserPlaylistsWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       else:
          album_window_obj.album_mode = "search_db"
          
-      self.window_manager.hide_window(UserPlaylistsWindow)
-      self.window_manager.start_window(album_window.AlbumWindow)
+      self.window_manager.hide_window(UserProfileWindow)
+      self.window_manager.start_window(UserPlaylistWindow)
       
    def signout_btn_click(self, btn_clicked):
       self.login_manager.logout()
-      self.window_manager.hide_window(UserPlaylistsWindow)
+      self.window_manager.hide_window(UserProfileWindow)
       self.window_manager.start_window(login_window.LoginWindow)
     
    def get_last_clicked_playlist(self):
