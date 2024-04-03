@@ -47,10 +47,29 @@ class Ui_MainWindow(object):
         self.gridLayout.setObjectName("gridLayout")
         self.song_grid = QtWidgets.QGridLayout()
         self.song_grid.setObjectName("song_grid")
-        self.label_2 = QtWidgets.QLabel(self.left_box)
-        self.label_2.setText("")
-        self.label_2.setObjectName("label_2")
-        self.song_grid.addWidget(self.label_2, 2, 0, 1, 1)
+        self.label_3 = QtWidgets.QLabel(self.left_box)
+        self.label_3.setText("")
+        self.label_3.setObjectName("label_3")
+        self.song_grid.addWidget(self.label_3, 4, 1, 1, 1)
+        self.search_btn = QtWidgets.QPushButton(self.left_box)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.search_btn.sizePolicy().hasHeightForWidth())
+        self.search_btn.setSizePolicy(sizePolicy)
+        self.search_btn.setMaximumSize(QtCore.QSize(16777215, 60))
+        font = QtGui.QFont()
+        font.setPointSize(13)
+        self.search_btn.setFont(font)
+        self.search_btn.setStyleSheet(" border: 2px solid gold;\n"
+" background-color: rgba(128, 128, 128, 128);\n"
+" border-radius: 30px;\n"
+"color: white;\n"
+"\n"
+"\n"
+"")
+        self.search_btn.setObjectName("search_btn")
+        self.song_grid.addWidget(self.search_btn, 1, 0, 1, 1)
         self.label = QtWidgets.QLabel(self.left_box)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
@@ -75,30 +94,26 @@ class Ui_MainWindow(object):
         self.label_4 = QtWidgets.QLabel(self.left_box)
         self.label_4.setText("")
         self.label_4.setObjectName("label_4")
-        self.song_grid.addWidget(self.label_4, 2, 2, 1, 1)
-        self.label_3 = QtWidgets.QLabel(self.left_box)
-        self.label_3.setText("")
-        self.label_3.setObjectName("label_3")
-        self.song_grid.addWidget(self.label_3, 2, 1, 1, 1)
-        self.search_btn = QtWidgets.QPushButton(self.left_box)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        self.song_grid.addWidget(self.label_4, 4, 2, 1, 1)
+        self.lineEdit = QtWidgets.QLineEdit(self.left_box)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.search_btn.sizePolicy().hasHeightForWidth())
-        self.search_btn.setSizePolicy(sizePolicy)
-        self.search_btn.setMaximumSize(QtCore.QSize(16777215, 60))
-        font = QtGui.QFont()
-        font.setPointSize(13)
-        self.search_btn.setFont(font)
-        self.search_btn.setStyleSheet(" border: 2px solid gold;\n"
+        sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
+        self.lineEdit.setSizePolicy(sizePolicy)
+        self.lineEdit.setMinimumSize(QtCore.QSize(0, 70))
+        self.lineEdit.setStyleSheet(" border: 2px solid gold;\n"
 " background-color: rgba(128, 128, 128, 128);\n"
-" border-radius: 30px;\n"
 "color: white;\n"
 "\n"
 "\n"
 "")
-        self.search_btn.setObjectName("search_btn")
-        self.song_grid.addWidget(self.search_btn, 1, 0, 1, 1)
+        self.lineEdit.setObjectName("lineEdit")
+        self.song_grid.addWidget(self.lineEdit, 2, 0, 1, 1)
+        self.label_2 = QtWidgets.QLabel(self.left_box)
+        self.label_2.setText("")
+        self.label_2.setObjectName("label_2")
+        self.song_grid.addWidget(self.label_2, 3, 0, 1, 1)
         self.gridLayout.addLayout(self.song_grid, 0, 0, 1, 1)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem, 1, 0, 1, 1)
@@ -295,8 +310,8 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.search_btn.setText(_translate("MainWindow", "Search for a song:"))
         self.label.setText(_translate("MainWindow", "Demo Album"))
-        self.search_btn.setText(_translate("MainWindow", "Find more!"))
         self.groupBox.setTitle(_translate("MainWindow", "GroupBox"))
         self.search_btn_2.setText(_translate("MainWindow", "Save playlist"))
         self.right_tab.setTabText(self.right_tab.indexOf(self.tab), _translate("MainWindow", "Page"))

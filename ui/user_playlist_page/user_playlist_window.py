@@ -7,7 +7,7 @@ from music_playing.song_class import SongInfo
 from typing import TYPE_CHECKING
 import threading
 from custom_logging import log_calls
-from ui.album_page.album_window_ui import Ui_MainWindow
+from ui.user_playlist_page.user_playlist_ui import Ui_MainWindow
 from ui.user_playlist_page.user_playlist_config import PROGRESS_BAR_MAXIMUM
 from ui.drag_drop_funcs import make_widget_draggable, make_widget_not_draggable, make_list_widget_accept_drops
 from functools import partial
@@ -39,7 +39,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.setup_widgets()
         
 
-        self.last_song_grid_row = 2
+        self.last_song_grid_row = 3
         self.last_song_grid_col = -1
 
         self.skip_lock = threading.Lock()
@@ -161,7 +161,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
 
     def clear_all_song_btns(self, songs):
         self.delete_from_grid(5)
-        self.last_song_grid_row = 2
+        self.last_song_grid_row = 3
         self.last_song_grid_col = -1
         self.song_list = songs
         self.btn_to_info = {}
