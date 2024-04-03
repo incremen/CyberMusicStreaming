@@ -95,21 +95,21 @@ class Ui_MainWindow(object):
         self.label_4.setText("")
         self.label_4.setObjectName("label_4")
         self.song_grid.addWidget(self.label_4, 4, 2, 1, 1)
-        self.lineEdit = QtWidgets.QLineEdit(self.left_box)
+        self.search_bar = QtWidgets.QLineEdit(self.left_box)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
-        self.lineEdit.setSizePolicy(sizePolicy)
-        self.lineEdit.setMinimumSize(QtCore.QSize(0, 70))
-        self.lineEdit.setStyleSheet(" border: 2px solid gold;\n"
+        sizePolicy.setHeightForWidth(self.search_bar.sizePolicy().hasHeightForWidth())
+        self.search_bar.setSizePolicy(sizePolicy)
+        self.search_bar.setMinimumSize(QtCore.QSize(0, 70))
+        self.search_bar.setStyleSheet(" border: 2px solid gold;\n"
 " background-color: rgba(128, 128, 128, 128);\n"
 "color: white;\n"
 "\n"
 "\n"
 "")
-        self.lineEdit.setObjectName("lineEdit")
-        self.song_grid.addWidget(self.lineEdit, 2, 0, 1, 1)
+        self.search_bar.setObjectName("search_bar")
+        self.song_grid.addWidget(self.search_bar, 2, 0, 1, 1)
         self.label_2 = QtWidgets.QLabel(self.left_box)
         self.label_2.setText("")
         self.label_2.setObjectName("label_2")

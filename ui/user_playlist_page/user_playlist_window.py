@@ -92,6 +92,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.song_list_received(self.song_list)
        
     def setup_widgets(self):
+        self.search_bar.returnPressed.connect(self.search_bar_text_changed)
         self.skip_btn.clicked.connect(self.skip_btn_click)
         self.back_btn.clicked.connect(self.back_btn_click)
         self.pause_btn.clicked.connect(self.pause_btn_click)  
@@ -106,6 +107,11 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.right_tab.currentChanged.connect(self.tab_changed)
         self.on_change_to_queue_tab()
         self.right_tab.setCurrentIndex(1)
+        
+    def search_bar_text_changed(self):
+        search_text = self.search_bar.text()
+        logging.info(f"Search bar just searched for {search_text}")
+        self.search_db(search_text)
         
     def add_btn_to_playlist(self, song_btn : QPushButton):
         self.songs_in_playlist.append(song_btn)

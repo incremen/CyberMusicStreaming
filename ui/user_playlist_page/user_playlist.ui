@@ -141,7 +141,7 @@ color: white;
                 </widget>
                </item>
                <item row="2" column="0">
-                <widget class="QLineEdit" name="lineEdit">
+                <widget class="QLineEdit" name="search_bar">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                    <horstretch>0</horstretch>
