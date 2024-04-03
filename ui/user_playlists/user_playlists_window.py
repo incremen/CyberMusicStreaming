@@ -58,12 +58,15 @@ class UserPlaylistsWindow(Ui_MainWindow, WindowInterface, QMainWindow):
          self.playlist_btn_to_playlist[playlist_btn] = playlist
            
    def playlist_btn_click(self):
-      self.playlist_btn_clicked = self.sender()
-      
-      self.window_manager.hide_window(UserPlaylistsWindow)
-      
       album_window_obj = self.window_manager.windows[album_window.AlbumWindow]
-      album_window_obj.album_mode = "query_playlist"
+      
+      self.playlist_btn_clicked = self.sender()
+      if self.playlist_btn_to_playlist.get(self.playlist_btn_clicked):
+         album_window_obj.album_mode = "query_playlist"
+      else:
+         album_window_obj.album_mode = "search_db"
+         
+      self.window_manager.hide_window(UserPlaylistsWindow)
       self.window_manager.start_window(album_window.AlbumWindow)
       
    def signout_btn_click(self, btn_clicked):

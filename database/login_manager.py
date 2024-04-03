@@ -31,6 +31,7 @@ class LoginManager:
         session.commit()
         logging.info(f"Account for user {username} created successfully")
         log_db()
+        session.expunge_all()
         session.close()
         
         return Ok(new_user)
@@ -48,6 +49,7 @@ class LoginManager:
             logging.error(error_message)
             return Err(error_message)
         self.current_user = user
+        session.expunge_all()
         session.close()
         logging.info(f"User {username} logged in successfully")
         log_db()

@@ -16,7 +16,7 @@ from ui import gui_funcs
 from ui.window_interface import WindowInterface
 from database import client_db_funcs
 from dataclasses import asdict
-from database.models import User, Playlist
+from database.models import User, Playlist, Song
 from database import utils
 from ui.user_playlists.user_playlists_window import UserPlaylistsWindow
 
@@ -47,10 +47,12 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.last_queue_emit_num = -1
         self.last_songs_played_emit_num = -1
         
-        self.album_mode = "query_server"
+        self.album_mode = "search_db"
         self.songs_in_playlist = []
        
     def start(self):
+        if self.album_mode == "search_db":
+            self.search_db()
         if self.album_mode == "query_server":
             self.socket_handler.emit_to_server("song_list_request")
         if self.album_mode == "query_playlist":
@@ -59,6 +61,12 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
             logging.checkpoint("Querying local...")
             self.query_db_for_song_list()
         self.show()
+        
+    def search_db(self, search_term : str = ""):
+        logging.info(f"Searching db for {search_term}")
+        session = client_db_funcs.create_session()
+        songs_found = session.query(Song).filter(Song.name.like(f'{search_term}%')).all()
+        logging.debug(f"{songs_found=}")
         
     def load_playlist_clicked(self):
         logging.debug("Showing users playlist...")
