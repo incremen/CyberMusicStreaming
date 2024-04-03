@@ -67,6 +67,8 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         session = client_db_funcs.create_session()
         songs_found = session.query(Song).filter(Song.name.like(f'{search_term}%')).all()
         logging.debug(f"{songs_found=}")
+        song_dicts = [song.as_dict() for song in songs_found]
+        self.song_list_received(song_dicts, enable_drag = True)
         
     def load_playlist_clicked(self):
         logging.debug("Showing users playlist...")
