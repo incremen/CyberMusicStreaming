@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database.models import User  # Assuming you have a User model defined elsewhere
 from returns.result import Result, Success, Failure
-
+from log_db import log_db
 import logging
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -19,21 +19,22 @@ class LoginManager:
     def create_new_account(self, username, password) -> Result[User, str]:
         logging.info(f"Attempting to create a new account for user: {username}")
         session = self.Session()
-        existing_user = session.query(User).filter_by(username=username).first()
-        if existing_user:
-            error_message = f"User {username} already exists"
-            logging.error(error_message)
-            return Err(error_message)
-        new_user = User(username=username, password=password)
-        
-        self.current_user = new_user
-        session.add(new_user)
-        session.expunge_all()
-        session.commit()
-        session.close()
-        
-        logging.info(f"Account for user {username} created successfully")
-        return Ok(new_user)
+        try:
+            existing_user = session.query(User).filter_by(username=username).first()
+            if existing_user:
+                error_message = f"User {username} already exists"
+                logging.error(error_message)
+                return Err(error_message)
+
+            new_user = User(username=username, password=password)
+            self.current_user = new_user
+            session.add(new_user)
+            session.commit()  # Commit the transaction before closing the session
+            logging.info(f"Account for user {username} created successfully")
+            log_db()
+            return Ok(new_user)
+        finally:
+            session.close()  # Close the session after committing the transaction
 
     def login(self, username, password) -> Result[User, str]:
         logging.info(f"Attempting to log in user: {username}")
@@ -51,6 +52,7 @@ class LoginManager:
         session.expunge_all()
         session.close()
         logging.info(f"User {username} logged in successfully")
+        log_db()
         return Ok(user)
 
     def logout(self) -> Result[bool, str]:
