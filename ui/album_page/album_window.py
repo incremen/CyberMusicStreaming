@@ -69,6 +69,7 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         logging.debug(f"{songs_found=}")
         song_dicts = [song.as_dict() for song in songs_found]
         self.song_list_received(song_dicts, enable_drag = True)
+        self.audio_handler.song_list_received(song_dicts)
         
     def load_playlist_clicked(self):
         logging.debug("Showing users playlist...")
