@@ -19,22 +19,21 @@ class LoginManager:
     def create_new_account(self, username, password) -> Result[User, str]:
         logging.info(f"Attempting to create a new account for user: {username}")
         session = self.Session()
-        try:
-            existing_user = session.query(User).filter_by(username=username).first()
-            if existing_user:
-                error_message = f"User {username} already exists"
-                logging.error(error_message)
-                return Err(error_message)
+        existing_user = session.query(User).filter_by(username=username).first()
+        if existing_user:
+            error_message = f"User {username} already exists"
+            logging.error(error_message)
+            return Err(error_message)
 
-            new_user = User(username=username, password=password)
-            self.current_user = new_user
-            session.add(new_user)
-            session.commit()  # Commit the transaction before closing the session
-            logging.info(f"Account for user {username} created successfully")
-            log_db()
-            return Ok(new_user)
-        finally:
-            session.close()  # Close the session after committing the transaction
+        new_user = User(username=username, password=password)
+        self.current_user = new_user
+        session.add(new_user)
+        session.commit()
+        logging.info(f"Account for user {username} created successfully")
+        log_db()
+        session.close()
+        
+        return Ok(new_user)
 
     def login(self, username, password) -> Result[User, str]:
         logging.info(f"Attempting to log in user: {username}")
@@ -49,7 +48,6 @@ class LoginManager:
             logging.error(error_message)
             return Err(error_message)
         self.current_user = user
-        session.expunge_all()
         session.close()
         logging.info(f"User {username} logged in successfully")
         log_db()
