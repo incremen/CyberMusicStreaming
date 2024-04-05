@@ -64,6 +64,8 @@ class AudioHandler:
         
     @log_calls
     def add_to_song_queue(self, song_name :str):
+        opened_window = self.window_manager.opened_window
+        self.main_page_emitter.setup_connections(opened_window)
         try: 
             song_info = self.song_name_to_info[song_name]
         except KeyError:
