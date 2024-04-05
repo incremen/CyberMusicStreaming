@@ -102,6 +102,7 @@ class AudioHandler:
     @log_calls
     def play_song(self, song : SongInfo):
         url = f'http://{HLS_HOST}:{HLS_PORT}/{song.name}/index.m3u8'
+        url = r"D:\vs_code_projects_good_place\cyber_music_streaming\songs\cant_keep_getting_away.wav"
         # url = f'songs/{song.name}'
         logging.checkpoint(f"\nPlaying {url=} because: \n{self.song_queue=}\n{self.songs_played=}\n")
         self.player.play(url)
