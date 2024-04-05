@@ -12,11 +12,12 @@ import mpv
 from backend import HLS_HOST, HLS_PORT
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
-
+from client.window_manager import WindowManager
 CHUNK = 4096
 
 class AudioHandler:
     def __init__(self, main_page_emitter: 'WindowEmitter'):
+        self.window_manager : WindowManager = None
         self.main_page_emitter = main_page_emitter
         self.song_queue = EmittingList(main_page_emitter.update_song_queue)
         self.songs_played = EmittingList(main_page_emitter.update_songs_played)

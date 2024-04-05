@@ -10,15 +10,17 @@ import logging
 
 class WindowManager:
     def __init__(self, shared_state : SharedState):
-         self.shared_state = shared_state
-         self.windows: dict[type[WindowInterface], WindowInterface] = {
-           LoginWindow: LoginWindow(self.shared_state, self),
-           AlbumWindow: AlbumWindow(self.shared_state, self),
-           SearchWindow: SearchWindow(self.shared_state, self),
-           UserProfileWindow: UserProfileWindow(self.shared_state, self),
-           SignupWindow: SignupWindow(self.shared_state, self),
-           UserPlaylistWindow: UserPlaylistWindow(self.shared_state, self)
-       }
+        self.shared_state = shared_state
+        self.windows: dict[type[WindowInterface], WindowInterface] = {
+        LoginWindow: LoginWindow(self.shared_state, self),
+        AlbumWindow: AlbumWindow(self.shared_state, self),
+        SearchWindow: SearchWindow(self.shared_state, self),
+        UserProfileWindow: UserProfileWindow(self.shared_state, self),
+        SignupWindow: SignupWindow(self.shared_state, self),
+        UserPlaylistWindow: UserPlaylistWindow(self.shared_state, self)
+    }
+         
+        self.opened_window : WindowInterface= None
          
     def get_window(self, window_class):
         return self.windows[window_class]
@@ -31,6 +33,7 @@ class WindowManager:
             raise Exception(error_msg)
         
         window.start()
+        self.opened_window = window
 
     def hide_window(self, window_class):
         window = self.windows.get(window_class)
