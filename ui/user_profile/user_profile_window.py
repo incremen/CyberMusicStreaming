@@ -26,7 +26,7 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
        self.window_manager = window_manager
        self.login_manager = shared_state.login_manager
        self.setupUi(self)
-       self.playlist_btn_to_playlist = {}
+       self.playlist_btn_to_playlist : dict[QPushButton] = {}
        self.setup_btns()
        
    def start(self):
@@ -59,13 +59,20 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
          self.playlist_btn_to_playlist[playlist_btn] = playlist
            
    def playlist_btn_click(self):
-      album_window_obj = self.window_manager.windows[album_window.AlbumWindow]
+      user_playlists_window = self.window_manager.windows[UserPlaylistWindow]
       
       self.playlist_btn_clicked = self.sender()
-      if self.playlist_btn_to_playlist.get(self.playlist_btn_clicked):
-         album_window_obj.album_mode = "query_playlist"
+      logging.info(f"{self.playlist_btn_clicked=}")
+      logging.info(f"{self.playlist_btn_to_playlist=}")
+      logging.info(f"{self.playlist_btn_to_playlist.get(self.playlist_btn_clicked)=}")
+      
+      playlist = self.playlist_btn_to_playlist.get(self.playlist_btn_clicked)
+      logging.debug(f"{playlist=}")
+      
+      if playlist:
+         user_playlists_window.query_mode = "query_playlist"
       else:
-         album_window_obj.album_mode = "search_db"
+         user_playlists_window.query_mode = "search_db"
          
       self.window_manager.hide_window(UserProfileWindow)
       self.window_manager.start_window(UserPlaylistWindow)

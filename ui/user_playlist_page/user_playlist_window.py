@@ -48,19 +48,20 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.last_queue_emit_num = -1
         self.last_songs_played_emit_num = -1
         
-        self.album_mode = "search_db"
+        self.query_mode = "search_db"
         self.songs_btns_text_in_playlist = []
         self.song_btn_to_song_info : dict[QPushButton, SongInfo] = {}
         self.song_btn_text_to_song_info : dict[str, SongInfo] = {}
        
     def start(self):
-        if self.album_mode == "search_db":
+        logging.info(f"{self.query_mode=}")
+        if self.query_mode == "search_db":
             self.search_db()
-        if self.album_mode == "query_server":
+        if self.query_mode == "query_server":
             self.socket_handler.emit_to_server("song_list_request")
-        if self.album_mode == "query_playlist":
+        if self.query_mode == "query_playlist":
             self.load_playlist_clicked()
-        if self.album_mode == "query_local":
+        if self.query_mode == "query_local":
             logging.checkpoint("Querying local...")
             self.query_db_for_song_list()
         self.show()
