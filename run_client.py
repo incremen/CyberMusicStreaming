@@ -14,9 +14,11 @@ from database.login_manager import LoginManager
 from database import SQLITE_PATH
 from ui.user_playlist_page.user_playlist_window import UserPlaylistWindow
 from ui.user_profile.user_profile_window import UserProfileWindow
-
+import logging
 
 def main():
+    logging.getLogger('sqlalchemy').setLevel(logging.ERROR)
+
     custom_logger = custom_logging.CustomLogger(log_files=["client.log"], log_to_console = False)
     custom_logger.clear_logs()
     app = QApplication(sys.argv)
@@ -33,6 +35,7 @@ def main():
     album_window = window_manager.get_window(AlbumWindow)
     album_emitter.setup_connections(album_window)
     
+    login_manager.create_new_account("a", "a")
     login_manager.login("a", "a")
     window_manager.start_window(UserProfileWindow)
     

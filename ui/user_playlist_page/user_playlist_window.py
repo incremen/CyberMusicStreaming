@@ -36,6 +36,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.socket_handler = shared_state.socket_handler
         self.audio_handler = shared_state.audio_handler
         self.window_manager = window_manager
+        self.login_manager = shared_state.login_manager
         self.setup_widgets()
 
         self.last_song_grid_row = 3
@@ -123,6 +124,9 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
             logging.info(f"{song_info=}")
         
         session.add(new_playlist)
+        
+        user = self.login_manager.current_user
+        user.playlists.append(new_playlist)
         session.commit()
         utils.log_all_playlists()
         

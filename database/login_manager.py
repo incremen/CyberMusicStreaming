@@ -14,7 +14,7 @@ class LoginManager:
     def __init__(self, db_url):
         self.engine = create_engine(db_url)
         self.Session = sessionmaker(bind=self.engine)
-        self.current_user = None
+        self.current_user : User = None
 
     def create_new_account(self, username, password) -> Result[User, str]:
         logging.info(f"Attempting to create a new account for user: {username}")
