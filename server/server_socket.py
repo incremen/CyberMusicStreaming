@@ -46,7 +46,7 @@ class ServerSocketHandler:
                 with self.sio.session(sid) as session_data:
                     session_data['username'] = username
                     
-            result_msg = result.unwrap()
+            result_msg = result.value
                                 
             self.sio.emit("account_create_result", {"result": result.is_ok(), "message" : result_msg},  room=sid)
 
@@ -61,7 +61,7 @@ class ServerSocketHandler:
                 with self.sio.session(sid) as session_data:
                     session_data['username'] = username
                     
-            self.sio.emit("login_result", {"result": result.is_ok(), "message": result.unwrap()}, room=sid)
+            self.sio.emit("login_result", {"result": result.is_ok(), "message": result.value}, room=sid)
 
         @self.sio.on("logout")
         def logout_handler(sid):

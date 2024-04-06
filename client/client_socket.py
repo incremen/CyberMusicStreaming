@@ -41,6 +41,16 @@ class ClientSocketHandler:
         def received_next_song_order(order):
             logging.recv(f"received next song order: {order}")
             
+        @self.sio.on("account_create_result")
+        def on_account_create_result(data):
+            if self.login_manager:
+                self.login_manager.create_account_response(data['result'], data['message'])
+
+        @self.sio.on("login_result")
+        def on_login_result(data):
+            if self.login_manager:
+                self.login_manager.login_in_response(data['result'], data['message'])
+            
         self.sio.connect(CLIENT_CONNECTS_TO_STR)
         
         

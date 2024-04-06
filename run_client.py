@@ -28,7 +28,7 @@ def main():
     client_socket_handler = ClientSocketHandler(audio_handler, album_emitter)
     client_socket_handler.connect()
     
-    login_manager = LoginManager(SQLITE_PATH)
+    login_manager = LoginManager(SQLITE_PATH, client_socket_handler)
     shared_state = SharedState(socket_handler=client_socket_handler, audio_handler=audio_handler, login_manager=login_manager)
     window_manager = WindowManager(shared_state)
     
@@ -38,7 +38,7 @@ def main():
     
     login_manager.create_new_account("a", "a")
     login_manager.login("a", "a")
-    window_manager.start_window(UserProfileWindow)
+    window_manager.start_window(SignupWindow)
     logging.getLogger('sqlalchemy').setLevel(logging.ERROR)
     
     app.exec_()

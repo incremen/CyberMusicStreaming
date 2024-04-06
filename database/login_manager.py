@@ -4,9 +4,14 @@ from sqlalchemy.orm import sessionmaker
 from database.models import User  # Assuming you have a User model defined elsewhere
 from log_db import log_db
 from result import Ok, Err, Result, is_ok, is_err
+from typing import TYPE_CHECKING
 
+
+if TYPE_CHECKING:
+    from client.client_socket import ClientSocketHandler
 class LoginManager:
-    def __init__(self, db_url):
+    def __init__(self, db_url, client_socket_handler : 'ClientSocketHandler'):
+        self.socket_handler = client_socket_handler
         self.engine = create_engine(db_url)
         self.Session = sessionmaker(bind=self.engine)
         self.current_user_id = None
@@ -22,23 +27,24 @@ class LoginManager:
 
     def create_new_account(self, username, password) -> Result[User, str]:
         logging.info(f"Attempting to create a new account for user: {username}")
-        session = self.Session()
-        existing_user = session.query(User).filter_by(username=username).first()
+        self.socket_handler.emit_to_server('create_new_account', {'username': username, 'password': password})
+        
+        # existing_user = session.query(User).filter_by(username=username).first()
 
-        if existing_user:
-            error_message = f"User {username} already exists"
-            logging.error(error_message)
-            session.close()
-            return Err(error_message)
+        # if existing_user:
+        #     error_message = f"User {username} already exists"
+        #     logging.error(error_message)
+        #     session.close()
+        #     return Err(error_message)
 
-        new_user = User(username=username, password=password)
-        self.current_user_id = new_user.id
-        session.add(new_user)
-        session.commit()
-        logging.info(f"Account for user {username} created successfully")
-        log_db()
-        session.close()
-        return Ok(new_user)
+        # new_user = User(username=username, password=password)
+        # self.current_user_id = new_user.id
+        # session.add(new_user)
+        # session.commit()
+        # logging.info(f"Account for user {username} created successfully")
+        # log_db()
+        # session.close()
+        # return Ok(new_user)
 
     def login(self, username, password) -> Result[User, str]:
         logging.info(f"Attempting to log in user: {username}")
