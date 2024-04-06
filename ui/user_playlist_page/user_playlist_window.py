@@ -117,19 +117,12 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         session = client_db_funcs.create_session()
         
         new_playlist = Playlist(name = "playlist")
-        user = self.login_manager.current_user
+        user = session.query(User).filter_by(username = self.login_manager.current_user.username).first()
         user.playlists.append(new_playlist)
                 
-        for song_btn in self.songs_btns_text_in_playlist:
-            song_info = self.song_btn_text_to_song_info[song_btn]
-            logging.debug("About to query")
-            song_to_add = session.query(Song).filter(Song.id == song_info.id).first()
-            session.expunge_all()
-            logging.debug("Finished querying")
-            logging.debug(f"Before {new_playlist.songs=}")
-            new_playlist.songs.append(song_to_add)
-            logging.debug(f"After {new_playlist.songs=}")
-            logging.info(f"{song_info=}")
+        song_ids = [song_info.id for song_info in self.song_btn_text_to_song_info.values()]
+        songs_to_add = session.query(Song).filter(Song.id.in_(song_ids)).all()
+        new_playlist.songs.extend(songs_to_add)
         
         session.add(new_playlist)
         logging.debug("Added playlist to db")
