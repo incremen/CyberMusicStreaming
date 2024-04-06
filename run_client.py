@@ -16,7 +16,7 @@ from ui.user_playlist_page.user_playlist_window import UserPlaylistWindow
 
 
 def main():
-    custom_logger = custom_logging.CustomLogger(log_files=["client.log"])
+    custom_logger = custom_logging.CustomLogger(log_files=["client.log"], log_to_console = False)
     custom_logger.clear_logs()
     app = QApplication(sys.argv)
     
