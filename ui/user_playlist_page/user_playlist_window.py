@@ -53,6 +53,10 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.song_btn_text_to_song_info : dict[str, SongInfo] = {}
        
     def start(self):
+        self.playlist_name_edit.setText("New Playlist")
+        self.play_list_widget.clear()
+        
+        
         logging.info(f"{self.query_mode=}")
         self.search_db()
         if self.query_mode == "query_playlist":
@@ -74,6 +78,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         profile_window  = self.window_manager.get_window(user_profile_window.UserProfileWindow)
         last_playlist = profile_window.get_last_clicked_playlist()
         utils.log_playlist(last_playlist)
+        self.playlist_name_edit.setText(last_playlist.name)
         self.add_songs_to_playlist_widget(last_playlist)
         
     def add_songs_to_playlist_widget(self, playlist : Playlist):
