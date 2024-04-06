@@ -48,6 +48,8 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         
         self.album_mode = "search_db"
         self.songs_btns_text_in_playlist = []
+        self.song_btn_to_song_info : dict[QPushButton, SongInfo] = {}
+        self.song_btn_text_to_song_info : dict[str, SongInfo] = {}
        
     def start(self):
         if self.album_mode == "search_db":
@@ -111,7 +113,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         
     def save_playlist_btn_clicked(self):
         for song_btn in self.songs_btns_text_in_playlist:
-            song_info = self.song_btn_to_song_info[song_btn]
+            song_info = self.song_btn_text_to_song_info[song_btn]
             logging.info(f"{song_info=}")
         
     def search_bar_text_changed(self):
@@ -119,8 +121,8 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         logging.info(f"Search bar just searched for {search_text}")
         self.search_db(search_text)
         
-    def add_btn_text_to_playlist(self, song_btn : QPushButton):
-        self.songs_btns_text_in_playlist.append(song_btn)
+    def add_btn_text_to_playlist(self, song_btn_text : str):
+        self.songs_btns_text_in_playlist.append(song_btn_text)
         logging.info("Added button to playlist...")
         logging.debug(f"{self.songs_btns_text_in_playlist=}")
         
@@ -164,7 +166,8 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         song_info = SongInfo(**song_dict)
         song_text = f"{song_info.name}\n {song_info.length} seconds"
         song_btn = self.create_song_btn(song_text)
-            
+        self.song_btn_text_to_song_info.update({song_text : song_info})
+        
         if enable_drag:
             make_widget_draggable(song_btn)
                 
