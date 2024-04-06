@@ -112,9 +112,19 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.save_playlist_btn.clicked.connect(self.save_playlist_btn_clicked)
         
     def save_playlist_btn_clicked(self):
+        session = client_db_funcs.create_session()
+        
+        new_playlist = Playlist(name = "playlist")
+                
         for song_btn in self.songs_btns_text_in_playlist:
             song_info = self.song_btn_text_to_song_info[song_btn]
+            song_to_add = session.query(Song).filter(Song.id == song_info.id).first()
+            new_playlist.songs.append(song_to_add)
             logging.info(f"{song_info=}")
+        
+        session.add(new_playlist)
+        session.commit()
+        utils.log_all_playlists()
         
     def search_bar_text_changed(self):
         search_text = self.search_bar.text()

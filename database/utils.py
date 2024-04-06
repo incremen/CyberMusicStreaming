@@ -37,12 +37,13 @@ def log_all_users(session):
         logging.debug("No users") 
         
                
-def log_all_playlists(session):
+def log_all_playlists():
+    session = create_session()
     logging.debug("Logging all playlists")
     logging.debug("Playlist count: " + str(session.query(Playlist).count()))
     all_playlists = session.query(Playlist).all()
     for playlist in all_playlists:
-        logging.debug(playlist)
+        log_playlist(playlist)
     if not all_playlists:
         logging.debug("No playlists")
 
