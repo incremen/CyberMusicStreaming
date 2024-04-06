@@ -56,8 +56,9 @@ class ClientSocketHandler:
 
         @self.sio.on("login_result")
         def on_login_result(data):
+            logging.debug(f"{data=}")
             if self.login_manager:
-                self.login_manager.login_in_response(data['result'], data['message'])
+                self.login_manager.login_response(data['result'])
             
         self.sio.connect(CLIENT_CONNECTS_TO_STR)
         

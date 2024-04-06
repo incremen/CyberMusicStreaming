@@ -40,8 +40,8 @@ class LoginWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         password = self.password_input.text()
         result = self.login_manager.login(username, password)
 
-    def handle_login_fail(self, result):
-        logging.error(f"Failed to login: {result.unwrap_err()}")
+    def handle_login_fail(self,):
+        logging.error(f"Failed to login")
 
     def handle_login_success(self):
         logging.info("Login successful.")

@@ -17,6 +17,10 @@ class LoginManager:
         self.Session = sessionmaker(bind=self.engine)
         self.current_user_id = None
         self.login_window_emitter : LoginWindowEmitter = None
+        
+        self.signed_in = False
+        self.username = None
+        self.password = None
 
     def get_current_user(self):
         if self.current_user_id is None:
@@ -30,27 +34,21 @@ class LoginManager:
     def create_new_account(self, username, password):
         logging.info(f"Attempting to create a new account for user: {username}")
         self.socket_handler.emit_to_server('create_new_account', {'username': username, 'password': password})
+        self.username = username
+        self.password = password
 
     def login(self, username, password):
         logging.info(f"Attempting to log in user: {username}")
+        self.socket_handler.emit_to_server('login', {'username': username, 'password': password})
 
-        if not user:
-            error_message = f"User {username} not found"
-            logging.error(error_message)
-            session.close()
-            return Err(error_message)
+    def login_response(self, result):
+        if not result:
+            self.username = None
+            self.password = None
+        else:
+            self.signed_in = True
 
-        if user.password != password:
-            error_message = f"Wrong password"
-            logging.error(error_message)
-            session.close()
-            return Err(error_message)
-
-        self.current_user_id = user.id
-        logging.info(f"User {username} logged in successfully")
-        log_db()
-        session.close()
-        return Ok(user)
+        self.login_window_emitter.login_response.emit(result)
 
     def logout(self) -> Result[bool, str]:
         if self.current_user_id is None:

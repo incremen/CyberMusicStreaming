@@ -21,7 +21,7 @@ from ui.login_page.login_window_emitter import LoginWindowEmitter
 def main():
     logging.getLogger('sqlalchemy').setLevel(logging.ERROR)
 
-    custom_logger = custom_logging.CustomLogger(log_files=["client.log"], log_to_console = False)
+    custom_logger = custom_logging.CustomLogger(log_files=["client.log"], log_to_console = True)
     custom_logger.clear_logs()
     app = QApplication(sys.argv)
     
@@ -31,8 +31,8 @@ def main():
     album_window = window_manager.get_window(AlbumWindow)
     album_emitter.setup_connections(album_window)
     
-    login_manager.create_new_account("a", "a")
-    login_manager.login("a", "a")
+    # login_manager.create_new_account("a", "a")
+    # login_manager.login("a", "a")
     
     signup_window = window_manager.get_window(SignupWindow)
     signup_window_emitter = SignupWindowEmitter(signup_window)
