@@ -115,25 +115,24 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         
     def save_playlist_btn_clicked(self):
         session = client_db_funcs.create_session()
-        
         playlist_name = self.playlist_name_edit.text()
+        
         playlist = session.query(Playlist).filter_by(name = playlist_name).first()
+        
+        logging.debug(f"{playlist=}")
         if not playlist:
+            logging.info("Playlist not found.. :(")
             playlist = Playlist(name = playlist_name)
         
-        new_playlist = Playlist(name = playlist_name)
         user = session.query(User).filter_by(username = self.login_manager.current_user.username).first()
-        user.playlists.append(new_playlist)
+        user.playlists.append(playlist)
         
         songs_in_playlist = [self.song_btn_text_to_song_info[btn_text] for btn_text in self.songs_btns_text_in_playlist]
         song_ids = [song_info.id for song_info in songs_in_playlist]
         songs_to_add = session.query(Song).filter(Song.id.in_(song_ids)).all()
-        new_playlist.songs.extend(songs_to_add)
+        playlist.songs.extend(songs_to_add)
         
-        session.add(new_playlist)
-        logging.debug("Added playlist to db")
-        
-        logging.debug("Appended playlist to user")
+        session.add(playlist)
         session.commit()
         logging.debug("Committed changes to db")
         utils.log_all_playlists()

@@ -38,6 +38,7 @@ def main():
     login_manager.create_new_account("a", "a")
     login_manager.login("a", "a")
     window_manager.start_window(UserProfileWindow)
+    logging.getLogger('sqlalchemy').setLevel(logging.ERROR)
     
     app.exec_()
   
