@@ -1,3 +1,4 @@
+import sqlalchemy
 import time
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QWidget, QListWidget, QListWidgetItem
@@ -116,18 +117,26 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         session = client_db_funcs.create_session()
         
         new_playlist = Playlist(name = "playlist")
+        user = self.login_manager.current_user
+        user.playlists.append(new_playlist)
                 
         for song_btn in self.songs_btns_text_in_playlist:
             song_info = self.song_btn_text_to_song_info[song_btn]
+            logging.debug("About to query")
             song_to_add = session.query(Song).filter(Song.id == song_info.id).first()
+            session.expunge_all()
+            logging.debug("Finished querying")
+            logging.debug(f"Before {new_playlist.songs=}")
             new_playlist.songs.append(song_to_add)
+            logging.debug(f"After {new_playlist.songs=}")
             logging.info(f"{song_info=}")
         
         session.add(new_playlist)
+        logging.debug("Added playlist to db")
         
-        user = self.login_manager.current_user
-        user.playlists.append(new_playlist)
+        logging.debug("Appended playlist to user")
         session.commit()
+        logging.debug("Committed changes to db")
         utils.log_all_playlists()
         
     def search_bar_text_changed(self):
