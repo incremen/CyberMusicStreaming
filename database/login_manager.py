@@ -2,8 +2,8 @@ import logging
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database.models import User  # Assuming you have a User model defined elsewhere
-from returns.result import Result, Success, Failure
 from log_db import log_db
+from result import Ok, Err, Result, is_ok, is_err
 
 class LoginManager:
     def __init__(self, db_url):
@@ -29,7 +29,7 @@ class LoginManager:
             error_message = f"User {username} already exists"
             logging.error(error_message)
             session.close()
-            return Failure(error_message)
+            return Err(error_message)
 
         new_user = User(username=username, password=password)
         self.current_user_id = new_user.id
@@ -38,7 +38,7 @@ class LoginManager:
         logging.info(f"Account for user {username} created successfully")
         log_db()
         session.close()
-        return Success(new_user)
+        return Ok(new_user)
 
     def login(self, username, password) -> Result[User, str]:
         logging.info(f"Attempting to log in user: {username}")
@@ -49,28 +49,28 @@ class LoginManager:
             error_message = f"User {username} not found"
             logging.error(error_message)
             session.close()
-            return Failure(error_message)
+            return Err(error_message)
 
         if user.password != password:
             error_message = f"Wrong password"
             logging.error(error_message)
             session.close()
-            return Failure(error_message)
+            return Err(error_message)
 
         self.current_user_id = user.id
         logging.info(f"User {username} logged in successfully")
         log_db()
         session.close()
-        return Success(user)
+        return Ok(user)
 
     def logout(self) -> Result[bool, str]:
         if self.current_user_id is None:
             error_message = "No user is currently logged in"
             logging.error(error_message)
-            return Failure(error_message)
+            return Err(error_message)
 
         current_user = self.get_current_user()
         logging.info(f"Logging out user: {current_user.username}")
         self.current_user_id = None
         logging.info("User logged out successfully")
-        return Success(True)
+        return Ok(True)
