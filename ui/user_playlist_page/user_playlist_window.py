@@ -95,6 +95,8 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.song_list_received(self.song_list)
        
     def setup_widgets(self):
+        self.profile_btn.clicked.connect(self.profile_btn_click)
+        
         self.search_bar.returnPressed.connect(self.search_bar_text_changed)
         self.skip_btn.clicked.connect(self.skip_btn_click)
         self.back_btn.clicked.connect(self.back_btn_click)
@@ -112,6 +114,11 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.right_tab_widget.setCurrentIndex(1)
         
         self.save_playlist_btn.clicked.connect(self.save_playlist_btn_clicked)
+        
+    def profile_btn_click(self):
+        logging.info("Profile button clicked...")
+        self.window_manager.hide_window(UserPlaylistWindow)
+        self.window_manager.start_window(user_profile_window.UserProfileWindow)
         
     def save_playlist_btn_clicked(self):
         session = client_db_funcs.create_session()
