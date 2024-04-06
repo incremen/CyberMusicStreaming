@@ -25,28 +25,11 @@ class LoginManager:
         session.close()
         return user
 
-    def create_new_account(self, username, password) -> Result[User, str]:
+    def create_new_account(self, username, password):
         logging.info(f"Attempting to create a new account for user: {username}")
         self.socket_handler.emit_to_server('create_new_account', {'username': username, 'password': password})
-        
-        # existing_user = session.query(User).filter_by(username=username).first()
 
-        # if existing_user:
-        #     error_message = f"User {username} already exists"
-        #     logging.error(error_message)
-        #     session.close()
-        #     return Err(error_message)
-
-        # new_user = User(username=username, password=password)
-        # self.current_user_id = new_user.id
-        # session.add(new_user)
-        # session.commit()
-        # logging.info(f"Account for user {username} created successfully")
-        # log_db()
-        # session.close()
-        # return Ok(new_user)
-
-    def login(self, username, password) -> Result[User, str]:
+    def login(self, username, password):
         logging.info(f"Attempting to log in user: {username}")
         session = self.Session()
         user: User = session.query(User).filter_by(username=username).first()

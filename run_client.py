@@ -29,6 +29,8 @@ def main():
     client_socket_handler.connect()
     
     login_manager = LoginManager(SQLITE_PATH, client_socket_handler)
+    client_socket_handler.login_manager = login_manager
+    
     shared_state = SharedState(socket_handler=client_socket_handler, audio_handler=audio_handler, login_manager=login_manager)
     window_manager = WindowManager(shared_state)
     
