@@ -26,6 +26,7 @@ def main():
     album_emitter = WindowEmitter()
     audio_handler = AudioHandler(album_emitter)
     client_socket_handler = ClientSocketHandler(audio_handler, album_emitter)
+    client_socket_handler.connect()
     
     login_manager = LoginManager(SQLITE_PATH)
     shared_state = SharedState(socket_handler=client_socket_handler, audio_handler=audio_handler, login_manager=login_manager)

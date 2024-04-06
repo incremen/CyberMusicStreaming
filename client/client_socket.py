@@ -1,6 +1,6 @@
 import socketio
 import logging
-from backend import client_connects_to_str
+from backend import CLIENT_CONNECTS_TO_STR
 from music_playing.audio_handler import AudioHandler
 from client.window_emitter import WindowEmitter
 
@@ -41,7 +41,7 @@ class ClientSocketHandler:
         def received_next_song_order(order):
             logging.recv(f"received next song order: {order}")
             
-        self.sio.connect(client_connects_to_str)
+        self.sio.connect(CLIENT_CONNECTS_TO_STR)
         
         
 
