@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QObject, pyqtSignal
 from ui.album_page.album_window import AlbumWindow
 
-class WindowEmitter(QObject):
+class MusicPlayingEmitter(QObject):
     song_list_recieved = pyqtSignal(list)
     update_song_progress = pyqtSignal(int)
     update_song_queue = pyqtSignal(list, int)

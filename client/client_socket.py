@@ -2,21 +2,23 @@ import socketio
 import logging
 from backend import CLIENT_CONNECTS_TO_STR
 from music_playing.audio_handler import AudioHandler
-from client.window_emitter import WindowEmitter
+from client.window_emitter import MusicPlayingEmitter
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from database.login_manager import LoginManager
+    from ui.signup_page.signup_window_emitter import SignupWindowEmitter
     
     
 class ClientSocketHandler:
-    def __init__(self, audio_handler :AudioHandler, window_manager : WindowEmitter):
-        self.sio = socketio.Client(logger=False, engineio_logger=False)
-        self.window_emitter = window_manager
+    def __init__(self, audio_handler :AudioHandler, music_playing_emitter : MusicPlayingEmitter):
+        self.sio = socketio.Client(logger=True, engineio_logger=False)
+        self.music_playing_emitter = music_playing_emitter
         self.audio_handler = audio_handler
         self.audio_handler.socket_handler = self
-        self.emit_to_server= self.sio.emit]
+        self.emit_to_server= self.sio.emit
         self.login_manager : 'LoginManager' = None
+        self.signup_window_emitter : 'SignupWindowEmitter'= None
     
     def send_skip_to_song_event(self, song_order):
         self.emit_to_server("skip_to_song" ,song_order)
@@ -44,13 +46,13 @@ class ClientSocketHandler:
             self.audio_handler.song_list_received(song_list)
             
         @self.sio.on("next_song_order")
-        def received_next_song_order(order):
+        def received_next_song_order(order):    
             logging.recv(f"received next song order: {order}")
             
         @self.sio.on("account_create_result")
         def on_account_create_result(data):
-            if self.login_manager:
-                self.login_manager.create_account_response(data['result'], data['message'])
+            logging.debug(f"{data=}")
+            self.signup_window_emitter.account_create_result.emit(data['result'])
 
         @self.sio.on("login_result")
         def on_login_result(data):

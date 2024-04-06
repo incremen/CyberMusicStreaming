@@ -22,7 +22,6 @@ def create_new_account(username, password) -> Result:
     session.commit()
     ok_message = f"Account for user {username} created successfully"
     logging.info(ok_message)
-    log_db()
     session.close()
     return Ok(ok_message)
 
@@ -45,7 +44,6 @@ def login(username, password) -> Result:
 
     ok_msg = f"User {username} logged in successfully"
     logging.info(ok_msg)
-    log_db()
     session.close()
     return Ok(ok_msg)
 

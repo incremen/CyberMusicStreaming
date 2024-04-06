@@ -40,14 +40,16 @@ class SignupWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def ready_btn_click(self):
         username = self.username_input.text()
         password = self.password_input.text()
-        result = self.login_manager.create_new_account(username, password)
-        if result.is_ok():
+        self.login_manager.create_new_account(username, password)
+            
+    def handle_new_acc_response(self, result : bool):
+        if result:
             self.handle_new_account_success()
         else:
-            self.handle_new_account_failure(result)
+            self.handle_new_account_failure()
 
-    def handle_new_account_failure(self, result):
-        logging.error(f"Failed to create account: {result.unwrap_err()}")
+    def handle_new_account_failure(self):
+        logging.error(f"Failed to create account")
 
     def handle_new_account_success(self):
         logging.info("New account created successfully.")

@@ -2,7 +2,7 @@ from client.client_socket import ClientSocketHandler
 import custom_logging
 from PyQt5.QtWidgets import QApplication
 from music_playing.audio_handler import AudioHandler
-from client.window_emitter import WindowEmitter
+from client.window_emitter import MusicPlayingEmitter
 from ui.login_page.login_window import LoginWindow
 import sys
 from client.shared_state import SharedState
@@ -15,6 +15,8 @@ from database import SQLITE_PATH
 from ui.user_playlist_page.user_playlist_window import UserPlaylistWindow
 from ui.user_profile.user_profile_window import UserProfileWindow
 import logging
+from ui.signup_page.signup_window_emitter import SignupWindowEmitter
+
 
 def main():
     logging.getLogger('sqlalchemy').setLevel(logging.ERROR)
@@ -23,7 +25,7 @@ def main():
     custom_logger.clear_logs()
     app = QApplication(sys.argv)
     
-    album_emitter = WindowEmitter()
+    album_emitter = MusicPlayingEmitter()
     audio_handler = AudioHandler(album_emitter)
     client_socket_handler = ClientSocketHandler(audio_handler, album_emitter)
     client_socket_handler.connect()
@@ -40,6 +42,12 @@ def main():
     
     login_manager.create_new_account("a", "a")
     login_manager.login("a", "a")
+    
+    signup_window = window_manager.get_window(SignupWindow)
+    signup_window_emitter = SignupWindowEmitter(signup_window)
+    signup_window_emitter.setup_connections(signup_window)
+    client_socket_handler.signup_window_emitter = signup_window_emitter
+    
     window_manager.start_window(SignupWindow)
     logging.getLogger('sqlalchemy').setLevel(logging.ERROR)
     
