@@ -107,9 +107,9 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         
         make_list_widget_accept_drops(self.play_list_widget, self.add_btn_text_to_playlist)
         
-        self.right_tab.currentChanged.connect(self.tab_changed)
+        self.right_tab_widget.currentChanged.connect(self.tab_changed)
         self.on_change_to_queue_tab()
-        self.right_tab.setCurrentIndex(1)
+        self.right_tab_widget.setCurrentIndex(1)
         
         self.save_playlist_btn.clicked.connect(self.save_playlist_btn_clicked)
         
@@ -151,7 +151,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         elif index == 1:
             self.song_list_received(self.song_list, enable_drag = False)
             
-        self.right_tab.setCurrentIndex(index)
+        self.right_tab_widget.setCurrentIndex(index)
 
     def get_grid_btns(self):
         grid_widgets = gui_funcs.get_objects_from_boxlayout(self.song_grid)
