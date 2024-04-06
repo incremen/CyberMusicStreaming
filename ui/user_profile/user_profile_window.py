@@ -35,7 +35,7 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       self.setup_btns_text()
 
    def show_user_info(self):
-       current_user = self.login_manager.current_user
+       current_user = self.login_manager.get_current_user()
        user_info_text = f"username: {current_user.username} \npassword: {current_user.password}"
        self.user_info_label.setText(user_info_text)
        
@@ -49,7 +49,7 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
          btn.clicked.connect(self.playlist_btn_click)
          
    def setup_btns_text(self):
-      user_playlists = self.login_manager.current_user.playlists
+      user_playlists = self.login_manager.get_current_user().playlists
       for playlist, playlist_btn in zip_longest(user_playlists, self.playlist_btns):
          if not playlist:
             playlist_btn.setText("+")

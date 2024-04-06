@@ -136,7 +136,8 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
             logging.info("Playlist not found.. :(")
             playlist = Playlist(name = playlist_name)
         
-        user = session.query(User).filter_by(username = self.login_manager.current_user.username).first()
+        user_id = self.login_manager.get_current_user().id
+        user = session.query(User).filter_by(id = user_id).first()
         user.playlists.append(playlist)
         
         songs_in_playlist = [self.song_btn_text_to_song_info[btn_text] for btn_text in self.songs_btns_text_in_playlist]
