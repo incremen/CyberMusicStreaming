@@ -101,6 +101,7 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.progress_slider.sliderPressed.connect(self.audio_handler.pause_or_resume_song)
         self.progress_slider.sliderReleased.connect(self.seek_in_song)
         
+        self.search_btn.clicked.connect(self.search_btn_click)
         self.on_change_to_queue_tab()
         
     def add_btn_to_playlist(self, song_btn : QPushButton):
