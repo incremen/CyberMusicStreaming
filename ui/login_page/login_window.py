@@ -39,9 +39,17 @@ class LoginWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         username = self.username_input.text()
         password = self.password_input.text()
         result = self.login_manager.login(username, password)
-        if result.is_ok():
-            logging.info("Login successful.")
-            self.window_manager.start_window(search_window.SearchWindow)
-            self.window_manager.hide_window(LoginWindow)
+
+    def handle_login_fail(self, result):
+        logging.error(f"Failed to login: {result.unwrap_err()}")
+
+    def handle_login_success(self):
+        logging.info("Login successful.")
+        self.window_manager.start_window(search_window.SearchWindow)
+        self.window_manager.hide_window(LoginWindow)
+            
+    def handle_login_response(self, result : bool):
+        if result:
+            self.handle_login_success()
         else:
-            logging.error(f"Failed to login: {result.unwrap_err()}")
+            self.handle_login_fail()

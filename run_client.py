@@ -16,7 +16,7 @@ from ui.user_playlist_page.user_playlist_window import UserPlaylistWindow
 from ui.user_profile.user_profile_window import UserProfileWindow
 import logging
 from ui.signup_page.signup_window_emitter import SignupWindowEmitter
-
+from ui.login_page.login_window_emitter import LoginWindowEmitter
 
 def main():
     logging.getLogger('sqlalchemy').setLevel(logging.ERROR)
@@ -25,16 +25,7 @@ def main():
     custom_logger.clear_logs()
     app = QApplication(sys.argv)
     
-    album_emitter = MusicPlayingEmitter()
-    audio_handler = AudioHandler(album_emitter)
-    client_socket_handler = ClientSocketHandler(audio_handler, album_emitter)
-    client_socket_handler.connect()
-    
-    login_manager = LoginManager(SQLITE_PATH, client_socket_handler)
-    client_socket_handler.login_manager = login_manager
-    
-    shared_state = SharedState(socket_handler=client_socket_handler, audio_handler=audio_handler, login_manager=login_manager)
-    window_manager = WindowManager(shared_state)
+    album_emitter, audio_handler, client_socket_handler, login_manager, window_manager = create_main_objs()
     
     audio_handler.window_manager = window_manager
     album_window = window_manager.get_window(AlbumWindow)
@@ -46,12 +37,30 @@ def main():
     signup_window = window_manager.get_window(SignupWindow)
     signup_window_emitter = SignupWindowEmitter(signup_window)
     signup_window_emitter.setup_connections(signup_window)
+    
+    login_window_emitter = LoginWindowEmitter()
+    login_window_emitter.setup_connections(window_manager.get_window(LoginWindow))
+    login_manager.login_window_emitter = login_window_emitter
+    
     client_socket_handler.signup_window_emitter = signup_window_emitter
     
     window_manager.start_window(SignupWindow)
     logging.getLogger('sqlalchemy').setLevel(logging.ERROR)
     
     app.exec_()
+
+def create_main_objs():
+    album_emitter = MusicPlayingEmitter()
+    audio_handler = AudioHandler(album_emitter)
+    client_socket_handler = ClientSocketHandler(audio_handler, album_emitter)
+    client_socket_handler.connect()
+    
+    login_manager = LoginManager(SQLITE_PATH, client_socket_handler)
+    client_socket_handler.login_manager = login_manager
+    
+    shared_state = SharedState(socket_handler=client_socket_handler, audio_handler=audio_handler, login_manager=login_manager)
+    window_manager = WindowManager(shared_state)
+    return album_emitter,audio_handler,client_socket_handler,login_manager,window_manager
   
   
 if __name__ == "__main__":

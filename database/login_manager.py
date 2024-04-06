@@ -5,6 +5,7 @@ from database.models import User  # Assuming you have a User model defined elsew
 from log_db import log_db
 from result import Ok, Err, Result, is_ok, is_err
 from typing import TYPE_CHECKING
+from ui.login_page.login_window_emitter import LoginWindowEmitter
 
 
 if TYPE_CHECKING:
@@ -15,6 +16,7 @@ class LoginManager:
         self.engine = create_engine(db_url)
         self.Session = sessionmaker(bind=self.engine)
         self.current_user_id = None
+        self.login_window_emitter : LoginWindowEmitter = None
 
     def get_current_user(self):
         if self.current_user_id is None:
@@ -31,8 +33,6 @@ class LoginManager:
 
     def login(self, username, password):
         logging.info(f"Attempting to log in user: {username}")
-        session = self.Session()
-        user: User = session.query(User).filter_by(username=username).first()
 
         if not user:
             error_message = f"User {username} not found"
