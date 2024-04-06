@@ -155,25 +155,25 @@ class Ui_MainWindow(object):
         self.groupBox.setObjectName("groupBox")
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.groupBox)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        self.search_btn_2 = QtWidgets.QPushButton(self.groupBox)
+        self.save_playlist_btn = QtWidgets.QPushButton(self.groupBox)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.search_btn_2.sizePolicy().hasHeightForWidth())
-        self.search_btn_2.setSizePolicy(sizePolicy)
-        self.search_btn_2.setMaximumSize(QtCore.QSize(300, 60))
+        sizePolicy.setHeightForWidth(self.save_playlist_btn.sizePolicy().hasHeightForWidth())
+        self.save_playlist_btn.setSizePolicy(sizePolicy)
+        self.save_playlist_btn.setMaximumSize(QtCore.QSize(300, 60))
         font = QtGui.QFont()
         font.setPointSize(13)
-        self.search_btn_2.setFont(font)
-        self.search_btn_2.setStyleSheet(" border: 2px solid gold;\n"
+        self.save_playlist_btn.setFont(font)
+        self.save_playlist_btn.setStyleSheet(" border: 2px solid gold;\n"
 " background-color: rgba(128, 128, 128, 128);\n"
 " border-radius: 30px;\n"
 "color: white;\n"
 "\n"
 "\n"
 "")
-        self.search_btn_2.setObjectName("search_btn_2")
-        self.horizontalLayout_4.addWidget(self.search_btn_2)
+        self.save_playlist_btn.setObjectName("search_btn_2")
+        self.horizontalLayout_4.addWidget(self.save_playlist_btn)
         self.verticalLayout_2.addWidget(self.groupBox)
         self.right_tab.addTab(self.tab, "")
         self.song_queue = QtWidgets.QWidget()
@@ -313,7 +313,7 @@ class Ui_MainWindow(object):
         self.search_btn.setText(_translate("MainWindow", "Search for a song:"))
         self.label.setText(_translate("MainWindow", "Demo Album"))
         self.groupBox.setTitle(_translate("MainWindow", "GroupBox"))
-        self.search_btn_2.setText(_translate("MainWindow", "Save playlist"))
+        self.save_playlist_btn.setText(_translate("MainWindow", "Save playlist"))
         self.right_tab.setTabText(self.right_tab.indexOf(self.tab), _translate("MainWindow", "Page"))
         __sortingEnabled = self.song_queue_widget.isSortingEnabled()
         self.song_queue_widget.setSortingEnabled(False)

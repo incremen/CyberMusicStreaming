@@ -37,7 +37,6 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.audio_handler = shared_state.audio_handler
         self.window_manager = window_manager
         self.setup_widgets()
-        
 
         self.last_song_grid_row = 3
         self.last_song_grid_col = -1
@@ -48,7 +47,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.last_songs_played_emit_num = -1
         
         self.album_mode = "search_db"
-        self.songs_in_playlist = []
+        self.songs_btns_text_in_playlist = []
        
     def start(self):
         if self.album_mode == "search_db":
@@ -102,21 +101,28 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.progress_slider.sliderPressed.connect(self.audio_handler.pause_or_resume_song)
         self.progress_slider.sliderReleased.connect(self.seek_in_song)
         
-        make_list_widget_accept_drops(self.play_list_widget, self.add_btn_to_playlist)
+        make_list_widget_accept_drops(self.play_list_widget, self.add_btn_text_to_playlist)
         
         self.right_tab.currentChanged.connect(self.tab_changed)
         self.on_change_to_queue_tab()
         self.right_tab.setCurrentIndex(1)
+        
+        self.save_playlist_btn.clicked.connect(self.save_playlist_btn_clicked)
+        
+    def save_playlist_btn_clicked(self):
+        for song_btn in self.songs_btns_text_in_playlist:
+            song_info = self.song_btn_to_song_info[song_btn]
+            logging.info(f"{song_info=}")
         
     def search_bar_text_changed(self):
         search_text = self.search_bar.text()
         logging.info(f"Search bar just searched for {search_text}")
         self.search_db(search_text)
         
-    def add_btn_to_playlist(self, song_btn : QPushButton):
-        self.songs_in_playlist.append(song_btn)
+    def add_btn_text_to_playlist(self, song_btn : QPushButton):
+        self.songs_btns_text_in_playlist.append(song_btn)
         logging.info("Added button to playlist...")
-        logging.debug(f"{self.songs_in_playlist=}")
+        logging.debug(f"{self.songs_btns_text_in_playlist=}")
         
     def tab_changed(self, index):
         logging.debug(f"{index=}")
@@ -162,7 +168,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         if enable_drag:
             make_widget_draggable(song_btn)
                 
-        self.btn_to_info.update({song_btn : song_info})
+        self.song_btn_to_song_info.update({song_btn : song_info})
         self.add_song_btn_to_grid(song_btn)
 
     def clear_all_song_btns(self, songs):
@@ -170,7 +176,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.last_song_grid_row = 3
         self.last_song_grid_col = -1
         self.song_list = songs
-        self.btn_to_info = {}
+        self.song_btn_to_song_info = {}
 
     def create_song_btn(self, song_text):
         song_btn = QPushButton(song_text)
@@ -263,7 +269,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
 
         
     def song_btn_click(self):
-        btn_clicked_data = self.btn_to_info[self.sender()]
+        btn_clicked_data = self.song_btn_to_song_info[self.sender()]
         self.audio_handler.add_to_song_queue(btn_clicked_data.name)
 
         
