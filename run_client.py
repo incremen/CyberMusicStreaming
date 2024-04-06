@@ -13,6 +13,7 @@ from ui.signup_page.signup_window import SignupWindow
 from database.login_manager import LoginManager
 from database import SQLITE_PATH
 from ui.user_playlist_page.user_playlist_window import UserPlaylistWindow
+from ui.user_profile.user_profile_window import UserProfileWindow
 
 
 def main():
@@ -31,9 +32,9 @@ def main():
     audio_handler.window_manager = window_manager
     album_window = window_manager.get_window(AlbumWindow)
     album_emitter.setup_connections(album_window)
-    user_playlist_window = window_manager.get_window(UserPlaylistWindow)
     
-    window_manager.start_window(SignupWindow)
+    login_manager.login("a", "a")
+    window_manager.start_window(UserProfileWindow)
     
     app.exec_()
   
