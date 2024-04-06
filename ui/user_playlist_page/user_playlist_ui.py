@@ -26,9 +26,33 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.vertical_box = QtWidgets.QGroupBox(self.central_widget)
         self.vertical_box.setTitle("")
+        self.vertical_box.setFlat(True)
         self.vertical_box.setObjectName("vertical_box")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.vertical_box)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.groupBox_2 = QtWidgets.QGroupBox(self.vertical_box)
+        self.groupBox_2.setMinimumSize(QtCore.QSize(0, 30))
+        self.groupBox_2.setTitle("")
+        self.groupBox_2.setFlat(True)
+        self.groupBox_2.setObjectName("groupBox_2")
+        self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.groupBox_2)
+        self.horizontalLayout_6.setObjectName("horizontalLayout_6")
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_6.addItem(spacerItem)
+        self.profile_btn = QtWidgets.QPushButton(self.groupBox_2)
+        self.profile_btn.setMinimumSize(QtCore.QSize(80, 30))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.profile_btn.setFont(font)
+        self.profile_btn.setStyleSheet(" border: 2px solid gold;\n"
+" background-color: rgba(128, 128, 128, 128);\n"
+"color: white;\n"
+"border-radius:10px;\n"
+"\n"
+"")
+        self.profile_btn.setObjectName("profile_btn")
+        self.horizontalLayout_6.addWidget(self.profile_btn)
+        self.verticalLayout_3.addWidget(self.groupBox_2)
         self.big_box = QtWidgets.QGroupBox(self.vertical_box)
         self.big_box.setStyleSheet("QGroupBox{\n"
 "   border: none;\n"
@@ -45,8 +69,8 @@ class Ui_MainWindow(object):
         self.left_box.setObjectName("left_box")
         self.gridLayout = QtWidgets.QGridLayout(self.left_box)
         self.gridLayout.setObjectName("gridLayout")
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem, 2, 0, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem1, 2, 0, 1, 1)
         self.name_edit_box = QtWidgets.QGroupBox(self.left_box)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
@@ -236,6 +260,7 @@ class Ui_MainWindow(object):
 "{\n"
 "border: none;\n"
 "}")
+        self.controller_box.setTitle("")
         self.controller_box.setFlat(True)
         self.controller_box.setObjectName("controller_box")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.controller_box)
@@ -256,6 +281,7 @@ class Ui_MainWindow(object):
         self.song_btns_box.setMinimumSize(QtCore.QSize(0, 100))
         self.song_btns_box.setStyleSheet("#song_btns_box{\n"
 "border: none;}")
+        self.song_btns_box.setTitle("")
         self.song_btns_box.setFlat(True)
         self.song_btns_box.setObjectName("song_btns_box")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.song_btns_box)
@@ -321,6 +347,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.profile_btn.setText(_translate("MainWindow", "Profile"))
         self.playlist_name_edit.setText(_translate("MainWindow", "Playlist Name"))
         self.search_btn.setText(_translate("MainWindow", "Search for a song:"))
         self.groupBox.setTitle(_translate("MainWindow", "GroupBox"))
@@ -331,8 +358,6 @@ class Ui_MainWindow(object):
         item = self.song_queue_widget.item(0)
         item.setText(_translate("MainWindow", "dummy item"))
         self.song_queue_widget.setSortingEnabled(__sortingEnabled)
-        self.controller_box.setTitle(_translate("MainWindow", "GroupBox"))
-        self.song_btns_box.setTitle(_translate("MainWindow", "GroupBox"))
 import resource_file_rc
 
 
