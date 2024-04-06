@@ -48,22 +48,16 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.last_queue_emit_num = -1
         self.last_songs_played_emit_num = -1
         
-        self.query_mode = "search_db"
         self.songs_btns_text_in_playlist = []
         self.song_btn_to_song_info : dict[QPushButton, SongInfo] = {}
         self.song_btn_text_to_song_info : dict[str, SongInfo] = {}
        
     def start(self):
         logging.info(f"{self.query_mode=}")
-        if self.query_mode == "search_db":
-            self.search_db()
-        if self.query_mode == "query_server":
-            self.socket_handler.emit_to_server("song_list_request")
+        self.search_db()
         if self.query_mode == "query_playlist":
             self.load_playlist_clicked()
-        if self.query_mode == "query_local":
-            logging.checkpoint("Querying local...")
-            self.query_db_for_song_list()
+            
         self.show()
         
     def search_db(self, search_term : str = ""):
@@ -72,15 +66,20 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         songs_found = session.query(Song).filter(Song.name.like(f'{search_term}%')).all()
         logging.debug(f"{songs_found=}")
         song_dicts = [song.as_dict() for song in songs_found]
-        self.song_list_received(song_dicts, enable_drag = True)
+        self.add_songs_to_btns(song_dicts, enable_drag = True)
         self.audio_handler.song_list_received(song_dicts)
         
     def load_playlist_clicked(self):
         logging.debug("Showing users playlist...")
-        user_playlist_window  = self.window_manager.get_window(user_profile_window.UserProfileWindow)
-        last_playlist = user_playlist_window.get_last_clicked_playlist()
+        profile_window  = self.window_manager.get_window(user_profile_window.UserProfileWindow)
+        last_playlist = profile_window.get_last_clicked_playlist()
         utils.log_playlist(last_playlist)
-        self.load_playlist(last_playlist)
+        self.add_songs_to_playlist_widget(last_playlist)
+        
+    def add_songs_to_playlist_widget(self, playlist : Playlist):
+        for song in playlist.songs:
+            song_text = self.get_song_text(song)
+            gui_funcs.add_item_to_list_widget(self.play_list_widget, song_text)
 
     def query_db_for_song_list(self):
         session = client_db_funcs.create_session()
@@ -93,7 +92,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         song_dict_list = [song.as_dict() for song in playlist.songs]
         self.audio_handler.song_list_received(song_dict_list)
         self.song_list = song_dict_list
-        self.song_list_received(self.song_list)
+        self.add_songs_to_btns(self.song_list)
        
     def setup_widgets(self):
         self.profile_btn.clicked.connect(self.profile_btn_click)
@@ -158,10 +157,10 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def tab_changed(self, index):
         logging.debug(f"{index=}")
         if index == 0:
-            self.song_list_received(self.song_list, enable_drag = True)
+            self.add_songs_to_btns(self.song_list, enable_drag = True)
             
         elif index == 1:
-            self.song_list_received(self.song_list, enable_drag = False)
+            self.add_songs_to_btns(self.song_list, enable_drag = False)
             
         self.right_tab_widget.setCurrentIndex(index)
 
@@ -184,7 +183,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def seek_in_song(self):
         self.audio_handler.seek_value(self.progress_slider.value())
         
-    def song_list_received(self, songs : list, enable_drag = False):
+    def add_songs_to_btns(self, songs : list, enable_drag = False):
         logging.debug(f"Received song list: {songs}")
         self.clear_all_song_btns(songs)
         
@@ -193,7 +192,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
 
     def add_song_btn(self, enable_drag, song_dict):
         song_info = SongInfo(**song_dict)
-        song_text = f"{song_info.name}\n {song_info.length} seconds"
+        song_text = self.get_song_text(song_info)
         song_btn = self.create_song_btn(song_text)
         self.song_btn_text_to_song_info.update({song_text : song_info})
         
@@ -202,6 +201,10 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
                 
         self.song_btn_to_song_info.update({song_btn : song_info})
         self.add_song_btn_to_grid(song_btn)
+
+    def get_song_text(self, song : Song | SongInfo):
+        song_text = f"{song.name}\n {song.length} seconds"
+        return song_text
 
     def clear_all_song_btns(self, songs):
         self.delete_from_grid(5)
