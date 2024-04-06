@@ -55,6 +55,7 @@ def reset_tables():
 
 def create_session():
     engine = create_engine(SQLITE_PATH)
+    engine.echo = False
     from sqlalchemy.orm import Session
     return Session(bind=engine)
 

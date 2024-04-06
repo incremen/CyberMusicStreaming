@@ -119,8 +119,9 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         new_playlist = Playlist(name = "playlist")
         user = session.query(User).filter_by(username = self.login_manager.current_user.username).first()
         user.playlists.append(new_playlist)
-                
-        song_ids = [song_info.id for song_info in self.song_btn_text_to_song_info.values()]
+        
+        songs_in_playlist = [self.song_btn_text_to_song_info[btn_text] for btn_text in self.songs_btns_text_in_playlist]
+        song_ids = [song_info.id for song_info in songs_in_playlist]
         songs_to_add = session.query(Song).filter(Song.id.in_(song_ids)).all()
         new_playlist.songs.extend(songs_to_add)
         
