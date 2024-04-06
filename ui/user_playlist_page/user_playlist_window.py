@@ -116,7 +116,12 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def save_playlist_btn_clicked(self):
         session = client_db_funcs.create_session()
         
-        new_playlist = Playlist(name = "playlist")
+        playlist_name = self.playlist_name_edit.text()
+        playlist = session.query(Playlist).filter_by(name = playlist_name).first()
+        if not playlist:
+            playlist = Playlist(name = playlist_name)
+        
+        new_playlist = Playlist(name = playlist_name)
         user = session.query(User).filter_by(username = self.login_manager.current_user.username).first()
         user.playlists.append(new_playlist)
         

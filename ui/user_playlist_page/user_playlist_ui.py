@@ -58,26 +58,26 @@ class Ui_MainWindow(object):
         self.name_edit_box.setObjectName("name_edit_box")
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.name_edit_box)
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
-        self.lineEdit = QtWidgets.QLineEdit(self.name_edit_box)
+        self.playlist_name_edit = QtWidgets.QLineEdit(self.name_edit_box)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
-        self.lineEdit.setSizePolicy(sizePolicy)
-        self.lineEdit.setMinimumSize(QtCore.QSize(0, 100))
-        self.lineEdit.setMaximumSize(QtCore.QSize(16777215, 100))
+        sizePolicy.setHeightForWidth(self.playlist_name_edit.sizePolicy().hasHeightForWidth())
+        self.playlist_name_edit.setSizePolicy(sizePolicy)
+        self.playlist_name_edit.setMinimumSize(QtCore.QSize(0, 100))
+        self.playlist_name_edit.setMaximumSize(QtCore.QSize(16777215, 100))
         font = QtGui.QFont()
         font.setPointSize(40)
-        self.lineEdit.setFont(font)
-        self.lineEdit.setStyleSheet(" background-color: rgba(128, 128, 128, 128);\n"
+        self.playlist_name_edit.setFont(font)
+        self.playlist_name_edit.setStyleSheet(" background-color: rgba(128, 128, 128, 128);\n"
 " border-radius: 50px;\n"
 "color: white;\n"
 "\n"
 "\n"
 "")
-        self.lineEdit.setAlignment(QtCore.Qt.AlignCenter)
-        self.lineEdit.setObjectName("lineEdit")
-        self.horizontalLayout_5.addWidget(self.lineEdit)
+        self.playlist_name_edit.setAlignment(QtCore.Qt.AlignCenter)
+        self.playlist_name_edit.setObjectName("playlist_name_edit")
+        self.horizontalLayout_5.addWidget(self.playlist_name_edit)
         self.gridLayout.addWidget(self.name_edit_box, 0, 0, 1, 1)
         self.song_grid = QtWidgets.QGridLayout()
         self.song_grid.setObjectName("song_grid")
@@ -321,7 +321,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.lineEdit.setText(_translate("MainWindow", "Playlist Name"))
+        self.playlist_name_edit.setText(_translate("MainWindow", "Playlist Name"))
         self.search_btn.setText(_translate("MainWindow", "Search for a song:"))
         self.groupBox.setTitle(_translate("MainWindow", "GroupBox"))
         self.save_playlist_btn.setText(_translate("MainWindow", "Save playlist"))
