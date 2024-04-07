@@ -35,8 +35,7 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       self.setup_btns_text()
 
    def show_user_info(self):
-       current_user = self.login_manager.get_current_user()
-       user_info_text = f"username: {current_user.username} \npassword: {current_user.password}"
+       user_info_text = f"username: {self.login_manager.username} \npassword: {self.login_manager.password}"
        self.user_info_label.setText(user_info_text)
        
    def setup_btns(self):

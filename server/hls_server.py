@@ -1,5 +1,5 @@
 import os
-from backend import HLS_HOST, HLS_PORT
+from backend import SERVER_HLS_HOST, SERVER_HLS_PORT
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 import logging
 from custom_logging import CustomLogger
@@ -20,6 +20,6 @@ class HLSHandler(SimpleHTTPRequestHandler):
 def start_hls_server():
     logging.info("Starting HLS server..")
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
-    with HTTPServer((HLS_HOST, HLS_PORT), HLSHandler) as httpd:
-        print(f'Serving at http://{HLS_HOST}:{HLS_PORT}')
+    with HTTPServer((SERVER_HLS_HOST, SERVER_HLS_PORT), HLSHandler) as httpd:
+        print(f'Serving at http://{SERVER_HLS_HOST}:{SERVER_HLS_PORT}')
         httpd.serve_forever()

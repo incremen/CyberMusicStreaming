@@ -9,7 +9,7 @@ from music_playing.emitting_list import EmittingList
 from music_playing.play_song_thread import PlayNextSongThread
 from music_playing.update_progress_thread import SongProgressThread
 import mpv
-from backend import HLS_HOST, HLS_PORT
+from backend import CLIENT_HLS_HOST, CLIENT_HLS_PORT
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
 from client.window_manager import WindowManager
@@ -101,7 +101,7 @@ class AudioHandler:
         
     @log_calls
     def play_song(self, song : SongInfo):
-        url = f'http://{HLS_HOST}:{HLS_PORT}/{song.name}/index.m3u8'
+        url = f'http://{CLIENT_HLS_HOST}:{CLIENT_HLS_PORT}/{song.name}/index.m3u8'
         url = r"D:\vs_code_projects_good_place\cyber_music_streaming\songs\cant_keep_getting_away.wav"
         # url = f'songs/{song.name}'
         logging.checkpoint(f"\nPlaying {url=} because: \n{self.song_queue=}\n{self.songs_played=}\n")
