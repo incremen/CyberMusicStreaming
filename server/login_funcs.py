@@ -6,7 +6,7 @@ from log_db import log_db
 from result import Ok, Err, Result, is_ok, is_err
 from database.utils import create_session
 
-def create_new_account(username, password) -> Result:
+def create_new_account(username, password) -> Result[str, User]:
     logging.info(f"Attempting to create a new account for user: {username}")
     session = create_session()
     existing_user = session.query(User).filter_by(username=username).first()
@@ -23,7 +23,7 @@ def create_new_account(username, password) -> Result:
     ok_message = f"Account for user {username} created successfully"
     logging.info(ok_message)
     session.close()
-    return Ok(ok_message)
+    return Ok(new_user)
 
 def login(username, password) -> Result[User, str]:
     logging.info(f"Attempting to log in user: {username}")
@@ -50,6 +50,7 @@ def login(username, password) -> Result[User, str]:
 def save_playlist(username, playlist_dict : dict):
     session = create_session()
     user = session.query(User).filter_by(username=username).first()
+    session.add(user)
     
     playlist_to_edit = find_matching_user_playlist(playlist_dict, user)
     if not playlist_to_edit:
@@ -63,6 +64,13 @@ def save_playlist(username, playlist_dict : dict):
         
     session.commit()
     session.close()
+    return user
+
+def query_user(username):
+    session = create_session()
+    user = session.query(User).filter_by(username=username).first()
+    session.close()
+    return user
 
 def find_matching_user_playlist(playlist_dict, user):
     for user_playlist in user.playlists:

@@ -33,8 +33,8 @@ def main():
     album_window = window_manager.get_window(AlbumWindow)
     album_emitter.setup_connections(album_window)
     
-    login_manager.create_new_account("a", "a")
-    login_manager.login("a", "a")
+    # login_manager.create_new_account("a", "a")
+    # login_manager.login("a", "a")
     
     signup_window = window_manager.get_window(SignupWindow)
     signup_window_emitter = SignupWindowEmitter(signup_window)

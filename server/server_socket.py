@@ -49,7 +49,7 @@ class ServerSocketHandler:
                     
             result_msg = result.value
                                 
-            self.sio.emit("account_create_result", {"result": result.is_ok(), "message" : result_msg},  room=sid)
+            self.sio.emit("account_create_result", {"result": result.is_ok()},  room=sid)
 
         @self.sio.on("login")
         def login_handler(sid, data):
@@ -60,7 +60,7 @@ class ServerSocketHandler:
             
             if result.is_ok():
                 with self.sio.session(sid) as session_data:
-                    session_data['user'] = result.ok_value
+                    session_data['username'] = result.ok_value.username
                     logging.debug(f"{session_data=}")
                 self.sio.emit("login_result", {"result": True}, room=sid)
                 return
@@ -70,7 +70,9 @@ class ServerSocketHandler:
         @self.sio.on("get_user_info")
         def get_user_info_handler(sid):
             with self.sio.session(sid) as session_data:
-                user : User = session_data.get('user')
+                username = session_data['username']
+            
+            user = login_funcs.query_user(username)
             
             json_data = user.as_dict()
             logging.debug(f"{json_data=}")
@@ -95,8 +97,10 @@ class ServerSocketHandler:
         def save_playlist_handler(sid, data):
             logging.debug(f"{data=}")
             with self.sio.session(sid) as session_data:
-                user : User = session_data.get('user')
-            login_funcs.save_playlist(user.username, data)
+                username = session_data["username"]
+            user = login_funcs.save_playlist(username, data)
+            with self.sio.session(sid) as session_data:
+                session_data['user'] = user
 
         @self.sio.on("logout")
         def logout_handler(sid):
