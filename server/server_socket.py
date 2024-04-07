@@ -90,6 +90,13 @@ class ServerSocketHandler:
             song_list = login_funcs.search_for_term(search_term)
             song_dicts = [song.as_dict() for song in song_list]
             self.sio.emit("search_result", {"songs": song_dicts}, room=sid)
+            
+        @self.sio.on("save_playlist")
+        def save_playlist_handler(sid, data):
+            logging.debug(f"{data=}")
+            with self.sio.session(sid) as session_data:
+                user : User = session_data.get('user')
+            login_funcs.save_playlist(user.username, data)
 
         @self.sio.on("logout")
         def logout_handler(sid):

@@ -1,7 +1,7 @@
 import logging
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database.models import User, Song
+from database.models import User, Song, Playlist
 from log_db import log_db
 from result import Ok, Err, Result, is_ok, is_err
 from database.utils import create_session
@@ -47,7 +47,31 @@ def login(username, password) -> Result[User, str]:
     session.close()
     return Ok(user)
 
+def save_playlist(username, playlist_dict : dict):
+    session = create_session()
+    user = session.query(User).filter_by(username=username).first()
+    
+    playlist_to_edit = find_matching_user_playlist(playlist_dict, user)
+    if not playlist_to_edit:
+        playlist_to_edit = Playlist(name=playlist_dict["name"])
+        user.playlists.append(playlist_to_edit)
+        session.add(playlist_to_edit)
+        
+    for song_name in playlist_dict["songs"]:
+        song = session.query(Song).filter_by(name=song_name).first()
+        playlist_to_edit.songs.append(song)
+        
+    session.commit()
+    session.close()
+
+def find_matching_user_playlist(playlist_dict, user):
+    for user_playlist in user.playlists:
+        if user_playlist.name == playlist_dict["name"]:
+            return user_playlist
+    
+
 def search_for_term(search_term : str):
     session = create_session()
     songs_found = session.query(Song).filter(Song.name.like(f'{search_term}%')).all()
+    session.close()
     return songs_found
