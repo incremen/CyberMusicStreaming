@@ -21,6 +21,7 @@ class LoginManager:
         self.signed_in = False
         self.username = None
         self.password = None
+        self.playlists : dict[str, str] = None
 
     def get_current_user(self):
         if self.current_user_id is None:

@@ -68,6 +68,7 @@ class ClientSocketHandler:
         def on_user_info(data):
             logging.debug(f"{data=}")
             logging.info("About to emit to profile window")
+            self.login_manager.playlists = data['user']['playlists']
             self.profile_window_emitter.load_user_playlists.emit(data['user'])
         
         @self.sio.on("search_result")
