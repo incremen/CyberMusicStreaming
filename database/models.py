@@ -54,6 +54,9 @@ class Playlist(Base):
     )
     def __repr__(self):
         return f"Playlist(name={self.name}, id={self.id})"
+    
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 
 class Song(Base):
