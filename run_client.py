@@ -14,6 +14,7 @@ from database.login_manager import LoginManager
 from database import SQLITE_PATH
 from ui.user_playlist_page.user_playlist_window import UserPlaylistWindow
 from ui.user_profile.user_profile_window import UserProfileWindow
+from ui.user_profile.profile_window_emitter import ProfileWindowEmitter
 import logging
 from ui.signup_page.signup_window_emitter import SignupWindowEmitter
 from ui.login_page.login_window_emitter import LoginWindowEmitter
@@ -42,8 +43,13 @@ def main():
     login_window_emitter.setup_connections(window_manager.get_window(LoginWindow))
     login_manager.login_window_emitter = login_window_emitter
     
-    client_socket_handler.signup_window_emitter = signup_window_emitter
     
+    profile_window = window_manager.get_window(UserProfileWindow)
+    profile_window_emitter = ProfileWindowEmitter(profile_window)
+    profile_window_emitter.setup_connections(profile_window)
+    client_socket_handler.profile_window_emitter = profile_window_emitter
+    
+    client_socket_handler.signup_window_emitter = signup_window_emitter
     window_manager.start_window(SignupWindow)
     logging.getLogger('sqlalchemy').setLevel(logging.ERROR)
     

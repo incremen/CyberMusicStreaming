@@ -47,13 +47,15 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       for btn in self.playlist_btns:
          btn.clicked.connect(self.playlist_btn_click)
          
-   def load_user_playlists(self, user : User):
-      for playlist, playlist_btn in zip_longest(user.playlists, self.playlist_btns):
+   def load_user_playlists(self, user_data : dict):
+      logging.info(f"{user_data=}")
+      logging.info(f"{user_data['playlists']=}")
+      for playlist, playlist_btn in zip_longest(user_data["playlists"], self.playlist_btns):
          if not playlist:
             playlist_btn.setText("+")
             continue
          
-         playlist_btn.setText(playlist.name)
+         playlist_btn.setText(playlist["name"])
          self.playlist_btn_to_playlist[playlist_btn] = playlist
            
    def playlist_btn_click(self):

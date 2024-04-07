@@ -1,3 +1,4 @@
+from database.models import User
 import threading
 import time
 import socketio
@@ -59,16 +60,30 @@ class ServerSocketHandler:
             
             if result.is_ok():
                 with self.sio.session(sid) as session_data:
-                    session_data['user'] = result.value[0]
+                    session_data['user'] = result.ok_value
                     logging.debug(f"{session_data=}")
-                    
-            self.sio.emit("login_result", {"result": result.is_ok(), "message": result.value}, room=sid)
+                self.sio.emit("login_result", {"result": True}, room=sid)
+                return
+            
+            self.sio.emit("login_result", {"result": False, "message": result.err_value}, room=sid)
             
         @self.sio.on("get_user_info")
         def get_user_info_handler(sid):
             with self.sio.session(sid) as session_data:
-                user = session_data.get('user')
-            self.sio.emit("user_info", {"user": user}, room=sid)
+                user : User = session_data.get('user')
+            
+            json_data = user.as_dict()
+            logging.debug(f"{json_data=}")
+            playlists = []
+            for playlist in user.playlists:
+                playlist_dict = playlist.as_dict()
+                playlist_dict["songs"] = [song.as_dict() for song in playlist.songs]
+                playlists.append(playlist_dict)
+            json_data["playlists"] = playlists
+            
+            logging.debug(f"{json_data=}")
+            
+            self.sio.emit("user_info", {"user": json_data}, room=sid)
             
 
         @self.sio.on("logout")

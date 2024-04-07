@@ -45,7 +45,7 @@ def login(username, password) -> Result[User, str]:
     ok_msg = f"User {username} logged in successfully"
     logging.info(ok_msg)
     session.close()
-    return Ok(user, ok_msg)
+    return Ok(user)
 
 def logout(self) -> Result:
     current_user = self.get_current_user()
