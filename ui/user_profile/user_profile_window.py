@@ -82,6 +82,6 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       self.window_manager.hide_window(UserProfileWindow)
       self.window_manager.start_window(login_window.LoginWindow)
     
-   def get_last_clicked_playlist(self):
-      return self.playlist_btn_to_playlist[self.playlist_btn_clicked] 
+   def get_last_clicked_playlist_name(self):
+      return self.playlist_btn_to_playlist[self.playlist_btn_clicked]["name"]
         

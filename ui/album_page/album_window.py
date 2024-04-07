@@ -74,7 +74,7 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def load_playlist_clicked(self):
         logging.debug("Showing users playlist...")
         user_playlist_window : UserProfileWindow = self.window_manager.get_window(UserProfileWindow)
-        last_playlist = user_playlist_window.get_last_clicked_playlist()
+        last_playlist = user_playlist_window.get_last_clicked_playlist_name()
         utils.log_playlist(last_playlist)
         self.load_playlist(last_playlist)
 

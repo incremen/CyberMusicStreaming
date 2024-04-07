@@ -76,7 +76,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def load_playlist_clicked(self):
         logging.debug("Showing users playlist...")
         profile_window  = self.window_manager.get_window(user_profile_window.UserProfileWindow)
-        last_playlist = profile_window.get_last_clicked_playlist()
+        last_playlist = profile_window.get_last_clicked_playlist_name()
         logging.debug(f"Last playlist: {last_playlist}")
         self.playlist_name_edit.setText(last_playlist["name"])
         self.add_songs_to_playlist_widget(last_playlist)
