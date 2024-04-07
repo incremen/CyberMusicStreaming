@@ -77,13 +77,13 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         logging.debug("Showing users playlist...")
         profile_window  = self.window_manager.get_window(user_profile_window.UserProfileWindow)
         last_playlist = profile_window.get_last_clicked_playlist()
-        utils.log_playlist(last_playlist)
-        self.playlist_name_edit.setText(last_playlist.name)
+        logging.debug(f"Last playlist: {last_playlist}")
+        self.playlist_name_edit.setText(last_playlist["name"])
         self.add_songs_to_playlist_widget(last_playlist)
         
     def add_songs_to_playlist_widget(self, playlist : Playlist):
-        for song in playlist.songs:
-            song_text = self.get_song_text(song)
+        for song in playlist["songs"]:
+            song_text = self.get_song_text(SongInfo(**song))
             gui_funcs.add_item_to_list_widget(self.play_list_widget, song_text)
 
     def query_db_for_song_list(self):
