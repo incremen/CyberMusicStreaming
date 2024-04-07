@@ -18,6 +18,7 @@ from ui.user_profile.profile_window_emitter import ProfileWindowEmitter
 import logging
 from ui.signup_page.signup_window_emitter import SignupWindowEmitter
 from ui.login_page.login_window_emitter import LoginWindowEmitter
+from ui.user_playlist_page.user_playlist_emitter import PlaylistWindowEmitter
 
 def main():
     logging.getLogger('sqlalchemy').setLevel(logging.ERROR)
@@ -38,6 +39,8 @@ def main():
     signup_window = window_manager.get_window(SignupWindow)
     signup_window_emitter = SignupWindowEmitter(signup_window)
     signup_window_emitter.setup_connections(signup_window)
+    client_socket_handler.signup_window_emitter = signup_window_emitter
+    
     
     login_window_emitter = LoginWindowEmitter()
     login_window_emitter.setup_connections(window_manager.get_window(LoginWindow))
@@ -49,7 +52,12 @@ def main():
     profile_window_emitter.setup_connections(profile_window)
     client_socket_handler.profile_window_emitter = profile_window_emitter
     
-    client_socket_handler.signup_window_emitter = signup_window_emitter
+    playlist_window = window_manager.get_window(UserPlaylistWindow)
+    playlist_window_emitter = PlaylistWindowEmitter(playlist_window)
+    playlist_window_emitter.setup_connections(playlist_window)
+    client_socket_handler.playlist_window_emitter = playlist_window_emitter
+    
+    
     window_manager.start_window(SignupWindow)
     logging.getLogger('sqlalchemy').setLevel(logging.ERROR)
     

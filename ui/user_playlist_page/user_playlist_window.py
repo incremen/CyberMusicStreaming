@@ -66,12 +66,12 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         
     def search_db(self, search_term : str = ""):
         logging.info(f"Searching db for {search_term}")
-        session = client_db_funcs.create_session()
-        songs_found = session.query(Song).filter(Song.name.like(f'{search_term}%')).all()
+        self.socket_handler.emit_to_server("search_for_term", search_term)
+
+    def search_result_received(self, songs_found : list[dict]):
         logging.debug(f"{songs_found=}")
-        song_dicts = [song.as_dict() for song in songs_found]
-        self.add_songs_to_btns(song_dicts, enable_drag = True)
-        self.audio_handler.song_list_received(song_dicts)
+        self.add_songs_to_btns(songs_found, enable_drag = True)
+        self.audio_handler.song_list_received(songs_found)
         
     def load_playlist_clicked(self):
         logging.debug("Showing users playlist...")

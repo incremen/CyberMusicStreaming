@@ -9,7 +9,8 @@ if TYPE_CHECKING:
     from database.login_manager import LoginManager
     from ui.signup_page.signup_window_emitter import SignupWindowEmitter
     from ui.user_profile.profile_window_emitter import ProfileWindowEmitter
-    
+    from ui.user_playlist_page.user_playlist_emitter import PlaylistWindowEmitter
+
     
 class ClientSocketHandler:
     def __init__(self, audio_handler :AudioHandler, music_playing_emitter : MusicPlayingEmitter):
@@ -21,6 +22,7 @@ class ClientSocketHandler:
         self.login_manager : 'LoginManager' = None
         self.signup_window_emitter : 'SignupWindowEmitter'= None
         self.profile_window_emitter : 'ProfileWindowEmitter' = None
+        self.playlist_window_emitter : 'PlaylistWindowEmitter' = None
     
     def send_skip_to_song_event(self, song_order):
         self.emit_to_server("skip_to_song" ,song_order)
@@ -67,6 +69,13 @@ class ClientSocketHandler:
             logging.debug(f"{data=}")
             logging.info("About to emit to profile window")
             self.profile_window_emitter.load_user_playlists.emit(data['user'])
+        
+        @self.sio.on("search_result")
+        def on_search_result(data):
+            logging.debug(f"{data=}")
+            self.playlist_window_emitter.search_result_received.emit(data['songs'])
+            
+        
             
         self.sio.connect(CLIENT_CONNECTS_TO_STR)
         

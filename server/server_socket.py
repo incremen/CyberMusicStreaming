@@ -85,13 +85,17 @@ class ServerSocketHandler:
             
             self.sio.emit("user_info", {"user": json_data}, room=sid)
             
+        @self.sio.on("search_for_term")
+        def search_for_term_handler(sid, search_term):
+            song_list = login_funcs.search_for_term(search_term)
+            song_dicts = [song.as_dict() for song in song_list]
+            self.sio.emit("search_result", {"songs": song_dicts}, room=sid)
 
         @self.sio.on("logout")
         def logout_handler(sid):
             with self.sio.session(sid) as session_data:
                 session_data.clear()
             # self.sio.emit("logout_success", {"message": "Logged out successfully"}, room=sid)
-            
             
         app = socketio.WSGIApp(self.sio)
         wsgi.server(eventlet.listen(server_addr_tuple), app)

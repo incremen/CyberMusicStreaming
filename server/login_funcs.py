@@ -1,7 +1,7 @@
 import logging
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database.models import User  # Assuming you have a User model defined elsewhere
+from database.models import User, Song
 from log_db import log_db
 from result import Ok, Err, Result, is_ok, is_err
 from database.utils import create_session
@@ -47,9 +47,7 @@ def login(username, password) -> Result[User, str]:
     session.close()
     return Ok(user)
 
-def logout(self) -> Result:
-    current_user = self.get_current_user()
-    logging.info(f"Logging out user: {current_user.username}")
-    self.current_user_id = None
-    logging.info("User logged out successfully")
-    return Ok(True)
+def search_for_term(search_term : str):
+    session = create_session()
+    songs_found = session.query(Song).filter(Song.name.like(f'{search_term}%')).all()
+    return songs_found
