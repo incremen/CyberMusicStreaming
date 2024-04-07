@@ -54,6 +54,7 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       self.window_manager.start_window(search_window.SearchWindow)
          
    def load_user_playlists(self, user_data : dict):
+      self.show_user_info()
       logging.info(f"{user_data=}")
       logging.info(f"{user_data['playlists']=}")
       for playlist, playlist_btn in zip_longest(user_data["playlists"], self.playlist_btns):

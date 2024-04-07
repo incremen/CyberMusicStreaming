@@ -35,8 +35,6 @@ class LoginManager:
     def create_new_account(self, username, password):
         logging.info(f"Attempting to create a new account for user: {username}")
         self.socket_handler.emit_to_server('create_new_account', {'username': username, 'password': password})
-        self.username = username
-        self.password = password
 
     def login(self, username, password):
         logging.info(f"Attempting to log in user: {username}")
