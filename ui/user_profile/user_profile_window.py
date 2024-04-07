@@ -9,6 +9,7 @@ from itertools import zip_longest
 import logging
 from ui.user_playlist_page.user_playlist_window import UserPlaylistWindow
 from database.models import User
+from ui.search_page import search_window
 
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
@@ -40,12 +41,17 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
        
    def setup_btns(self):
       self.sign_out_btn.clicked.connect(self.signout_btn_click)
+      self.home_btn.clicked.connect(self.home_btn_click)
       
       self.playlist_btns = [
          self.btn_1, self.btn_2, self.btn_3, self.btn_4, self.btn_5, self.btn_6, self.btn_7, self.btn_8
       ]
       for btn in self.playlist_btns:
          btn.clicked.connect(self.playlist_btn_click)
+         
+   def home_btn_click(self):
+      self.hide()
+      self.window_manager.start_window(search_window.SearchWindow)
          
    def load_user_playlists(self, user_data : dict):
       logging.info(f"{user_data=}")
