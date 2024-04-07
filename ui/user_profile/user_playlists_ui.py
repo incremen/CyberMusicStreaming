@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui\user_playlists\user_playlists.ui'
+# Form implementation generated from reading ui file 'ui\user_profile\user_playlists.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -50,16 +50,28 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addItem(spacerItem)
         self.sign_out_btn = QtWidgets.QPushButton(self.sign_out_btn_box)
         font = QtGui.QFont()
-        font.setPointSize(20)
+        font.setPointSize(18)
         self.sign_out_btn.setFont(font)
-        self.sign_out_btn.setStyleSheet(" border: 2px solid pink;\n"
-" border-radius: 5px;\n"
-"color: black;\n"
-"background-color: white;\n"
+        self.sign_out_btn.setStyleSheet(" border: 2px solid gold;\n"
+" background-color: rgba(128, 128, 128, 128);\n"
+"color: white;\n"
+"border-radius:12px;\n"
 "\n"
 "")
         self.sign_out_btn.setObjectName("sign_out_btn")
         self.horizontalLayout.addWidget(self.sign_out_btn)
+        self.home_btn = QtWidgets.QPushButton(self.sign_out_btn_box)
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        self.home_btn.setFont(font)
+        self.home_btn.setStyleSheet(" border: 2px solid gold;\n"
+" background-color: rgba(128, 128, 128, 128);\n"
+"color: white;\n"
+"border-radius:12px;\n"
+"\n"
+"")
+        self.home_btn.setObjectName("home_btn")
+        self.horizontalLayout.addWidget(self.home_btn)
         self.gridLayout_2.addWidget(self.sign_out_btn_box, 1, 0, 1, 1)
         self.album_grid = QtWidgets.QGridLayout()
         self.album_grid.setObjectName("album_grid")
@@ -290,6 +302,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.sign_out_btn_box.setTitle(_translate("MainWindow", "GroupBox"))
         self.sign_out_btn.setText(_translate("MainWindow", "Sign out"))
+        self.home_btn.setText(_translate("MainWindow", "Home"))
         self.btn_1.setText(_translate("MainWindow", "Dummy 1"))
         self.lineEdit.setText(_translate("MainWindow", "Your own playlists:"))
         self.groupBox_3.setTitle(_translate("MainWindow", "GroupBox"))
