@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from database.login_manager import LoginManager
     from ui.signup_page.signup_window_emitter import SignupWindowEmitter
+    from ui.user_profile.profile_window_emitter import ProfileWindowEmitter
     
     
 class ClientSocketHandler:
@@ -19,6 +20,7 @@ class ClientSocketHandler:
         self.emit_to_server= self.sio.emit
         self.login_manager : 'LoginManager' = None
         self.signup_window_emitter : 'SignupWindowEmitter'= None
+        self.profile_window_emitter : 'ProfileWindowEmitter' = None
     
     def send_skip_to_song_event(self, song_order):
         self.emit_to_server("skip_to_song" ,song_order)
@@ -59,6 +61,11 @@ class ClientSocketHandler:
             logging.debug(f"{data=}")
             if self.login_manager:
                 self.login_manager.login_response(data['result'])
+                
+        @self.sio.on("user_info")
+        def on_user_info(data):
+            logging.debug(f"{data=}")
+            self.profile_window_emitter.user_info_received(data['user'])
             
         self.sio.connect(CLIENT_CONNECTS_TO_STR)
         

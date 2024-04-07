@@ -25,7 +25,7 @@ def create_new_account(username, password) -> Result:
     session.close()
     return Ok(ok_message)
 
-def login(username, password) -> Result:
+def login(username, password) -> Result[User, str]:
     logging.info(f"Attempting to log in user: {username}")
     session = create_session()
     user: User = session.query(User).filter_by(username=username).first()
@@ -45,7 +45,7 @@ def login(username, password) -> Result:
     ok_msg = f"User {username} logged in successfully"
     logging.info(ok_msg)
     session.close()
-    return Ok(ok_msg)
+    return Ok(user, ok_msg)
 
 def logout(self) -> Result:
     current_user = self.get_current_user()

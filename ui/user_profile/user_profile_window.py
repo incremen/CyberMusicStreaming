@@ -8,7 +8,7 @@ from ui.login_page import login_window
 from itertools import zip_longest
 import logging
 from ui.user_playlist_page.user_playlist_window import UserPlaylistWindow
-
+from database.models import User
 
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
@@ -30,9 +30,9 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
        self.setup_btns()
        
    def start(self):
-      self.show()
       self.show_user_info()
-      self.setup_btns_text()
+      self.show()
+      self.socket_handler.emit_to_server("get_user_info")
 
    def show_user_info(self):
        user_info_text = f"username: {self.login_manager.username} \npassword: {self.login_manager.password}"
@@ -47,9 +47,8 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       for btn in self.playlist_btns:
          btn.clicked.connect(self.playlist_btn_click)
          
-   def setup_btns_text(self):
-      user_playlists = self.login_manager.get_current_user().playlists
-      for playlist, playlist_btn in zip_longest(user_playlists, self.playlist_btns):
+   def load_user_playlists(self, user : User):
+      for playlist, playlist_btn in zip_longest(user.playlists, self.playlist_btns):
          if not playlist:
             playlist_btn.setText("+")
             continue

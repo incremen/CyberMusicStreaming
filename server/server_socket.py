@@ -59,9 +59,17 @@ class ServerSocketHandler:
             
             if result.is_ok():
                 with self.sio.session(sid) as session_data:
-                    session_data['username'] = username
+                    session_data['user'] = result.value[0]
+                    logging.debug(f"{session_data=}")
                     
             self.sio.emit("login_result", {"result": result.is_ok(), "message": result.value}, room=sid)
+            
+        @self.sio.on("get_user_info")
+        def get_user_info_handler(sid):
+            with self.sio.session(sid) as session_data:
+                user = session_data.get('user')
+            self.sio.emit("user_info", {"user": user}, room=sid)
+            
 
         @self.sio.on("logout")
         def logout_handler(sid):
