@@ -60,7 +60,7 @@ class AudioHandler:
         song_info_list = [SongInfo(**song_dict) for song_dict in song_list]
         self.song_name_to_info = {info.name : info for info in song_info_list}
         
-        self.main_page_emitter.song_list_recieved.emit(song_list)
+        self.main_page_emitter.song_list_received.emit(song_list)
         
     @log_calls
     def add_to_song_queue(self, song_name :str):
