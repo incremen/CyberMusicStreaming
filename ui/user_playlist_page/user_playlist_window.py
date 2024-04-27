@@ -73,6 +73,15 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
             self.audio_handler.add_to_song_queue(song_info.name)
         elif button == Qt.RightButton:
             logging.info(f"Right clicked: {item.text()}")
+            self.play_list_widget.currentItemChanged.disconnect()
+            self.remove_song_from_playlist_widget(item.text())
+            self.play_list_widget.currentItemChanged.connect(self.item_clicked_with_button)
+            
+            
+    def remove_song_from_playlist_widget(self, song_text):
+        items = self.play_list_widget.findItems(song_text, Qt.MatchExactly)
+        for item in items:
+            self.play_list_widget.takeItem(self.play_list_widget.row(item))
         
     def search_db(self, search_term : str = ""):
         logging.info(f"Searching db for {search_term}")
@@ -93,8 +102,10 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         for user_playlist in self.login_manager.playlists:
             if user_playlist["name"] == last_playlist_name:
                 to_load = user_playlist
+        logging.debug(f"{to_load=}")
         
         self.add_songs_to_playlist_widget(to_load)
+        self.loaded_songs = to_load
         
     def add_songs_to_playlist_widget(self, playlist : Playlist):
         for song in playlist["songs"]:
