@@ -47,21 +47,23 @@ def login(username, password) -> Result[User, str]:
     session.close()
     return Ok(user)
 
-def save_playlist(username, playlist_dict : dict):
+def save_playlist(username, playlist_dict: dict):
     session = create_session()
     user = session.query(User).filter_by(username=username).first()
     session.add(user)
-    
+
     playlist_to_edit = find_matching_user_playlist(playlist_dict, user)
     if not playlist_to_edit:
         playlist_to_edit = Playlist(name=playlist_dict["name"])
         user.playlists.append(playlist_to_edit)
         session.add(playlist_to_edit)
-        
+
+    playlist_to_edit.songs = []
+
     for song_name in playlist_dict["songs"]:
         song = session.query(Song).filter_by(name=song_name).first()
         playlist_to_edit.songs.append(song)
-        
+
     session.commit()
     session.close()
     return user
