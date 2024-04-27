@@ -113,13 +113,16 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
                 to_load = user_playlist
         logging.debug(f"{to_load=}")
         
-        self.add_songs_to_playlist(to_load)
-        logging.checkpoint(f"After setting it: {self.songs_btns_text_in_playlist=}")
+        self.add_loaded_songs_to_list(to_load)
         
-    def add_songs_to_playlist(self, playlist : Playlist):
+    def add_loaded_songs_to_list(self, playlist : Playlist):
+        self.songs_btns_text_in_playlist.clear()
+        self.play_list_widget.clear()
+        
         for song in playlist["songs"]:
             song_text = self.get_song_text(SongInfo(**song))
             self.songs_btns_text_in_playlist.append(song_text)
+            logging.checkpoint(f"Mid add: {self.songs_btns_text_in_playlist}")
         logging.checkpoint(f"After adding: {self.songs_btns_text_in_playlist=}")
 
     def query_db_for_song_list(self):
