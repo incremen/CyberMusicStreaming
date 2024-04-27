@@ -163,6 +163,12 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.playlist_widget_emitter.setup_connections(self)
         
         self.songs_btns_text_in_playlist = EmittingList(self.playlist_widget_emitter.update_playlist)
+        threading.Thread(target=self.log_thread).start()
+        
+    def log_thread(self):
+        while True:
+            time.sleep(4)
+            logging.info(f"Currently: {self.songs_btns_text_in_playlist=}")
         
     def profile_btn_click(self):
         logging.info("Profile button clicked...")
