@@ -55,29 +55,23 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def start(self):
         self.playlist_name_edit.setText("New Playlist")
         self.play_list_widget.clear()
-        self.play_list_widget.currentItemChanged.connect(self.item_clicked_with_button)
-        
+        self.play_list_widget.itemPressed.connect(self.item_pressed_with_button)
         logging.info(f"{self.query_mode=}")
         self.search_db()
         if self.query_mode == "query_playlist":
             self.load_playlist_clicked()
-            
         self.show()
 
-    def item_clicked_with_button(self, item):
+    def item_pressed_with_button(self, item):
         button = QApplication.mouseButtons()
-        
         if button == Qt.LeftButton:
             logging.info(f"Left clicked: {item.text()}")
             song_info = self.song_btn_text_to_song_info[item.text()]
             self.audio_handler.add_to_song_queue(song_info.name)
         elif button == Qt.RightButton:
             logging.info(f"Right clicked: {item.text()}")
-            self.play_list_widget.currentItemChanged.disconnect()
             self.remove_song_from_playlist_widget(item.text())
-            self.play_list_widget.currentItemChanged.connect(self.item_clicked_with_button)
-            
-            
+
     def remove_song_from_playlist_widget(self, song_text):
         items = self.play_list_widget.findItems(song_text, Qt.MatchExactly)
         for item in items:
