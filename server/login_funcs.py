@@ -63,14 +63,12 @@ def save_playlist(username, playlist_dict: dict):
     for song_name in playlist_dict["songs"]:
         song = session.query(Song).filter_by(name=song_name).first()
         playlist_to_edit.songs.append(song)
+        
+    from database.utils import log_user_and_playlists
+    log_user_and_playlists(user)
 
+    logging.checkpoint(f"{playlist_dict=}, {playlist_to_edit.songs=}")
     session.commit()
-    session.close()
-    return user
-
-def query_user(username):
-    session = create_session()
-    user = session.query(User).filter_by(username=username).first()
     session.close()
     return user
 
@@ -78,6 +76,16 @@ def find_matching_user_playlist(playlist_dict, user):
     for user_playlist in user.playlists:
         if user_playlist.name == playlist_dict["name"]:
             return user_playlist
+        
+    return None
+
+def query_user(username):
+    session = create_session()
+    user = session.query(User).filter_by(username=username).first()
+    session.close()
+    return user
+
+
     
 
 def search_for_term(search_term : str):

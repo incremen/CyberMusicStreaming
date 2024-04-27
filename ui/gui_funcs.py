@@ -7,10 +7,17 @@ from PyQt5.QtCore import Qt
 
 
 
-def add_item_to_list_widget(list_widget, text):
+def add_item_to_list_widget(list_widget, text, unique = True):
+    if unique:
+        existing_items = list_widget.findItems(text, Qt.MatchExactly)
+        if existing_items:
+            return
+
     item = QListWidgetItem(text)
     item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
     set_custom_font(item, "Helvetica", 15)
+    item.text = lambda : text
+
     list_widget.addItem(item)
     
 

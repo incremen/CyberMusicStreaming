@@ -58,7 +58,7 @@ def main():
     client_socket_handler.playlist_window_emitter = playlist_window_emitter
     
     
-    window_manager.start_window(SignupWindow)
+    login_manager.login("a", "a")
     logging.getLogger('sqlalchemy').setLevel(logging.ERROR)
     
     app.exec_()

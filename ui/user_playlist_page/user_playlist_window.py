@@ -63,17 +63,26 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.show()
 
     def item_pressed_with_button(self, item):
+        logging.checkpoint(f"{item=}, {item.text()=}")
+        item_index = self.play_list_widget.indexFromItem(item).row()
+        logging.debug(f"{item_index=}")
+        text = self.songs_btns_text_in_playlist[item_index]
+        item = self.play_list_widget.item(item_index)
+        logging.checkpoint(f"again, {item=}, {text=}")
+        
         button = QApplication.mouseButtons()
         if button == Qt.LeftButton:
-            logging.info(f"Left clicked: {item.text()}")
-            song_info = self.song_btn_text_to_song_info[item.text()]
+            logging.info(f"Left clicked: {text}")
+            song_info = self.song_btn_text_to_song_info[text]
             self.audio_handler.add_to_song_queue(song_info.name)
         elif button == Qt.RightButton:
-            logging.info(f"Right clicked: {item.text()}")
-            self.remove_song_from_playlist_widget(item.text())
+            logging.info(f"Right clicked: {text}")
+            self.remove_song_from_playlist_widget(text)
 
     def remove_song_from_playlist_widget(self, song_text):
         items = self.play_list_widget.findItems(song_text, Qt.MatchExactly)
+        logging.checkpoint(f"{song_text=}  {self.songs_btns_text_in_playlist=}")
+        self.songs_btns_text_in_playlist.remove(song_text)
         for item in items:
             self.play_list_widget.takeItem(self.play_list_widget.row(item))
         
@@ -105,6 +114,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         for song in playlist["songs"]:
             song_text = self.get_song_text(SongInfo(**song))
             gui_funcs.add_item_to_list_widget(self.play_list_widget, song_text)
+            self.songs_btns_text_in_playlist.append(song_text)
 
     def query_db_for_song_list(self):
         session = client_db_funcs.create_session()
@@ -150,6 +160,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         
         songs_in_playlist = [self.song_btn_text_to_song_info[btn_text] for btn_text in self.songs_btns_text_in_playlist]
         song_names = [song.name for song in songs_in_playlist]
+        logging.checkpoint(f"Sending {song_names=}")
         self.socket_handler.emit_to_server("save_playlist", {"username" : self.login_manager.username, "songs" : song_names, "name" : playlist_name})
         
         
@@ -159,6 +170,9 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.search_db(search_text)
         
     def add_btn_text_to_playlist(self, song_btn_text : str):
+        if song_btn_text in self.songs_btns_text_in_playlist:
+            logging.info("Already in playlist, not appending")
+            return
         self.songs_btns_text_in_playlist.append(song_btn_text)
         logging.info("Added button to playlist...")
         logging.debug(f"{self.songs_btns_text_in_playlist=}")

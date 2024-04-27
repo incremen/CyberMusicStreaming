@@ -86,5 +86,4 @@ class Song(Base):
         return song_dict
     
     def __repr__(self):
-        return f"Song(id={self.id}, name={self.name}, length={self.length}, \
-nframes={self.nframes}, framerate={self.framerate}, nchannels={self.nchannels})"
+        return f"Song(name={self.name})"
