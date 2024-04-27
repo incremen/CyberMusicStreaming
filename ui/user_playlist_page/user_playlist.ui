@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1181</width>
-    <height>933</height>
+    <height>927</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -294,7 +294,7 @@ color: white;
               <string notr="true">background: transparent;</string>
              </property>
              <attribute name="title">
-              <string>Page</string>
+              <string>Playlist</string>
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_2">
               <item>
@@ -367,6 +367,39 @@ color: white;
                    </property>
                   </widget>
                  </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>120</width>
+                     <height>60</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>13</pointsize>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true"> border: 2px solid gold;
+ background-color: rgba(128, 128, 128, 128);
+ border-radius: 30px;
+color: white;
+
+
+</string>
+                   </property>
+                   <property name="text">
+                    <string>Play</string>
+                   </property>
+                  </widget>
+                 </item>
                 </layout>
                </widget>
               </item>
@@ -374,7 +407,7 @@ color: white;
             </widget>
             <widget class="QWidget" name="song_queue">
              <attribute name="title">
-              <string/>
+              <string>Queue</string>
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout">
               <item>
@@ -420,14 +453,6 @@ color: white;
 
 </string>
                 </property>
-                <item>
-                 <property name="text">
-                  <string>dummy item</string>
-                 </property>
-                 <property name="textAlignment">
-                  <set>AlignCenter</set>
-                 </property>
-                </item>
                </widget>
               </item>
              </layout>
