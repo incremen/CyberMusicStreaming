@@ -1,7 +1,7 @@
 import sqlalchemy
 import time
 from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QMainWindow, QPushButton, QWidget, QListWidget, QListWidgetItem
+from PyQt5.QtWidgets import QMainWindow, QPushButton, QWidget, QListWidget, QListWidgetItem, QApplication
 from PyQt5.QtCore import Qt, QThread, pyqtSlot
 import logging
 from music_playing.song_class import SongInfo
@@ -55,7 +55,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def start(self):
         self.playlist_name_edit.setText("New Playlist")
         self.play_list_widget.clear()
-        
+        self.play_list_widget.currentItemChanged.connect(self.item_clicked_with_button)
         
         logging.info(f"{self.query_mode=}")
         self.search_db()
@@ -63,6 +63,16 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
             self.load_playlist_clicked()
             
         self.show()
+
+    def item_clicked_with_button(self, item):
+        button = QApplication.mouseButtons()
+        
+        if button == Qt.LeftButton:
+            logging.info(f"Left clicked: {item.text()}")
+            song_info = self.song_btn_text_to_song_info[item.text()]
+            self.audio_handler.add_to_song_queue(song_info.name)
+        elif button == Qt.RightButton:
+            logging.info(f"Right clicked: {item.text()}")
         
     def search_db(self, search_term : str = ""):
         logging.info(f"Searching db for {search_term}")
