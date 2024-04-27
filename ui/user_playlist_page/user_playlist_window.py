@@ -19,7 +19,8 @@ from dataclasses import asdict
 from database.models import User, Playlist, Song
 from database import utils
 from ui.user_profile import user_profile_window
-
+from ui.user_playlist_page.playlist_widget_emitter import PlaylistWidgetEmitter
+from music_playing.emitting_list import EmittingList
 
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
@@ -48,9 +49,18 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.last_queue_emit_num = -1
         self.last_songs_played_emit_num = -1
         
-        self.songs_btns_text_in_playlist = []
+        self.last_playlist_emit_num = -1
+        
         self.song_btn_to_song_info : dict[QPushButton, SongInfo] = {}
         self.song_btn_text_to_song_info : dict[str, SongInfo] = {}
+        
+    def update_playlist_widget(self, songs : list, emit_num : int):
+        if emit_num < self.last_playlist_emit_num:
+            return
+        
+        self.play_list_widget.clear()
+        for song in songs:
+            gui_funcs.add_item_to_list_widget(self.play_list_widget, song)
        
     def start(self):
         self.playlist_name_edit.setText("New Playlist")
@@ -79,12 +89,8 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
 
     def remove_song_from_playlist_widget(self, song_text):
         logging.checkpoint(f"Before: {self.songs_btns_text_in_playlist=}")
-        self.songs_btns_text_in_playlist = [text for text in self.songs_btns_text_in_playlist if text != song_text]
+        self.songs_btns_text_in_playlist.remove(song_text)
         logging.checkpoint(f"After: {self.songs_btns_text_in_playlist=}")
-        self.play_list_widget.clear()
-
-        for song_text in self.songs_btns_text_in_playlist:
-            gui_funcs.add_item_to_list_widget(self.play_list_widget, song_text)
         
     def search_db(self, search_term : str = ""):
         logging.info(f"Searching db for {search_term}")
@@ -107,13 +113,12 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
                 to_load = user_playlist
         logging.debug(f"{to_load=}")
         
-        self.add_songs_to_playlist_widget(to_load)
+        self.add_songs_to_playlist(to_load)
         logging.checkpoint(f"After setting it: {self.songs_btns_text_in_playlist=}")
         
-    def add_songs_to_playlist_widget(self, playlist : Playlist):
+    def add_songs_to_playlist(self, playlist : Playlist):
         for song in playlist["songs"]:
             song_text = self.get_song_text(SongInfo(**song))
-            gui_funcs.add_item_to_list_widget(self.play_list_widget, song_text)
             self.songs_btns_text_in_playlist.append(song_text)
         logging.checkpoint(f"After adding: {self.songs_btns_text_in_playlist=}")
 
@@ -150,6 +155,11 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.right_tab_widget.setCurrentIndex(1)
         
         self.save_playlist_btn.clicked.connect(self.save_playlist_btn_clicked)
+        
+        self.playlist_widget_emitter = PlaylistWidgetEmitter()
+        self.playlist_widget_emitter.setup_connections(self)
+        
+        self.songs_btns_text_in_playlist = EmittingList(self.playlist_widget_emitter.update_playlist)
         
     def profile_btn_click(self):
         logging.info("Profile button clicked...")
@@ -283,9 +293,6 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         song_list_widget.clear()
         for song in song_list:
             gui_funcs.add_item_to_list_widget(song_list_widget, song.name)
-            
-        # logging.info(f"{self.get_full_song_queue()=}")
-        # logging.info(f"{song_list=}")
         
     def add_item_to_queue(self, song_list_widget : QListWidget, item_text):
         item = QListWidgetItem(item_text)
