@@ -67,8 +67,6 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         item_index = self.play_list_widget.indexFromItem(item).row()
         logging.debug(f"{item_index=}")
         text = self.songs_btns_text_in_playlist[item_index]
-        item = self.play_list_widget.item(item_index)
-        logging.checkpoint(f"again, {item=}, {text=}")
         
         button = QApplication.mouseButtons()
         if button == Qt.LeftButton:
@@ -80,11 +78,13 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
             self.remove_song_from_playlist_widget(text)
 
     def remove_song_from_playlist_widget(self, song_text):
-        items = self.play_list_widget.findItems(song_text, Qt.MatchExactly)
-        logging.checkpoint(f"{song_text=}  {self.songs_btns_text_in_playlist=}")
-        self.songs_btns_text_in_playlist.remove(song_text)
-        for item in items:
-            self.play_list_widget.takeItem(self.play_list_widget.row(item))
+        logging.checkpoint(f"Before: {self.songs_btns_text_in_playlist=}")
+        self.songs_btns_text_in_playlist = [text for text in self.songs_btns_text_in_playlist if text != song_text]
+        logging.checkpoint(f"After: {self.songs_btns_text_in_playlist=}")
+        self.play_list_widget.clear()
+
+        for song_text in self.songs_btns_text_in_playlist:
+            gui_funcs.add_item_to_list_widget(self.play_list_widget, song_text)
         
     def search_db(self, search_term : str = ""):
         logging.info(f"Searching db for {search_term}")
@@ -108,13 +108,14 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         logging.debug(f"{to_load=}")
         
         self.add_songs_to_playlist_widget(to_load)
-        self.loaded_songs = to_load
+        logging.checkpoint(f"After setting it: {self.songs_btns_text_in_playlist=}")
         
     def add_songs_to_playlist_widget(self, playlist : Playlist):
         for song in playlist["songs"]:
             song_text = self.get_song_text(SongInfo(**song))
             gui_funcs.add_item_to_list_widget(self.play_list_widget, song_text)
             self.songs_btns_text_in_playlist.append(song_text)
+        logging.checkpoint(f"After adding: {self.songs_btns_text_in_playlist=}")
 
     def query_db_for_song_list(self):
         session = client_db_funcs.create_session()
