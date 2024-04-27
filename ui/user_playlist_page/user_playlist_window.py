@@ -66,17 +66,21 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.playlist_name_edit.setText("New Playlist")
         self.play_list_widget.clear()
         self.play_list_widget.itemPressed.connect(self.item_pressed_with_button)
+        self.play_list_widget.currentItemChanged.connect(self.playlist_item_changed)
         logging.info(f"{self.query_mode=}")
         self.search_db()
         if self.query_mode == "query_playlist":
             self.load_playlist_clicked()
         self.show()
+        
+    def playlist_item_changed(self, item):
+        if item is not None:
+            self.current_item = item
 
     def item_pressed_with_button(self, item):
-        logging.checkpoint(f"{item=}, {item.text()=}")
-        item_index = self.play_list_widget.indexFromItem(item).row()
-        logging.debug(f"{item_index=}")
-        text = self.songs_btns_text_in_playlist[item_index]
+        current_item = self.current_item
+        logging.checkpoint(f"{current_item=}, {current_item.text()=}")
+        text = current_item.text()
         
         button = QApplication.mouseButtons()
         if button == Qt.LeftButton:
@@ -89,7 +93,10 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
 
     def remove_song_from_playlist_widget(self, song_text):
         logging.checkpoint(f"Before: {self.songs_btns_text_in_playlist=}")
-        self.songs_btns_text_in_playlist.remove(song_text)
+        try:
+            self.songs_btns_text_in_playlist.remove(song_text)
+        except:
+            logging.error("Couldn't remove item unfortunately :(")
         logging.checkpoint(f"After: {self.songs_btns_text_in_playlist=}")
         
     def search_db(self, search_term : str = ""):
