@@ -80,7 +80,8 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       self.window_manager.start_window(login_window.LoginWindow)
     
    def get_last_clicked_playlist_name(self):
-      last_clicked_playlist_name = self.playlist_btn_to_playlist.get(self.playlist_btn_clicked.text())
+      logging.checkpoint(f"{self.playlist_btn_clicked.text()=}")
+      last_clicked_playlist_name = self.playlist_btn_to_playlist.get(self.playlist_btn_clicked)
       if not last_clicked_playlist_name:
          return Err("No playlist name")
       return Ok(last_clicked_playlist_name)

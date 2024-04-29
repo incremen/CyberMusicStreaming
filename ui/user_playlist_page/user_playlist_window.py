@@ -140,15 +140,18 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def load_playlist_clicked(self):
         logging.debug("Showing users playlist...")
         profile_window = self.window_manager.get_window(user_profile_window.UserProfileWindow)
-        playlist_name_result : Result = profile_window.get_last_clicked_playlist_name()
-        if playlist_name_result.is_err:
+        last_playlist_result : Result = profile_window.get_last_clicked_playlist_name()
+        
+        logging.debug(f"{last_playlist_result=}")
+        if last_playlist_result.is_err():
             self.playlist_name_edit.setText("New Playlist")
             return
         
-        playlist_name = playlist_name_result.ok_value
+        playlist_name = last_playlist_result.ok_value["name"]
         
         logging.debug(f"Last playlist: {playlist_name}")
         self.playlist_name_edit.setText(playlist_name)
+        self.playlist_name_edit.setDisabled(True)
         
         for user_playlist in self.login_manager.playlists:
             if user_playlist["name"] == playlist_name:
