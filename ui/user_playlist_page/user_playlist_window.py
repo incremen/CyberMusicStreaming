@@ -21,6 +21,7 @@ from database import utils
 from ui.user_profile import user_profile_window
 from ui.user_playlist_page.playlist_widget_emitter import PlaylistWidgetEmitter
 from music_playing.emitting_list import EmittingList
+from result import Ok, Err, Result, is_ok, is_err
 
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
@@ -90,6 +91,9 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         
         self.save_playlist_btn.clicked.connect(self.save_playlist_btn_clicked)
         
+        self.play_btn.clicked.connect(self.play_btn_click)
+        
+        
     def update_playlist_widget(self, songs : list, emit_num : int):
         if emit_num < self.last_playlist_emit_num:
             return
@@ -135,24 +139,37 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         
     def load_playlist_clicked(self):
         logging.debug("Showing users playlist...")
-        profile_window  = self.window_manager.get_window(user_profile_window.UserProfileWindow)
-        last_playlist_name = profile_window.get_last_clicked_playlist_name()
-        logging.debug(f"Last playlist: {last_playlist_name}")
-        self.playlist_name_edit.setText(last_playlist_name)
+        profile_window = self.window_manager.get_window(user_profile_window.UserProfileWindow)
+        playlist_name_result : Result = profile_window.get_last_clicked_playlist_name()
+        if playlist_name_result.is_err:
+            self.playlist_name_edit.setText("New Playlist")
+            return
+        
+        playlist_name = playlist_name_result.ok_value
+        
+        logging.debug(f"Last playlist: {playlist_name}")
+        self.playlist_name_edit.setText(playlist_name)
         
         for user_playlist in self.login_manager.playlists:
-            if user_playlist["name"] == last_playlist_name:
+            if user_playlist["name"] == playlist_name:
                 to_load = user_playlist
         logging.debug(f"{to_load=}")
         
+        
         self.add_loaded_songs_to_list(to_load)
+        
+    def play_btn_click(self):
+        logging.info("Play button clicked...")
+        for song in self.songs_btns_text_in_playlist:
+            song_name = self.get_song_name_from_text(song)
+            self.audio_handler.add_to_song_queue(song_name)
         
     def add_loaded_songs_to_list(self, playlist : Playlist):
         self.songs_btns_text_in_playlist.clear()
         self.play_list_widget.clear()
         
         for song in playlist["songs"]:
-            song_text = self.get_song_text(SongInfo(**song))
+            song_text = self.get_song_widget_text(SongInfo(**song))
             self.songs_btns_text_in_playlist.append(song_text)
             logging.checkpoint(f"Mid add: {self.songs_btns_text_in_playlist}")
         logging.checkpoint(f"After adding: {self.songs_btns_text_in_playlist=}")
@@ -169,9 +186,8 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.audio_handler.song_list_received(song_dict_list)
         self.song_list = song_dict_list
         self.add_songs_to_btns(self.song_list)
-       
-
         
+
 
         
     def log_thread(self):
@@ -244,7 +260,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
 
     def add_song_btn(self, enable_drag, song_dict):
         song_info = SongInfo(**song_dict)
-        song_text = self.get_song_text(song_info)
+        song_text = self.get_song_widget_text(song_info)
         song_btn = self.create_song_btn(song_text)
         self.song_btn_text_to_song_info.update({song_text : song_info})
         
@@ -254,9 +270,12 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.song_btn_to_song_info.update({song_btn : song_info})
         self.add_song_btn_to_grid(song_btn)
 
-    def get_song_text(self, song : Song | SongInfo):
+    def get_song_widget_text(self, song : Song | SongInfo):
         song_text = f"{song.name}\n {song.length} seconds"
         return song_text
+    
+    def get_song_name_from_text(self, text : str):
+        return text.split("\n")[0]
 
     def clear_all_song_btns(self, songs):
         self.delete_from_grid(5)

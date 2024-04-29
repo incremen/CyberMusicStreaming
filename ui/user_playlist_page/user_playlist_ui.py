@@ -209,25 +209,25 @@ class Ui_MainWindow(object):
 "")
         self.save_playlist_btn.setObjectName("save_playlist_btn")
         self.horizontalLayout_4.addWidget(self.save_playlist_btn)
-        self.pushButton = QtWidgets.QPushButton(self.groupBox)
+        self.play_btn = QtWidgets.QPushButton(self.groupBox)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
-        self.pushButton.setSizePolicy(sizePolicy)
-        self.pushButton.setMaximumSize(QtCore.QSize(120, 60))
+        sizePolicy.setHeightForWidth(self.play_btn.sizePolicy().hasHeightForWidth())
+        self.play_btn.setSizePolicy(sizePolicy)
+        self.play_btn.setMaximumSize(QtCore.QSize(120, 60))
         font = QtGui.QFont()
         font.setPointSize(13)
-        self.pushButton.setFont(font)
-        self.pushButton.setStyleSheet(" border: 2px solid gold;\n"
+        self.play_btn.setFont(font)
+        self.play_btn.setStyleSheet(" border: 2px solid gold;\n"
 " background-color: rgba(128, 128, 128, 128);\n"
 " border-radius: 30px;\n"
 "color: white;\n"
-"\n"
+"  \n"
 "\n"
 "")
-        self.pushButton.setObjectName("pushButton")
-        self.horizontalLayout_4.addWidget(self.pushButton)
+        self.play_btn.setObjectName("play_btn")
+        self.horizontalLayout_4.addWidget(self.play_btn)
         self.verticalLayout_2.addWidget(self.groupBox)
         self.right_tab_widget.addTab(self.tab, "")
         self.song_queue = QtWidgets.QWidget()
@@ -368,7 +368,7 @@ class Ui_MainWindow(object):
         self.search_btn.setText(_translate("MainWindow", "Search for a song:"))
         self.groupBox.setTitle(_translate("MainWindow", "GroupBox"))
         self.save_playlist_btn.setText(_translate("MainWindow", "Save playlist"))
-        self.pushButton.setText(_translate("MainWindow", "Play"))
+        self.play_btn.setText(_translate("MainWindow", "Play"))
         self.right_tab_widget.setTabText(self.right_tab_widget.indexOf(self.tab), _translate("MainWindow", "Playlist"))
         self.right_tab_widget.setTabText(self.right_tab_widget.indexOf(self.song_queue), _translate("MainWindow", "Queue"))
 import resource_file_rc

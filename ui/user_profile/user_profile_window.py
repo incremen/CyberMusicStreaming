@@ -10,6 +10,7 @@ import logging
 from ui.user_playlist_page.user_playlist_window import UserPlaylistWindow
 from database.models import User
 from ui.search_page import search_window
+from result import Ok, Err, Result, is_ok, is_err
 
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
@@ -69,12 +70,6 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       user_playlists_window = self.window_manager.windows[UserPlaylistWindow]
       
       self.playlist_btn_clicked = self.sender()
-      logging.info(f"{self.playlist_btn_clicked=}")
-      logging.info(f"{self.playlist_btn_to_playlist=}")
-      logging.info(f"{self.playlist_btn_to_playlist.get(self.playlist_btn_clicked)=}")
-      
-      playlist = self.playlist_btn_to_playlist.get(self.playlist_btn_clicked)
-      logging.debug(f"{playlist=}")
          
       self.window_manager.hide_window(UserProfileWindow)
       self.window_manager.start_window(UserPlaylistWindow)
@@ -85,5 +80,9 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       self.window_manager.start_window(login_window.LoginWindow)
     
    def get_last_clicked_playlist_name(self):
-      return self.playlist_btn_to_playlist[self.playlist_btn_clicked]["name"]
+      last_clicked_playlist_name = self.playlist_btn_to_playlist.get(self.playlist_btn_clicked.text())
+      if not last_clicked_playlist_name:
+         return Err("No playlist name")
+      return Ok(last_clicked_playlist_name)
+      
         
