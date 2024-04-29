@@ -45,10 +45,24 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       self.home_btn.clicked.connect(self.home_btn_click)
       
       self.playlist_btns = [
-         self.btn_1, self.btn_2, self.btn_3, self.btn_4, self.btn_5, self.btn_6, self.btn_7, self.btn_8
+         self.playlist_btn_1, self.playlist_btn_2, self.playlist_btn_3, self.playlist_btn_4, self.playlist_btn_5, self.playlist_btn_6, self.playlist_btn_7, self.playlist_btn_8
       ]
-      for btn in self.playlist_btns:
-         btn.clicked.connect(self.playlist_btn_click)
+      for playlist_btn in self.playlist_btns:
+         playlist_btn.clicked.connect(self.playlist_btn_click)
+         
+      self.play_btns = [
+         self.play_btn_1, self.play_btn_2, self.play_btn_3, self.play_btn_4, self.play_btn_5, self.play_btn_6, self.play_btn_7, self.play_btn_8
+      ]
+      
+      for play_btn in self.play_btns:
+         play_btn.clicked.connect(self.play_btn_click)
+      
+      self.play_btn_to_playlist_btn = {play_btn : playlist_btn for play_btn, playlist_btn in zip(self.play_btns, self.playlist_btns)}
+      
+   def play_btn_click(self):
+      play_btn_clicked = self.sender()
+      playlist_name = self.play_btn_to_playlist_btn.get(play_btn_clicked).text()
+      logging.info(f"{playlist_name=}")
          
    def home_btn_click(self):
       self.hide()
@@ -67,8 +81,6 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
          self.playlist_btn_to_playlist[playlist_btn] = playlist
            
    def playlist_btn_click(self):
-      user_playlists_window = self.window_manager.windows[UserPlaylistWindow]
-      
       self.playlist_btn_clicked = self.sender()
          
       self.window_manager.hide_window(UserProfileWindow)
