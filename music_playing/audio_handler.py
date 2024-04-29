@@ -21,13 +21,7 @@ class AudioHandler:
         self.main_page_emitter = main_page_emitter
         self.song_queue = EmittingList(main_page_emitter.update_song_queue)
         self.songs_played = EmittingList(main_page_emitter.update_songs_played)
-        self.player = mpv.MPV(
-            # player_operation_mode='pseudo-gui',
-            # script_opts='osc-layout=box,osc-seekbarstyle=bar,osc-deadzonesize=0,osc-minmousemove=3,osc-visibility=always',
-            # input_default_bindings=True,
-            # input_vo_keyboard=True,
-            # osc=True,
-        )
+        self.player = mpv.MPV()
         
         self.song_name_to_info = {}
         
