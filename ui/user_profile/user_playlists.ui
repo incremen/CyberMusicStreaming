@@ -424,11 +424,12 @@ background-color: transparent;</string>
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">font-size: 30px;
-color:white;
- background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-           stop:0 #ffffff, stop:1 #555555);
-    border: none;
+               <string notr="true">background-color:transparent;
+qproperty-iconSize: 80px;
+ border-radius: 30px;
+
+
+
 </string>
               </property>
               <property name="text">
@@ -436,7 +437,7 @@ color:white;
               </property>
               <property name="icon">
                <iconset resource="../resource_file.qrc">
-                <normaloff>:/images/play_button_right.png</normaloff>:/images/play_button_right.png</iconset>
+                <normaloff>:/images/white_play_button_transparent.png</normaloff>:/images/white_play_button_transparent.png</iconset>
               </property>
              </widget>
             </item>

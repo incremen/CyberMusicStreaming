@@ -244,14 +244,15 @@ class Ui_MainWindow(object):
         self.pushButton_2.setObjectName(u"pushButton_2")
         self.pushButton_2.setMinimumSize(QSize(0, 90))
         self.pushButton_2.setMaximumSize(QSize(16777215, 16777215))
-        self.pushButton_2.setStyleSheet(u"font-size: 30px;\n"
-"color:white;\n"
-" background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
-"           stop:0 #ffffff, stop:1 #555555);\n"
-"    border: none;\n"
+        self.pushButton_2.setStyleSheet(u"background-color:transparent;\n"
+"qproperty-iconSize: 80px;\n"
+" border-radius: 30px;\n"
+"\n"
+"\n"
+"\n"
 "")
         icon = QIcon()
-        icon.addFile(u":/images/play_button_right.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/images/white_play_button_transparent.png", QSize(), QIcon.Normal, QIcon.Off)
         self.pushButton_2.setIcon(icon)
 
         self.verticalLayout_2.addWidget(self.pushButton_2)
