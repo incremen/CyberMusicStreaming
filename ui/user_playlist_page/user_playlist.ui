@@ -24,6 +24,12 @@
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
      <widget class="QGroupBox" name="vertical_box">
+      <property name="styleSheet">
+       <string notr="true">QGroupBox{
+   border: none;
+}
+</string>
+      </property>
       <property name="title">
        <string/>
       </property>
