@@ -185,31 +185,12 @@ class Ui_MainWindow(object):
         self.play_list_widget.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.play_list_widget.setObjectName("play_list_widget")
         self.verticalLayout_2.addWidget(self.play_list_widget)
-        self.groupBox = QtWidgets.QGroupBox(self.tab)
-        self.groupBox.setMinimumSize(QtCore.QSize(0, 100))
-        self.groupBox.setObjectName("groupBox")
-        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.groupBox)
+        self.playlist_btns_box_1 = QtWidgets.QGroupBox(self.tab)
+        self.playlist_btns_box_1.setMinimumSize(QtCore.QSize(0, 100))
+        self.playlist_btns_box_1.setObjectName("playlist_btns_box_1")
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.playlist_btns_box_1)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        self.save_playlist_btn = QtWidgets.QPushButton(self.groupBox)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.save_playlist_btn.sizePolicy().hasHeightForWidth())
-        self.save_playlist_btn.setSizePolicy(sizePolicy)
-        self.save_playlist_btn.setMaximumSize(QtCore.QSize(300, 60))
-        font = QtGui.QFont()
-        font.setPointSize(13)
-        self.save_playlist_btn.setFont(font)
-        self.save_playlist_btn.setStyleSheet(" border: 2px solid gold;\n"
-" background-color: rgba(128, 128, 128, 128);\n"
-" border-radius: 30px;\n"
-"color: white;\n"
-"\n"
-"\n"
-"")
-        self.save_playlist_btn.setObjectName("save_playlist_btn")
-        self.horizontalLayout_4.addWidget(self.save_playlist_btn)
-        self.play_btn = QtWidgets.QPushButton(self.groupBox)
+        self.play_btn = QtWidgets.QPushButton(self.playlist_btns_box_1)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -219,7 +200,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(13)
         self.play_btn.setFont(font)
-        self.play_btn.setStyleSheet(" border: 2px solid gold;\n"
+        self.play_btn.setStyleSheet(" border: 2px solid #ADD8E6;\n"
 " background-color: rgba(128, 128, 128, 128);\n"
 " border-radius: 30px;\n"
 "color: white;\n"
@@ -228,7 +209,51 @@ class Ui_MainWindow(object):
 "")
         self.play_btn.setObjectName("play_btn")
         self.horizontalLayout_4.addWidget(self.play_btn)
-        self.verticalLayout_2.addWidget(self.groupBox)
+        self.save_playlist_btn = QtWidgets.QPushButton(self.playlist_btns_box_1)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.save_playlist_btn.sizePolicy().hasHeightForWidth())
+        self.save_playlist_btn.setSizePolicy(sizePolicy)
+        self.save_playlist_btn.setMaximumSize(QtCore.QSize(300, 60))
+        font = QtGui.QFont()
+        font.setPointSize(13)
+        self.save_playlist_btn.setFont(font)
+        self.save_playlist_btn.setStyleSheet(" border: 2px solid lime;\n"
+" background-color: rgba(128, 128, 128, 128);\n"
+" border-radius: 30px;\n"
+"color: white;\n"
+"\n"
+"\n"
+"")
+        self.save_playlist_btn.setObjectName("save_playlist_btn")
+        self.horizontalLayout_4.addWidget(self.save_playlist_btn)
+        self.play_btn_2 = QtWidgets.QPushButton(self.playlist_btns_box_1)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.play_btn_2.sizePolicy().hasHeightForWidth())
+        self.play_btn_2.setSizePolicy(sizePolicy)
+        self.play_btn_2.setMaximumSize(QtCore.QSize(100, 60))
+        font = QtGui.QFont()
+        font.setPointSize(13)
+        self.play_btn_2.setFont(font)
+        self.play_btn_2.setStyleSheet(" border: 2px solid red;\n"
+" background-color: rgba(128, 128, 128, 128);\n"
+" border-radius: 30px;\n"
+"color: white;\n"
+"  \n"
+"\n"
+"")
+        self.play_btn_2.setObjectName("play_btn_2")
+        self.horizontalLayout_4.addWidget(self.play_btn_2)
+        self.verticalLayout_2.addWidget(self.playlist_btns_box_1)
+        self.playlist_btns_box_2 = QtWidgets.QGroupBox(self.tab)
+        self.playlist_btns_box_2.setMinimumSize(QtCore.QSize(0, 50))
+        self.playlist_btns_box_2.setObjectName("playlist_btns_box_2")
+        self.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.playlist_btns_box_2)
+        self.horizontalLayout_7.setObjectName("horizontalLayout_7")
+        self.verticalLayout_2.addWidget(self.playlist_btns_box_2)
         self.right_tab_widget.addTab(self.tab, "")
         self.song_queue = QtWidgets.QWidget()
         self.song_queue.setObjectName("song_queue")
@@ -366,9 +391,11 @@ class Ui_MainWindow(object):
         self.profile_btn.setText(_translate("MainWindow", "Profile"))
         self.playlist_name_edit.setText(_translate("MainWindow", "Playlist Name"))
         self.search_btn.setText(_translate("MainWindow", "Search for a song:"))
-        self.groupBox.setTitle(_translate("MainWindow", "GroupBox"))
-        self.save_playlist_btn.setText(_translate("MainWindow", "Save playlist"))
+        self.playlist_btns_box_1.setTitle(_translate("MainWindow", "GroupBox"))
         self.play_btn.setText(_translate("MainWindow", "Play"))
+        self.save_playlist_btn.setText(_translate("MainWindow", "Save playlist"))
+        self.play_btn_2.setText(_translate("MainWindow", "Delete"))
+        self.playlist_btns_box_2.setTitle(_translate("MainWindow", "GroupBox"))
         self.right_tab_widget.setTabText(self.right_tab_widget.indexOf(self.tab), _translate("MainWindow", "Playlist"))
         self.right_tab_widget.setTabText(self.right_tab_widget.indexOf(self.song_queue), _translate("MainWindow", "Queue"))
 import resource_file_rc
