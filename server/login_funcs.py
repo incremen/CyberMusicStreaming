@@ -73,6 +73,16 @@ def save_playlist(username, playlist_dict: dict):
     session.close()
     return user
 
+def delete_playlist(username, playlist_name):
+    session = create_session()
+    user = session.query(User).filter_by(username=username).first()
+    playlist_to_delete = find_matching_user_playlist(playlist_name, user)
+    if playlist_to_delete:
+        user.playlists.remove(playlist_to_delete)
+        session.delete(playlist_to_delete)
+        session.commit()
+    session.close()
+
 def find_matching_user_playlist(playlist_name, user):
     for user_playlist in user.playlists:
         if user_playlist.name == playlist_name:

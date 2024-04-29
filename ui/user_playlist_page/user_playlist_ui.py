@@ -228,25 +228,25 @@ class Ui_MainWindow(object):
 "")
         self.save_playlist_btn.setObjectName("save_playlist_btn")
         self.horizontalLayout_4.addWidget(self.save_playlist_btn)
-        self.play_btn_2 = QtWidgets.QPushButton(self.playlist_btns_box_1)
+        self.delete_btn = QtWidgets.QPushButton(self.playlist_btns_box_1)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.play_btn_2.sizePolicy().hasHeightForWidth())
-        self.play_btn_2.setSizePolicy(sizePolicy)
-        self.play_btn_2.setMaximumSize(QtCore.QSize(100, 60))
+        sizePolicy.setHeightForWidth(self.delete_btn.sizePolicy().hasHeightForWidth())
+        self.delete_btn.setSizePolicy(sizePolicy)
+        self.delete_btn.setMaximumSize(QtCore.QSize(100, 60))
         font = QtGui.QFont()
         font.setPointSize(13)
-        self.play_btn_2.setFont(font)
-        self.play_btn_2.setStyleSheet(" border: 2px solid red;\n"
+        self.delete_btn.setFont(font)
+        self.delete_btn.setStyleSheet(" border: 2px solid red;\n"
 " background-color: rgba(128, 128, 128, 128);\n"
 " border-radius: 30px;\n"
 "color: white;\n"
 "  \n"
 "\n"
 "")
-        self.play_btn_2.setObjectName("play_btn_2")
-        self.horizontalLayout_4.addWidget(self.play_btn_2)
+        self.delete_btn.setObjectName("delete_btn")
+        self.horizontalLayout_4.addWidget(self.delete_btn)
         self.verticalLayout_2.addWidget(self.playlist_btns_box_1)
         self.playlist_btns_box_2 = QtWidgets.QGroupBox(self.tab)
         self.playlist_btns_box_2.setMinimumSize(QtCore.QSize(0, 50))
@@ -394,7 +394,7 @@ class Ui_MainWindow(object):
         self.playlist_btns_box_1.setTitle(_translate("MainWindow", "GroupBox"))
         self.play_btn.setText(_translate("MainWindow", "Play"))
         self.save_playlist_btn.setText(_translate("MainWindow", "Save playlist"))
-        self.play_btn_2.setText(_translate("MainWindow", "Delete"))
+        self.delete_btn.setText(_translate("MainWindow", "Delete"))
         self.playlist_btns_box_2.setTitle(_translate("MainWindow", "GroupBox"))
         self.right_tab_widget.setTabText(self.right_tab_widget.indexOf(self.tab), _translate("MainWindow", "Playlist"))
         self.right_tab_widget.setTabText(self.right_tab_widget.indexOf(self.song_queue), _translate("MainWindow", "Queue"))

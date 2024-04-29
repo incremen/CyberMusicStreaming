@@ -99,8 +99,12 @@ class ServerSocketHandler:
             with self.sio.session(sid) as session_data:
                 username = session_data["username"]
             user = login_funcs.save_playlist(username, data)
+                
+        @self.sio.on("delete_playlist")
+        def delete_playlist_handler(sid, data):
             with self.sio.session(sid) as session_data:
-                session_data['user'] = user
+                username = session_data["username"]
+            login_funcs.delete_playlist(username, data)
 
         @self.sio.on("logout")
         def logout_handler(sid):

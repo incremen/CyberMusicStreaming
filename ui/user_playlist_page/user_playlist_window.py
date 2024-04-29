@@ -93,6 +93,12 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         
         self.play_btn.clicked.connect(self.play_btn_click)
         
+        self.delete_btn.clicked.connect(self.delete_btn_click)
+    
+    def delete_btn_click(self):
+        self.socket_handler.emit_to_server("delete_playlist", self.playlist_name_edit.text())
+        self.hide()
+        self.window_manager.start_window(user_profile_window.UserProfileWindow)
         
     def update_playlist_widget(self, songs : list, emit_num : int):
         if emit_num < self.last_playlist_emit_num:
