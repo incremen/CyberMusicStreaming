@@ -381,38 +381,66 @@ color: white;
           </widget>
          </item>
          <item row="1" column="3">
-          <widget class="QPushButton" name="btn_8">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>200</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>40</pointsize>
-            </font>
-           </property>
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
+          <widget class="QGroupBox" name="groupBox">
            <property name="styleSheet">
-            <string notr="true"> border: 2px solid white;
+            <string notr="true">QGroupBox{ 
+border: 2px solid white;
  border-radius: 30px;
 color: white;
+
+}
 
 
 </string>
            </property>
-           <property name="text">
+           <property name="title">
             <string/>
            </property>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <widget class="QPushButton" name="pushButton">
+              <property name="styleSheet">
+               <string notr="true">font-size: 30px;
+color:white;
+background-color: transparent;</string>
+              </property>
+              <property name="text">
+               <string>Playlist name</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_2">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>90</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font-size: 30px;
+color:white;
+ background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+           stop:0 #ffffff, stop:1 #555555);
+    border: none;
+</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="../resource_file.qrc">
+                <normaloff>:/images/play_button_right.png</normaloff>:/images/play_button_right.png</iconset>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
         </layout>
