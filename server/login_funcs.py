@@ -52,7 +52,8 @@ def save_playlist(username, playlist_dict: dict):
     user = session.query(User).filter_by(username=username).first()
     session.add(user)
 
-    playlist_to_edit = find_matching_user_playlist(playlist_dict, user)
+    playlist_name = playlist_dict["name"]
+    playlist_to_edit = find_matching_user_playlist(playlist_name, user)
     if not playlist_to_edit:
         playlist_to_edit = Playlist(name=playlist_dict["name"])
         user.playlists.append(playlist_to_edit)
@@ -72,9 +73,9 @@ def save_playlist(username, playlist_dict: dict):
     session.close()
     return user
 
-def find_matching_user_playlist(playlist_dict, user):
+def find_matching_user_playlist(playlist_name, user):
     for user_playlist in user.playlists:
-        if user_playlist.name == playlist_dict["name"]:
+        if user_playlist.name == playlist_name:
             return user_playlist
         
     return None
@@ -84,9 +85,6 @@ def query_user(username):
     user = session.query(User).filter_by(username=username).first()
     session.close()
     return user
-
-
-    
 
 def search_for_term(search_term : str):
     session = create_session()
