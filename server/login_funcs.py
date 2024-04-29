@@ -45,7 +45,7 @@ def login(username, password) -> Result[User, str]:
     ok_msg = f"User {username} logged in successfully"
     logging.info(ok_msg)
     session.close()
-    return Ok(user)
+    return Ok(ok_msg)
 
 def save_playlist(username, playlist_dict: dict):
     session = create_session()

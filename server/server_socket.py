@@ -60,7 +60,7 @@ class ServerSocketHandler:
             
             if result.is_ok():
                 with self.sio.session(sid) as session_data:
-                    session_data['username'] = result.ok_value.username
+                    session_data['username'] = username
                     logging.debug(f"{session_data=}")
                 self.sio.emit("login_result", {"result": True}, room=sid)
                 return
