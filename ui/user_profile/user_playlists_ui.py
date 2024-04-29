@@ -56,28 +56,28 @@ class Ui_MainWindow(object):
         self.groupBox_6.setObjectName("groupBox_6")
         self.verticalLayout_9 = QtWidgets.QVBoxLayout(self.groupBox_6)
         self.verticalLayout_9.setObjectName("verticalLayout_9")
-        self.pushButton_12 = QtWidgets.QPushButton(self.groupBox_6)
-        self.pushButton_12.setStyleSheet("font-size: 30px;\n"
+        self.playlist_btn_4 = QtWidgets.QPushButton(self.groupBox_6)
+        self.playlist_btn_4.setStyleSheet("font-size: 30px;\n"
 "color:white;\n"
 "background-color: transparent;")
-        self.pushButton_12.setObjectName("pushButton_12")
-        self.verticalLayout_9.addWidget(self.pushButton_12)
-        self.pushButton_9 = QtWidgets.QPushButton(self.groupBox_6)
-        self.pushButton_9.setMinimumSize(QtCore.QSize(0, 0))
-        self.pushButton_9.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.pushButton_9.setStyleSheet("background-color:transparent;\n"
+        self.playlist_btn_4.setObjectName("playlist_btn_4")
+        self.verticalLayout_9.addWidget(self.playlist_btn_4)
+        self.play_btn_4 = QtWidgets.QPushButton(self.groupBox_6)
+        self.play_btn_4.setMinimumSize(QtCore.QSize(0, 0))
+        self.play_btn_4.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.play_btn_4.setStyleSheet("background-color:transparent;\n"
 "qproperty-iconSize: 80px;\n"
 " border-radius: 30px;\n"
 "\n"
 "\n"
 "\n"
 "")
-        self.pushButton_9.setText("")
+        self.play_btn_4.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/images/white_play_button_transparent.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton_9.setIcon(icon)
-        self.pushButton_9.setObjectName("pushButton_9")
-        self.verticalLayout_9.addWidget(self.pushButton_9)
+        self.play_btn_4.setIcon(icon)
+        self.play_btn_4.setObjectName("play_btn_4")
+        self.verticalLayout_9.addWidget(self.play_btn_4)
         self.album_grid.addWidget(self.groupBox_6, 0, 3, 1, 1)
         self.groupBox_7 = QtWidgets.QGroupBox(self.albums_boxlayout)
         self.groupBox_7.setStyleSheet("QGroupBox{ \n"
@@ -93,26 +93,26 @@ class Ui_MainWindow(object):
         self.groupBox_7.setObjectName("groupBox_7")
         self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.groupBox_7)
         self.verticalLayout_8.setObjectName("verticalLayout_8")
-        self.pushButton_13 = QtWidgets.QPushButton(self.groupBox_7)
-        self.pushButton_13.setStyleSheet("font-size: 30px;\n"
+        self.playlist_btn_3 = QtWidgets.QPushButton(self.groupBox_7)
+        self.playlist_btn_3.setStyleSheet("font-size: 30px;\n"
 "color:white;\n"
 "background-color: transparent;")
-        self.pushButton_13.setObjectName("pushButton_13")
-        self.verticalLayout_8.addWidget(self.pushButton_13)
-        self.pushButton_10 = QtWidgets.QPushButton(self.groupBox_7)
-        self.pushButton_10.setMinimumSize(QtCore.QSize(0, 0))
-        self.pushButton_10.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.pushButton_10.setStyleSheet("background-color:transparent;\n"
+        self.playlist_btn_3.setObjectName("playlist_btn_3")
+        self.verticalLayout_8.addWidget(self.playlist_btn_3)
+        self.play_btn_3 = QtWidgets.QPushButton(self.groupBox_7)
+        self.play_btn_3.setMinimumSize(QtCore.QSize(0, 0))
+        self.play_btn_3.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.play_btn_3.setStyleSheet("background-color:transparent;\n"
 "qproperty-iconSize: 80px;\n"
 " border-radius: 30px;\n"
 "\n"
 "\n"
 "\n"
 "")
-        self.pushButton_10.setText("")
-        self.pushButton_10.setIcon(icon)
-        self.pushButton_10.setObjectName("pushButton_10")
-        self.verticalLayout_8.addWidget(self.pushButton_10)
+        self.play_btn_3.setText("")
+        self.play_btn_3.setIcon(icon)
+        self.play_btn_3.setObjectName("play_btn_3")
+        self.verticalLayout_8.addWidget(self.play_btn_3)
         self.album_grid.addWidget(self.groupBox_7, 0, 2, 1, 1)
         self.groupBox = QtWidgets.QGroupBox(self.albums_boxlayout)
         self.groupBox.setMinimumSize(QtCore.QSize(0, 250))
@@ -129,27 +129,27 @@ class Ui_MainWindow(object):
         self.groupBox.setObjectName("groupBox")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.groupBox)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.pushButton = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton.setMinimumSize(QtCore.QSize(0, 0))
-        self.pushButton.setStyleSheet("font-size: 30px;\n"
+        self.playlist_btn_8 = QtWidgets.QPushButton(self.groupBox)
+        self.playlist_btn_8.setMinimumSize(QtCore.QSize(0, 0))
+        self.playlist_btn_8.setStyleSheet("font-size: 30px;\n"
 "color:white;\n"
 "background-color: transparent;")
-        self.pushButton.setObjectName("pushButton")
-        self.verticalLayout_2.addWidget(self.pushButton)
-        self.pushButton_2 = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton_2.setMinimumSize(QtCore.QSize(0, 90))
-        self.pushButton_2.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.pushButton_2.setStyleSheet("background-color:transparent;\n"
+        self.playlist_btn_8.setObjectName("playlist_btn_8")
+        self.verticalLayout_2.addWidget(self.playlist_btn_8)
+        self.play_btn_8 = QtWidgets.QPushButton(self.groupBox)
+        self.play_btn_8.setMinimumSize(QtCore.QSize(0, 90))
+        self.play_btn_8.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.play_btn_8.setStyleSheet("background-color:transparent;\n"
 "qproperty-iconSize: 80px;\n"
 " border-radius: 30px;\n"
 "\n"
 "\n"
 "\n"
 "")
-        self.pushButton_2.setText("")
-        self.pushButton_2.setIcon(icon)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.verticalLayout_2.addWidget(self.pushButton_2)
+        self.play_btn_8.setText("")
+        self.play_btn_8.setIcon(icon)
+        self.play_btn_8.setObjectName("play_btn_8")
+        self.verticalLayout_2.addWidget(self.play_btn_8)
         self.album_grid.addWidget(self.groupBox, 1, 3, 1, 1)
         self.groupBox_4 = QtWidgets.QGroupBox(self.albums_boxlayout)
         self.groupBox_4.setStyleSheet("QGroupBox{ \n"
@@ -165,26 +165,26 @@ class Ui_MainWindow(object):
         self.groupBox_4.setObjectName("groupBox_4")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.groupBox_4)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
-        self.pushButton_4 = QtWidgets.QPushButton(self.groupBox_4)
-        self.pushButton_4.setStyleSheet("font-size: 30px;\n"
+        self.playlist_btn_6 = QtWidgets.QPushButton(self.groupBox_4)
+        self.playlist_btn_6.setStyleSheet("font-size: 30px;\n"
 "color:white;\n"
 "background-color: transparent;")
-        self.pushButton_4.setObjectName("pushButton_4")
-        self.verticalLayout_4.addWidget(self.pushButton_4)
-        self.pushButton_7 = QtWidgets.QPushButton(self.groupBox_4)
-        self.pushButton_7.setMinimumSize(QtCore.QSize(0, 90))
-        self.pushButton_7.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.pushButton_7.setStyleSheet("background-color:transparent;\n"
+        self.playlist_btn_6.setObjectName("playlist_btn_6")
+        self.verticalLayout_4.addWidget(self.playlist_btn_6)
+        self.play_btn_6 = QtWidgets.QPushButton(self.groupBox_4)
+        self.play_btn_6.setMinimumSize(QtCore.QSize(0, 90))
+        self.play_btn_6.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.play_btn_6.setStyleSheet("background-color:transparent;\n"
 "qproperty-iconSize: 80px;\n"
 " border-radius: 30px;\n"
 "\n"
 "\n"
 "\n"
 "")
-        self.pushButton_7.setText("")
-        self.pushButton_7.setIcon(icon)
-        self.pushButton_7.setObjectName("pushButton_7")
-        self.verticalLayout_4.addWidget(self.pushButton_7)
+        self.play_btn_6.setText("")
+        self.play_btn_6.setIcon(icon)
+        self.play_btn_6.setObjectName("play_btn_6")
+        self.verticalLayout_4.addWidget(self.play_btn_6)
         self.album_grid.addWidget(self.groupBox_4, 1, 1, 1, 1)
         self.groupBox_8 = QtWidgets.QGroupBox(self.albums_boxlayout)
         self.groupBox_8.setStyleSheet("QGroupBox{ \n"
@@ -200,26 +200,26 @@ class Ui_MainWindow(object):
         self.groupBox_8.setObjectName("groupBox_8")
         self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.groupBox_8)
         self.verticalLayout_7.setObjectName("verticalLayout_7")
-        self.pushButton_14 = QtWidgets.QPushButton(self.groupBox_8)
-        self.pushButton_14.setStyleSheet("font-size: 30px;\n"
+        self.playlist_btn_2 = QtWidgets.QPushButton(self.groupBox_8)
+        self.playlist_btn_2.setStyleSheet("font-size: 30px;\n"
 "color:white;\n"
 "background-color: transparent;")
-        self.pushButton_14.setObjectName("pushButton_14")
-        self.verticalLayout_7.addWidget(self.pushButton_14)
-        self.pushButton_11 = QtWidgets.QPushButton(self.groupBox_8)
-        self.pushButton_11.setMinimumSize(QtCore.QSize(0, 90))
-        self.pushButton_11.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.pushButton_11.setStyleSheet("background-color:transparent;\n"
+        self.playlist_btn_2.setObjectName("playlist_btn_2")
+        self.verticalLayout_7.addWidget(self.playlist_btn_2)
+        self.play_btn_2 = QtWidgets.QPushButton(self.groupBox_8)
+        self.play_btn_2.setMinimumSize(QtCore.QSize(0, 90))
+        self.play_btn_2.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.play_btn_2.setStyleSheet("background-color:transparent;\n"
 "qproperty-iconSize: 80px;\n"
 " border-radius: 30px;\n"
 "\n"
 "\n"
 "\n"
 "")
-        self.pushButton_11.setText("")
-        self.pushButton_11.setIcon(icon)
-        self.pushButton_11.setObjectName("pushButton_11")
-        self.verticalLayout_7.addWidget(self.pushButton_11)
+        self.play_btn_2.setText("")
+        self.play_btn_2.setIcon(icon)
+        self.play_btn_2.setObjectName("play_btn_2")
+        self.verticalLayout_7.addWidget(self.play_btn_2)
         self.album_grid.addWidget(self.groupBox_8, 0, 1, 1, 1)
         self.groupBox_2 = QtWidgets.QGroupBox(self.albums_boxlayout)
         self.groupBox_2.setMinimumSize(QtCore.QSize(0, 200))
@@ -236,26 +236,26 @@ class Ui_MainWindow(object):
         self.groupBox_2.setObjectName("groupBox_2")
         self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.groupBox_2)
         self.verticalLayout_5.setObjectName("verticalLayout_5")
-        self.pushButton_3 = QtWidgets.QPushButton(self.groupBox_2)
-        self.pushButton_3.setStyleSheet("font-size: 30px;\n"
+        self.playlist_btn_7 = QtWidgets.QPushButton(self.groupBox_2)
+        self.playlist_btn_7.setStyleSheet("font-size: 30px;\n"
 "color:white;\n"
 "background-color: transparent;")
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.verticalLayout_5.addWidget(self.pushButton_3)
-        self.pushButton_6 = QtWidgets.QPushButton(self.groupBox_2)
-        self.pushButton_6.setMinimumSize(QtCore.QSize(0, 90))
-        self.pushButton_6.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.pushButton_6.setStyleSheet("background-color:transparent;\n"
+        self.playlist_btn_7.setObjectName("playlist_btn_7")
+        self.verticalLayout_5.addWidget(self.playlist_btn_7)
+        self.play_btn_7 = QtWidgets.QPushButton(self.groupBox_2)
+        self.play_btn_7.setMinimumSize(QtCore.QSize(0, 90))
+        self.play_btn_7.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.play_btn_7.setStyleSheet("background-color:transparent;\n"
 "qproperty-iconSize: 80px;\n"
 " border-radius: 30px;\n"
 "\n"
 "\n"
 "\n"
 "")
-        self.pushButton_6.setText("")
-        self.pushButton_6.setIcon(icon)
-        self.pushButton_6.setObjectName("pushButton_6")
-        self.verticalLayout_5.addWidget(self.pushButton_6)
+        self.play_btn_7.setText("")
+        self.play_btn_7.setIcon(icon)
+        self.play_btn_7.setObjectName("play_btn_7")
+        self.verticalLayout_5.addWidget(self.play_btn_7)
         self.album_grid.addWidget(self.groupBox_2, 1, 2, 1, 1)
         self.groupBox_5 = QtWidgets.QGroupBox(self.albums_boxlayout)
         self.groupBox_5.setStyleSheet("QGroupBox{ \n"
@@ -271,26 +271,26 @@ class Ui_MainWindow(object):
         self.groupBox_5.setObjectName("groupBox_5")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.groupBox_5)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.pushButton_5 = QtWidgets.QPushButton(self.groupBox_5)
-        self.pushButton_5.setStyleSheet("font-size: 30px;\n"
+        self.playlist_btn_5 = QtWidgets.QPushButton(self.groupBox_5)
+        self.playlist_btn_5.setStyleSheet("font-size: 30px;\n"
 "color:white;\n"
 "background-color: transparent;")
-        self.pushButton_5.setObjectName("pushButton_5")
-        self.verticalLayout_3.addWidget(self.pushButton_5)
-        self.pushButton_8 = QtWidgets.QPushButton(self.groupBox_5)
-        self.pushButton_8.setMinimumSize(QtCore.QSize(0, 90))
-        self.pushButton_8.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.pushButton_8.setStyleSheet("background-color:transparent;\n"
+        self.playlist_btn_5.setObjectName("playlist_btn_5")
+        self.verticalLayout_3.addWidget(self.playlist_btn_5)
+        self.play_btn_5 = QtWidgets.QPushButton(self.groupBox_5)
+        self.play_btn_5.setMinimumSize(QtCore.QSize(0, 90))
+        self.play_btn_5.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.play_btn_5.setStyleSheet("background-color:transparent;\n"
 "qproperty-iconSize: 80px;\n"
 " border-radius: 30px;\n"
 "\n"
 "\n"
 "\n"
 "")
-        self.pushButton_8.setText("")
-        self.pushButton_8.setIcon(icon)
-        self.pushButton_8.setObjectName("pushButton_8")
-        self.verticalLayout_3.addWidget(self.pushButton_8)
+        self.play_btn_5.setText("")
+        self.play_btn_5.setIcon(icon)
+        self.play_btn_5.setObjectName("play_btn_5")
+        self.verticalLayout_3.addWidget(self.play_btn_5)
         self.album_grid.addWidget(self.groupBox_5, 1, 0, 1, 1)
         self.groupBox_9 = QtWidgets.QGroupBox(self.albums_boxlayout)
         self.groupBox_9.setStyleSheet("QGroupBox{ \n"
@@ -306,26 +306,26 @@ class Ui_MainWindow(object):
         self.groupBox_9.setObjectName("groupBox_9")
         self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.groupBox_9)
         self.verticalLayout_6.setObjectName("verticalLayout_6")
-        self.pushButton_16 = QtWidgets.QPushButton(self.groupBox_9)
-        self.pushButton_16.setStyleSheet("font-size: 30px;\n"
+        self.playlist_btn_1 = QtWidgets.QPushButton(self.groupBox_9)
+        self.playlist_btn_1.setStyleSheet("font-size: 30px;\n"
 "color:white;\n"
 "background-color: transparent;")
-        self.pushButton_16.setObjectName("pushButton_16")
-        self.verticalLayout_6.addWidget(self.pushButton_16)
-        self.pushButton_15 = QtWidgets.QPushButton(self.groupBox_9)
-        self.pushButton_15.setMinimumSize(QtCore.QSize(0, 90))
-        self.pushButton_15.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.pushButton_15.setStyleSheet("background-color:transparent;\n"
+        self.playlist_btn_1.setObjectName("playlist_btn_1")
+        self.verticalLayout_6.addWidget(self.playlist_btn_1)
+        self.play_btn_1 = QtWidgets.QPushButton(self.groupBox_9)
+        self.play_btn_1.setMinimumSize(QtCore.QSize(0, 90))
+        self.play_btn_1.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.play_btn_1.setStyleSheet("background-color:transparent;\n"
 "qproperty-iconSize: 80px;\n"
 " border-radius: 30px;\n"
 "\n"
 "\n"
 "\n"
 "")
-        self.pushButton_15.setText("")
-        self.pushButton_15.setIcon(icon)
-        self.pushButton_15.setObjectName("pushButton_15")
-        self.verticalLayout_6.addWidget(self.pushButton_15)
+        self.play_btn_1.setText("")
+        self.play_btn_1.setIcon(icon)
+        self.play_btn_1.setObjectName("play_btn_1")
+        self.verticalLayout_6.addWidget(self.play_btn_1)
         self.album_grid.addWidget(self.groupBox_9, 0, 0, 1, 1)
         self.gridLayout_2.addLayout(self.album_grid, 6, 0, 1, 1)
         self.sign_out_btn_box = QtWidgets.QGroupBox(self.albums_boxlayout)
@@ -420,14 +420,14 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton_12.setText(_translate("MainWindow", "Playlist name"))
-        self.pushButton_13.setText(_translate("MainWindow", "Playlist name"))
-        self.pushButton.setText(_translate("MainWindow", "Playlist name"))
-        self.pushButton_4.setText(_translate("MainWindow", "Playlist name"))
-        self.pushButton_14.setText(_translate("MainWindow", "Playlist name"))
-        self.pushButton_3.setText(_translate("MainWindow", "Playlist name"))
-        self.pushButton_5.setText(_translate("MainWindow", "Playlist name"))
-        self.pushButton_16.setText(_translate("MainWindow", "Playlist name"))
+        self.playlist_btn_4.setText(_translate("MainWindow", "4"))
+        self.playlist_btn_3.setText(_translate("MainWindow", "3"))
+        self.playlist_btn_8.setText(_translate("MainWindow", "8"))
+        self.playlist_btn_6.setText(_translate("MainWindow", "6"))
+        self.playlist_btn_2.setText(_translate("MainWindow", "2"))
+        self.playlist_btn_7.setText(_translate("MainWindow", "7"))
+        self.playlist_btn_5.setText(_translate("MainWindow", "5"))
+        self.playlist_btn_1.setText(_translate("MainWindow", "1"))
         self.sign_out_btn_box.setTitle(_translate("MainWindow", "GroupBox"))
         self.label.setText(_translate("MainWindow", "Your playlists:"))
         self.sign_out_btn.setText(_translate("MainWindow", " Sign out "))
