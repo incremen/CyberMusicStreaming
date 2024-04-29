@@ -75,11 +75,6 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       
       playlist = self.playlist_btn_to_playlist.get(self.playlist_btn_clicked)
       logging.debug(f"{playlist=}")
-      
-      if playlist:
-         user_playlists_window.query_mode = "query_playlist"
-      else:
-         user_playlists_window.query_mode = "search_db"
          
       self.window_manager.hide_window(UserProfileWindow)
       self.window_manager.start_window(UserPlaylistWindow)

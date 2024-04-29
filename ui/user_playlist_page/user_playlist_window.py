@@ -54,6 +54,42 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.song_btn_to_song_info : dict[QPushButton, SongInfo] = {}
         self.song_btn_text_to_song_info : dict[str, SongInfo] = {}
         
+        self.playlist_widget_emitter = PlaylistWidgetEmitter()
+        self.playlist_widget_emitter.setup_connections(self)
+        
+        self.songs_btns_text_in_playlist = EmittingList(self.playlist_widget_emitter.update_playlist)
+        
+    def start(self):
+        self.playlist_name_edit.setText("New Playlist")
+        self.play_list_widget.clear()
+        self.play_list_widget.itemPressed.connect(self.item_pressed_with_button)
+        self.play_list_widget.currentItemChanged.connect(self.playlist_item_changed)
+        self.search_db()
+        self.load_playlist_clicked()
+        self.show()
+        
+    
+    def setup_widgets(self):
+        self.profile_btn.clicked.connect(self.profile_btn_click)
+        
+        self.search_bar.returnPressed.connect(self.search_bar_text_changed)
+        self.skip_btn.clicked.connect(self.skip_btn_click)
+        self.back_btn.clicked.connect(self.back_btn_click)
+        self.pause_btn.clicked.connect(self.pause_btn_click)  
+        self.song_queue_widget.itemClicked.connect(self.song_in_queue_click)
+        
+        self.progress_slider.setMaximum(PROGRESS_BAR_MAXIMUM)
+        self.progress_slider.sliderPressed.connect(self.audio_handler.pause_or_resume_song)
+        self.progress_slider.sliderReleased.connect(self.seek_in_song)
+        
+        make_list_widget_accept_drops(self.play_list_widget, self.add_btn_text_to_playlist)
+        
+        self.right_tab_widget.currentChanged.connect(self.tab_changed)
+        self.on_change_to_queue_tab()
+        self.right_tab_widget.setCurrentIndex(1)
+        
+        self.save_playlist_btn.clicked.connect(self.save_playlist_btn_clicked)
+        
     def update_playlist_widget(self, songs : list, emit_num : int):
         if emit_num < self.last_playlist_emit_num:
             return
@@ -61,17 +97,6 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.play_list_widget.clear()
         for song in songs:
             gui_funcs.add_item_to_list_widget(self.play_list_widget, song)
-       
-    def start(self):
-        self.playlist_name_edit.setText("New Playlist")
-        self.play_list_widget.clear()
-        self.play_list_widget.itemPressed.connect(self.item_pressed_with_button)
-        self.play_list_widget.currentItemChanged.connect(self.playlist_item_changed)
-        logging.info(f"{self.query_mode=}")
-        self.search_db()
-        if self.query_mode == "query_playlist":
-            self.load_playlist_clicked()
-        self.show()
         
     def playlist_item_changed(self, item):
         if item is not None:
@@ -145,32 +170,9 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.song_list = song_dict_list
         self.add_songs_to_btns(self.song_list)
        
-    def setup_widgets(self):
-        self.profile_btn.clicked.connect(self.profile_btn_click)
+
         
-        self.search_bar.returnPressed.connect(self.search_bar_text_changed)
-        self.skip_btn.clicked.connect(self.skip_btn_click)
-        self.back_btn.clicked.connect(self.back_btn_click)
-        self.pause_btn.clicked.connect(self.pause_btn_click)  
-        self.song_queue_widget.itemClicked.connect(self.song_in_queue_click)
-        
-        self.progress_slider.setMaximum(PROGRESS_BAR_MAXIMUM)
-        self.progress_slider.sliderPressed.connect(self.audio_handler.pause_or_resume_song)
-        self.progress_slider.sliderReleased.connect(self.seek_in_song)
-        
-        make_list_widget_accept_drops(self.play_list_widget, self.add_btn_text_to_playlist)
-        
-        self.right_tab_widget.currentChanged.connect(self.tab_changed)
-        self.on_change_to_queue_tab()
-        self.right_tab_widget.setCurrentIndex(1)
-        
-        self.save_playlist_btn.clicked.connect(self.save_playlist_btn_clicked)
-        
-        self.playlist_widget_emitter = PlaylistWidgetEmitter()
-        self.playlist_widget_emitter.setup_connections(self)
-        
-        self.songs_btns_text_in_playlist = EmittingList(self.playlist_widget_emitter.update_playlist)
-        threading.Thread(target=self.log_thread).start()
+
         
     def log_thread(self):
         while True:
