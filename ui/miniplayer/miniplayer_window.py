@@ -23,3 +23,4 @@ class SearchWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       self.window_manager = window_manager
       self.setupUi(self)
       self.setup_btns()
+      

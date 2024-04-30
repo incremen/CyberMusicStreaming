@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1126, 431)
+        MainWindow.resize(909, 885)
         self.central_widget = QtWidgets.QWidget(MainWindow)
         self.central_widget.setStyleSheet("#central_widget {\n"
 " background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
@@ -32,8 +32,63 @@ class Ui_MainWindow(object):
         self.main_box.setTitle("")
         self.main_box.setFlat(True)
         self.main_box.setObjectName("main_box")
-        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.main_box)
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.main_box)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.main_queu_box = QtWidgets.QGroupBox(self.main_box)
+        self.main_queu_box.setMinimumSize(QtCore.QSize(0, 0))
+        self.main_queu_box.setObjectName("main_queu_box")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.main_queu_box)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        spacerItem = QtWidgets.QSpacerItem(0, 20, QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem)
+        self.actual_queue_box = QtWidgets.QGroupBox(self.main_queu_box)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.actual_queue_box.sizePolicy().hasHeightForWidth())
+        self.actual_queue_box.setSizePolicy(sizePolicy)
+        self.actual_queue_box.setMinimumSize(QtCore.QSize(500, 100))
+        self.actual_queue_box.setTitle("")
+        self.actual_queue_box.setObjectName("actual_queue_box")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.actual_queue_box)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.songs_played_widget = QtWidgets.QListWidget(self.actual_queue_box)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.songs_played_widget.sizePolicy().hasHeightForWidth())
+        self.songs_played_widget.setSizePolicy(sizePolicy)
+        self.songs_played_widget.setStyleSheet(" border: 2px solid white;\n"
+" background-color: rgba(128, 128, 128, 128);\n"
+" border-radius: 50px;\n"
+"color: white;\n"
+"\n"
+"\n"
+"")
+        self.songs_played_widget.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.songs_played_widget.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.songs_played_widget.setObjectName("songs_played_widget")
+        self.verticalLayout_2.addWidget(self.songs_played_widget)
+        self.song_queue_widget = QtWidgets.QListWidget(self.actual_queue_box)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.song_queue_widget.sizePolicy().hasHeightForWidth())
+        self.song_queue_widget.setSizePolicy(sizePolicy)
+        self.song_queue_widget.setStyleSheet(" border: 2px solid white;\n"
+" background-color: rgba(128, 128, 128, 128);\n"
+" border-radius: 50px;\n"
+"color: white;\n"
+"\n"
+"\n"
+"\n"
+"")
+        self.song_queue_widget.setObjectName("song_queue_widget")
+        self.verticalLayout_2.addWidget(self.song_queue_widget)
+        self.horizontalLayout_2.addWidget(self.actual_queue_box)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem1)
+        self.verticalLayout.addWidget(self.main_queu_box)
         self.less_main_box = QtWidgets.QGroupBox(self.main_box)
         self.less_main_box.setTitle("")
         self.less_main_box.setObjectName("less_main_box")
@@ -141,11 +196,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.addWidget(self.skip_btn)
         self.verticalLayout_4.addWidget(self.song_btns_box)
         self.verticalLayout_3.addWidget(self.controller_box)
-        self.horizontalLayout_2.addWidget(self.less_main_box)
+        self.verticalLayout.addWidget(self.less_main_box)
         self.horizontalLayout.addWidget(self.main_box)
         MainWindow.setCentralWidget(self.central_widget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1126, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 909, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -158,6 +213,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.main_queu_box.setTitle(_translate("MainWindow", "GroupBox"))
         self.label234.setText(_translate("MainWindow", "Currently playing:"))
         self.song_name_label.setText(_translate("MainWindow", "song name"))
 import resource_file_rc
