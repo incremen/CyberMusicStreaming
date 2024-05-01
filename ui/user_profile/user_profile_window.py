@@ -1,4 +1,4 @@
-from ui.user_profile.user_playlists_ui import Ui_MainWindow
+from ui.user_profile.user_profile_ui import Ui_MainWindow
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QWidget, QListWidget, QListWidgetItem
 from ui import gui_funcs
 from ui.window_interface import WindowInterface

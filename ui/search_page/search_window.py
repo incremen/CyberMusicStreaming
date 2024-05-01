@@ -7,12 +7,12 @@ from ui.album_page import album_window
 
 
 if TYPE_CHECKING:
-    from client.client_socket import ClientSocketHandler
-    from music_playing.audio_handler import AudioHandler
-    from client.shared_state import SharedState
-    from client.window_manager import WindowManager
-    from ui.album_page.album_window import AlbumWindow
-from ui.user_profile.user_profile_window import UserProfileWindow
+   from client.client_socket import ClientSocketHandler
+   from music_playing.audio_handler import AudioHandler
+   from client.shared_state import SharedState
+   from client.window_manager import WindowManager
+   from ui.album_page.album_window import AlbumWindow
+   from ui.user_profile.user_profile_window import UserProfileWindow
 
 
 class SearchWindow(Ui_MainWindow, WindowInterface, QMainWindow): 
