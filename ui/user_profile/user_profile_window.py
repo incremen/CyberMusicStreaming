@@ -70,8 +70,9 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       for user_playlist in self.login_manager.playlists:
          if user_playlist["name"] == playlist_name:
             to_load = user_playlist
-      logging.checkpoint
-            
+      
+      self.audio_handler.clear_queue_and_played()
+      self.audio_handler.setup_song_name_to_info(to_load["songs"])
       for song in to_load["songs"]:
          self.audio_handler.add_to_song_queue(song["name"])
       

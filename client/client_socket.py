@@ -47,7 +47,7 @@ class ClientSocketHandler:
         @self.sio.on("song_list")
         def received_song_list(song_list):
             logging.debug(f"{song_list=}")
-            self.audio_handler.song_list_received(song_list)
+            self.audio_handler.setup_song_name_to_info(song_list)
             
         @self.sio.on("next_song_order")
         def received_next_song_order(order):    

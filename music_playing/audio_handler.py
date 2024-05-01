@@ -50,7 +50,7 @@ class AudioHandler:
         logging.checkpoint(f"After\n{self.song_queue=}\n{self.songs_played=}\n")
         self.play_next_song_thread.resume_playing()
         
-    def song_list_received(self, song_list : list[dict[str, str]]):
+    def setup_song_name_to_info(self, song_list : list[dict[str, str]]):
         song_info_list = [SongInfo(**song_dict) for song_dict in song_list]
         self.song_name_to_info = {info.name : info for info in song_info_list}
         
@@ -93,6 +93,10 @@ class AudioHandler:
     def queue_last_played_song(self):
         last_song = self.songs_played.pop()
         self.song_queue.insert(0, last_song)
+        
+    def clear_queue_and_played(self):
+        self.songs_played.clear()
+        self.song_queue.clear()
         
     @log_calls
     def play_song(self, song : SongInfo):

@@ -141,7 +141,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def search_result_received(self, songs_found : list[dict]):
         logging.debug(f"{songs_found=}")
         self.add_songs_to_btns(songs_found, enable_drag = True)
-        self.audio_handler.song_list_received(songs_found)
+        self.audio_handler.setup_song_name_to_info(songs_found)
         
     def load_playlist_clicked(self):
         logging.debug("Showing users playlist...")
@@ -192,7 +192,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
 
     def load_playlist(self, playlist : Playlist):
         song_dict_list = [song.as_dict() for song in playlist.songs]
-        self.audio_handler.song_list_received(song_dict_list)
+        self.audio_handler.setup_song_name_to_info(song_dict_list)
         self.song_list = song_dict_list
         self.add_songs_to_btns(self.song_list)
         
