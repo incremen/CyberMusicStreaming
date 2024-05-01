@@ -7,7 +7,7 @@ from PyQt5.QtCore import Qt
 
 
 
-def add_item_to_list_widget(list_widget, text, unique = True):
+def add_item_to_list_widget(list_widget, text, unique = False):
     if unique:
         existing_items = list_widget.findItems(text, Qt.MatchExactly)
         if existing_items:
