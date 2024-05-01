@@ -12,12 +12,14 @@ from database.models import User
 from ui.search_page import search_window
 from result import Ok, Err, Result, is_ok, is_err
 
+from ui.miniplayer.miniplayer_window import MiniplayerWindow
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
     from music_playing.audio_handler import AudioHandler
     from client.shared_state import SharedState
     from client.window_manager import WindowManager
     from ui.album_page.album_window import AlbumWindow
+    
 
 
 class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow): 
@@ -63,6 +65,7 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       play_btn_clicked = self.sender()
       playlist_name = self.play_btn_to_playlist_btn.get(play_btn_clicked).text()
       logging.info(f"{playlist_name=}")
+      self.window_manager.start_window(MiniplayerWindow)
          
    def home_btn_click(self):
       self.hide()

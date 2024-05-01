@@ -6,6 +6,7 @@ from ui.window_interface import WindowInterface
 from ui.user_profile.user_profile_window import UserProfileWindow
 from ui.signup_page.signup_window import SignupWindow
 from ui.user_playlist_page.user_playlist_window import UserPlaylistWindow
+from ui.miniplayer.miniplayer_window import MiniplayerWindow
 import logging
 
 class WindowManager:
@@ -17,7 +18,8 @@ class WindowManager:
         SearchWindow: SearchWindow(self.shared_state, self),
         UserProfileWindow: UserProfileWindow(self.shared_state, self),
         SignupWindow: SignupWindow(self.shared_state, self),
-        UserPlaylistWindow: UserPlaylistWindow(self.shared_state, self)
+        UserPlaylistWindow: UserPlaylistWindow(self.shared_state, self),
+        MiniplayerWindow: MiniplayerWindow(self.shared_state, self)
     }
          
         self.opened_window : WindowInterface= None
