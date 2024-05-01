@@ -58,6 +58,7 @@ class AudioHandler:
         
     @log_calls
     def add_to_song_queue(self, song_name :str):
+        logging.checkpoint(f"Adding to song queue: {song_name}")
         opened_window = self.window_manager.opened_window
         self.main_page_emitter.setup_connections(opened_window)
         try: 

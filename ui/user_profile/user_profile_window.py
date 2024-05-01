@@ -66,6 +66,15 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       playlist_name = self.play_btn_to_playlist_btn.get(play_btn_clicked).text()
       logging.info(f"{playlist_name=}")
       self.window_manager.start_window(MiniplayerWindow)
+      
+      for user_playlist in self.login_manager.playlists:
+         if user_playlist["name"] == playlist_name:
+            to_load = user_playlist
+      logging.checkpoint
+            
+      for song in to_load["songs"]:
+         self.audio_handler.add_to_song_queue(song["name"])
+      
          
    def home_btn_click(self):
       self.hide()

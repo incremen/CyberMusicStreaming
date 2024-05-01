@@ -89,5 +89,6 @@ class MiniplayerWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.update_list_widget(song_list, self.songs_played_widget)
         self.last_songs_played_emit_num = emit_num
         
+        
     def seek_in_song(self):
         self.audio_handler.seek_value(self.progress_slider.value())
