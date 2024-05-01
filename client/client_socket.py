@@ -2,7 +2,7 @@ import socketio
 import logging
 from backend import CLIENT_CONNECTS_TO_STR
 from music_playing.audio_handler import AudioHandler
-from client.window_emitter import MusicPlayingEmitter
+from client.music_playing_emitter import MusicPlayingEmitter
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:

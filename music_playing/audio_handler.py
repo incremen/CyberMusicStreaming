@@ -1,7 +1,7 @@
 import os
 from ui.album_page.album_window_config import PROGRESS_BAR_MAXIMUM
 import logging
-from client.window_emitter import MusicPlayingEmitter
+from client.music_playing_emitter import MusicPlayingEmitter
 from music_playing.song_class import SongInfo
 from custom_logging import log_calls
 from typing import TYPE_CHECKING

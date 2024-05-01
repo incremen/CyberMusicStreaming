@@ -339,13 +339,6 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         song_list_widget.clear()
         for song in song_list:
             gui_funcs.add_item_to_list_widget(song_list_widget, song.name)
-        
-    def add_item_to_queue(self, song_list_widget : QListWidget, item_text):
-        item = QListWidgetItem(item_text)
-        item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-        gui_funcs.set_custom_font(item, "Helvetica", 15)
-        song_list_widget.addItem(item)
-
 
     def skip_btn_click(self):
         self.skip_btn.setEnabled(False)

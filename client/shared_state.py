@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
     from music_playing.audio_handler import AudioHandler
-from client.window_emitter import MusicPlayingEmitter
+from client.music_playing_emitter import MusicPlayingEmitter
 from database.login_manager import LoginManager
 
 @dataclass

@@ -2,7 +2,7 @@ from client.client_socket import ClientSocketHandler
 import custom_logging
 from PyQt5.QtWidgets import QApplication
 from music_playing.audio_handler import AudioHandler
-from client.window_emitter import MusicPlayingEmitter
+from client.music_playing_emitter import MusicPlayingEmitter
 from ui.login_page.login_window import LoginWindow
 import sys
 from client.shared_state import SharedState
