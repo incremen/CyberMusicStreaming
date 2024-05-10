@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui\search_page\search_page.ui'
+# Form implementation generated from reading ui file 'ui\discover_page\discover_page.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -92,7 +92,7 @@ class Ui_MainWindow(object):
         self.pushButton_6.setFont(font)
         self.pushButton_6.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_6.setStyleSheet(" border: 2px solid white;\n"
-" background-image: url(:/album_pics/img_3.png);\n"
+" background-image: url(:/album_pics/img_30.png);\n"
 " border-radius: 30px;\n"
 "color: white;\n"
 "text-shadow: 2px 2px 2px black;    \n"
@@ -275,39 +275,38 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton_7.setText(_translate("MainWindow", "Summer \n"
+        MainWindow.setWindowTitle(_translate("MainWindow", "Discover Page"))
+        self.pushButton_7.setText(_translate("MainWindow", "Metal \n"
 "\n"
 "\n"
-"hits"))
-        self.pushButton.setText(_translate("MainWindow", "Popular \n"
+""))
+        self.pushButton.setText(_translate("MainWindow", "Winter \n"
 "\n"
 "\n"
-"albums"))
+"Songs"))
         self.pushButton_6.setText(_translate("MainWindow", "Summer \n"
 "\n"
 "\n"
-"albums"))
-        self.pushButton_9.setText(_translate("MainWindow", "asdf \n"
+"hits"))
+        self.pushButton_9.setText(_translate("MainWindow", "Love \n"
 "\n"
-"\n"
-"asdf"))
+"Songs"))
         self.pushButton_4.setText(_translate("MainWindow", "Top \n"
 "\n"
 "\n"
 "hits"))
-        self.pushButton_13.setText(_translate("MainWindow", "asdf \n"
+        self.pushButton_13.setText(_translate("MainWindow", "Pop \n"
 "\n"
 "\n"
-"asdf"))
-        self.pushButton_14.setText(_translate("MainWindow", "asdf \n"
+""))
+        self.pushButton_14.setText(_translate("MainWindow", "Funky \n"
 "\n"
 "\n"
-"asdf"))
-        self.pushButton_12.setText(_translate("MainWindow", "asdf \n"
+"Bops"))
+        self.pushButton_12.setText(_translate("MainWindow", "Piano \n"
 "\n"
 "\n"
-"asdf"))
+"Vibes"))
         self.lineEdit.setText(_translate("MainWindow", "You might like...              "))
         self.groupBox_3.setTitle(_translate("MainWindow", "GroupBox"))
         self.see_own_playlists_btn.setText(_translate("MainWindow", "See your own playlists"))

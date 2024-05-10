@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Discover Page</string>
   </property>
   <widget class="QWidget" name="central_widget">
    <property name="styleSheet">
@@ -81,10 +81,10 @@ color: white;
 </string>
            </property>
            <property name="text">
-            <string>Summer 
+            <string>Metal 
 
 
-hits</string>
+</string>
            </property>
           </widget>
          </item>
@@ -120,10 +120,10 @@ color: white;
 </string>
            </property>
            <property name="text">
-            <string>Popular 
+            <string>Winter 
 
 
-albums</string>
+Songs</string>
            </property>
           </widget>
          </item>
@@ -151,7 +151,7 @@ albums</string>
            </property>
            <property name="styleSheet">
             <string notr="true"> border: 2px solid white;
- background-image: url(:/album_pics/img_3.png);
+ background-image: url(:/album_pics/img_30.png);
  border-radius: 30px;
 color: white;
 text-shadow: 2px 2px 2px black;	
@@ -163,7 +163,7 @@ text-shadow: 2px 2px 2px black;
             <string>Summer 
 
 
-albums</string>
+hits</string>
            </property>
           </widget>
          </item>
@@ -199,10 +199,9 @@ color: white;
 </string>
            </property>
            <property name="text">
-            <string>asdf 
+            <string>Love 
 
-
-asdf</string>
+Songs</string>
            </property>
           </widget>
          </item>
@@ -285,10 +284,10 @@ color: white;
 </string>
            </property>
            <property name="text">
-            <string>asdf 
+            <string>Pop 
 
 
-asdf</string>
+</string>
            </property>
           </widget>
          </item>
@@ -324,10 +323,10 @@ color: white;
 </string>
            </property>
            <property name="text">
-            <string>asdf 
+            <string>Funky 
 
 
-asdf</string>
+Bops</string>
            </property>
           </widget>
          </item>
@@ -363,10 +362,10 @@ color: white;
 </string>
            </property>
            <property name="text">
-            <string>asdf 
+            <string>Piano 
 
 
-asdf</string>
+Vibes</string>
            </property>
           </widget>
          </item>
