@@ -7,6 +7,7 @@ from ui.window_interface import WindowInterface
 from ui.search_page import search_window
 from ui.signup_page import signup_window
 import logging
+from ui.user_profile import user_profile_window
 
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
@@ -45,7 +46,7 @@ class LoginWindow(Ui_MainWindow, WindowInterface, QMainWindow):
 
     def handle_login_success(self):
         logging.info("Login successful.")
-        self.window_manager.start_window(search_window.SearchWindow)
+        self.window_manager.start_window(user_profile_window.UserProfileWindow)
         self.window_manager.hide_window(LoginWindow)
             
     def handle_login_response(self, result : bool):

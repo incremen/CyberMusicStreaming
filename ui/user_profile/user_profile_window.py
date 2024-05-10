@@ -39,7 +39,7 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       self.socket_handler.emit_to_server("get_user_info")
 
    def show_user_info(self):
-       user_info_text = f"username: {self.login_manager.username} \npassword: {self.login_manager.password}"
+       user_info_text = f"username: {self.login_manager.username}"
        self.user_info_label.setText(user_info_text)
        
    def setup_btns(self):
