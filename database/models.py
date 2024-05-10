@@ -25,7 +25,6 @@ class User(Base):
     username = Column(String)
     password = Column(String)
 
-    # Use the association table for the many-to-many relationship
     playlists = relationship(
         'Playlist',
         secondary=user_playlist_association,
@@ -70,7 +69,6 @@ class Song(Base):
     nframes = Column(Integer)
     framerate = Column(Integer)
     nchannels = Column(Integer)
-    # playlist_id = Column(Integer, ForeignKey('playlists.id'))
 
     playlists = relationship(
         'Playlist',
