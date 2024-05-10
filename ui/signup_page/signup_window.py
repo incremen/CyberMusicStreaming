@@ -6,6 +6,8 @@ from typing import TYPE_CHECKING
 from ui.window_interface import WindowInterface
 from ui.search_page import search_window
 from ui.login_page import login_window
+from ui.user_profile import user_profile_window
+
 
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
@@ -53,7 +55,7 @@ class SignupWindow(Ui_MainWindow, WindowInterface, QMainWindow):
 
     def handle_new_account_success(self):
         logging.info("New account created successfully.")
-        self.window_manager.start_window(search_window.SearchWindow)
+        self.window_manager.start_window(user_profile_window.UserProfileWindow)
         self.window_manager.hide_window(SignupWindow)
 
            
