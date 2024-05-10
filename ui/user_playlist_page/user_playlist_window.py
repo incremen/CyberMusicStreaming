@@ -164,7 +164,8 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
                 to_load = user_playlist
         logging.debug(f"{to_load=}")
         
-        
+        if not to_load:
+            return
         self.add_loaded_songs_to_list(to_load)
         
     def play_btn_click(self):

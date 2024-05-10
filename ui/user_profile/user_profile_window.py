@@ -64,6 +64,9 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
    def play_btn_click(self):
       play_btn_clicked = self.sender()
       playlist_name = self.play_btn_to_playlist_btn.get(play_btn_clicked).text()
+      if playlist_name == "+":
+         return
+         
       logging.info(f"{playlist_name=}")
       self.window_manager.start_window(MiniplayerWindow)
       
