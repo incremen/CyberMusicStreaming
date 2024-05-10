@@ -73,6 +73,8 @@ class MiniplayerWindow(Ui_MainWindow, WindowInterface, QMainWindow):
             logging.debug(f"{emit_num=}, {self.last_queue_emit_num=} so returning")
             return
         
+        if song_list:
+            self.song_name_label.setText(song_list[0].name)
         self.update_list_widget(song_list, self.song_queue_widget)
         self.last_queue_emit_num = emit_num
 
