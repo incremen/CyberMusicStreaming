@@ -162,7 +162,6 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         for user_playlist in self.login_manager.playlists:
             if user_playlist["name"] == playlist_name:
                 to_load = user_playlist
-        logging.debug(f"{to_load=}")
         
         if not to_load:
             return
