@@ -15,9 +15,9 @@ if TYPE_CHECKING:
    from ui.album_page.album_window import AlbumWindow
 
 
-class SearchWindow(Ui_MainWindow, WindowInterface, QMainWindow): 
+class DiscoverWindow(Ui_MainWindow, WindowInterface, QMainWindow): 
    def __init__(self, shared_state :'SharedState', window_manager :'WindowManager'):
-      super(SearchWindow, self).__init__()
+      super(DiscoverWindow, self).__init__()
       self.socket_handler = shared_state.socket_handler
       self.audio_handler = shared_state.audio_handler
       self.window_manager = window_manager
@@ -35,13 +35,13 @@ class SearchWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       self.see_own_playlists_btn.clicked.connect(self.user_playlists_btn_click)
             
    def user_playlists_btn_click(self, btn_clicked):
-      self.window_manager.hide_window(SearchWindow)
+      self.window_manager.hide_window(DiscoverWindow)
       self.window_manager.start_window(user_profile_window.UserProfileWindow)
            
    def album_btn_click(self, btn_clicked):
       self.album_window = self.window_manager.get_window(album_window.AlbumWindow)
       self.album_window.album_mode = "query_server"
-      self.window_manager.hide_window(SearchWindow)
+      self.window_manager.hide_window(DiscoverWindow)
       self.window_manager.start_window(album_window.AlbumWindow)
        
         
