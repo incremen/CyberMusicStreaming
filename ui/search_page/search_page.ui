@@ -392,6 +392,9 @@ asdf</string>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
            <widget class="QLineEdit" name="lineEdit">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="font">
              <font>
               <family>Arial</family>
@@ -412,7 +415,10 @@ border-radius:20px;
 </string>
             </property>
             <property name="text">
-             <string>    Made for Itamar. </string>
+             <string>You might like...              </string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>

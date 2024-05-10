@@ -217,6 +217,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.top_btns_box)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.lineEdit = QtWidgets.QLineEdit(self.top_btns_box)
+        self.lineEdit.setEnabled(False)
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(40)
@@ -230,6 +231,7 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "")
+        self.lineEdit.setAlignment(QtCore.Qt.AlignCenter)
         self.lineEdit.setObjectName("lineEdit")
         self.horizontalLayout_3.addWidget(self.lineEdit)
         self.groupBox_3 = QtWidgets.QGroupBox(self.top_btns_box)
@@ -306,7 +308,7 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "asdf"))
-        self.lineEdit.setText(_translate("MainWindow", "    Made for Itamar. "))
+        self.lineEdit.setText(_translate("MainWindow", "You might like...              "))
         self.groupBox_3.setTitle(_translate("MainWindow", "GroupBox"))
         self.see_own_playlists_btn.setText(_translate("MainWindow", "See your own playlists"))
 import resource_file_rc
