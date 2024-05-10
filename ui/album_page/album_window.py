@@ -9,7 +9,7 @@ import threading
 from custom_logging import log_calls
 from ui.album_page.album_window_ui import Ui_MainWindow
 from ui.album_page.album_window_config import PROGRESS_BAR_MAXIMUM
-from ui.search_page.search_window import SearchWindow
+from ui.discover_page.discover_window import DiscoverWindow
 from ui.drag_drop_funcs import make_widget_draggable, make_widget_not_draggable, make_list_widget_accept_drops
 from functools import partial
 from ui import gui_funcs
@@ -136,7 +136,7 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
             make_widget_draggable(btn)
         
     def search_btn_click(self):
-        self.window_manager.start_window(SearchWindow)
+        self.window_manager.start_window(DiscoverWindow)
         self.hide()
         
     def seek_in_song(self):

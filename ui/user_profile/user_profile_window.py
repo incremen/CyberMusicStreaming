@@ -9,7 +9,7 @@ from itertools import zip_longest
 import logging
 from ui.user_playlist_page.user_playlist_window import UserPlaylistWindow
 from database.models import User
-from ui.search_page import search_window
+from ui.discover_page import discover_window
 from result import Ok, Err, Result, is_ok, is_err
 
 from ui.miniplayer.miniplayer_window import MiniplayerWindow
@@ -79,7 +79,7 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
          
    def home_btn_click(self):
       self.hide()
-      self.window_manager.start_window(search_window.SearchWindow)
+      self.window_manager.start_window(discover_window.DiscoverWindow)
          
    def load_user_playlists(self, user_data : dict):
       self.show_user_info()

@@ -1,4 +1,4 @@
-from ui.search_page.search_page_ui import Ui_MainWindow
+from ui.discover_page.discover_page_ui import Ui_MainWindow
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QWidget, QListWidget, QListWidgetItem
 from ui import gui_funcs
 from ui.window_interface import WindowInterface

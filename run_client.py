@@ -8,7 +8,7 @@ import sys
 from client.shared_state import SharedState
 from client.window_manager import WindowManager
 from ui.album_page.album_window import AlbumWindow
-from ui.search_page.search_window import SearchWindow
+from ui.discover_page.discover_window import DiscoverWindow
 from ui.signup_page.signup_window import SignupWindow
 from database.login_manager import LoginManager
 from database import SQLITE_PATH

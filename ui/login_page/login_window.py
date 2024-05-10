@@ -4,7 +4,7 @@ import ui.album_page.album_window
 from ui import gui_funcs
 from typing import TYPE_CHECKING
 from ui.window_interface import WindowInterface
-from ui.search_page import search_window
+from ui.discover_page import discover_window
 from ui.signup_page import signup_window
 import logging
 from ui.user_profile import user_profile_window

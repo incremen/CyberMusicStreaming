@@ -1,6 +1,6 @@
 from ui.login_page.login_window import LoginWindow
 from ui.album_page.album_window import AlbumWindow
-from ui.search_page.search_window import SearchWindow
+from ui.discover_page.discover_window import DiscoverWindow
 from client.shared_state import SharedState
 from ui.window_interface import WindowInterface
 from ui.user_profile.user_profile_window import UserProfileWindow
@@ -15,7 +15,7 @@ class WindowManager:
         self.windows: dict[type[WindowInterface], WindowInterface] = {
         LoginWindow: LoginWindow(self.shared_state, self),
         AlbumWindow: AlbumWindow(self.shared_state, self),
-        SearchWindow: SearchWindow(self.shared_state, self),
+        DiscoverWindow: DiscoverWindow(self.shared_state, self),
         UserProfileWindow: UserProfileWindow(self.shared_state, self),
         SignupWindow: SignupWindow(self.shared_state, self),
         UserPlaylistWindow: UserPlaylistWindow(self.shared_state, self),
