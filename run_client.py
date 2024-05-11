@@ -27,11 +27,11 @@ def main():
     custom_logger.clear_logs()
     app = QApplication(sys.argv)
     
-    album_emitter, audio_handler, client_socket_handler, login_manager, window_manager = create_main_objs()
+    music_emitter, audio_handler, client_socket_handler, login_manager, window_manager = create_main_objs()
     
     audio_handler.window_manager = window_manager
     album_window = window_manager.get_window(AlbumWindow)
-    album_emitter.setup_connections(album_window)
+    music_emitter.setup_connections(album_window)
     
     # login_manager.create_new_account("a", "a")
     # login_manager.login("a", "a")
@@ -64,9 +64,9 @@ def main():
     app.exec_()
 
 def create_main_objs():
-    album_emitter = MusicPlayingEmitter()
-    audio_handler = AudioHandler(album_emitter)
-    client_socket_handler = ClientSocketHandler(audio_handler, album_emitter)
+    music_emitter = MusicPlayingEmitter()
+    audio_handler = AudioHandler(music_emitter)
+    client_socket_handler = ClientSocketHandler(audio_handler)
     client_socket_handler.connect()
     
     login_manager = LoginManager(SQLITE_PATH, client_socket_handler)
@@ -74,7 +74,7 @@ def create_main_objs():
     
     shared_state = SharedState(socket_handler=client_socket_handler, audio_handler=audio_handler, login_manager=login_manager)
     window_manager = WindowManager(shared_state)
-    return album_emitter,audio_handler,client_socket_handler,login_manager,window_manager
+    return music_emitter,audio_handler,client_socket_handler,login_manager,window_manager
   
   
 if __name__ == "__main__":
