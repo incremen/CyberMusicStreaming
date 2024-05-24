@@ -1,3 +1,4 @@
+import bcrypt
 import logging
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -10,14 +11,15 @@ def create_new_account(username, password) -> Result[str, User]:
     logging.info(f"Attempting to create a new account for user: {username}")
     session = create_session()
     existing_user = session.query(User).filter_by(username=username).first()
-
     if existing_user:
         error_message = f"User {username} already exists"
         logging.error(error_message)
         session.close()
         return Err(error_message)
 
-    new_user = User(username=username, password=password)
+    hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+
+    new_user = User(username=username, password=hashed_password.decode())
     session.add(new_user)
     session.commit()
     ok_message = f"Account for user {username} created successfully"
@@ -29,14 +31,14 @@ def login(username, password) -> Result[User, str]:
     logging.info(f"Attempting to log in user: {username}")
     session = create_session()
     user: User = session.query(User).filter_by(username=username).first()
-
     if not user:
         error_message = f"User {username} not found"
         logging.error(error_message)
         session.close()
         return Err(error_message)
 
-    if user.password != password:
+    # Check if the provided password matches the hashed password
+    if not bcrypt.checkpw(password.encode(), user.password.encode()):
         error_message = f"Wrong password"
         logging.error(error_message)
         session.close()
@@ -45,7 +47,9 @@ def login(username, password) -> Result[User, str]:
     ok_msg = f"User {username} logged in successfully"
     logging.info(ok_msg)
     session.close()
-    return Ok(ok_msg)
+    return Ok(user)
+
+# ... (the rest of the code remains the same) ...
 
 def save_playlist(username, playlist_dict: dict):
     session = create_session()

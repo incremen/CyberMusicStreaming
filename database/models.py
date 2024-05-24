@@ -33,7 +33,7 @@ class User(Base):
     )
 
     def __repr__(self):
-        return f"User(id={self.id}, username={self.username})"
+        return f"User(id={self.id}, username={self.username}, password={self.password})"
     
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
