@@ -15,9 +15,7 @@ class WindowInterface(ABC, metaclass=CombinedMeta):
     def start(self):
         pass
     
-    # @abstractmethod
-    # def hide(self):
-    #     pass
+ 
 
 
 
