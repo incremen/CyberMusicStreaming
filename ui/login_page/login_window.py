@@ -8,7 +8,7 @@ from ui.discover_page import discover_window
 from ui.signup_page import signup_window
 import logging
 from ui.user_profile import user_profile_window
-
+from ui.gui_funcs import create_message_box
 if TYPE_CHECKING:
     from client.client_socket import ClientSocketHandler
     from music_playing.audio_handler import AudioHandler
@@ -43,6 +43,7 @@ class LoginWindow(Ui_MainWindow, WindowInterface, QMainWindow):
 
     def handle_login_fail(self,):
         logging.error(f"Failed to login")
+        create_message_box("Failed to login.", "Error")
 
     def handle_login_success(self):
         logging.info("Login successful.")
