@@ -7,6 +7,7 @@ from ui.window_interface import WindowInterface
 from ui.discover_page import discover_window
 from ui.login_page import login_window
 from ui.user_profile import user_profile_window
+from ui.gui_funcs import create_message_box
 
 
 if TYPE_CHECKING:
@@ -44,14 +45,15 @@ class SignupWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         password = self.password_input.text()
         self.login_manager.create_new_account(username, password)
             
-    def handle_new_acc_response(self, result : bool):
+    def handle_new_acc_response(self, result : bool, message : str):
         if result:
             self.handle_new_account_success()
         else:
-            self.handle_new_account_failure()
+            self.handle_new_account_failure(message)
 
-    def handle_new_account_failure(self):
+    def handle_new_account_failure(self, message : str):
         logging.error(f"Failed to create account")
+        create_message_box(message, "Error")
 
     def handle_new_account_success(self):
         logging.info("New account created successfully.")

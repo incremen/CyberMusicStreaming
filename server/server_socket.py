@@ -49,7 +49,7 @@ class ServerSocketHandler:
                     
             result_msg = result.value
                                 
-            self.sio.emit("account_create_result", {"result": result.is_ok()},  room=sid)
+            self.sio.emit("account_create_result", {"result": result.is_ok(), "message": result_msg},  room=sid)
 
         @self.sio.on("login")
         def login_handler(sid, data):

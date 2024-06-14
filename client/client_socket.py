@@ -55,7 +55,7 @@ class ClientSocketHandler:
         @self.sio.on("account_create_result")
         def on_account_create_result(data):
             logging.debug(f"{data=}")
-            self.signup_window_emitter.account_create_result.emit(data['result'])
+            self.signup_window_emitter.account_create_result.emit(data['result'], data['message'])
 
         @self.sio.on("login_result")
         def on_login_result(data):
