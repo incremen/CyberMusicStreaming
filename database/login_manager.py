@@ -40,14 +40,14 @@ class LoginManager:
         logging.info(f"Attempting to log in user: {username}")
         self.socket_handler.emit_to_server('login', {'username': username, 'password': password})
 
-    def login_response(self, result):
+    def login_response(self, result, message):
         if not result:
             self.username = None
             self.password = None
         else:
             self.signed_in = True
 
-        self.login_window_emitter.login_response.emit(result)
+        self.login_window_emitter.login_response.emit(result, message)
 
     def logout(self) -> Result[bool, str]:
         if self.current_user_id is None:

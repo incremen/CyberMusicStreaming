@@ -61,7 +61,7 @@ class ClientSocketHandler:
         def on_login_result(data):
             logging.debug(f"{data=}")
             if self.login_manager:
-                self.login_manager.login_response(data['result'])
+                self.login_manager.login_response(data['result'], data['message'])
                 
         @self.sio.on("user_info")
         def on_user_info(data):

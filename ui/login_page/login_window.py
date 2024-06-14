@@ -41,17 +41,17 @@ class LoginWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         password = self.password_input.text()
         result = self.login_manager.login(username, password)
 
-    def handle_login_fail(self,):
+    def handle_login_fail(self, message : str):
         logging.error(f"Failed to login")
-        create_message_box("Failed to login.", "Error")
+        create_message_box(message, "Error")
 
     def handle_login_success(self):
         logging.info("Login successful.")
         self.window_manager.start_window(user_profile_window.UserProfileWindow)
         self.window_manager.hide_window(LoginWindow)
             
-    def handle_login_response(self, result : bool):
+    def handle_login_response(self, result : bool, message : str):
         if result:
             self.handle_login_success()
         else:
-            self.handle_login_fail()
+            self.handle_login_fail(message)
