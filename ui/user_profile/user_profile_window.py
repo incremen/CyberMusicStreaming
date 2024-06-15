@@ -52,6 +52,7 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
    def setup_btns(self):
       self.sign_out_btn.clicked.connect(self.signout_btn_click)
       self.home_btn.clicked.connect(self.home_btn_click)
+      self.delete_account_btn.clicked.connect(self.delete_account_btn_click)
       
       self.playlist_btns = [
          self.playlist_btn_1, self.playlist_btn_2, self.playlist_btn_3, self.playlist_btn_4, self.playlist_btn_5, self.playlist_btn_6, self.playlist_btn_7, self.playlist_btn_8
@@ -85,6 +86,12 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       self.audio_handler.setup_song_name_to_info(to_load["songs"])
       for song in to_load["songs"]:
          self.audio_handler.add_to_song_queue(song["name"])
+         
+         
+   def delete_account_btn_click(self):
+      self.socket_handler.emit_to_server("delete_account")
+      self.window_manager.hide_window(UserProfileWindow)
+      self.window_manager.start_window(login_window.LoginWindow)
       
          
    def home_btn_click(self):

@@ -64,18 +64,18 @@ class Ui_MainWindow(object):
         self.gridLayout_2.addWidget(self.sign_out_btn_box, 2, 0, 1, 1)
         self.albums_box_layout = QtWidgets.QHBoxLayout()
         self.albums_box_layout.setObjectName("albums_box_layout")
-        self.pushButton = QtWidgets.QPushButton(self.albums_boxlayout)
+        self.delete_account_btn = QtWidgets.QPushButton(self.albums_boxlayout)
         font = QtGui.QFont()
         font.setPointSize(18)
-        self.pushButton.setFont(font)
-        self.pushButton.setStyleSheet(" border: 2px solid red;\n"
+        self.delete_account_btn.setFont(font)
+        self.delete_account_btn.setStyleSheet(" border: 2px solid red;\n"
 " background-color: rgba(128, 128, 128, 128);\n"
 "color: white;\n"
 "border-radius:12px;\n"
 "\n"
 "")
-        self.pushButton.setObjectName("pushButton")
-        self.albums_box_layout.addWidget(self.pushButton)
+        self.delete_account_btn.setObjectName("delete_account_btn")
+        self.albums_box_layout.addWidget(self.delete_account_btn)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.albums_box_layout.addItem(spacerItem)
         self.sign_out_btn = QtWidgets.QPushButton(self.albums_boxlayout)
@@ -434,7 +434,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.sign_out_btn_box.setTitle(_translate("MainWindow", "GroupBox"))
         self.label.setText(_translate("MainWindow", "Welcome, user"))
-        self.pushButton.setText(_translate("MainWindow", " Delete account 😞"))
+        self.delete_account_btn.setText(_translate("MainWindow", " Delete account 😞"))
         self.sign_out_btn.setText(_translate("MainWindow", " Sign out "))
         self.home_btn.setText(_translate("MainWindow", " Home "))
         self.groupBox_3.setTitle(_translate("MainWindow", "GroupBox"))

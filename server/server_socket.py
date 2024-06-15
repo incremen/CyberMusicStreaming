@@ -110,6 +110,7 @@ class ServerSocketHandler:
         def delete_account_handler(sid):
             with self.sio.session(sid) as session_data:
                 username = session_data.get('username')
+                session_data.clear()
             
             if not username:
                 self.sio.emit("delete_account_result", {"result": False, "message": "No user logged in"}, room=sid)
