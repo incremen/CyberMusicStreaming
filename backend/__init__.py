@@ -3,6 +3,8 @@
 # CLIENT_CONNECTS_TO_STR = "tcp://2.tcp.eu.ngrok.io:12828"
 
 CLIENT_CONNECTS_TO_STR = "wss://localhost:12345"
+# CLIENT_CONNECTS_TO_STR = " tcp://6.tcp.eu.ngrok.io:16758"
+
 
 SERVER_ADDR_TUPLE = ('localhost', 12345)
 
