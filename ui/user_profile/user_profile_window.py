@@ -35,11 +35,13 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
        self.setup_btns()
        
    def start(self):
-      self.show_day_message()
+      self.setup_greetings()
       self.show()
       self.socket_handler.emit_to_server("get_user_info")
 
-   def show_day_message(self):
+   def setup_greetings(self):
+      self.welcome_label.setText(f"Welcome, {self.login_manager.username}.")
+      
       now = datetime.datetime.now()
 
       day_of_week = now.weekday()
@@ -99,7 +101,7 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       self.window_manager.start_window(discover_window.DiscoverWindow)
          
    def load_user_playlists(self, user_data : dict):
-      self.show_day_message()
+      self.setup_greetings()
       logging.info(f"{user_data=}")
       logging.info(f"{user_data['playlists']=}")
       for playlist, playlist_btn in zip_longest(user_data["playlists"], self.playlist_btns):

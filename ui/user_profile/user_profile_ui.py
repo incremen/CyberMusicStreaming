@@ -46,12 +46,12 @@ class Ui_MainWindow(object):
         self.sign_out_btn_box.setObjectName("sign_out_btn_box")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.sign_out_btn_box)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.label = QtWidgets.QLabel(self.sign_out_btn_box)
-        self.label.setMinimumSize(QtCore.QSize(0, 100))
+        self.welcome_label = QtWidgets.QLabel(self.sign_out_btn_box)
+        self.welcome_label.setMinimumSize(QtCore.QSize(0, 100))
         font = QtGui.QFont()
         font.setPointSize(60)
-        self.label.setFont(font)
-        self.label.setStyleSheet("QLabel{\n"
+        self.welcome_label.setFont(font)
+        self.welcome_label.setStyleSheet("QLabel{\n"
 " background-color: rgba(255, 255, 255, 150); \n"
 " color: black;\n"
 "border-radius:20px;\n"
@@ -59,8 +59,8 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "")
-        self.label.setObjectName("label")
-        self.horizontalLayout.addWidget(self.label)
+        self.welcome_label.setObjectName("welcome_label")
+        self.horizontalLayout.addWidget(self.welcome_label)
         self.gridLayout_2.addWidget(self.sign_out_btn_box, 2, 0, 1, 1)
         self.albums_box_layout = QtWidgets.QHBoxLayout()
         self.albums_box_layout.setObjectName("albums_box_layout")
@@ -433,7 +433,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.sign_out_btn_box.setTitle(_translate("MainWindow", "GroupBox"))
-        self.label.setText(_translate("MainWindow", "Welcome, user"))
+        self.welcome_label.setText(_translate("MainWindow", "Welcome, user"))
         self.delete_account_btn.setText(_translate("MainWindow", " Delete account 😞"))
         self.sign_out_btn.setText(_translate("MainWindow", " Sign out "))
         self.home_btn.setText(_translate("MainWindow", " Home "))
