@@ -136,6 +136,9 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
             make_widget_draggable(btn)
         
     def search_btn_click(self):
+        self.audio_handler.play_next_song_thread.kill_and_wait()
+        self.audio_handler.stop_playing_song()
+        self.audio_handler.clear_queue_and_played()
         self.window_manager.start_window(DiscoverWindow)
         self.hide()
         
