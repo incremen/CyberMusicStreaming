@@ -11,7 +11,7 @@ import os
 from server import manage_songs_in_dir
 import pprint
 from dataclasses import asdict
-from backend import server_addr_tuple
+from backend import SERVER_ADDR_TUPLE
 from database import utils
 from server import login_funcs
 #sid - socket id
@@ -113,7 +113,7 @@ class ServerSocketHandler:
             # self.sio.emit("logout_success", {"message": "Logged out successfully"}, room=sid)
             
         app = socketio.WSGIApp(self.sio)
-        wsgi.server(eventlet.listen(server_addr_tuple), app)
+        wsgi.server(eventlet.listen(SERVER_ADDR_TUPLE), app)
 
             
 

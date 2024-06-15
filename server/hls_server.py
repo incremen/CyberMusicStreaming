@@ -1,5 +1,5 @@
 import os
-from backend import SERVER_HLS_HOST, SERVER_HLS_PORT
+from backend import SERVER_HLS_HOST, SERVER_HLS_PORT, SERVER_CRT_PATH, SERVER_KEY_PATH
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 import logging
 from custom_logging import CustomLogger
@@ -23,10 +23,7 @@ def start_hls_server():
     
     context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     
-    server_certificate = r"D:\vs_code_projects_good_place\cyber_music_streaming\certificate\server.crt"
-    server_key = r"D:\vs_code_projects_good_place\cyber_music_streaming\certificate\server.key"
-    
-    context.load_cert_chain(server_certificate, server_key)
+    context.load_cert_chain(SERVER_CRT_PATH, SERVER_KEY_PATH)
     
     with HTTPServer((SERVER_HLS_HOST, SERVER_HLS_PORT), HLSHandler) as httpd:
         httpd.socket = context.wrap_socket(httpd.socket, server_side=True)
