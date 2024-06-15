@@ -30,6 +30,8 @@ class SignupWindow(Ui_MainWindow, WindowInterface, QMainWindow):
        self.setup_btns()
        
     def start(self):
+        self.username_input.setText("")
+        self.password_input.setText("")
         self.show()
        
     def setup_btns(self):
