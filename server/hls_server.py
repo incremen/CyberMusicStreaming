@@ -8,10 +8,11 @@ import ssl
 
 class HLSHandler(SimpleHTTPRequestHandler):
     def translate_path(self, requested_path):
+        path_with_spaces = requested_path.replace('%20', ' ')
         segments_dir = Path(r'D:\vs_code_projects_good_place\cyber_music_streaming\song_segments')
-        return_path = segments_dir / Path(requested_path).relative_to('/')
+        return_path = segments_dir / Path(path_with_spaces).relative_to('/')
         abs_return_path = return_path.absolute()
-        logging.info(f"Requested path: {requested_path}")
+        logging.info(f"Requested path: {path_with_spaces}")
         logging.debug(f"Return path: {abs_return_path}")
         logging.debug(f"Return path exists: {abs_return_path.exists()}")
         return str(abs_return_path)
