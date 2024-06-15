@@ -11,7 +11,7 @@ import os
 from server import manage_songs_in_dir
 import pprint
 from dataclasses import asdict
-from backend import SERVER_ADDR_TUPLE
+from backend import SERVER_ADDR_TUPLE, SERVER_CRT_PATH, SERVER_KEY_PATH
 from database import utils
 from server import login_funcs
 #sid - socket id
@@ -113,7 +113,10 @@ class ServerSocketHandler:
             # self.sio.emit("logout_success", {"message": "Logged out successfully"}, room=sid)
             
         app = socketio.WSGIApp(self.sio)
-        wsgi.server(eventlet.listen(SERVER_ADDR_TUPLE), app)
+        wsgi.server(eventlet.wrap_ssl(eventlet.listen(SERVER_ADDR_TUPLE), 
+            certfile=SERVER_CRT_PATH,
+            keyfile=SERVER_KEY_PATH,
+            server_side=True), app)
 
             
 
