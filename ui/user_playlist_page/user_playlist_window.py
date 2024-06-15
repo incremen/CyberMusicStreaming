@@ -61,6 +61,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.songs_btns_text_in_playlist = EmittingList(self.playlist_widget_emitter.update_playlist)
         
     def start(self):
+        self.songs_btns_text_in_playlist = EmittingList(self.playlist_widget_emitter.update_playlist)
         self.playlist_name_edit.setText("New Playlist")
         self.play_list_widget.clear()
         self.play_list_widget.itemPressed.connect(self.item_pressed_with_button)
