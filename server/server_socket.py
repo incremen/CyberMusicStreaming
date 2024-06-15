@@ -47,7 +47,7 @@ class ServerSocketHandler:
                 with self.sio.session(sid) as session_data:
                     session_data['username'] = username
                     
-            result_msg = result.value
+            result_msg = result.value if result.is_err() else "Successful account creation"
                                 
             self.sio.emit("account_create_result", {"result": result.is_ok(), "message": result_msg},  room=sid)
 
