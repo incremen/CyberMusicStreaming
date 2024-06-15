@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui\user_profile\user_profile.ui'
+# Form implementation generated from reading ui file 'D:\vs_code_projects_good_place\cyber_music_streaming\ui\user_profile\user_profile.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #

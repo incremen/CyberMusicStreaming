@@ -28,7 +28,7 @@ QGroupBox {border: none;}</string>
        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
-       </sizepolicy>
+       </sizepolicy>  
       </property>
       <property name="minimumSize">
        <size>
