@@ -46,7 +46,8 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.last_song_grid_col = -1
 
         self.skip_lock = threading.Lock()
-
+        self.song_list = []
+            
         self.last_queue_emit_num = -1
         self.last_songs_played_emit_num = -1
         
@@ -61,12 +62,12 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.songs_btns_text_in_playlist = EmittingList(self.playlist_widget_emitter.update_playlist)
         
     def start(self):
+        self.right_tab_widget.setCurrentIndex(0)
         self.songs_btns_text_in_playlist = EmittingList(self.playlist_widget_emitter.update_playlist)
         self.playlist_name_edit.setText("New Playlist")
         self.play_list_widget.clear()
         self.play_list_widget.itemPressed.connect(self.item_pressed_with_button)
         self.play_list_widget.currentItemChanged.connect(self.playlist_item_changed)
-        self.search_db()
         self.load_playlist_clicked()
         self.show()
         
@@ -197,6 +198,8 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.song_list = song_dict_list
         self.add_songs_to_btns(self.song_list)
         
+        self.right_tab_widget.setCurrentIndex(self.right_tab_widget.currentIndex)
+        
 
 
         
@@ -233,6 +236,10 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         logging.debug(f"{self.songs_btns_text_in_playlist=}")
         
     def tab_changed(self, index):
+        #This is called initially befoer esongs are loaded
+        if not self.song_list:
+            return
+        
         logging.debug(f"{index=}")
         if index == 0:
             self.add_songs_to_btns(self.song_list, enable_drag = True)
