@@ -105,6 +105,17 @@ class ServerSocketHandler:
             with self.sio.session(sid) as session_data:
                 username = session_data["username"]
             login_funcs.delete_playlist(username, data)
+            
+        @self.sio.on("delete_account")
+        def delete_account_handler(sid):
+            with self.sio.session(sid) as session_data:
+                username = session_data.get('username')
+            
+            if not username:
+                self.sio.emit("delete_account_result", {"result": False, "message": "No user logged in"}, room=sid)
+                return
+
+            login_funcs.delete_account(username)
 
         @self.sio.on("logout")
         def logout_handler(sid):

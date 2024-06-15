@@ -105,3 +105,24 @@ def search_for_term(search_term : str):
     songs_found = session.query(Song).filter(Song.name.like(f'{search_term}%')).all()
     session.close()
     return songs_found
+
+def delete_account(username: str):
+    logging.info(f"Attempting to delete account for user: {username}")
+    session = create_session()
+    
+    user = session.query(User).filter_by(username=username).first()
+    if not user:
+        error_message = f"User {username} not found"
+        logging.error(error_message)
+        session.close()
+        return Err(error_message)
+
+    for playlist in user.playlists:
+        session.delete(playlist)
+    
+    session.delete(user)
+    session.commit()
+    
+    ok_message = f"Account for user {username} deleted successfully"
+    logging.info(ok_message)
+    session.close()
