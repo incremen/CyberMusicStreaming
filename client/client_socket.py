@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     
 class ClientSocketHandler:
     def __init__(self, audio_handler :AudioHandler):
-        self.sio = socketio.Client(logger=True, engineio_logger=True)
+        self.sio = socketio.Client(logger=True, engineio_logger=True, ssl_verify=False)
         self.audio_handler = audio_handler
         self.audio_handler.socket_handler = self
         self.emit_to_server= self.sio.emit
