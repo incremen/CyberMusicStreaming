@@ -182,6 +182,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         for song in playlist["songs"]:
             song_text = self.get_song_widget_text(SongInfo(**song))
             self.songs_btns_text_in_playlist.append(song_text)
+            self.song_btn_text_to_song_info[song_text] = SongInfo(**song)
             logging.checkpoint(f"Mid add: {self.songs_btns_text_in_playlist}")
         logging.checkpoint(f"After adding: {self.songs_btns_text_in_playlist=}")
 
