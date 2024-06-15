@@ -104,7 +104,7 @@ class AudioHandler:
         """Don't call this function, it's called via the PlayNextSongThread. If you want to play a song, add it to the queue.
             song (SongInfo): song to play.
         """
-        url = f'http://{CLIENT_HLS_HOST}:{CLIENT_HLS_PORT}/{song.name}/index.m3u8'
+        url = f'https://{CLIENT_HLS_HOST}:{CLIENT_HLS_PORT}/{song.name}/index.m3u8'
         logging.checkpoint(f"\About to play from {url=}")
         # url = r"D:\vs_code_projects_good_place\cyber_music_streaming\songs\cant_keep_getting_away.wav"
         # url = f'songs/{song.name}'

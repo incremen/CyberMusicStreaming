@@ -40,6 +40,7 @@ class ClientSocketHandler:
             logging.info('Connected to server')
 
         @self.sio.event
+        
         def disconnect():
             logging.info('Disconnected from server')
         

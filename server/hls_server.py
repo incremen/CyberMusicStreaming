@@ -4,7 +4,7 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 import logging
 from custom_logging import CustomLogger
 from pathlib import Path
-
+import ssl
 
 class HLSHandler(SimpleHTTPRequestHandler):
     def translate_path(self, requested_path):
@@ -20,6 +20,16 @@ class HLSHandler(SimpleHTTPRequestHandler):
 def start_hls_server():
     logging.info("Starting HLS server..")
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    
+    context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    
+    server_certificate = r"D:\vs_code_projects_good_place\cyber_music_streaming\certificate\server.crt"
+    server_key = r"D:\vs_code_projects_good_place\cyber_music_streaming\certificate\server.key"
+    
+    context.load_cert_chain(server_certificate, server_key)
+    
     with HTTPServer((SERVER_HLS_HOST, SERVER_HLS_PORT), HLSHandler) as httpd:
-        print(f'Serving at http://{SERVER_HLS_HOST}:{SERVER_HLS_PORT}')
+        httpd.socket = context.wrap_socket(httpd.socket, server_side=True)
+        
+        print(f'Serving at https://{SERVER_HLS_HOST}:{SERVER_HLS_PORT}')
         httpd.serve_forever()
