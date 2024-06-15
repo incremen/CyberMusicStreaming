@@ -1,3 +1,4 @@
+import datetime
 from ui.user_profile.user_profile_ui import Ui_MainWindow
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QWidget, QListWidget, QListWidgetItem
 from ui import gui_funcs
@@ -34,13 +35,19 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
        self.setup_btns()
        
    def start(self):
-      self.show_user_info()
+      self.show_day_message()
       self.show()
       self.socket_handler.emit_to_server("get_user_info")
 
-   def show_user_info(self):
-       user_info_text = f"username: {self.login_manager.username}"
-       self.user_info_label.setText(user_info_text)
+   def show_day_message(self):
+      now = datetime.datetime.now()
+
+      day_of_week = now.weekday()
+
+      weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
+      user_info_text = f"Isn't {weekdays[day_of_week]} a great day to jam out?"
+      self.user_info_label.setText(user_info_text)
        
    def setup_btns(self):
       self.sign_out_btn.clicked.connect(self.signout_btn_click)
@@ -85,7 +92,7 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
       self.window_manager.start_window(discover_window.DiscoverWindow)
          
    def load_user_playlists(self, user_data : dict):
-      self.show_user_info()
+      self.show_day_message()
       logging.info(f"{user_data=}")
       logging.info(f"{user_data['playlists']=}")
       for playlist, playlist_btn in zip_longest(user_data["playlists"], self.playlist_btns):
