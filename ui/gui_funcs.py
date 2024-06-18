@@ -34,9 +34,12 @@ def create_message_box(text, title):
     msg_box.exec_()
     
     
+
 def create_yes_no_question(text, title):
-        btn_clicked = QMessageBox.question(None, title, text ,QMessageBox.Yes | QMessageBox.No)
-        return btn_clicked == QMessageBox.Yes 
+    btn_clicked = QMessageBox.question(None, title, text, 
+                                       QMessageBox.StandardButton.Yes | 
+                                       QMessageBox.StandardButton.No)
+    return btn_clicked == QMessageBox.StandardButton.Yes
     
     
 def get_name_to_item_from_gridlayout(grid_layout):

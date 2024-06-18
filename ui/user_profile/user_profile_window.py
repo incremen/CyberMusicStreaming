@@ -91,6 +91,9 @@ class UserProfileWindow(Ui_MainWindow, WindowInterface, QMainWindow):
          
          
    def delete_account_btn_click(self):
+      response = gui_funcs.create_yes_no_question("Are you sure you want to delete your account?", "Delete Account")
+      if not response:
+         return
       self.socket_handler.emit_to_server("delete_account")
       self.window_manager.hide_window(UserProfileWindow)
       self.window_manager.start_window(login_window.LoginWindow)
