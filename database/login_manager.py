@@ -20,8 +20,17 @@ class LoginManager:
         
         self.signed_in = False
         self.username = None
-        self.password = None
         self.playlists : dict[str, str] = None
+        
+    def client_disconnected(self):
+        self.current_user_id = None
+        self.signed_in = False
+        self.username = None
+        self.password = None
+        window_manager = self.socket_handler.audio_handler.window_manager
+        for window in window_manager.windows.values():
+            window.hide()
+        self.login_window_emitter.client_disconnected.emit()
 
     def get_current_user(self):
         if self.current_user_id is None:

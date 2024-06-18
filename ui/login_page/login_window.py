@@ -29,6 +29,9 @@ class LoginWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.username_input.setText("")
         self.password_input.setText("")
         self.show()
+        
+    def client_disconnected(self):
+        gui_funcs.create_message_box("Connection from server lost.", "Error")
 
     def setup_btns(self):
         self.ready_btn.clicked.connect(self.ready_btn_click)

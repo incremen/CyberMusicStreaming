@@ -43,6 +43,7 @@ class ClientSocketHandler:
         
         def disconnect():
             logging.info('Disconnected from server')
+            self.login_manager.client_disconnected()
         
         @self.sio.on("song_list")
         def received_song_list(song_list):
