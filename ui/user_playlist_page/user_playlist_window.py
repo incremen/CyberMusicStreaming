@@ -161,6 +161,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.playlist_name_edit.setText(playlist_name)
         self.playlist_name_edit.setDisabled(True)
         
+        to_load = None
         for user_playlist in self.login_manager.playlists:
             if user_playlist["name"] == playlist_name:
                 to_load = user_playlist
