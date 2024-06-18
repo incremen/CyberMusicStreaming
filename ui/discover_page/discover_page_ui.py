@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1123, 922)
+        MainWindow.resize(1123, 907)
         self.central_widget = QtWidgets.QWidget(MainWindow)
         self.central_widget.setStyleSheet("#central_widget {\n"
 " background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
@@ -244,9 +244,9 @@ class Ui_MainWindow(object):
         self.see_own_playlists_btn.setFont(font)
         self.see_own_playlists_btn.setStyleSheet("QPushButton {\n"
 " background-color: rgba(255, 255, 255, 90); \n"
-" color: white;\n"
+" color: White;\n"
 "border-radius:10px;\n"
-"border: 5px solid purple;\n"
+"border: 5px solid lime;\n"
 "}\n"
 "\n"
 "\n"
@@ -309,7 +309,7 @@ class Ui_MainWindow(object):
 "Vibes"))
         self.lineEdit.setText(_translate("MainWindow", "You might like...              "))
         self.groupBox_3.setTitle(_translate("MainWindow", "GroupBox"))
-        self.see_own_playlists_btn.setText(_translate("MainWindow", "See your own playlists"))
+        self.see_own_playlists_btn.setText(_translate("MainWindow", "Profile"))
 import resource_file_rc
 
 
