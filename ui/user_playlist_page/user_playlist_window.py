@@ -202,9 +202,6 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         
         self.right_tab_widget.setCurrentIndex(self.right_tab_widget.currentIndex)
         
-
-
-        
     def log_thread(self):
         while True:
             time.sleep(4)
@@ -212,11 +209,16 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         
     def profile_btn_click(self):
         logging.info("Profile button clicked...")
+        self.audio_handler.play_next_song_thread.kill_and_wait()
+        self.audio_handler.clear_queue_and_played()
+        self.audio_handler.stop_playing_song()
         self.window_manager.hide_window(UserPlaylistWindow)
         self.window_manager.start_window(user_profile_window.UserProfileWindow)
         
     def save_playlist_btn_clicked(self):
         playlist_name = self.playlist_name_edit.text()
+        if playlist_name == "New Playlist":
+            gui_funcs.create_message_box("Please enter a name for your new playlist.", "Can't save playlist")
         
         songs_in_playlist = [self.song_btn_text_to_song_info[btn_text] for btn_text in self.songs_btns_text_in_playlist]
         song_names = [song.name for song in songs_in_playlist]
