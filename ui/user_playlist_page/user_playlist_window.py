@@ -64,11 +64,16 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def start(self):
         self.right_tab_widget.setCurrentIndex(0)
         self.songs_btns_text_in_playlist = EmittingList(self.playlist_widget_emitter.update_playlist)
-        self.playlist_name_edit.setText("New Playlist")
+        self.load_playlist_clicked()
+        
+        
+        if self.playlist_name_edit.text() == "New Playlist":
+            self.playlist_name_edit.setEnabled(True)
+        else:
+            self.playlist_name_edit.setEnabled(False)
         self.play_list_widget.clear()
         self.play_list_widget.itemPressed.connect(self.item_pressed_with_button)
         self.play_list_widget.currentItemChanged.connect(self.playlist_item_changed)
-        self.load_playlist_clicked()
         self.show()
         
     
@@ -219,6 +224,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         playlist_name = self.playlist_name_edit.text()
         if playlist_name == "New Playlist":
             gui_funcs.create_message_box("Please enter a name for your new playlist.", "Can't save playlist")
+            return
         
         songs_in_playlist = [self.song_btn_text_to_song_info[btn_text] for btn_text in self.songs_btns_text_in_playlist]
         song_names = [song.name for song in songs_in_playlist]
