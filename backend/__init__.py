@@ -9,9 +9,8 @@ CLIENT_HLS_HOST, CLIENT_HLS_PORT = 'localhost', 8000
 # CLIENT_HLS_HOST, CLIENT_HLS_PORT = '0.tcp.eu.ngrok.io', 14347
 
 
-SERVER_CRT_PATH = r"D:\vs_code_projects_good_place\cyber_music_streaming\certificate\server.crt"
-SERVER_KEY_PATH = r"D:\vs_code_projects_good_place\cyber_music_streaming\certificate\server.key"
-
+SERVER_CRT_PATH = r"../certificate/server.crt"
+SERVER_KEY_PATH = r"../certificate/server.key"
 """
 To get ngrok to do the forwarding you want, do this:
 ngrok start --config=D:\vs_code_projects_good_place\cyber_music_streaming\backend\ngrok_config.yaml --all

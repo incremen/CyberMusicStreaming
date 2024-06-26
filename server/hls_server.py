@@ -24,6 +24,8 @@ def start_hls_server():
     
     context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     
+    logging.info(f"Loading certificate from: {os.path.abspath(SERVER_CRT_PATH)}")
+    logging.info(f"Loading key from: {os.path.abspath(SERVER_KEY_PATH)}")
     context.load_cert_chain(SERVER_CRT_PATH, SERVER_KEY_PATH)
     
     with HTTPServer((SERVER_HLS_HOST, SERVER_HLS_PORT), HLSHandler) as httpd:
