@@ -150,6 +150,10 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.add_songs_to_btns(songs_found, enable_drag = True)
         self.audio_handler.setup_song_name_to_info(songs_found)
         
+        #TODO: make it so that this makes buttons clickable based on which tab you are
+        
+        
+        
     def load_playlist_clicked(self):
         logging.debug("Showing users playlist...")
         profile_window = self.window_manager.get_window(user_profile_window.UserProfileWindow)
@@ -225,6 +229,8 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         if playlist_name == "New Playlist":
             gui_funcs.create_message_box("Please enter a name for your new playlist.", "Can't save playlist")
             return
+        else:
+            self.playlist_name_edit.setEnabled(False)
         
         songs_in_playlist = [self.song_btn_text_to_song_info[btn_text] for btn_text in self.songs_btns_text_in_playlist]
         song_names = [song.name for song in songs_in_playlist]
