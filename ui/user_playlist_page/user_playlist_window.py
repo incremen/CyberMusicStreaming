@@ -220,7 +220,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         
     def profile_btn_click(self):
         logging.info("Profile button clicked...")
-        self.audio_handler.play_next_song_thread.kill_and_wait()
+        self.audio_handler.play_next_song_thread.kill_thread()
         self.audio_handler.clear_queue_and_played()
         self.audio_handler.stop_playing_song()
         self.window_manager.hide_window(UserPlaylistWindow)
