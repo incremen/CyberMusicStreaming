@@ -1,5 +1,5 @@
 version: "2"
-authtoken: 2GBo1dY31xcvP4YhicjRGiayOyo_7RwboqDB86kSN1kpF9YmB
+authtoken:  "your_auth_token"
 
 tunnels:
   tunnel1:
