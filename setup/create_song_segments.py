@@ -24,4 +24,6 @@ def process_all_songs(directory: Path, output_dir: Path):
 
 directory = Path("songs")
 output_dir = Path("song_segments")
+if not output_dir.exists():
+    output_dir.mkdir()
 process_all_songs(directory, output_dir)    

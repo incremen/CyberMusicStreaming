@@ -9,12 +9,16 @@ import threading
 from custom_logging import log_calls
 from ui.album_page.album_window_ui import Ui_MainWindow
 from ui.album_page.album_window_config import PROGRESS_BAR_MAXIMUM
-from ui.search_page.search_window import SearchWindow
-# from ui.drag_drop_funcs import drag_enter_event, drop_event, mouse_move_event, mouse_press_event
-from testing.working_dummy import *
+from ui.discover_page.discover_window import DiscoverWindow
+from ui.drag_drop_funcs import make_widget_draggable, make_widget_not_draggable, make_list_widget_accept_drops
 from functools import partial
 from ui import gui_funcs
 from ui.window_interface import WindowInterface
+from database import client_db_funcs
+from dataclasses import asdict
+from database.models import User, Playlist, Song
+from database import utils
+from ui.user_profile.user_profile_window import UserProfileWindow
 
 
 if TYPE_CHECKING:
@@ -42,10 +46,50 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
 
         self.last_queue_emit_num = -1
         self.last_songs_played_emit_num = -1
+        
+        self.album_mode = "search_db"
+        self.songs_in_playlist = []
        
     def start(self):
-       self.socket_handler.emit_to_server("song_list_request")
-       self.show()
+        if self.album_mode == "search_db":
+            self.search_db()
+        if self.album_mode == "query_server":
+            self.socket_handler.emit_to_server("song_list_request")
+        if self.album_mode == "query_playlist":
+            self.load_playlist_clicked()
+        if self.album_mode == "query_local":
+            logging.checkpoint("Querying local...")
+            self.query_db_for_song_list()
+        self.show()
+        
+    def search_db(self, search_term : str = ""):
+        logging.info(f"Searching db for {search_term}")
+        session = client_db_funcs.create_session()
+        songs_found = session.query(Song).filter(Song.name.like(f'{search_term}%')).all()
+        logging.debug(f"{songs_found=}")
+        song_dicts = [song.as_dict() for song in songs_found]
+        self.song_list_received(song_dicts, enable_drag = True)
+        self.audio_handler.setup_song_name_to_info(song_dicts)
+        
+    def load_playlist_clicked(self):
+        logging.debug("Showing users playlist...")
+        user_playlist_window : UserProfileWindow = self.window_manager.get_window(UserProfileWindow)
+        last_playlist = user_playlist_window.get_last_clicked_playlist_name()
+        utils.log_playlist(last_playlist)
+        self.load_playlist(last_playlist)
+
+    def query_db_for_song_list(self):
+        session = client_db_funcs.create_session()
+        user_playlist = client_db_funcs.get_first_playlist(session)
+        logging.checkpoint(f"got {user_playlist=} from db")
+        self.load_playlist(user_playlist)
+        session.close()
+
+    def load_playlist(self, playlist : Playlist):
+        song_dict_list = [song.as_dict() for song in playlist.songs]
+        self.audio_handler.setup_song_name_to_info(song_dict_list)
+        self.song_list = song_dict_list
+        self.song_list_received(self.song_list)
        
     def setup_widgets(self):
         self.skip_btn.clicked.connect(self.skip_btn_click)
@@ -58,23 +102,20 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.progress_slider.sliderReleased.connect(self.seek_in_song)
         
         self.search_btn.clicked.connect(self.search_btn_click)
-        
-        self.play_list_widget.setAcceptDrops(True)
-        self.play_list_widget.dragEnterEvent = lambda event: drag_enter_event(self.play_list_widget, event)
-        self.play_list_widget.dropEvent = lambda event: drop_event(self.play_list_widget, event)
-        self.play_list_widget.dragMoveEvent = lambda event: drag_enter_event(self.play_list_widget, event)
-        
-        self.right_tab.currentChanged.connect(self.tab_changed)
         self.on_change_to_queue_tab()
-        self.right_tab.setCurrentIndex(1)
+        
+    def add_btn_to_playlist(self, song_btn : QPushButton):
+        self.songs_in_playlist.append(song_btn)
+        logging.info("Added button to playlist...")
+        logging.debug(f"{self.songs_in_playlist=}")
         
     def tab_changed(self, index):
         logging.debug(f"{index=}")
         if index == 0:
-            self.song_list_received(self.song_list, enable = True)
+            self.song_list_received(self.song_list, enable_drag = True)
             
         elif index == 1:
-            self.song_list_received(self.song_list, enable = False)
+            self.song_list_received(self.song_list, enable_drag = False)
             
         self.right_tab.setCurrentIndex(index)
 
@@ -86,45 +127,48 @@ class AlbumWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         logging.checkpoint("On change to main tab")
         grid_btns = self.get_grid_btns()
         for btn in grid_btns:
-            self.disable_drag(btn)
+            make_widget_not_draggable(btn)
                 
     def on_change_to_playlist_tab(self):
         logging.checkpoint("On change to playlist tab")
         grid_btns = self.get_grid_btns()
         for btn in grid_btns:
-            self.enable_drag(btn)
-
-    def enable_drag(self, btn):
-        btn.mousePressEvent = lambda event, btn=btn: mouse_press_event(btn, event)
-        btn.mouseMoveEvent = lambda event, btn=btn: mouse_move_event(btn, event)
-        
-    def disable_drag(self, btn):
-        btn.mousePressEvent = None
-        btn.mouseMoveEvent = None
+            make_widget_draggable(btn)
         
     def search_btn_click(self):
-        self.window_manager.start_window(SearchWindow)
+        self.audio_handler.play_next_song_thread.kill_and_wait()
+        self.audio_handler.stop_playing_song()
+        self.audio_handler.clear_queue_and_played()
+        self.window_manager.start_window(DiscoverWindow)
         self.hide()
         
     def seek_in_song(self):
         self.audio_handler.seek_value(self.progress_slider.value())
         
-    def song_list_received(self, songs : list, enable = False):
+    def song_list_received(self, songs : list, enable_drag = False):
+        logging.debug(f"Received song list: {songs}")
+        self.clear_all_song_btns(songs)
+        
+        for song_dict in songs:
+            self.add_song_btn(enable_drag, song_dict)
+
+    def add_song_btn(self, enable_drag, song_dict):
+        song_info = SongInfo(**song_dict)
+        song_text = f"{song_info.name}\n {song_info.length} seconds"
+        song_btn = self.create_song_btn(song_text)
+            
+        if enable_drag:
+            make_widget_draggable(song_btn)
+                
+        self.btn_to_info.update({song_btn : song_info})
+        self.add_song_btn_to_grid(song_btn)
+
+    def clear_all_song_btns(self, songs):
         self.delete_from_grid(5)
         self.last_song_grid_row = 2
         self.last_song_grid_col = -1
-        logging.debug(f"Received song list: {songs}")
         self.song_list = songs
         self.btn_to_info = {}
-        
-        for song_dict in songs:
-            song_info = SongInfo(**song_dict)
-            song_text = f"{song_info.name}\n {song_info.length} seconds"
-            song_btn = self.create_song_btn(song_text)
-            if enable:
-                self.enable_drag(song_btn)
-            self.btn_to_info.update({song_btn : song_info})
-            self.add_song_btn_to_grid(song_btn)
 
     def create_song_btn(self, song_text):
         song_btn = QPushButton(song_text)

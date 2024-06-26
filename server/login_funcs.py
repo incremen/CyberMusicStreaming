@@ -1,0 +1,128 @@
+import bcrypt
+import logging
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from database.models import User, Song, Playlist
+from log_db import log_db
+from result import Ok, Err, Result, is_ok, is_err
+from database.utils import create_session
+
+def create_new_account(username, password) -> Result[str, User]:
+    logging.info(f"Attempting to create a new account for user: {username}")
+    session = create_session()
+    existing_user = session.query(User).filter_by(username=username).first()
+    if existing_user:
+        error_message = f"User {username} already exists"
+        logging.error(error_message)
+        session.close()
+        return Err(error_message)
+
+    hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+
+    new_user = User(username=username, password=hashed_password.decode())
+    session.add(new_user)
+    session.commit()
+    ok_message = f"Account for user {username} created successfully"
+    logging.info(ok_message)
+    session.close()
+    return Ok(new_user)
+
+def login(username, password) -> Result[User, str]:
+    logging.info(f"Attempting to log in user: {username}")
+    session = create_session()
+    user: User = session.query(User).filter_by(username=username).first()
+    if not user:
+        error_message = f"User {username} not found"
+        logging.error(error_message)
+        session.close()
+        return Err(error_message)
+
+    # Check if the provided password matches the hashed password
+    if not bcrypt.checkpw(password.encode(), user.password.encode()):
+        error_message = f"Wrong password"
+        logging.error(error_message)
+        session.close()
+        return Err(error_message)
+
+    ok_msg = f"User {username} logged in successfully"
+    logging.info(ok_msg)
+    session.close()
+    return Ok(user)
+
+# ... (the rest of the code remains the same) ...
+
+def save_playlist(username, playlist_dict: dict):
+    session = create_session()
+    user = session.query(User).filter_by(username=username).first()
+    session.add(user)
+
+    playlist_name = playlist_dict["name"]
+    playlist_to_edit = find_matching_user_playlist(playlist_name, user)
+    if not playlist_to_edit:
+        playlist_to_edit = Playlist(name=playlist_dict["name"])
+        user.playlists.append(playlist_to_edit)
+        session.add(playlist_to_edit)
+
+    playlist_to_edit.songs = []
+
+    for song_name in playlist_dict["songs"]:
+        song = session.query(Song).filter_by(name=song_name).first()
+        playlist_to_edit.songs.append(song)
+        
+    from database.utils import log_user_and_playlists
+    log_user_and_playlists(user)
+
+    logging.checkpoint(f"{playlist_dict=}, {playlist_to_edit.songs=}")
+    session.commit()
+    session.close()
+    return user
+
+def delete_playlist(username, playlist_name):
+    session = create_session()
+    user = session.query(User).filter_by(username=username).first()
+    playlist_to_delete = find_matching_user_playlist(playlist_name, user)
+    if playlist_to_delete:
+        user.playlists.remove(playlist_to_delete)
+        session.delete(playlist_to_delete)
+        session.commit()
+    session.close()
+
+def find_matching_user_playlist(playlist_name, user):
+    for user_playlist in user.playlists:
+        if user_playlist.name == playlist_name:
+            return user_playlist
+        
+    return None
+
+def query_user(username):
+    session = create_session()
+    user = session.query(User).filter_by(username=username).first()
+    session.close()
+    return user
+
+def search_for_term(search_term : str):
+    session = create_session()
+    songs_found = session.query(Song).filter(Song.name.like(f'{search_term}%')).all()
+    session.close()
+    return songs_found
+
+def delete_account(username: str):
+    logging.info(f"Attempting to delete account for user: {username}")
+    session = create_session()
+    
+    user = session.query(User).filter_by(username=username).first()
+    if not user:
+        error_message = f"User {username} not found"
+        logging.error(error_message)
+        session.close()
+        return Err(error_message)
+
+    for playlist in user.playlists:
+        session.delete(playlist)
+    
+    session.delete(user)
+    session.commit()
+    
+    ok_message = f"Account for user {username} deleted successfully"
+    logging.info(ok_message)
+    session.close()

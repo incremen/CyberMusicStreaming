@@ -80,7 +80,7 @@ border-top-right-radius: 10px;
             <string notr="true">color: black;</string>
            </property>
            <property name="text">
-            <string>If you dont log in, who will?</string>
+            <string>If you don't log in, who will?</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -142,7 +142,7 @@ border-bottom-left-radius: 20px;
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QLineEdit" name="lineEdit">
+            <widget class="QLineEdit" name="username_input">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -224,7 +224,7 @@ border-bottom-left-radius: 20px;
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEdit_2">
+            <widget class="QLineEdit" name="password_input">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -263,92 +263,27 @@ border-bottom-right-radius: 20px;
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_5">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>200</width>
-               <height>100</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>15</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"> border: 2px solid black;
- background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-           stop:0 #4B0082, stop:0.5 #000000, stop:1 #4B0082);
-color: white;
-border-top-left-radius: 20px;
-border-bottom-left-radius: 20px;
-
-
-
-</string>
-             </property>
-             <property name="text">
-              <string>Insert asdf</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLineEdit" name="lineEdit_3">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>100</height>
-              </size>
-             </property>
-             <property name="baseSize">
-              <size>
-               <width>0</width>
-               <height>100</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>30</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"> border: 2px solid black;
- background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-           stop:0 #4B0082, stop:0.5 #000000, stop:1 #4B0082);
-color: white;
-border-top-right-radius: 20px;
-border-bottom-right-radius: 20px;
-
-</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
              </property>
             </widget>
            </item>
           </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="dont_have_account_btn">
+           <property name="font">
+            <font>
+             <pointsize>40</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">border: 2px solid black;
+border-top-left-radius: 20px;
+border-top-right-radius: 20px;</string>
+           </property>
+           <property name="text">
+            <string>I don't have an account 🙄</string>
+           </property>
+          </widget>
          </item>
          <item>
           <spacer name="verticalSpacer_2">

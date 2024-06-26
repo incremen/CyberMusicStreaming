@@ -21,7 +21,10 @@ class PlayNextSongThread(QThread):
                 self.killed_event.set()
                 return
             self.continue_playing.wait()
-            self.play_next_song()
+            try:
+                self.play_next_song()
+            except IndexError:
+                logging.error("No songs in queue to play...")
             
     def kill_and_wait(self):
         """Also finished playing the current song"""

@@ -1,0 +1,145 @@
+[37m[21:52:23][0m [33mlog_user_and_playlists[0m [36mINFO[0m [32m
+User(id=1, username=a)[0m
+[37m[21:52:23][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=winaus playlist, id=1)[0m
+[37m[21:52:23][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[21:52:23][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[21:52:23][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=best playlist, id=2)[0m
+[37m[21:52:23][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[21:52:23][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=woah, id=3)[0m
+[37m[21:52:23][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[21:52:23][0m [33mlog_user_and_playlists[0m [36mINFO[0m [32m
+User(id=2, username=bb)[0m
+[37m[21:52:23][0m [33mlog_user_and_playlists[0m [36mDEBUG[0m [31mUser has no playlists[0m
+[37m[21:52:23][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mLogging all songs[0m
+[37m[21:52:23][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mSong(id=1, name=american, length=62.13451247165533, nframes=2740132, framerate=44100, nchannels=2)[0m
+[37m[21:52:23][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[21:52:23][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[21:52:23][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mSong(id=4, name=No_38, length=11.97938775510204, nframes=528291, framerate=44100, nchannels=2)[0m
+[37m[21:52:23][0m [33mlog_all_playlists[0m [36mDEBUG[0m [31mLogging all playlists[0m
+[37m[21:52:23][0m [33mlog_all_playlists[0m [36mDEBUG[0m [31mPlaylist count: 3[0m
+[37m[21:52:23][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=winaus playlist, id=1)[0m
+[37m[21:52:23][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[21:52:23][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[21:52:23][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=best playlist, id=2)[0m
+[37m[21:52:23][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[21:52:23][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=woah, id=3)[0m
+[37m[21:52:23][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[21:53:36][0m [33mconnect[0m [36mINFO[0m [32mClient connected[0m
+[37m[21:53:36][0m [33mcreate_new_account[0m [36mINFO[0m [32mAttempting to create a new account for user: a[0m
+[37m[21:53:36][0m [33mcreate_new_account[0m [36mERROR[0m [31mUser a already exists[0m
+[37m[21:53:45][0m [33mcreate_new_account[0m [36mINFO[0m [32mAttempting to create a new account for user: b[0m
+[37m[21:53:45][0m [33mcreate_new_account[0m [36mINFO[0m [32mAccount for user b created successfully[0m
+[37m[21:53:46][0m [33mlog_user_and_playlists[0m [36mINFO[0m [32m
+User(id=1, username=a)[0m
+[37m[21:53:46][0m [33mlog_user_and_playlists[0m [36mINFO[0m [32m
+User(id=1, username=a)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=winaus playlist, id=1)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=winaus playlist, id=1)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=best playlist, id=2)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=best playlist, id=2)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=woah, id=3)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=woah, id=3)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_user_and_playlists[0m [36mINFO[0m [32m
+User(id=2, username=bb)[0m
+[37m[21:53:46][0m [33mlog_user_and_playlists[0m [36mINFO[0m [32m
+User(id=2, username=bb)[0m
+[37m[21:53:46][0m [33mlog_user_and_playlists[0m [36mDEBUG[0m [31mUser has no playlists[0m
+[37m[21:53:46][0m [33mlog_user_and_playlists[0m [36mDEBUG[0m [31mUser has no playlists[0m
+[37m[21:53:46][0m [33mlog_user_and_playlists[0m [36mINFO[0m [32m
+User(id=3, username=b)[0m
+[37m[21:53:46][0m [33mlog_user_and_playlists[0m [36mINFO[0m [32m
+User(id=3, username=b)[0m
+[37m[21:53:46][0m [33mlog_user_and_playlists[0m [36mDEBUG[0m [31mUser has no playlists[0m
+[37m[21:53:46][0m [33mlog_user_and_playlists[0m [36mDEBUG[0m [31mUser has no playlists[0m
+[37m[21:53:46][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mLogging all songs[0m
+[37m[21:53:46][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mLogging all songs[0m
+[37m[21:53:46][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mSong(id=1, name=american, length=62.13451247165533, nframes=2740132, framerate=44100, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mSong(id=1, name=american, length=62.13451247165533, nframes=2740132, framerate=44100, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mSong(id=4, name=No_38, length=11.97938775510204, nframes=528291, framerate=44100, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mSong(id=4, name=No_38, length=11.97938775510204, nframes=528291, framerate=44100, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_all_playlists[0m [36mDEBUG[0m [31mLogging all playlists[0m
+[37m[21:53:46][0m [33mlog_all_playlists[0m [36mDEBUG[0m [31mLogging all playlists[0m
+[37m[21:53:46][0m [33mlog_all_playlists[0m [36mDEBUG[0m [31mPlaylist count: 3[0m
+[37m[21:53:46][0m [33mlog_all_playlists[0m [36mDEBUG[0m [31mPlaylist count: 3[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=winaus playlist, id=1)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=winaus playlist, id=1)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=best playlist, id=2)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=best playlist, id=2)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=woah, id=3)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=woah, id=3)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[21:53:46][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[22:00:35][0m [33mlog_user_and_playlists[0m [36mINFO[0m [32m
+User(id=1, username=a)[0m
+[37m[22:00:35][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=winaus playlist, id=1)[0m
+[37m[22:00:35][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[22:00:35][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[22:00:35][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=best playlist, id=2)[0m
+[37m[22:00:35][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[22:00:35][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=woah, id=3)[0m
+[37m[22:00:35][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[22:00:35][0m [33mlog_user_and_playlists[0m [36mINFO[0m [32m
+User(id=2, username=bb)[0m
+[37m[22:00:35][0m [33mlog_user_and_playlists[0m [36mDEBUG[0m [31mUser has no playlists[0m
+[37m[22:00:35][0m [33mlog_user_and_playlists[0m [36mINFO[0m [32m
+User(id=3, username=b)[0m
+[37m[22:00:35][0m [33mlog_user_and_playlists[0m [36mDEBUG[0m [31mUser has no playlists[0m
+[37m[22:00:35][0m [33mlog_user_and_playlists[0m [36mINFO[0m [32m
+User(id=4, username=aa)[0m
+[37m[22:00:35][0m [33mlog_user_and_playlists[0m [36mDEBUG[0m [31mUser has no playlists[0m
+[37m[22:00:35][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mLogging all songs[0m
+[37m[22:00:35][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mSong(id=1, name=american, length=62.13451247165533, nframes=2740132, framerate=44100, nchannels=2)[0m
+[37m[22:00:35][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[22:00:35][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[22:00:35][0m [33mlog_all_songs[0m [36mDEBUG[0m [31mSong(id=4, name=No_38, length=11.97938775510204, nframes=528291, framerate=44100, nchannels=2)[0m
+[37m[22:00:35][0m [33mlog_all_playlists[0m [36mDEBUG[0m [31mLogging all playlists[0m
+[37m[22:00:35][0m [33mlog_all_playlists[0m [36mDEBUG[0m [31mPlaylist count: 3[0m
+[37m[22:00:35][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=winaus playlist, id=1)[0m
+[37m[22:00:35][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[22:00:35][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m
+[37m[22:00:35][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=best playlist, id=2)[0m
+[37m[22:00:35][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=2, name=beats, length=64.0, nframes=2822400, framerate=44100, nchannels=2)[0m
+[37m[22:00:35][0m [33mlog_playlist[0m [36mDEBUG[0m [31m
+Playlist(name=woah, id=3)[0m
+[37m[22:00:35][0m [33mlog_playlist[0m [36mDEBUG[0m [31mSong(id=3, name=cant_keep_getting_away, length=5.01825, nframes=240876, framerate=48000, nchannels=2)[0m

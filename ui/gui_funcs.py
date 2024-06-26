@@ -7,10 +7,17 @@ from PyQt5.QtCore import Qt
 
 
 
-def add_item_to_list_widget(list_widget, text):
+def add_item_to_list_widget(list_widget, text, unique = False):
+    if unique:
+        existing_items = list_widget.findItems(text, Qt.MatchExactly)
+        if existing_items:
+            return
+
     item = QListWidgetItem(text)
     item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
     set_custom_font(item, "Helvetica", 15)
+    item.text = lambda : text
+
     list_widget.addItem(item)
     
 
@@ -27,9 +34,12 @@ def create_message_box(text, title):
     msg_box.exec_()
     
     
+
 def create_yes_no_question(text, title):
-        btn_clicked = QMessageBox.question(None, title, text ,QMessageBox.Yes | QMessageBox.No)
-        return btn_clicked == QMessageBox.Yes 
+    btn_clicked = QMessageBox.question(None, title, text, 
+                                       QMessageBox.StandardButton.Yes | 
+                                       QMessageBox.StandardButton.No)
+    return btn_clicked == QMessageBox.StandardButton.Yes
     
     
 def get_name_to_item_from_gridlayout(grid_layout):
