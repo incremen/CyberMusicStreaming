@@ -66,6 +66,9 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.songs_btns_text_in_playlist = EmittingList(self.playlist_widget_emitter.update_playlist)
         self.load_playlist_clicked()
         
+        self.clear_all_song_btns()
+        self.search_bar.setText("")
+        self.search_bar.setStyleSheet("font-size:20px")
         
         if self.playlist_name_edit.text() == "New Playlist":
             self.playlist_name_edit.setEnabled(True)
@@ -74,6 +77,8 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.play_list_widget.clear()
         self.play_list_widget.itemPressed.connect(self.item_pressed_with_button)
         self.play_list_widget.currentItemChanged.connect(self.playlist_item_changed)
+        
+        
         self.show()
         
     
@@ -312,7 +317,7 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
     def get_song_name_from_text(self, text : str):
         return text.split("\n")[0]
 
-    def clear_all_song_btns(self, songs):
+    def clear_all_song_btns(self, songs = []):
         self.delete_from_grid(5)
         self.last_song_grid_row = 3
         self.last_song_grid_col = -1
