@@ -156,12 +156,6 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
         self.add_songs_to_btns(songs_found, enable_drag = enable_drag)
         self.audio_handler.setup_song_name_to_info(songs_found)
         
-        
-        
-        #TODO: make it so that this makes buttons clickable based on which tab you are
-        
-        
-        
     def load_playlist_clicked(self):
         logging.debug("Showing users playlist...")
         profile_window = self.window_manager.get_window(user_profile_window.UserProfileWindow)
