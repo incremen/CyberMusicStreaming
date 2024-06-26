@@ -147,8 +147,16 @@ class UserPlaylistWindow(Ui_MainWindow, WindowInterface, QMainWindow):
 
     def search_result_received(self, songs_found : list[dict]):
         logging.debug(f"{songs_found=}")
-        self.add_songs_to_btns(songs_found, enable_drag = True)
+        
+        if self.right_tab_widget.currentIndex() == 0:
+            enable_drag = True
+        else:
+            enable_drag = False
+        
+        self.add_songs_to_btns(songs_found, enable_drag = enable_drag)
         self.audio_handler.setup_song_name_to_info(songs_found)
+        
+        
         
         #TODO: make it so that this makes buttons clickable based on which tab you are
         
